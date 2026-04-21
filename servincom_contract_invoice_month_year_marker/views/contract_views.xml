@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_contract_template_form_inherit_invoice_month_year_marker" model="ir.ui.view">
+        <field name="name">contract.template.form.inherit.invoice.month.year.marker</field>
+        <field name="model">contract.template</field>
+        <field name="inherit_id" ref="contract.contract_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_legend']/div" position="inside">
+                <p>
+                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                </p>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_contract_customer_form_inherit_invoice_month_year_marker" model="ir.ui.view">
+        <field name="name">contract.contract.customer.form.inherit.invoice.month.year.marker</field>
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_customer_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_legend']/div" position="inside">
+                <p>
+                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                </p>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_contract_supplier_form_inherit_invoice_month_year_marker" model="ir.ui.view">
+        <field name="name">contract.contract.supplier.form.inherit.invoice.month.year.marker</field>
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_supplier_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_legend']/div" position="inside">
+                <p>
+                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                </p>
+            </xpath>
+        </field>
+    </record>
+</odoo>
