@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='group_legend']/div" position="inside">
                 <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                    <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
                 </p>
             </xpath>
         </field>
@@ -20,7 +20,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='group_legend']/div" position="inside">
                 <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                    <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
                 </p>
             </xpath>
         </field>
@@ -33,7 +33,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='group_legend']/div" position="inside">
                 <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                    <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
                 </p>
             </xpath>
         </field>

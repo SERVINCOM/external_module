@@ -1,9 +1,9 @@
-Uso del marcador:
+Marker usage:
 
 #INVOICEMONTHYEAR#
 
-Ejemplo en la descripción de la línea del contrato:
-Mantenimiento Odoo #INVOICEMONTHYEAR#
+Example in the contract line description:
+Odoo Maintenance #INVOICEMONTHYEAR#
 
-Resultado esperado al facturar:
-Mantenimiento Odoo mayo 2026
+Expected result when invoicing:
+Odoo Maintenance May 2026
