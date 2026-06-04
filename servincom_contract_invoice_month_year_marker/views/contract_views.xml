@@ -5,12 +5,9 @@
         <field name="model">contract.template</field>
         <field name="inherit_id" ref="contract.contract_template_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='group_legend']/div" position="inside">
+            <xpath expr="//strong[normalize-space() = '#INVOICEMONTHNAME#']/.." position="after">
                 <p>
                     <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
-                </p>
-                <p>
-                    <strong>#INVOICEMONTHNAME#</strong>: Name of the month of the invoiced period
                 </p>
                 <p>
                     <strong>#YEAR#</strong>: Year of the invoiced period
@@ -24,12 +21,9 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_customer_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='group_legend']/div" position="inside">
+            <xpath expr="//strong[normalize-space() = '#INVOICEMONTHNAME#']/.." position="after">
                 <p>
                     <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
-                </p>
-                <p>
-                    <strong>#INVOICEMONTHNAME#</strong>: Name of the month of the invoiced period
                 </p>
                 <p>
                     <strong>#YEAR#</strong>: Year of the invoiced period
@@ -43,12 +37,9 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_supplier_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='group_legend']/div" position="inside">
+            <xpath expr="//strong[normalize-space() = '#INVOICEMONTHNAME#']/.." position="after">
                 <p>
                     <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
-                </p>
-                <p>
-                    <strong>#INVOICEMONTHNAME#</strong>: Name of the month of the invoiced period
                 </p>
                 <p>
                     <strong>#YEAR#</strong>: Year of the invoiced period
