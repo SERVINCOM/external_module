@@ -6,12 +6,14 @@
         <field name="inherit_id" ref="contract.contract_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
-                <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
-                </p>
-                <p>
-                    <strong>#YEAR#</strong>: Año del período facturado
-                </p>
+                <div>
+                    <div>
+                        <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                    </div>
+                    <div>
+                        <strong>#YEAR#</strong>: Año del período facturado
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>
@@ -22,12 +24,14 @@
         <field name="inherit_id" ref="contract.contract_contract_customer_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
-                <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
-                </p>
-                <p>
-                    <strong>#YEAR#</strong>: Año del período facturado
-                </p>
+                <div>
+                    <div>
+                        <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                    </div>
+                    <div>
+                        <strong>#YEAR#</strong>: Año del período facturado
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>
@@ -38,12 +42,14 @@
         <field name="inherit_id" ref="contract.contract_contract_supplier_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
-                <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
-                </p>
-                <p>
-                    <strong>#YEAR#</strong>: Año del período facturado
-                </p>
+                <div>
+                    <div>
+                        <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
+                    </div>
+                    <div>
+                        <strong>#YEAR#</strong>: Año del período facturado
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>
