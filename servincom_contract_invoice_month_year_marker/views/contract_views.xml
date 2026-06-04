@@ -6,8 +6,8 @@
         <field name="inherit_id" ref="contract.contract_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
-                <div>
-                    <div>
+                <div class="mt-3">
+                    <div class="mb-2">
                         <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
                     </div>
                     <div>
@@ -24,8 +24,8 @@
         <field name="inherit_id" ref="contract.contract_contract_customer_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
-                <div>
-                    <div>
+                <div class="mt-3">
+                    <div class="mb-2">
                         <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
                     </div>
                     <div>
@@ -42,8 +42,8 @@
         <field name="inherit_id" ref="contract.contract_contract_supplier_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
-                <div>
-                    <div>
+                <div class="mt-3">
+                    <div class="mb-2">
                         <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
                     </div>
                     <div>
