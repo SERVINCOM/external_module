@@ -9,6 +9,12 @@
                 <p>
                     <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
                 </p>
+                <p>
+                    <strong>#INVOICEMONTHNAME#</strong>: Name of the month of the invoiced period
+                </p>
+                <p>
+                    <strong>#YEAR#</strong>: Year of the invoiced period
+                </p>
             </xpath>
         </field>
     </record>
@@ -22,6 +28,12 @@
                 <p>
                     <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
                 </p>
+                <p>
+                    <strong>#INVOICEMONTHNAME#</strong>: Name of the month of the invoiced period
+                </p>
+                <p>
+                    <strong>#YEAR#</strong>: Year of the invoiced period
+                </p>
             </xpath>
         </field>
     </record>
@@ -34,6 +46,12 @@
             <xpath expr="//group[@name='group_legend']/div" position="inside">
                 <p>
                     <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
+                </p>
+                <p>
+                    <strong>#INVOICEMONTHNAME#</strong>: Name of the month of the invoiced period
+                </p>
+                <p>
+                    <strong>#YEAR#</strong>: Year of the invoiced period
                 </p>
             </xpath>
         </field>

@@ -1,7 +1,7 @@
 {
     "name": "SERVINCOM Contract Invoice Month Year Marker",
-    "version": "18.0.1.0.1",
-    "summary": "Adds the #INVOICEMONTHYEAR# marker to contracts",
+    "version": "18.0.1.0.2",
+    "summary": "Adds invoice month and year markers to contracts",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "license": "AGPL-3",
     "depends": [

@@ -22,6 +22,11 @@ msgid "Adds the #INVOICEMONTHYEAR# marker to contracts"
 msgstr "Añade el marcador #INVOICEMONTHYEAR# en contratos"
 
 #. module: servincom_contract_invoice_month_year_marker
+#: model:ir.module.module,summary:servincom_contract_invoice_month_year_marker
+msgid "Adds invoice month and year markers to contracts"
+msgstr "Añade marcadores de mes y año de factura en contratos"
+
+#. module: servincom_contract_invoice_month_year_marker
 #: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_customer_form_inherit_invoice_month_year_marker
 #: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_supplier_form_inherit_invoice_month_year_marker
 #: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_template_form_inherit_invoice_month_year_marker
@@ -34,3 +39,31 @@ msgstr ": Nombre del mes y año del período facturado"
 #: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_template_form_inherit_invoice_month_year_marker
 msgid "Name of the month and year of the invoiced period"
 msgstr "Nombre del mes y año del período facturado"
+
+#. module: servincom_contract_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_customer_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_supplier_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_template_form_inherit_invoice_month_year_marker
+msgid ": Name of the month of the invoiced period"
+msgstr ": Nombre del mes del período facturado"
+
+#. module: servincom_contract_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_customer_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_supplier_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_template_form_inherit_invoice_month_year_marker
+msgid "Name of the month of the invoiced period"
+msgstr "Nombre del mes del período facturado"
+
+#. module: servincom_contract_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_customer_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_supplier_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_template_form_inherit_invoice_month_year_marker
+msgid ": Year of the invoiced period"
+msgstr ": Año del período facturado"
+
+#. module: servincom_contract_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_customer_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_supplier_form_inherit_invoice_month_year_marker
+#: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_template_form_inherit_invoice_month_year_marker
+msgid "Year of the invoiced period"
+msgstr "Año del período facturado"
