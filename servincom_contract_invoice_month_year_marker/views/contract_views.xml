@@ -5,12 +5,12 @@
         <field name="model">contract.template</field>
         <field name="inherit_id" ref="contract.contract_template_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//strong[normalize-space() = '#INVOICEMONTHNAME#']/.." position="after">
+            <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
                 <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
+                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
                 </p>
                 <p>
-                    <strong>#YEAR#</strong>: Year of the invoiced period
+                    <strong>#YEAR#</strong>: Año del período facturado
                 </p>
             </xpath>
         </field>
@@ -21,12 +21,12 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_customer_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//strong[normalize-space() = '#INVOICEMONTHNAME#']/.." position="after">
+            <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
                 <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
+                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
                 </p>
                 <p>
-                    <strong>#YEAR#</strong>: Year of the invoiced period
+                    <strong>#YEAR#</strong>: Año del período facturado
                 </p>
             </xpath>
         </field>
@@ -37,12 +37,12 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_supplier_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//strong[normalize-space() = '#INVOICEMONTHNAME#']/.." position="after">
+            <xpath expr="//p[.//strong[normalize-space() = '#INVOICEMONTHNAME#']]" position="after">
                 <p>
-                    <strong>#INVOICEMONTHYEAR#</strong>: Name of the month and year of the invoiced period
+                    <strong>#INVOICEMONTHYEAR#</strong>: Nombre del mes y año del período facturado
                 </p>
                 <p>
-                    <strong>#YEAR#</strong>: Year of the invoiced period
+                    <strong>#YEAR#</strong>: Año del período facturado
                 </p>
             </xpath>
         </field>
