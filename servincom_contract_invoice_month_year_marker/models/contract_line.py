@@ -26,13 +26,16 @@ class ContractLine(models.Model):
             return name
 
         lang_code = self.contract_id.partner_id.lang or self.env.user.lang or "en_US"
-        base_month_name = format_date(
+        translated_month_name = self.with_context(
+            lang=lang_code
+        )._translate_marker_month_name(first_date_invoiced.strftime("%m"))
+        formatted_month_name = format_date(
             self.env,
             first_date_invoiced,
             lang_code=lang_code,
             date_format="MMMM",
         )
-        month_name = base_month_name.upper()
+        month_name = translated_month_name.upper()
         year = format_date(
             self.env,
             first_date_invoiced,
@@ -42,11 +45,12 @@ class ContractLine(models.Model):
         month_year = f"{month_name} {year}"
 
         if INVOICE_MONTH_NAME_MARKER in original_name:
-            name = name.replace(
-                base_month_name,
-                month_name,
-                original_name.count(INVOICE_MONTH_NAME_MARKER),
-            )
+            marker_count = original_name.count(INVOICE_MONTH_NAME_MARKER)
+            for month_name_variant in {
+                translated_month_name,
+                formatted_month_name,
+            }:
+                name = name.replace(month_name_variant, month_name, marker_count)
 
         return (
             name.replace(INVOICE_MONTH_NAME_MARKER, month_name)
