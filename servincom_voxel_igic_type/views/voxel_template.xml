@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="voxel_template_igic_tax_type" inherit_id="edi_voxel_oca.voxel_template">
+        <xpath expr="//ProductList/Product/Taxes/Tax" position="attributes">
+            <attribute name="Type">IGIC</attribute>
+        </xpath>
+        <xpath expr="//TaxSummary/Tax" position="attributes">
+            <attribute name="Type">IGIC</attribute>
+        </xpath>
+    </template>
+</odoo>
