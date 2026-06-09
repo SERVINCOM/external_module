@@ -3,7 +3,7 @@
 
 {
     "name": "SERVINCOM Voxel IGIC Tax Type",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
     "summary": "Adds IGIC tax type to Voxel XML tax nodes",
     "category": "Accounting/EDI",
     "author": "SERVINCOM SOLUCIONES, S.L.",

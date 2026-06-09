@@ -2,10 +2,10 @@
 <odoo>
     <template id="voxel_template_igic_tax_type" inherit_id="edi_voxel_oca.voxel_template">
         <xpath expr="//ProductList/Product/Taxes/Tax" position="replace">
-            <Tax t-foreach="product['taxes']" t-as="tax" t-att="tax" Type="IGIC"/>
+            <Tax t-foreach="product['taxes']" t-as="tax" t-att="dict(tax, Type='IGIC')"/>
         </xpath>
         <xpath expr="//TaxSummary/Tax" position="replace">
-            <Tax t-foreach="taxes" t-as="tax" t-att="tax" Type="IGIC"/>
+            <Tax t-foreach="taxes" t-as="tax" t-att="dict(tax, Type='IGIC')"/>
         </xpath>
     </template>
 </odoo>
