@@ -18,5 +18,5 @@ msgstr ""
 
 #. module: servincom_voxel_igic_type
 #: model:ir.module.module,summary:servincom_voxel_igic_type
-msgid "Adds IGIC tax type to Voxel XML tax nodes"
-msgstr "Añade el tipo de impuesto IGIC a los nodos de impuestos del XML de Voxel"
+msgid "Adds IGIC tax type and keeps Voxel XML on failed sends"
+msgstr "Añade el tipo de impuesto IGIC y conserva el XML de Voxel si falla el envío"
