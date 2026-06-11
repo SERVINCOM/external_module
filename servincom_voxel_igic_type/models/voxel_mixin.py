@@ -26,7 +26,12 @@ class VoxelMixin(models.AbstractModel):
             report_ref, self.ids, {}
         )[0]
         tree = etree.fromstring(report_xml, etree.XMLParser(remove_blank_text=True))
-        clean_report_xml = etree.tostring(tree, xml_declaration=True, encoding="UTF-8")
+        clean_report_xml = etree.tostring(
+            tree,
+            xml_declaration=True,
+            encoding="UTF-8",
+            pretty_print=True,
+        )
         clean_report_text = clean_report_xml.decode("UTF-8")
         file_name = self._get_voxel_filename()
 
