@@ -7,6 +7,9 @@ It also stores the generated XML on the invoice before sending it to Voxel.
 If the FileConnector returns an error, the XML remains available in the Voxel
 report field and as an attachment in the chatter.
 
+The customer invoice list also shows the Voxel send state before the invoice
+balance column.
+
 It affects:
 
 - ProductList/Product/Taxes/Tax

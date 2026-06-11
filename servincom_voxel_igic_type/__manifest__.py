@@ -3,7 +3,7 @@
 
 {
     "name": "SERVINCOM Voxel IGIC Tax Type",
-    "version": "18.0.1.1.2",
+    "version": "18.0.1.2.0",
     "summary": "Adds IGIC tax type and keeps Voxel XML on failed sends",
     "category": "Accounting/EDI",
     "author": "SERVINCOM SOLUCIONES, S.L.",
@@ -14,6 +14,7 @@
     ],
     "data": [
         "views/voxel_template.xml",
+        "views/account_move_views.xml",
     ],
     "installable": True,
     "application": False,

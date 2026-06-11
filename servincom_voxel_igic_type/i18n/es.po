@@ -20,3 +20,8 @@ msgstr ""
 #: model:ir.module.module,summary:servincom_voxel_igic_type
 msgid "Adds IGIC tax type and keeps Voxel XML on failed sends"
 msgstr "Añade el tipo de impuesto IGIC y conserva el XML de Voxel si falla el envío"
+
+#. module: servincom_voxel_igic_type
+#: model_terms:ir.ui.view,arch_db:servincom_voxel_igic_type.view_out_invoice_tree_inherit_voxel_state
+msgid "Estado Voxel"
+msgstr "Estado Voxel"

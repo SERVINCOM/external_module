@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_out_invoice_tree_inherit_voxel_state" model="ir.ui.view">
+        <field name="name">account.move.out.invoice.list.voxel.state</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_residual_signed']" position="before">
+                <field
+                    name="voxel_state"
+                    string="Estado Voxel"
+                    widget="badge"
+                    optional="show"
+                    decoration-success="voxel_state == 'accepted'"
+                    decoration-warning="voxel_state == 'sent'"
+                    decoration-danger="voxel_state in ('sent_errors', 'processing_error')"
+                    decoration-muted="voxel_state in ('not_sent', 'cancelled')"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
