@@ -54,6 +54,19 @@ class VoxelMixin(models.AbstractModel):
         self.write({"voxel_state": "sent"})
         return True
 
+    def _update_voxel_export_status(self, company):
+        try:
+            return super()._update_voxel_export_status(company)
+        except Exception as error:
+            if self._servincom_is_voxel_folder_listing_not_allowed(error):
+                _logger.warning(
+                    "Voxel folder listing is not allowed for company %s. "
+                    "Skipping export status update.",
+                    company.display_name,
+                )
+                return False
+            raise
+
     def _servincom_get_voxel_error_message(self, error):
         error_message = f"{error.__class__.__name__}: {error}"
         response = getattr(error, "response", None)
@@ -72,6 +85,17 @@ class VoxelMixin(models.AbstractModel):
                 if item
             )
         return error_message
+
+    def _servincom_is_voxel_folder_listing_not_allowed(self, error):
+        current = error
+        while current:
+            response = getattr(current, "response", None)
+            if response is not None and response.status_code == 405:
+                return True
+            current = getattr(current, "__cause__", None) or getattr(
+                current, "__context__", None
+            )
+        return False
 
     def _servincom_store_voxel_xml(self, file_name, report_text, report_bytes):
         self.write(
