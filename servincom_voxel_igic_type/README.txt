@@ -13,6 +13,9 @@ balance column.
 Discount amounts are exported as the total discount amount of the invoice line,
 not as the unit discount amount.
 
+Line taxes include base and amount so customer-side validations can reconcile
+line tax totals with the invoice tax summary.
+
 It affects:
 
 - ProductList/Product/Taxes/Tax

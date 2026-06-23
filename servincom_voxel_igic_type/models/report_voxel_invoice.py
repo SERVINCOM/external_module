@@ -21,3 +21,27 @@ class ReportVoxelInvoice(models.AbstractModel):
                 }
             )
         return discounts
+
+    def _get_product_taxes_data(self, line):
+        taxes = []
+        price_unit = line.quantity and line.price_subtotal / line.quantity or 0.0
+        tax_values = line.tax_ids.compute_all(
+            price_unit,
+            line.currency_id,
+            line.quantity,
+            product=line.product_id,
+            partner=line.move_id.partner_id,
+            is_refund=line.move_id.move_type in ("out_refund", "in_refund"),
+        )
+        for tax_data in tax_values.get("taxes", []):
+            tax = self.env["account.tax"].browse(tax_data["id"])
+            rate = tax.amount_type != "group" and str(tax.amount) or False
+            taxes.append(
+                {
+                    "Type": tax.voxel_tax_code,
+                    "Rate": rate,
+                    "Base": str(line.currency_id.round(tax_data["base"])),
+                    "Amount": str(abs(line.currency_id.round(tax_data["amount"]))),
+                }
+            )
+        return taxes
