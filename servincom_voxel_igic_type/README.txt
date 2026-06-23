@@ -10,6 +10,9 @@ report field and as an attachment in the chatter.
 The customer invoice list also shows the Voxel send state before the invoice
 balance column.
 
+Discount amounts are exported as the total discount amount of the invoice line,
+not as the unit discount amount.
+
 It affects:
 
 - ProductList/Product/Taxes/Tax

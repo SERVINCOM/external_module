@@ -2,3 +2,4 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from . import voxel_mixin
+from . import report_voxel_invoice
