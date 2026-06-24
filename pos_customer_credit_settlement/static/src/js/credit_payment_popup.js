@@ -5,7 +5,7 @@ odoo.define("pos_customer_credit_settlement.CreditPaymentPopup", function (requi
     const Registries = require("point_of_sale.Registries");
     const rpc = require("web.rpc");
     const { _t } = require("web.core");
-    const { useState } = owl.hooks;
+    const { useState } = owl;
 
     class PosCreditPaymentPopup extends AbstractAwaitablePopup {
         setup() {
