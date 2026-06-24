@@ -38,3 +38,39 @@ class PosSession(models.Model):
         action["domain"] = [("session_id", "=", self.id)]
         action["context"] = {"default_session_id": self.id}
         return action
+
+    def _add_pos_credit_loader_fields(self, params, field_names):
+        fields_list = params.setdefault("search_params", {}).setdefault("fields", [])
+        for field_name in field_names:
+            if field_name not in fields_list:
+                fields_list.append(field_name)
+        return params
+
+    def _loader_params_pos_config(self):
+        params = super()._loader_params_pos_config()
+        return self._add_pos_credit_loader_fields(
+            params,
+            [
+                "enable_pos_customer_credit",
+                "allow_pos_credit_settlement",
+                "pos_credit_payment_method_id",
+            ],
+        )
+
+    def _loader_params_pos_payment_method(self):
+        params = super()._loader_params_pos_payment_method()
+        return self._add_pos_credit_loader_fields(
+            params,
+            ["is_pos_customer_credit"],
+        )
+
+    def _loader_params_res_partner(self):
+        params = super()._loader_params_res_partner()
+        return self._add_pos_credit_loader_fields(
+            params,
+            [
+                "pos_credit_customer",
+                "pos_credit_total_due",
+                "pos_credit_ticket_count",
+            ],
+        )

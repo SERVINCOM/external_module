@@ -1,24 +1,11 @@
 odoo.define("pos_customer_credit_settlement.CreditButton", function (require) {
     "use strict";
 
-    const models = require("point_of_sale.models");
     const PaymentScreen = require("point_of_sale.PaymentScreen");
     const PosComponent = require("point_of_sale.PosComponent");
     const ProductScreen = require("point_of_sale.ProductScreen");
     const Registries = require("point_of_sale.Registries");
     const { _t } = require("web.core");
-
-    models.load_fields("pos.payment.method", ["is_pos_customer_credit"]);
-    models.load_fields("pos.config", [
-        "enable_pos_customer_credit",
-        "allow_pos_credit_settlement",
-        "pos_credit_payment_method_id",
-    ]);
-    models.load_fields("res.partner", [
-        "pos_credit_customer",
-        "pos_credit_total_due",
-        "pos_credit_ticket_count",
-    ]);
 
     class CreditButton extends PosComponent {
         async onClick() {
