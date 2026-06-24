@@ -22,7 +22,7 @@ class PosOrder(models.Model):
         return result
 
     def _create_pos_customer_credit_lines(self):
-        credit_model = self.env["pos.customer.credit.line"]
+        credit_model = self.env["pos.customer.credit.line"].sudo()
         for order in self:
             all_credit_payments = order.payment_ids.filtered(
                 lambda payment: payment.payment_method_id.is_pos_customer_credit
@@ -97,7 +97,7 @@ class PosOrder(models.Model):
         if "refunded_orderline_id" not in pos_line_model._fields:
             return
         source_orders = self.lines.mapped("refunded_orderline_id.order_id")
-        source_credit_lines = self.env["pos.customer.credit.line"].search(
+        source_credit_lines = self.env["pos.customer.credit.line"].sudo().search(
             [
                 ("pos_order_id", "in", source_orders.ids),
                 ("state", "in", ("open", "partial")),
@@ -129,7 +129,7 @@ class PosOrder(models.Model):
 
     def _cancel_unpaid_credit_lines_from_cancelled_order(self):
         for order in self:
-            lines = self.env["pos.customer.credit.line"].search(
+            lines = self.env["pos.customer.credit.line"].sudo().search(
                 [("pos_order_id", "=", order.id), ("state", "!=", "cancelled")]
             )
             for line in lines:

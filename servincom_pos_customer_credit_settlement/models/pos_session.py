@@ -38,3 +38,44 @@ class PosSession(models.Model):
         action["domain"] = [("session_id", "=", self.id)]
         action["context"] = {"default_session_id": self.id}
         return action
+
+    def get_closing_control_data(self):
+        data = super().get_closing_control_data()
+        self.ensure_one()
+        posted_payments = self.pos_credit_payment_ids.filtered(
+            lambda payment: payment.state == "posted"
+        )
+        cash_details = data.get("default_cash_details") or {}
+        cash_method_id = cash_details.get("id")
+        non_cash_payments = posted_payments.filtered(
+            lambda payment: payment.payment_method_id.id != cash_method_id
+        )
+        if not non_cash_payments:
+            return data
+
+        other_method_rows = {
+            method_data["id"]: method_data
+            for method_data in data.get("other_payment_methods", [])
+        }
+        for payment_method in non_cash_payments.mapped("payment_method_id"):
+            method_payments = non_cash_payments.filtered(
+                lambda payment, method=payment_method: payment.payment_method_id == method
+            )
+            amount = sum(method_payments.mapped("amount"))
+            if payment_method.id in other_method_rows:
+                other_method_rows[payment_method.id]["amount"] += amount
+                other_method_rows[payment_method.id]["number"] += len(method_payments)
+                continue
+            method_data = {
+                "name": payment_method.name,
+                "amount": amount,
+                "number": len(method_payments),
+                "id": payment_method.id,
+                "type": payment_method.type,
+            }
+            data.setdefault("other_payment_methods", []).append(method_data)
+            other_method_rows[payment_method.id] = method_data
+        data["payments_amount"] = data.get("payments_amount", 0.0) + sum(
+            non_cash_payments.mapped("amount")
+        )
+        return data

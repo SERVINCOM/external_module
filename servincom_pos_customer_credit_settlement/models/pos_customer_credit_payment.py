@@ -89,6 +89,11 @@ class PosCustomerCreditPayment(models.Model):
         string="Pago contable",
         readonly=True,
     )
+    statement_line_id = fields.Many2one(
+        comodel_name="account.bank.statement.line",
+        string="Movimiento de caja",
+        readonly=True,
+    )
     move_id = fields.Many2one(
         comodel_name="account.move",
         string="Asiento contable",
@@ -288,6 +293,9 @@ class PosCustomerCreditPayment(models.Model):
 
     def _create_account_payment_if_possible(self):
         for payment in self:
+            if payment.payment_method_id.is_cash_count:
+                payment._create_cash_statement_line_if_possible()
+                continue
             journal = payment.payment_method_id.journal_id
             if not journal:
                 payment.note = _(
@@ -305,12 +313,61 @@ class PosCustomerCreditPayment(models.Model):
                 "journal_id": journal.id,
                 "date": fields.Date.context_today(payment),
                 "ref": payment.name,
+                "pos_payment_method_id": payment.payment_method_id.id,
+                "pos_session_id": payment.session_id.id,
             }
             if payment_method_line:
                 vals["payment_method_line_id"] = payment_method_line.id
             account_payment = self.env["account.payment"].create(vals)
             account_payment.action_post()
             payment.account_payment_id = account_payment.id
+
+    def _create_cash_statement_line_if_possible(self):
+        for payment in self:
+            if payment.statement_line_id:
+                continue
+            journal = payment.payment_method_id.journal_id or payment.session_id.cash_journal_id
+            if not journal:
+                payment.note = _(
+                    "No se creó movimiento de caja porque el método de cobro "
+                    "no tiene diario configurado."
+                )
+                continue
+            accounting_partner = self.env["res.partner"]._find_accounting_partner(
+                payment.partner_id
+            )
+            counterpart_account = payment._get_credit_receivable_account()
+            statement_line = self.env["account.bank.statement.line"].sudo().create(
+                {
+                    "date": fields.Date.context_today(
+                        payment, timestamp=payment.payment_date
+                    ),
+                    "amount": payment.amount,
+                    "payment_ref": _("Cobro deuda clientes %s") % payment.name,
+                    "pos_session_id": payment.session_id.id,
+                    "journal_id": journal.id,
+                    "counterpart_account_id": counterpart_account.id,
+                    "partner_id": accounting_partner.id,
+                }
+            )
+            payment.statement_line_id = statement_line.id
+
+    def _get_credit_receivable_account(self):
+        self.ensure_one()
+        credit_methods = self.line_ids.mapped(
+            "credit_line_id.pos_order_id.payment_ids.payment_method_id"
+        ).filtered("is_pos_customer_credit")
+        account = credit_methods[:1].receivable_account_id
+        account = account or self.config_id.pos_credit_account_id
+        account = account or self.partner_id.property_account_receivable_id
+        if not account:
+            raise UserError(
+                _(
+                    "No hay una cuenta de cliente configurada para registrar "
+                    "el cobro de deuda."
+                )
+            )
+        return account
 
     def _reconcile_credit_if_possible(self):
         receivable_types = ("asset_receivable", "receivable")
@@ -353,6 +410,15 @@ class PosCustomerCreditPayment(models.Model):
             if payment.account_payment_id and payment.account_payment_id.state == "posted":
                 payment.account_payment_id.action_draft()
                 payment.account_payment_id.action_cancel()
+            if payment.statement_line_id:
+                if payment.session_id.state == "closed":
+                    raise UserError(
+                        _(
+                            "No se puede cancelar un cobro de caja de una "
+                            "sesión TPV ya cerrada."
+                        )
+                    )
+                payment.statement_line_id.unlink()
             for line in payment.line_ids:
                 credit_line = line.credit_line_id
                 credit_line.amount_paid -= line.amount

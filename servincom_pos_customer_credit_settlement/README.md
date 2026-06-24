@@ -22,8 +22,9 @@ Configuración
      la cuenta contable orientativa de crédito.
 
 5. Asegúrese de que los métodos reales de cobro, como efectivo o
-   tarjeta, tienen diario contable configurado si quiere que el cobro
-   posterior genere ``account.payment``.
+   tarjeta, tienen diario contable configurado. El efectivo se registra
+   como movimiento de caja de la sesión TPV; banco/tarjeta se registra
+   como pago contable vinculado a la sesión.
 
 Venta a crédito
 ===============
@@ -74,8 +75,14 @@ Contabilidad
 
 El módulo no usa productos ficticios ni crea nuevos pedidos TPV para
 cobrar deuda. El cobro posterior crea un registro operativo
-``pos.customer.credit.payment`` y, cuando el método real de cobro tiene
-diario, intenta crear un ``account.payment`` de cliente::
+``pos.customer.credit.payment``.
+
+Si el cobro es en efectivo, se crea una línea de caja
+``account.bank.statement.line`` asociada a la sesión TPV para que el
+importe entre en el efectivo esperado del cierre.
+
+Si el cobro es por banco/tarjeta, y el método real de cobro tiene
+diario, se crea un ``account.payment`` de cliente vinculado a la sesión::
 
     570 Caja / Banco
         a 430 Cliente
@@ -108,7 +115,7 @@ Limitaciones conocidas
   cuenta conciliable de cliente o en una cuenta puente claramente
   revisable.
 * Odoo POS no permite crear un ``pos.payment`` limpio sin ``pos.order``;
-  por eso los cobros de deuda se registran en modelos propios y, si
-  procede, mediante ``account.payment``.
+  por eso los cobros de deuda se registran en modelos propios y, según
+  el método de cobro, mediante movimiento de caja o ``account.payment``.
 * Las devoluciones o anulaciones con deudas ya cobradas requieren
   revisión de un responsable.
