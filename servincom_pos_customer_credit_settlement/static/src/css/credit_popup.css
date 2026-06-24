@@ -3,93 +3,59 @@
 }
 
 .pos .o_pos_credit_settlement_button {
-    flex: 1 0 100%;
+    flex: 1 0 50%;
     gap: 8px;
     min-height: 48px;
-    order: 90;
     white-space: nowrap;
 }
 
-.pos .popup-credit-payment {
-    box-sizing: border-box;
-    max-width: min(1080px, 94vw) !important;
-    overflow: hidden;
-    width: 1080px !important;
+.pos .o_pos_credit_screen {
+    background: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.pos .popup-credit-payment * {
-    box-sizing: border-box;
+.pos .o_pos_credit_screen_header {
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #d8dadd;
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 160px 1fr 220px;
+    padding: 16px 22px;
 }
 
-.pos .popup-credit-payment .modal-header,
-.pos .popup-credit-payment .modal-footer {
-    clear: both;
-}
-
-.pos .popup-credit-payment .modal-body {
-    overflow: hidden;
-}
-
-.pos .popup-credit-payment .searchbox-client {
-    font-size: 18px;
-    max-width: 100%;
-}
-
-.pos .popup-credit-payment .client-list {
-    max-height: 390px !important;
-    overflow: auto !important;
-}
-
-.pos .popup-credit-payment table {
-    table-layout: fixed;
-    width: 100%;
-}
-
-.pos .popup-credit-payment th,
-.pos .popup-credit-payment td {
-    overflow: hidden;
-    padding: 8px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.pos .popup-credit-payment label {
-    text-align: left;
-}
-
-.pos .popup-credit-payment input,
-.pos .popup-credit-payment select {
-    max-width: 100%;
-}
-
-.pos .o_pos_credit_popup {
-    max-width: min(1080px, 94vw);
-    width: 1080px;
-}
-
-.pos .o_pos_credit_popup_header {
+.pos .o_pos_credit_back {
     align-items: center;
     display: flex;
-    justify-content: space-between;
-    padding: 18px 22px;
+    gap: 8px;
+    justify-content: center;
+    min-height: 44px;
 }
 
-.pos .o_pos_credit_popup_subtitle {
+.pos .o_pos_credit_screen_header h2 {
+    color: #111827;
+    font-size: 24px;
+    margin: 0;
+}
+
+.pos .o_pos_credit_screen_header span {
     color: #6b7280;
+    display: block;
     font-size: 14px;
     margin-top: 4px;
 }
 
-.pos .o_pos_credit_popup_total {
+.pos .o_pos_credit_screen_total {
     background: #f3f4f6;
     border: 1px solid #d8dadd;
     border-radius: 6px;
-    min-width: 190px;
     padding: 10px 14px;
     text-align: right;
 }
 
-.pos .o_pos_credit_popup_total span,
+.pos .o_pos_credit_screen_total span,
 .pos .o_pos_credit_selected_customer span,
 .pos .o_pos_credit_payment_box span {
     color: #6b7280;
@@ -98,7 +64,7 @@
     font-weight: 600;
 }
 
-.pos .o_pos_credit_popup_total strong {
+.pos .o_pos_credit_screen_total strong {
     color: #111827;
     display: block;
     font-size: 24px;
@@ -123,25 +89,28 @@
     color: #1f7a3f;
 }
 
-.pos .o_pos_credit_popup_body {
+.pos .o_pos_credit_screen_body {
     display: grid;
+    flex: 1;
     gap: 18px;
-    grid-template-columns: minmax(240px, 320px) 1fr;
-    min-height: 500px;
+    grid-template-columns: minmax(260px, 360px) 1fr;
+    min-height: 0;
     padding: 18px 22px;
 }
 
 .pos .o_pos_credit_customers_panel,
 .pos .o_pos_credit_lines_panel {
+    background: #fff;
     border: 1px solid #d8dadd;
     border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     min-width: 0;
 }
 
 .pos .o_pos_credit_customers_panel {
     background: #fafafa;
-    display: flex;
-    flex-direction: column;
 }
 
 .pos .o_pos_credit_panel_title {
@@ -176,6 +145,8 @@
 }
 
 .pos .o_pos_credit_customer_list {
+    flex: 1;
+    min-height: 0;
     overflow: auto;
     padding: 0 12px 12px;
 }
@@ -220,12 +191,6 @@
     margin-top: 6px;
 }
 
-.pos .o_pos_credit_lines_panel {
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-}
-
 .pos .o_pos_credit_selected_customer {
     align-items: center;
     border-bottom: 1px solid #d8dadd;
@@ -243,7 +208,7 @@
 
 .pos .o_pos_credit_table_wrapper {
     flex: 1;
-    max-height: 330px;
+    min-height: 0;
     overflow: auto;
 }
 
@@ -303,10 +268,11 @@
 }
 
 .pos .o_pos_credit_payment_box {
+    align-items: end;
     border-top: 1px solid #d8dadd;
     display: grid;
     gap: 12px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 160px;
     padding: 14px;
 }
 
@@ -317,12 +283,14 @@
     margin-top: 6px;
 }
 
-@media (max-width: 900px) {
-    .pos .o_pos_credit_popup {
-        width: 94vw;
-    }
+.pos .o_pos_credit_pay_button {
+    min-height: 44px;
+}
 
-    .pos .o_pos_credit_popup_body {
+@media (max-width: 900px) {
+    .pos .o_pos_credit_screen_header,
+    .pos .o_pos_credit_screen_body,
+    .pos .o_pos_credit_payment_box {
         grid-template-columns: 1fr;
     }
 }

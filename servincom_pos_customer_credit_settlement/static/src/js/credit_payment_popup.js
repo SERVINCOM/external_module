@@ -1,16 +1,15 @@
-odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", function (require) {
+odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", function (require) {
     "use strict";
 
-    const AbstractAwaitablePopup = require("point_of_sale.AbstractAwaitablePopup");
+    const PosComponent = require("point_of_sale.PosComponent");
     const Registries = require("point_of_sale.Registries");
     const rpc = require("web.rpc");
     const { _t } = require("web.core");
     const { useState } = owl;
 
-    class PosCreditPaymentPopup extends AbstractAwaitablePopup {
+    class PosCreditPaymentScreen extends PosComponent {
         setup() {
             super.setup();
-            this._isAlive = true;
             this._customerSearchSequence = 0;
             this._lineLoadSequence = 0;
             this.state = useState({
@@ -36,10 +35,6 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 this.loadCreditLines(currentPartner.id);
             }
             this.searchCustomers();
-        }
-
-        willUnmount() {
-            this._isAlive = false;
         }
 
         get paymentMethods() {
@@ -105,9 +100,8 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
             };
         }
 
-        closePopup() {
-            this._isAlive = false;
-            this.cancel();
+        back() {
+            this.showScreen("ProductScreen");
         }
 
         clearMessages() {
@@ -140,15 +134,13 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                     method: "pos_search_credit_customers",
                     args: [this.state.query, 30],
                 });
-                if (this._isAlive && sequence === this._customerSearchSequence) {
+                if (sequence === this._customerSearchSequence) {
                     this.state.customers = customers;
                 }
             } catch (error) {
-                if (this._isAlive) {
-                    this.setError(_t("Error buscando clientes"), error);
-                }
+                this.setError(_t("Error buscando clientes"), error);
             } finally {
-                if (this._isAlive && sequence === this._customerSearchSequence) {
+                if (sequence === this._customerSearchSequence) {
                     this.state.loading = false;
                 }
             }
@@ -182,15 +174,13 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                     method: "pos_get_credit_lines",
                     args: [partnerId],
                 });
-                if (this._isAlive && sequence === this._lineLoadSequence) {
+                if (sequence === this._lineLoadSequence) {
                     this.state.lines = lines;
                 }
             } catch (error) {
-                if (this._isAlive) {
-                    this.setError(_t("Error cargando deuda"), error);
-                }
+                this.setError(_t("Error cargando deuda"), error);
             } finally {
-                if (this._isAlive && sequence === this._lineLoadSequence) {
+                if (sequence === this._lineLoadSequence) {
                     this.state.loading = false;
                 }
             }
@@ -271,15 +261,10 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
         }
     }
 
-    PosCreditPaymentPopup.template =
-        "servincom_pos_customer_credit_settlement.PosCreditPaymentPopup";
-    PosCreditPaymentPopup.defaultProps = {
-        confirmText: _t("Cobrar"),
-        cancelText: _t("Cerrar"),
-        title: _t("Cobrar deuda"),
-    };
+    PosCreditPaymentScreen.template =
+        "servincom_pos_customer_credit_settlement.PosCreditPaymentScreen";
 
-    Registries.Component.add(PosCreditPaymentPopup);
+    Registries.Component.add(PosCreditPaymentScreen);
 
-    return PosCreditPaymentPopup;
+    return PosCreditPaymentScreen;
 });

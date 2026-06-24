@@ -7,16 +7,18 @@
         </button>
     </t>
 
-    <t t-name="servincom_pos_customer_credit_settlement.PosCreditPaymentPopup" owl="1">
-        <div class="popup popup-credit-payment o_pos_credit_popup">
-            <div class="modal-header o_pos_credit_popup_header">
+    <t t-name="servincom_pos_customer_credit_settlement.PosCreditPaymentScreen" owl="1">
+        <div class="screen o_pos_credit_screen">
+            <div class="screen-header o_pos_credit_screen_header">
+                <button class="button back o_pos_credit_back" t-on-click="back">
+                    <i class="fa fa-angle-left"/>
+                    <span>Volver</span>
+                </button>
                 <div>
-                    <h4 class="modal-title"><t t-esc="props.title"/></h4>
-                    <div class="o_pos_credit_popup_subtitle">
-                        Seleccione cliente, tickets pendientes y método real de cobro.
-                    </div>
+                    <h2>Cobrar deuda</h2>
+                    <span>Seleccione cliente, tickets pendientes y método real de cobro.</span>
                 </div>
-                <div class="o_pos_credit_popup_total">
+                <div class="o_pos_credit_screen_total">
                     <span>Total seleccionado</span>
                     <strong><t t-esc="formatCurrency(selectedTotal)"/></strong>
                 </div>
@@ -29,7 +31,7 @@
                 <t t-esc="state.success"/>
             </div>
 
-            <main class="modal-body o_pos_credit_popup_body">
+            <main class="o_pos_credit_screen_body">
                 <section class="o_pos_credit_customers_panel">
                     <div class="o_pos_credit_panel_title">Clientes de crédito</div>
                     <div class="o_pos_credit_search">
@@ -147,6 +149,9 @@
                                     </t>
                                 </select>
                             </label>
+                            <button class="button confirm highlight o_pos_credit_pay_button" t-on-click="confirmPayment">
+                                Cobrar
+                            </button>
                         </div>
                     </t>
                     <t t-else="">
@@ -160,15 +165,6 @@
                     </t>
                 </section>
             </main>
-
-            <footer class="footer modal-footer">
-                <button class="button cancel" t-on-click="closePopup">
-                    <t t-esc="props.cancelText"/>
-                </button>
-                <button class="button confirm highlight" t-on-click="confirmPayment">
-                    <t t-esc="props.confirmText"/>
-                </button>
-            </footer>
         </div>
     </t>
 </templates>

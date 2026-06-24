@@ -27,9 +27,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
                 });
                 return;
             }
-            await this.showPopup("PosCreditPaymentPopup", {
-                title: _t("Cobrar deuda"),
-            });
+            this.showScreen("PosCreditPaymentScreen");
         }
     }
 
@@ -37,7 +35,6 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
 
     ProductScreen.addControlButton({
         component: CreditButton,
-        position: ["after", "OpenCashDrawerButton"],
         condition: function () {
             return this.env.pos.config.enable_pos_customer_credit;
         },
