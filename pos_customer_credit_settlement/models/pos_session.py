@@ -51,6 +51,9 @@ class PosSession(models.Model):
         return self._add_pos_credit_loader_fields(
             params,
             [
+                "is_posbox",
+                "iface_electronic_scale",
+                "iface_print_via_proxy",
                 "enable_pos_customer_credit",
                 "allow_pos_credit_settlement",
                 "pos_credit_payment_method_id",
