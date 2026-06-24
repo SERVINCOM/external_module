@@ -54,11 +54,28 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
         }
 
         getErrorMessage(error) {
-            return (
-                (error && error.data && error.data.message) ||
-                (error && error.message) ||
-                String(error)
-            );
+            if (error && error.data) {
+                if (error.data.message) {
+                    return error.data.message;
+                }
+                if (error.data.arguments && error.data.arguments.length) {
+                    return error.data.arguments.join("\n");
+                }
+                if (error.data.debug) {
+                    return error.data.debug;
+                }
+            }
+            if (error && error.message) {
+                return error.message;
+            }
+            if (typeof error === "string") {
+                return error;
+            }
+            try {
+                return JSON.stringify(error);
+            } catch (jsonError) {
+                return _t("No hay información disponible sobre estos errores.");
+            }
         }
 
         async onQueryInput(event) {

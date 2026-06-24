@@ -1,0 +1,7 @@
+.pos .o_servincom_open_cash_drawer_button {
+    flex: 1 0 100%;
+    gap: 8px;
+    min-height: 48px;
+    order: 91;
+    white-space: nowrap;
+}

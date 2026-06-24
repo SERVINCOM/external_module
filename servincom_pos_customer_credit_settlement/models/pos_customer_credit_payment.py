@@ -151,7 +151,7 @@ class PosCustomerCreditPayment(models.Model):
 
     @api.model
     def pos_get_credit_lines(self, partner_id):
-        return self.env["res.partner"].get_pos_credit_lines(partner_id)
+        return self.env["res.partner"].sudo().get_pos_credit_lines(partner_id)
 
     @api.model
     def pos_register_credit_payment(
@@ -184,7 +184,7 @@ class PosCustomerCreditPayment(models.Model):
         rounding = session.currency_id.rounding
         if float_compare(amount, 0.0, precision_rounding=rounding) <= 0:
             raise UserError(_("El importe a cobrar debe ser mayor que cero."))
-        lines = self.env["pos.customer.credit.line"].search(
+        lines = self.env["pos.customer.credit.line"].sudo().search(
             [
                 ("id", "in", credit_line_ids or []),
                 ("partner_id", "=", partner.id),
@@ -198,7 +198,7 @@ class PosCustomerCreditPayment(models.Model):
         if float_compare(amount, total_selected, precision_rounding=rounding) > 0:
             raise UserError(_("El importe no puede superar el pendiente seleccionado."))
 
-        payment = self.create(
+        payment = self.sudo().create(
             {
                 "partner_id": partner.id,
                 "session_id": session.id,
@@ -210,7 +210,7 @@ class PosCustomerCreditPayment(models.Model):
             }
         )
         remaining = amount
-        payment_line_model = self.env["pos.customer.credit.payment.line"]
+        payment_line_model = self.env["pos.customer.credit.payment.line"].sudo()
         for credit_line in lines:
             if float_is_zero(remaining, precision_rounding=rounding):
                 break

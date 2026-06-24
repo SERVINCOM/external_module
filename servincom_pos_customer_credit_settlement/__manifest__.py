@@ -3,7 +3,7 @@
 
 {
     "name": "SERVINCOM POS Customer Credit Settlement",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.2.0",
     "summary": "Customer credit tickets and debt settlement from the Point of Sale",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",

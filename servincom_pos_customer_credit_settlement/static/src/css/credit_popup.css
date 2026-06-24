@@ -1,6 +1,8 @@
 .pos .o_pos_credit_settlement_button {
+    flex: 1 0 100%;
     gap: 8px;
     min-height: 48px;
+    order: 90;
     white-space: nowrap;
 }
 

@@ -88,7 +88,7 @@ class ResPartner(models.Model):
 
     @api.model
     def get_pos_credit_lines(self, partner_id):
-        lines = self.env["pos.customer.credit.line"].search(
+        lines = self.env["pos.customer.credit.line"].sudo().search(
             [
                 ("partner_id", "=", partner_id),
                 ("state", "in", ("open", "partial")),
