@@ -154,6 +154,26 @@ class PosCustomerCreditPayment(models.Model):
         return self.env["res.partner"].sudo().get_pos_credit_lines(partner_id)
 
     @api.model
+    def pos_get_credit_config(self, config_id):
+        config = self.env["pos.config"].browse(config_id).exists()
+        if not config:
+            raise UserError(_("Punto de venta no encontrado."))
+        return {
+            "enable_pos_customer_credit": bool(config.enable_pos_customer_credit),
+            "allow_pos_credit_settlement": bool(config.allow_pos_credit_settlement),
+        }
+
+    @api.model
+    def pos_get_real_payment_methods(self, config_id):
+        config = self.env["pos.config"].browse(config_id).exists()
+        if not config:
+            raise UserError(_("Punto de venta no encontrado."))
+        methods = config.payment_method_ids.filtered(
+            lambda method: not method.is_pos_customer_credit
+        )
+        return [{"id": method.id, "name": method.name} for method in methods]
+
+    @api.model
     def pos_register_credit_payment(
         self, partner_id, credit_line_ids, amount, payment_method_id, session_id
     ):

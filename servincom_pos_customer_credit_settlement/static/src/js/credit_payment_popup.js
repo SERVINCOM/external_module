@@ -21,20 +21,12 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 selectedLineIds: {},
                 amount: "0.00",
                 payment_method_id: "",
+                paymentMethods: [],
                 loading: false,
                 error: "",
                 success: "",
             });
-            const firstMethod = this.paymentMethods[0];
-            if (firstMethod) {
-                this.state.payment_method_id = String(firstMethod.id);
-            }
-            const currentOrder = this.env.pos.get_order && this.env.pos.get_order();
-            const currentPartner = currentOrder && currentOrder.get_partner();
-            if (currentPartner && currentPartner.pos_credit_customer) {
-                this.state.selectedPartner = this._exportPartner(currentPartner);
-                this.loadCreditLines(currentPartner.id);
-            }
+            this.loadPaymentMethods();
             this.searchCustomers();
         }
 
@@ -43,9 +35,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
         }
 
         get paymentMethods() {
-            return (this.env.pos.payment_methods || []).filter(
-                (method) => !method.is_pos_customer_credit
-            );
+            return this.state.paymentMethods;
         }
 
         get selectedLines() {
@@ -129,6 +119,28 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
             this.state.query = event.target.value;
             this.clearMessages();
             await this.searchCustomers();
+        }
+
+        async loadPaymentMethods() {
+            try {
+                const methods = await rpc.query({
+                    model: "pos.customer.credit.payment",
+                    method: "pos_get_real_payment_methods",
+                    args: [this.env.pos.config.id],
+                });
+                if (!this._isAlive) {
+                    return;
+                }
+                this.state.paymentMethods = methods;
+                const firstMethod = methods[0];
+                this.state.payment_method_id = firstMethod
+                    ? String(firstMethod.id)
+                    : "";
+            } catch (error) {
+                if (this._isAlive) {
+                    this.setError(_t("Error cargando métodos de cobro"), error);
+                }
+            }
         }
 
         async searchCustomers() {
