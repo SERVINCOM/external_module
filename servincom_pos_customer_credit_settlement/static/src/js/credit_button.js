@@ -1,11 +1,9 @@
 odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (require) {
     "use strict";
 
-    const PaymentScreen = require("point_of_sale.PaymentScreen");
     const PosComponent = require("point_of_sale.PosComponent");
     const ProductScreen = require("point_of_sale.ProductScreen");
     const Registries = require("point_of_sale.Registries");
-    const rpc = require("web.rpc");
     const { _t } = require("web.core");
 
     class CreditButton extends PosComponent {
@@ -28,31 +26,9 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
                 });
                 return;
             }
-            const target = window.open("about:blank", "_blank");
-            try {
-                const url = await rpc.query({
-                    model: "pos.customer.credit.payment",
-                    method: "pos_get_credit_backend_url",
-                    args: [],
-                });
-                if (target) {
-                    target.location.href = url;
-                    target.focus();
-                } else {
-                    window.location.href = url;
-                }
-            } catch (error) {
-                if (target) {
-                    target.close();
-                }
-                await this.showPopup("ErrorPopup", {
-                    title: _t("No se pudo abrir crédito de clientes"),
-                    body:
-                        (error && error.data && error.data.message) ||
-                        (error && error.message) ||
-                        _t("Revise permisos o vuelva a intentarlo."),
-                });
-            }
+            await this.showPopup("PosCreditPaymentPopup", {
+                title: _t("Cobrar deuda"),
+            });
         }
     }
 
@@ -66,49 +42,5 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
     });
 
     Registries.Component.add(CreditButton);
-
-    const CreditPaymentValidation = (PaymentScreen) =>
-        class extends PaymentScreen {
-            async validateOrder(isForceValidate) {
-                const order = this.currentOrder;
-                const creditLines = order
-                    .get_paymentlines()
-                    .filter((line) => line.payment_method.is_pos_customer_credit);
-                if (creditLines.length) {
-                    const partner = order.get_partner();
-                    if (!this.env.pos.config.enable_pos_customer_credit) {
-                        await this.showPopup("ErrorPopup", {
-                            title: _t("Crédito TPV no activo"),
-                            body: _t(
-                                "El punto de venta no tiene activada la gestión de crédito de clientes."
-                            ),
-                        });
-                        return;
-                    }
-                    if (!partner) {
-                        await this.showPopup("ErrorPopup", {
-                            title: _t("Cliente obligatorio"),
-                            body: _t(
-                                "Seleccione un cliente antes de validar una venta a crédito."
-                            ),
-                        });
-                        return;
-                    }
-                    if (!partner.pos_credit_customer) {
-                        await this.showPopup("ErrorPopup", {
-                            title: _t("Cliente no autorizado"),
-                            body:
-                                partner.display_name +
-                                _t(" no está autorizado para crédito TPV."),
-                        });
-                        return;
-                    }
-                }
-                return super.validateOrder(isForceValidate);
-            }
-        };
-
-    Registries.Component.extend(PaymentScreen, CreditPaymentValidation);
-
     return CreditButton;
 });

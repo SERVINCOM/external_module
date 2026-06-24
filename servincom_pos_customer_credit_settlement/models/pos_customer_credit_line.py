@@ -170,22 +170,6 @@ class PosCustomerCreditLine(models.Model):
         self.filtered(lambda line: line.state == "cancelled").write({"state": "open"})
         self._refresh_credit_state()
 
-    def action_open_payment_wizard(self):
-        lines = self.filtered(lambda line: line.state in ("open", "partial"))
-        if not lines:
-            raise UserError(_("Seleccione al menos un ticket pendiente."))
-        return {
-            "type": "ir.actions.act_window",
-            "name": _("Registrar cobro de deuda"),
-            "res_model": "pos.customer.credit.payment.wizard",
-            "view_mode": "form",
-            "target": "new",
-            "context": {
-                "active_model": "pos.customer.credit.line",
-                "active_ids": lines.ids,
-            },
-        }
-
     def _pos_export_data(self):
         return [
             {

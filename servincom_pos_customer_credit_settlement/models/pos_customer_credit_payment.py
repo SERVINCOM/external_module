@@ -154,19 +154,6 @@ class PosCustomerCreditPayment(models.Model):
         return self.env["res.partner"].sudo().get_pos_credit_lines(partner_id)
 
     @api.model
-    def pos_get_credit_backend_url(self):
-        action = self.env.ref(
-            "servincom_pos_customer_credit_settlement.action_pos_customer_credit_line"
-        )
-        menu = self.env.ref(
-            "servincom_pos_customer_credit_settlement.menu_pos_customer_credit_line"
-        )
-        return "/web#action=%s&model=pos.customer.credit.line&view_type=list&menu_id=%s" % (
-            action.id,
-            menu.id,
-        )
-
-    @api.model
     def pos_register_credit_payment(
         self, partner_id, credit_line_ids, amount, payment_method_id, session_id
     ):

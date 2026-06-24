@@ -5,14 +5,6 @@
         <field name="model">pos.customer.credit.line</field>
         <field name="arch" type="xml">
             <tree decoration-success="state == 'paid'" decoration-muted="state == 'cancelled'" decoration-warning="state == 'partial'">
-                <header>
-                    <button
-                        name="action_open_payment_wizard"
-                        string="Registrar cobro"
-                        type="object"
-                        class="btn-primary"
-                    />
-                </header>
                 <field name="date_order"/>
                 <field name="partner_id"/>
                 <field name="pos_order_id"/>
@@ -33,13 +25,6 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button
-                        name="action_open_payment_wizard"
-                        string="Registrar cobro"
-                        type="object"
-                        class="btn-primary"
-                        attrs="{'invisible': [('state', 'not in', ('open', 'partial'))]}"
-                    />
                     <button
                         name="action_cancel"
                         string="Cancelar"
