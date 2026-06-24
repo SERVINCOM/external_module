@@ -12,15 +12,18 @@ class ResPartner(models.Model):
         comodel_name="res.currency",
         string="Moneda crédito TPV",
         compute="_compute_pos_credit_amounts",
+        compute_sudo=True,
     )
     pos_credit_total_due = fields.Monetary(
         string="Pendiente crédito TPV",
         compute="_compute_pos_credit_amounts",
+        compute_sudo=True,
         currency_field="pos_credit_currency_id",
     )
     pos_credit_ticket_count = fields.Integer(
         string="Tickets pendientes TPV",
         compute="_compute_pos_credit_amounts",
+        compute_sudo=True,
     )
 
     @api.depends(
@@ -28,7 +31,7 @@ class ResPartner(models.Model):
         "pos_credit_line_ids.state",
     )
     def _compute_pos_credit_amounts(self):
-        credit_model = self.env["pos.customer.credit.line"]
+        credit_model = self.env["pos.customer.credit.line"].sudo()
         grouped = credit_model.read_group(
             [
                 ("partner_id", "in", self.ids),
