@@ -17,11 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: servincom_pos_open_cash_drawer
-#: model:ir.module.module,summary:servincom_pos_open_cash_drawer
-msgid "Open the configured POS cash drawer from the product screen"
-msgstr "Abre el cajón portamonedas configurado del TPV desde la pantalla de productos"
-
-#. module: servincom_pos_open_cash_drawer
 #. openerp-web
 #: code:addons/servincom_pos_open_cash_drawer/static/src/js/open_cash_drawer_button.js:0
 #: code:addons/servincom_pos_open_cash_drawer/static/src/xml/open_cash_drawer_button.xml:0
