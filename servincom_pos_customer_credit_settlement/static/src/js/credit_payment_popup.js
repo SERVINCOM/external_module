@@ -5,11 +5,12 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", func
     const Registries = require("point_of_sale.Registries");
     const rpc = require("web.rpc");
     const { _t } = require("web.core");
-    const { useState } = owl;
+    const { onWillUnmount, useState } = owl;
 
     class PosCreditPaymentScreen extends PosComponent {
         setup() {
             super.setup();
+            this._isAlive = true;
             this._customerSearchSequence = 0;
             this._lineLoadSequence = 0;
             this.state = useState({
@@ -35,6 +36,9 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", func
                 this.loadCreditLines(currentPartner.id);
             }
             this.searchCustomers();
+            onWillUnmount(() => {
+                this._isAlive = false;
+            });
         }
 
         get paymentMethods() {
@@ -101,7 +105,9 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", func
         }
 
         back() {
-            this.showScreen("ProductScreen");
+            this._isAlive = false;
+            this.props.resolve({ confirmed: false, payload: false });
+            this.trigger("close-temp-screen");
         }
 
         clearMessages() {
@@ -134,13 +140,15 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", func
                     method: "pos_search_credit_customers",
                     args: [this.state.query, 30],
                 });
-                if (sequence === this._customerSearchSequence) {
+                if (this._isAlive && sequence === this._customerSearchSequence) {
                     this.state.customers = customers;
                 }
             } catch (error) {
-                this.setError(_t("Error buscando clientes"), error);
+                if (this._isAlive) {
+                    this.setError(_t("Error buscando clientes"), error);
+                }
             } finally {
-                if (sequence === this._customerSearchSequence) {
+                if (this._isAlive && sequence === this._customerSearchSequence) {
                     this.state.loading = false;
                 }
             }
@@ -174,13 +182,15 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", func
                     method: "pos_get_credit_lines",
                     args: [partnerId],
                 });
-                if (sequence === this._lineLoadSequence) {
+                if (this._isAlive && sequence === this._lineLoadSequence) {
                     this.state.lines = lines;
                 }
             } catch (error) {
-                this.setError(_t("Error cargando deuda"), error);
+                if (this._isAlive) {
+                    this.setError(_t("Error cargando deuda"), error);
+                }
             } finally {
-                if (sequence === this._lineLoadSequence) {
+                if (this._isAlive && sequence === this._lineLoadSequence) {
                     this.state.loading = false;
                 }
             }
@@ -243,6 +253,9 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", func
                         this.env.pos.pos_session.id,
                     ],
                 });
+                if (!this._isAlive) {
+                    return;
+                }
                 this.state.lines = result.lines;
                 this.state.selectedLineIds = {};
                 this.state.amount = "0.00";
@@ -254,9 +267,13 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentScreen", func
                     this.formatCurrency(result.amount) +
                     ".";
             } catch (error) {
-                this.setError(_t("No se pudo registrar el cobro"), error);
+                if (this._isAlive) {
+                    this.setError(_t("No se pudo registrar el cobro"), error);
+                }
             } finally {
-                this.state.loading = false;
+                if (this._isAlive) {
+                    this.state.loading = false;
+                }
             }
         }
     }

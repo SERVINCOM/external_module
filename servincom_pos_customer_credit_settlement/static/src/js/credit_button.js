@@ -27,7 +27,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
                 });
                 return;
             }
-            this.showScreen("PosCreditPaymentScreen");
+            await this.showTempScreen("PosCreditPaymentScreen");
         }
     }
 
