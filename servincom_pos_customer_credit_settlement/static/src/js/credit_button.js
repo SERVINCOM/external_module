@@ -5,6 +5,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
     const PosComponent = require("point_of_sale.PosComponent");
     const ProductScreen = require("point_of_sale.ProductScreen");
     const Registries = require("point_of_sale.Registries");
+    const rpc = require("web.rpc");
     const { _t } = require("web.core");
 
     class CreditButton extends PosComponent {
@@ -27,7 +28,31 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
                 });
                 return;
             }
-            await this.showTempScreen("PosCreditPaymentScreen");
+            const target = window.open("about:blank", "_blank");
+            try {
+                const url = await rpc.query({
+                    model: "pos.customer.credit.payment",
+                    method: "pos_get_credit_backend_url",
+                    args: [],
+                });
+                if (target) {
+                    target.location.href = url;
+                    target.focus();
+                } else {
+                    window.location.href = url;
+                }
+            } catch (error) {
+                if (target) {
+                    target.close();
+                }
+                await this.showPopup("ErrorPopup", {
+                    title: _t("No se pudo abrir crédito de clientes"),
+                    body:
+                        (error && error.data && error.data.message) ||
+                        (error && error.message) ||
+                        _t("Revise permisos o vuelva a intentarlo."),
+                });
+            }
         }
     }
 
@@ -42,7 +67,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
 
     Registries.Component.add(CreditButton);
 
-    const CreditPaymentScreen = (PaymentScreen) =>
+    const CreditPaymentValidation = (PaymentScreen) =>
         class extends PaymentScreen {
             async validateOrder(isForceValidate) {
                 const order = this.currentOrder;
@@ -83,7 +108,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (r
             }
         };
 
-    Registries.Component.extend(PaymentScreen, CreditPaymentScreen);
+    Registries.Component.extend(PaymentScreen, CreditPaymentValidation);
 
     return CreditButton;
 });

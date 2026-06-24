@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_customer_credit_payment_wizard_form" model="ir.ui.view">
+        <field name="name">pos.customer.credit.payment.wizard.form</field>
+        <field name="model">pos.customer.credit.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Registrar cobro de deuda">
+                <group>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="session_id"/>
+                        <field name="available_payment_method_ids" invisible="1"/>
+                        <field name="payment_method_id"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="amount_selected" readonly="1"/>
+                        <field name="amount"/>
+                    </group>
+                </group>
+                <field name="line_ids">
+                    <tree>
+                        <field name="date_order"/>
+                        <field name="name"/>
+                        <field name="pos_order_id"/>
+                        <field name="amount_total"/>
+                        <field name="amount_paid"/>
+                        <field name="amount_residual"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button
+                        name="action_register_payment"
+                        string="Registrar cobro"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancelar" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pos_customer_credit_payment_wizard" model="ir.actions.act_window">
+        <field name="name">Registrar cobro de deuda</field>
+        <field name="res_model">pos.customer.credit.payment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_pos_customer_credit_payment_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
