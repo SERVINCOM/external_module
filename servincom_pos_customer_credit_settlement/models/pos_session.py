@@ -39,7 +39,18 @@ class PosSession(models.Model):
         action["context"] = {"default_session_id": self.id}
         return action
 
+    def _ensure_pos_credit_cash_statement_lines(self):
+        for session in self:
+            payments = session.pos_credit_payment_ids.filtered(
+                lambda payment: payment.state == "posted"
+                and payment.payment_method_id.is_cash_count
+                and not payment.statement_line_id
+                and session.state != "closed"
+            )
+            payments.sudo()._create_cash_statement_line_if_possible()
+
     def get_closing_control_data(self):
+        self._ensure_pos_credit_cash_statement_lines()
         data = super().get_closing_control_data()
         self.ensure_one()
         posted_payments = self.pos_credit_payment_ids.filtered(
@@ -79,3 +90,11 @@ class PosSession(models.Model):
             non_cash_payments.mapped("amount")
         )
         return data
+
+    def post_closing_cash_details(self, counted_cash):
+        self._ensure_pos_credit_cash_statement_lines()
+        return super().post_closing_cash_details(counted_cash)
+
+    def close_session_from_ui(self, bank_payment_method_diff_pairs=None):
+        self._ensure_pos_credit_cash_statement_lines()
+        return super().close_session_from_ui(bank_payment_method_diff_pairs)
