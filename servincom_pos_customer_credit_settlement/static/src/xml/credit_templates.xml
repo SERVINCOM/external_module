@@ -35,11 +35,13 @@
                     <div class="o_pos_credit_search">
                         <i class="fa fa-search"/>
                         <input
-                            class="searchbox-client o_pos_credit_search_input"
+                            class="o_pos_credit_search_input"
                             type="text"
                             placeholder="Buscar cliente"
                             t-att-value="state.query"
                             t-on-input="onQueryInput"
+                            t-on-keyup="onQueryInput"
+                            t-on-change="onQueryInput"
                         />
                     </div>
                     <div class="client-list o_pos_credit_customer_list">
@@ -53,7 +55,7 @@
                             <button
                                 type="button"
                                 t-att-data-partner-id="customer.id"
-                                t-att-class="state.selectedPartner &amp;&amp; state.selectedPartner.id === customer.id ? 'button customer-line o_pos_credit_customer selected' : 'button customer-line o_pos_credit_customer'"
+                                t-att-class="state.selectedPartner &amp;&amp; state.selectedPartner.id === customer.id ? 'o_pos_credit_customer selected' : 'o_pos_credit_customer'"
                                 t-on-click="onCustomerClick"
                             >
                                 <span class="o_pos_credit_customer_name">

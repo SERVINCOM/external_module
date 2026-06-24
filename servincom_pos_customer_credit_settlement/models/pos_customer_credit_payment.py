@@ -150,7 +150,35 @@ class PosCustomerCreditPayment(models.Model):
         ]
 
     @api.model
+    def _ensure_credit_lines_for_partner(self, partner_id):
+        orders = self.env["pos.order"].sudo().search(
+            [
+                ("partner_id", "=", partner_id),
+                ("payment_ids.payment_method_id.is_pos_customer_credit", "=", True),
+                ("state", "not in", ("cancel", "draft")),
+            ]
+        )
+        orders._create_pos_customer_credit_lines()
+
+    @api.model
+    def pos_get_credit_customer(self, partner_id):
+        partner = self.env["res.partner"].browse(partner_id).exists()
+        if not partner or not partner.pos_credit_customer:
+            return False
+        self._ensure_credit_lines_for_partner(partner.id)
+        return {
+            "id": partner.id,
+            "name": partner.display_name,
+            "vat": partner.vat or "",
+            "phone": partner.phone or partner.mobile or "",
+            "ref": partner.ref or "",
+            "total_due": partner.pos_credit_total_due,
+            "ticket_count": partner.pos_credit_ticket_count,
+        }
+
+    @api.model
     def pos_get_credit_lines(self, partner_id):
+        self._ensure_credit_lines_for_partner(partner_id)
         return self.env["res.partner"].sudo().get_pos_credit_lines(partner_id)
 
     @api.model

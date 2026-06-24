@@ -27,6 +27,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 success: "",
             });
             this.loadPaymentMethods();
+            this.selectCurrentOrderPartner();
             this.searchCustomers();
         }
 
@@ -119,6 +120,28 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
             this.state.query = event.target.value;
             this.clearMessages();
             await this.searchCustomers();
+        }
+
+        async selectCurrentOrderPartner() {
+            const currentOrder = this.env.pos.get_order && this.env.pos.get_order();
+            const currentPartner = currentOrder && currentOrder.get_partner();
+            if (!currentPartner || !currentPartner.id) {
+                return;
+            }
+            try {
+                const partner = await rpc.query({
+                    model: "pos.customer.credit.payment",
+                    method: "pos_get_credit_customer",
+                    args: [currentPartner.id],
+                });
+                if (this._isAlive && partner) {
+                    await this.selectPartner(partner);
+                }
+            } catch (error) {
+                if (this._isAlive) {
+                    this.setError(_t("Error cargando cliente actual"), error);
+                }
+            }
         }
 
         async loadPaymentMethods() {

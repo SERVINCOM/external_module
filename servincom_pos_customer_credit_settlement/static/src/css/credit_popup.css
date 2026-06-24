@@ -30,7 +30,7 @@
     overflow: hidden;
 }
 
-.pos .popup-credit-payment .searchbox-client {
+.pos .popup-credit-payment .o_pos_credit_search_input {
     font-size: 18px;
     max-width: 100%;
 }
@@ -185,7 +185,9 @@
     border: 1px solid #d8dadd;
     border-radius: 6px;
     color: #111827;
+    cursor: pointer;
     display: block;
+    min-height: 68px;
     margin-bottom: 8px;
     padding: 10px 12px;
     text-align: left;

@@ -37,12 +37,26 @@ class PosOrder(models.Model):
                 continue
             order._check_pos_credit_order_allowed()
             if credit_model.search_count([("pos_order_id", "=", order.id)]):
-                continue
+                existing_lines = credit_model.search(
+                    [
+                        ("pos_order_id", "=", order.id),
+                        ("state", "!=", "cancelled"),
+                    ]
+                )
+            else:
+                existing_lines = credit_model.browse()
             credit_amount = sum(credit_payments.mapped("amount"))
             precision = order.currency_id.rounding
             if float_is_zero(credit_amount, precision_rounding=precision):
                 continue
             if float_compare(credit_amount, 0.0, precision_rounding=precision) < 0:
+                continue
+            if existing_lines:
+                if not any(existing_lines.mapped("amount_paid")):
+                    line = existing_lines[:1]
+                    line.amount_total = credit_amount
+                    (existing_lines - line).action_cancel()
+                    line._refresh_credit_state()
                 continue
             credit_model.create(
                 {
