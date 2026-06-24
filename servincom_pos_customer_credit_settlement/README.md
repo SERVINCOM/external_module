@@ -4,7 +4,7 @@ Módulo para Odoo 16 Community que permite vender tickets del TPV a crédito de 
 
 ## Configuración
 
-1. Active el módulo `pos_customer_credit_settlement`.
+1. Active el módulo `servincom_pos_customer_credit_settlement`.
 2. En cada contacto autorizado marque `Cliente de crédito TPV` en la pestaña `TPV / Crédito`.
 3. Cree o edite un método de pago de TPV para deuda, por ejemplo `A cuenta`, y marque `Pago a crédito de cliente`.
 4. En el punto de venta active:

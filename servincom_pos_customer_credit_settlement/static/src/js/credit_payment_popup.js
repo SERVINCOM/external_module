@@ -1,4 +1,4 @@
-odoo.define("pos_customer_credit_settlement.CreditPaymentPopup", function (require) {
+odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", function (require) {
     "use strict";
 
     const AbstractAwaitablePopup = require("point_of_sale.AbstractAwaitablePopup");
@@ -202,7 +202,7 @@ odoo.define("pos_customer_credit_settlement.CreditPaymentPopup", function (requi
     }
 
     PosCreditPaymentPopup.template =
-        "pos_customer_credit_settlement.PosCreditPaymentPopup";
+        "servincom_pos_customer_credit_settlement.PosCreditPaymentPopup";
     PosCreditPaymentPopup.defaultProps = {
         confirmText: _t("Cobrar"),
         cancelText: _t("Cerrar"),

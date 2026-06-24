@@ -30,7 +30,7 @@
                         string="Cancelar"
                         type="object"
                         class="btn-secondary"
-                        groups="pos_customer_credit_settlement.group_pos_customer_credit_manager"
+                        groups="servincom_pos_customer_credit_settlement.group_pos_customer_credit_manager"
                         attrs="{'invisible': [('state', '=', 'cancelled')]}"
                     />
                     <button
@@ -38,7 +38,7 @@
                         string="Reabrir"
                         type="object"
                         class="btn-secondary"
-                        groups="pos_customer_credit_settlement.group_pos_customer_credit_manager"
+                        groups="servincom_pos_customer_credit_settlement.group_pos_customer_credit_manager"
                         attrs="{'invisible': [('state', '!=', 'cancelled')]}"
                     />
                     <field name="state" widget="statusbar" statusbar_visible="open,partial,paid"/>

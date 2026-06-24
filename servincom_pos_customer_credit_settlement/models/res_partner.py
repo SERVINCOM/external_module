@@ -61,7 +61,7 @@ class ResPartner(models.Model):
     def action_view_pos_credit_lines(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "pos_customer_credit_settlement.action_pos_customer_credit_line"
+            "servincom_pos_customer_credit_settlement.action_pos_customer_credit_line"
         )
         action["domain"] = [("partner_id", "=", self.id)]
         action["context"] = {

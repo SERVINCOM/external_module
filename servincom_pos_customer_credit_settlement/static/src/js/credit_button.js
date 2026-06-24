@@ -1,4 +1,4 @@
-odoo.define("pos_customer_credit_settlement.CreditButton", function (require) {
+odoo.define("servincom_pos_customer_credit_settlement.CreditButton", function (require) {
     "use strict";
 
     const PaymentScreen = require("point_of_sale.PaymentScreen");
@@ -33,10 +33,11 @@ odoo.define("pos_customer_credit_settlement.CreditButton", function (require) {
         }
     }
 
-    CreditButton.template = "pos_customer_credit_settlement.CreditButton";
+    CreditButton.template = "servincom_pos_customer_credit_settlement.CreditButton";
 
     ProductScreen.addControlButton({
         component: CreditButton,
+        position: ["after", "OpenCashDrawerButton"],
         condition: function () {
             return this.env.pos.config.enable_pos_customer_credit;
         },

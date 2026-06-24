@@ -297,7 +297,7 @@ class PosCustomerCreditPayment(models.Model):
 
     def action_cancel(self):
         manager_group = (
-            "pos_customer_credit_settlement.group_pos_customer_credit_manager"
+            "servincom_pos_customer_credit_settlement.group_pos_customer_credit_manager"
         )
         if not self.env.user.has_group(manager_group):
             raise UserError(_("Solo un responsable puede cancelar cobros."))

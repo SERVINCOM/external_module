@@ -154,7 +154,7 @@ class PosCustomerCreditLine(models.Model):
 
     def action_cancel(self):
         manager_group = (
-            "pos_customer_credit_settlement.group_pos_customer_credit_manager"
+            "servincom_pos_customer_credit_settlement.group_pos_customer_credit_manager"
         )
         for line in self:
             if line.amount_paid and not self.env.user.has_group(manager_group):

@@ -33,7 +33,7 @@ class PosSession(models.Model):
     def action_view_pos_credit_payments(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "pos_customer_credit_settlement.action_pos_customer_credit_payment"
+            "servincom_pos_customer_credit_settlement.action_pos_customer_credit_payment"
         )
         action["domain"] = [("session_id", "=", self.id)]
         action["context"] = {"default_session_id": self.id}

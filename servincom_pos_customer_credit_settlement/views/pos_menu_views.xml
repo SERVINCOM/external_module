@@ -5,7 +5,7 @@
         name="Crédito de clientes"
         parent="point_of_sale.menu_point_root"
         sequence="70"
-        groups="pos_customer_credit_settlement.group_pos_customer_credit_user"
+        groups="servincom_pos_customer_credit_settlement.group_pos_customer_credit_user"
     />
 
     <menuitem
@@ -14,7 +14,7 @@
         parent="menu_pos_customer_credit_root"
         action="action_pos_customer_credit_line"
         sequence="10"
-        groups="pos_customer_credit_settlement.group_pos_customer_credit_user"
+        groups="servincom_pos_customer_credit_settlement.group_pos_customer_credit_user"
     />
 
     <menuitem
@@ -23,6 +23,6 @@
         parent="menu_pos_customer_credit_root"
         action="action_pos_customer_credit_payment"
         sequence="20"
-        groups="pos_customer_credit_settlement.group_pos_customer_credit_user"
+        groups="servincom_pos_customer_credit_settlement.group_pos_customer_credit_user"
     />
 </odoo>
