@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form_pos_customer_credit" model="ir.ui.view">
+        <field name="name">pos.config.form.pos.customer.credit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Crédito clientes TPV">
+                    <group>
+                        <field name="enable_pos_customer_credit"/>
+                        <field name="allow_pos_credit_settlement"/>
+                    </group>
+                    <group>
+                        <field
+                            name="pos_credit_payment_method_id"
+                            attrs="{'invisible': [('enable_pos_customer_credit', '=', False)]}"
+                        />
+                        <field
+                            name="pos_credit_account_id"
+                            attrs="{'invisible': [('enable_pos_customer_credit', '=', False)]}"
+                        />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

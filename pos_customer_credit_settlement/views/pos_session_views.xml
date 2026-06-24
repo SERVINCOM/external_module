@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_session_form_pos_customer_credit" model="ir.ui.view">
+        <field name="name">pos.session.form.pos.customer.credit</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Cobros deuda clientes">
+                    <group>
+                        <field name="pos_credit_payment_total" readonly="1"/>
+                        <field name="pos_credit_payment_count" readonly="1"/>
+                    </group>
+                    <group>
+                        <button
+                            name="action_view_pos_credit_payments"
+                            type="object"
+                            string="Ver cobros de deuda"
+                            class="btn-secondary"
+                        />
+                    </group>
+                </group>
+                <group string="Detalle cobros deuda clientes">
+                    <field name="pos_credit_payment_ids" readonly="1" nolabel="1">
+                        <tree>
+                            <field name="payment_date"/>
+                            <field name="partner_id"/>
+                            <field name="payment_method_id"/>
+                            <field name="amount" sum="Importe"/>
+                            <field name="state" widget="badge"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

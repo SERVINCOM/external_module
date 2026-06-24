@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_pos_customer_credit_root"
+        name="Crédito de clientes"
+        parent="point_of_sale.menu_point_root"
+        sequence="70"
+        groups="pos_customer_credit_settlement.group_pos_customer_credit_user"
+    />
+
+    <menuitem
+        id="menu_pos_customer_credit_line"
+        name="Tickets pendientes"
+        parent="menu_pos_customer_credit_root"
+        action="action_pos_customer_credit_line"
+        sequence="10"
+        groups="pos_customer_credit_settlement.group_pos_customer_credit_user"
+    />
+
+    <menuitem
+        id="menu_pos_customer_credit_payment"
+        name="Cobros de deuda"
+        parent="menu_pos_customer_credit_root"
+        action="action_pos_customer_credit_payment"
+        sequence="20"
+        groups="pos_customer_credit_settlement.group_pos_customer_credit_user"
+    />
+</odoo>

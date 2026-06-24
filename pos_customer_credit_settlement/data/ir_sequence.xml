@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_pos_customer_credit_line" model="ir.sequence">
+        <field name="name">POS Customer Credit Line</field>
+        <field name="code">pos.customer.credit.line</field>
+        <field name="prefix">PCCL/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_pos_customer_credit_payment" model="ir.sequence">
+        <field name="name">POS Customer Credit Payment</field>
+        <field name="code">pos.customer.credit.payment</field>
+        <field name="prefix">PCCP/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

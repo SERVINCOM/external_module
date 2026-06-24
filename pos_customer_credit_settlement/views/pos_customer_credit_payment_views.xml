@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_customer_credit_payment_tree" model="ir.ui.view">
+        <field name="name">pos.customer.credit.payment.tree</field>
+        <field name="model">pos.customer.credit.payment</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state == 'posted'" decoration-muted="state == 'cancelled'">
+                <field name="payment_date"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="session_id"/>
+                <field name="config_id"/>
+                <field name="payment_method_id"/>
+                <field name="amount" sum="Importe"/>
+                <field name="state" widget="badge"/>
+                <field name="account_payment_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pos_customer_credit_payment_form" model="ir.ui.view">
+        <field name="name">pos.customer.credit.payment.form</field>
+        <field name="model">pos.customer.credit.payment</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header>
+                    <button
+                        name="action_cancel"
+                        string="Cancelar"
+                        type="object"
+                        class="btn-secondary"
+                        groups="pos_customer_credit_settlement.group_pos_customer_credit_manager"
+                        attrs="{'invisible': [('state', '=', 'cancelled')]}"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="payment_date" readonly="1"/>
+                            <field name="session_id" readonly="1"/>
+                            <field name="config_id" readonly="1"/>
+                            <field name="payment_method_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount" readonly="1"/>
+                            <field name="account_payment_id" readonly="1"/>
+                            <field name="move_id" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Deudas pagadas">
+                            <field name="line_ids" readonly="1">
+                                <tree>
+                                    <field name="credit_line_id"/>
+                                    <field name="amount"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notas">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pos_customer_credit_payment_search" model="ir.ui.view">
+        <field name="name">pos.customer.credit.payment.search</field>
+        <field name="model">pos.customer.credit.payment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="session_id"/>
+                <field name="config_id"/>
+                <field name="payment_method_id"/>
+                <filter name="posted" string="Publicados" domain="[('state', '=', 'posted')]"/>
+                <filter name="cancelled" string="Cancelados" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter name="group_partner" string="Cliente" context="{'group_by': 'partner_id'}"/>
+                <filter name="group_method" string="Método de cobro" context="{'group_by': 'payment_method_id'}"/>
+                <filter name="group_session" string="Sesión" context="{'group_by': 'session_id'}"/>
+                <filter name="group_config" string="Punto de venta" context="{'group_by': 'config_id'}"/>
+                <filter name="group_date" string="Fecha" context="{'group_by': 'payment_date:day'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pos_customer_credit_payment" model="ir.actions.act_window">
+        <field name="name">Cobros de deuda</field>
+        <field name="res_model">pos.customer.credit.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_pos_customer_credit_payment_search"/>
+        <field name="context">{'search_default_posted': 1}</field>
+    </record>
+</odoo>
