@@ -4,6 +4,58 @@
     white-space: nowrap;
 }
 
+.pos .popup-credit-payment {
+    box-sizing: border-box;
+    max-width: min(1080px, 94vw) !important;
+    overflow: hidden;
+    width: 1080px !important;
+}
+
+.pos .popup-credit-payment * {
+    box-sizing: border-box;
+}
+
+.pos .popup-credit-payment .modal-header,
+.pos .popup-credit-payment .modal-footer {
+    clear: both;
+}
+
+.pos .popup-credit-payment .modal-body {
+    overflow: hidden;
+}
+
+.pos .popup-credit-payment .searchbox-client {
+    font-size: 18px;
+    max-width: 100%;
+}
+
+.pos .popup-credit-payment .client-list {
+    max-height: 390px !important;
+    overflow: auto !important;
+}
+
+.pos .popup-credit-payment table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.pos .popup-credit-payment th,
+.pos .popup-credit-payment td {
+    overflow: hidden;
+    padding: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pos .popup-credit-payment label {
+    text-align: left;
+}
+
+.pos .popup-credit-payment input,
+.pos .popup-credit-payment select {
+    max-width: 100%;
+}
+
 .pos .o_pos_credit_popup {
     max-width: min(1080px, 94vw);
     width: 1080px;
