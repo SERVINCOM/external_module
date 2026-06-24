@@ -8,7 +8,7 @@
                 aria-label="Open Cash Drawer"
                 title="Open Cash Drawer"
             />
-            <span>Open Cash Drawer</span>
+            <span>Abrir cajón</span>
         </button>
     </t>
 </templates>

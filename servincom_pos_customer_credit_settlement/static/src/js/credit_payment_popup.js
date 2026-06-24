@@ -22,6 +22,8 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 amount: "0.00",
                 payment_method_id: "",
                 loading: false,
+                error: "",
+                success: "",
             });
             const firstMethod = this.paymentMethods[0];
             if (firstMethod) {
@@ -108,8 +110,24 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
             this.cancel();
         }
 
+        clearMessages() {
+            this.state.error = "";
+            this.state.success = "";
+        }
+
+        setError(title, error) {
+            this.state.success = "";
+            this.state.error = title + ": " + this.getErrorMessage(error);
+        }
+
+        setWarning(message) {
+            this.state.success = "";
+            this.state.error = message;
+        }
+
         async onQueryInput(event) {
             this.state.query = event.target.value;
+            this.clearMessages();
             await this.searchCustomers();
         }
 
@@ -127,10 +145,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 }
             } catch (error) {
                 if (this._isAlive) {
-                    await this.showPopup("ErrorPopup", {
-                        title: _t("Error buscando clientes"),
-                        body: this.getErrorMessage(error),
-                    });
+                    this.setError(_t("Error buscando clientes"), error);
                 }
             } finally {
                 if (this._isAlive && sequence === this._customerSearchSequence) {
@@ -145,6 +160,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 (customer) => customer.id === partnerId
             );
             if (partner) {
+                this.clearMessages();
                 await this.selectPartner(partner);
             }
         }
@@ -171,10 +187,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 }
             } catch (error) {
                 if (this._isAlive) {
-                    await this.showPopup("ErrorPopup", {
-                        title: _t("Error cargando deuda"),
-                        body: this.getErrorMessage(error),
-                    });
+                    this.setError(_t("Error cargando deuda"), error);
                 }
             } finally {
                 if (this._isAlive && sequence === this._lineLoadSequence) {
@@ -184,60 +197,49 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
         }
 
         onLineToggle(event) {
+            this.clearMessages();
             const lineId = parseInt(event.currentTarget.dataset.lineId, 10);
             this.state.selectedLineIds[lineId] = event.target.checked;
             this.state.amount = this.selectedTotal.toFixed(2);
         }
 
         onAmountInput(event) {
+            this.clearMessages();
             this.state.amount = event.target.value;
         }
 
         onPaymentMethodChange(event) {
+            this.clearMessages();
             this.state.payment_method_id = event.target.value;
         }
 
         async confirmPayment() {
             if (!this.state.selectedPartner) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("Seleccione un cliente"),
-                    body: _t("Debe seleccionar un cliente de crédito."),
-                });
+                this.setWarning(_t("Debe seleccionar un cliente de crédito."));
                 return;
             }
             const selectedIds = this.selectedLines.map((line) => line.id);
             if (!selectedIds.length) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("Seleccione tickets"),
-                    body: _t("Debe seleccionar al menos un ticket pendiente."),
-                });
+                this.setWarning(_t("Debe seleccionar al menos un ticket pendiente."));
                 return;
             }
             const amount = parseFloat(String(this.state.amount).replace(",", "."));
             if (!amount || amount <= 0) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("Importe no válido"),
-                    body: _t("El importe a cobrar debe ser mayor que cero."),
-                });
+                this.setWarning(_t("El importe a cobrar debe ser mayor que cero."));
                 return;
             }
             if (amount > this.selectedTotal + 0.00001) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("Importe no válido"),
-                    body: _t(
-                        "El importe a cobrar no puede superar el pendiente seleccionado."
-                    ),
-                });
+                this.setWarning(
+                    _t("El importe a cobrar no puede superar el pendiente seleccionado.")
+                );
                 return;
             }
             if (!this.state.payment_method_id) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("Método de cobro obligatorio"),
-                    body: _t("Seleccione un método real de cobro."),
-                });
+                this.setWarning(_t("Seleccione un método real de cobro."));
                 return;
             }
 
+            this.clearMessages();
             this.state.loading = true;
             try {
                 const result = await rpc.query({
@@ -255,20 +257,14 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 this.state.selectedLineIds = {};
                 this.state.amount = "0.00";
                 this.state.selectedPartner.total_due = result.remaining_due;
-                await this.showPopup("ConfirmPopup", {
-                    title: _t("Cobro registrado"),
-                    body:
-                        _t("Se ha registrado el cobro ") +
-                        result.name +
-                        _t(" por ") +
-                        this.formatCurrency(result.amount) +
-                        ".",
-                });
+                this.state.success =
+                    _t("Se ha registrado el cobro ") +
+                    result.name +
+                    _t(" por ") +
+                    this.formatCurrency(result.amount) +
+                    ".";
             } catch (error) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("No se pudo registrar el cobro"),
-                    body: this.getErrorMessage(error),
-                });
+                this.setError(_t("No se pudo registrar el cobro"), error);
             } finally {
                 this.state.loading = false;
             }

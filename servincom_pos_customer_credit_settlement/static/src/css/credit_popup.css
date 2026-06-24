@@ -105,6 +105,24 @@
     margin-top: 2px;
 }
 
+.pos .o_pos_credit_alert {
+    border-bottom: 1px solid #d8dadd;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 12px 22px;
+    text-align: left;
+}
+
+.pos .o_pos_credit_alert.error {
+    background: #fbeaea;
+    color: #a94442;
+}
+
+.pos .o_pos_credit_alert.success {
+    background: #eaf6ee;
+    color: #1f7a3f;
+}
+
 .pos .o_pos_credit_popup_body {
     display: grid;
     gap: 18px;

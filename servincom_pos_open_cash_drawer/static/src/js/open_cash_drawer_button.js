@@ -27,7 +27,7 @@ odoo.define("servincom_pos_open_cash_drawer.OpenCashDrawerButton", function (req
     ProductScreen.addControlButton({
         component: OpenCashDrawerButton,
         condition: function () {
-            return this.env.pos.config.iface_cashdrawer;
+            return true;
         },
     });
 

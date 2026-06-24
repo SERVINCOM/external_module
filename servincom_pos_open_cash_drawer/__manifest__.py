@@ -3,7 +3,7 @@
 
 {
     "name": "SERVINCOM POS Open Cash Drawer",
-    "version": "16.0.1.2.0",
+    "version": "16.0.1.3.0",
     "summary": "Open the configured POS cash drawer from the product screen",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",
