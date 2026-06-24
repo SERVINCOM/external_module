@@ -10,6 +10,9 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
     class PosCreditPaymentPopup extends AbstractAwaitablePopup {
         setup() {
             super.setup();
+            this._isAlive = true;
+            this._customerSearchSequence = 0;
+            this._lineLoadSequence = 0;
             this.state = useState({
                 query: "",
                 customers: [],
@@ -24,7 +27,17 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
             if (firstMethod) {
                 this.state.payment_method_id = String(firstMethod.id);
             }
+            const currentOrder = this.env.pos.get_order && this.env.pos.get_order();
+            const currentPartner = currentOrder && currentOrder.get_partner();
+            if (currentPartner && currentPartner.pos_credit_customer) {
+                this.state.selectedPartner = this._exportPartner(currentPartner);
+                this.loadCreditLines(currentPartner.id);
+            }
             this.searchCustomers();
+        }
+
+        willUnmount() {
+            this._isAlive = false;
         }
 
         get paymentMethods() {
@@ -78,26 +91,61 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
             }
         }
 
+        _exportPartner(partner) {
+            return {
+                id: partner.id,
+                name: partner.display_name || partner.name,
+                vat: partner.vat || "",
+                phone: partner.phone || partner.mobile || "",
+                ref: partner.ref || "",
+                total_due: partner.pos_credit_total_due || 0.0,
+                ticket_count: partner.pos_credit_ticket_count || 0,
+            };
+        }
+
+        closePopup() {
+            this._isAlive = false;
+            this.cancel();
+        }
+
         async onQueryInput(event) {
             this.state.query = event.target.value;
             await this.searchCustomers();
         }
 
         async searchCustomers() {
+            const sequence = ++this._customerSearchSequence;
             this.state.loading = true;
             try {
-                this.state.customers = await rpc.query({
+                const customers = await rpc.query({
                     model: "pos.customer.credit.payment",
                     method: "pos_search_credit_customers",
                     args: [this.state.query, 30],
                 });
+                if (this._isAlive && sequence === this._customerSearchSequence) {
+                    this.state.customers = customers;
+                }
             } catch (error) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("Error buscando clientes"),
-                    body: this.getErrorMessage(error),
-                });
+                if (this._isAlive) {
+                    await this.showPopup("ErrorPopup", {
+                        title: _t("Error buscando clientes"),
+                        body: this.getErrorMessage(error),
+                    });
+                }
             } finally {
-                this.state.loading = false;
+                if (this._isAlive && sequence === this._customerSearchSequence) {
+                    this.state.loading = false;
+                }
+            }
+        }
+
+        async onCustomerClick(event) {
+            const partnerId = parseInt(event.currentTarget.dataset.partnerId, 10);
+            const partner = this.state.customers.find(
+                (customer) => customer.id === partnerId
+            );
+            if (partner) {
+                await this.selectPartner(partner);
             }
         }
 
@@ -110,25 +158,34 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
         }
 
         async loadCreditLines(partnerId) {
+            const sequence = ++this._lineLoadSequence;
             this.state.loading = true;
             try {
-                this.state.lines = await rpc.query({
+                const lines = await rpc.query({
                     model: "pos.customer.credit.payment",
                     method: "pos_get_credit_lines",
                     args: [partnerId],
                 });
+                if (this._isAlive && sequence === this._lineLoadSequence) {
+                    this.state.lines = lines;
+                }
             } catch (error) {
-                await this.showPopup("ErrorPopup", {
-                    title: _t("Error cargando deuda"),
-                    body: this.getErrorMessage(error),
-                });
+                if (this._isAlive) {
+                    await this.showPopup("ErrorPopup", {
+                        title: _t("Error cargando deuda"),
+                        body: this.getErrorMessage(error),
+                    });
+                }
             } finally {
-                this.state.loading = false;
+                if (this._isAlive && sequence === this._lineLoadSequence) {
+                    this.state.loading = false;
+                }
             }
         }
 
-        toggleLine(line, event) {
-            this.state.selectedLineIds[line.id] = event.target.checked;
+        onLineToggle(event) {
+            const lineId = parseInt(event.currentTarget.dataset.lineId, 10);
+            this.state.selectedLineIds[lineId] = event.target.checked;
             this.state.amount = this.selectedTotal.toFixed(2);
         }
 

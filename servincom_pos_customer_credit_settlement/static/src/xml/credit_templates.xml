@@ -45,8 +45,9 @@
                         <t t-foreach="state.customers" t-as="customer" t-key="customer.id">
                             <button
                                 type="button"
+                                t-att-data-partner-id="customer.id"
                                 t-att-class="state.selectedPartner &amp;&amp; state.selectedPartner.id === customer.id ? 'button customer-line o_pos_credit_customer selected' : 'button customer-line o_pos_credit_customer'"
-                                t-on-click="() => this.selectPartner(customer)"
+                                t-on-click="onCustomerClick"
                             >
                                 <span class="o_pos_credit_customer_name">
                                     <t t-esc="customer.name"/>
@@ -97,8 +98,9 @@
                                             <td>
                                                 <input
                                                     type="checkbox"
+                                                    t-att-data-line-id="line.id"
                                                     t-att-checked="state.selectedLineIds[line.id] ? true : undefined"
-                                                    t-on-change="(event) => this.toggleLine(line, event)"
+                                                    t-on-change="onLineToggle"
                                                 />
                                             </td>
                                             <td><t t-esc="line.date_order"/></td>
@@ -153,7 +155,7 @@
             </main>
 
             <footer class="footer modal-footer">
-                <button class="button cancel" t-on-click="cancel">
+                <button class="button cancel" t-on-click="closePopup">
                     <t t-esc="props.cancelText"/>
                 </button>
                 <button class="button confirm highlight" t-on-click="confirmPayment">
