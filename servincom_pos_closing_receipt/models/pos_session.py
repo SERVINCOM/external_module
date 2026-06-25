@@ -44,8 +44,10 @@ class PosSession(models.Model):
             "date_time": now.strftime("%d/%m/%Y %H:%M:%S"),
             "orders_count": closing_data["orders_details"]["quantity"],
             "orders_total": closing_data["orders_details"]["amount"],
-            "opening_note": closing_data.get("opening_notes") or "",
-            "closing_note": closing_note or "",
+            "opening_note": self._servincom_format_note(
+                closing_data.get("opening_notes")
+            ),
+            "closing_note": self._servincom_format_note(closing_note),
             "cash": {
                 "name": default_cash_details.get("name") or "",
                 "expected": cash_expected,
@@ -139,6 +141,9 @@ class PosSession(models.Model):
         if index is not None and index < len(counted_values):
             return counted_values[index]
         return None
+
+    def _servincom_format_note(self, note):
+        return (note or "").replace("Money details:", "Detalle de efectivo:")
 
     def _servincom_get_payment_state(self, payment_states, payment_method_id):
         if not payment_method_id:
