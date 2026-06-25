@@ -58,10 +58,8 @@ La nota de cierre se toma del estado actual del popup en el momento de
 imprimir, por lo que aparece en el ticket aunque la sesión aún no se
 haya cerrado.
 
-El módulo añade además tres saltos finales al HTML enviado a la
-impresora POS para que los tickets no queden pegados al corte de papel.
-Esta separación se aplica en el punto común de impresión
-``print_receipt`` y no modifica las plantillas originales de Odoo.
+El ticket de cierre añade además dos saltos finales tras la fecha
+inferior para que no quede pegada al corte de papel.
 
 Pruebas
 =======

@@ -3,7 +3,7 @@
 
 {
     "name": "SERVINCOM POS Closing Receipt",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.2.0",
     "summary": "Improved printed POS closing session receipt",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",
@@ -15,7 +15,6 @@
     "assets": {
         "point_of_sale.assets": [
             "servincom_pos_closing_receipt/static/src/js/closing_receipt_button.js",
-            "servincom_pos_closing_receipt/static/src/js/receipt_spacing.js",
             "servincom_pos_closing_receipt/static/src/xml/closing_receipt_templates.xml",
         ],
     },

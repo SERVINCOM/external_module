@@ -126,6 +126,8 @@
             <div class="pos-receipt-order-data">
                 <div t-esc="date_time"/>
             </div>
+            <br/>
+            <br/>
         </div>
     </t>
 
