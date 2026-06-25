@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="servincom_pos_closing_receipt.ClosePosPopup"
+       t-inherit="ClosePosPopup"
+       t-inherit-mode="extension"
+       owl="1">
+        <xpath expr="//div[SaleDetailsButton]" position="replace">
+            <div t-if="env.proxy.printer" class="small button icon">
+                <ServincomClosingReceiptButton
+                    closingNote="state.notes"
+                    paymentStates="state.payments"
+                />
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="servincom_pos_closing_receipt.ClosingReceiptButton" owl="1">
+        <div t-on-click="onClick"
+             class="js_connected oe_icon"
+             title="Imprimir cierre de caja">
+            <i class="fa fa-fw fa-print" role="img" aria-label="Imprimir"/>
+        </div>
+    </t>
+
+    <t t-name="servincom_pos_closing_receipt.ClosingReceipt" owl="1">
+        <div class="pos-receipt">
+            <t t-if="pos.company_logo_base64">
+                <img class="pos-receipt-logo" t-att-src="pos.company_logo_base64" alt="Logo"/>
+                <br/>
+            </t>
+            <t t-if="!pos.company_logo_base64">
+                <div class="pos-receipt-center-align">
+                    <h1 t-esc="company_name"/>
+                </div>
+            </t>
+
+            <div class="pos-receipt-center-align">
+                <strong>Cierre de caja TPV</strong>
+            </div>
+            <br/>
+
+            <div>Punto de venta: <span t-esc="pos_name"/></div>
+            <div>Sesión TPV: <span t-esc="session_name"/></div>
+            <div>Usuario/cajero: <span t-esc="cashier_name"/></div>
+            <div>Fecha y hora: <span t-esc="date_time"/></div>
+
+            <br/>
+            <div>------------------------</div>
+            <br/>
+
+            <div>Total de pedidos:
+                <span class="pos-receipt-right-align" t-esc="orders_count"/>
+            </div>
+            <div>Total vendido:
+                <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(orders_total)"/>
+            </div>
+
+            <br/>
+            <div>------------------------</div>
+            <br/>
+
+            <div><strong>Métodos de pago</strong></div>
+            <t t-foreach="payment_methods" t-as="method" t-key="method_index">
+                <div>
+                    <span t-esc="method.name"/>
+                    <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.expected)"/>
+                </div>
+                <div class="pos-receipt-left-padding">
+                    <span t-esc="method.category"/>
+                </div>
+                <t t-if="method.show_counted">
+                    <div class="pos-receipt-left-padding">
+                        Contado
+                        <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.counted)"/>
+                    </div>
+                    <div class="pos-receipt-left-padding">
+                        Diferencia
+                        <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.difference)"/>
+                    </div>
+                </t>
+            </t>
+
+            <br/>
+            <div>------------------------</div>
+            <br/>
+
+            <div><strong>Efectivo</strong></div>
+            <t t-if="cash.name">
+                <div>Esperado:
+                    <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.expected)"/>
+                </div>
+                <div>Contado:
+                    <span t-if="cash.counted !== null" class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.counted)"/>
+                    <span t-if="cash.counted === null" class="pos-receipt-right-align">Sin indicar</span>
+                </div>
+                <div>Diferencia:
+                    <span t-if="cash.difference !== null" class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.difference)"/>
+                    <span t-if="cash.difference === null" class="pos-receipt-right-align">Sin indicar</span>
+                </div>
+                <br/>
+                <div>Apertura:
+                    <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.opening)"/>
+                </div>
+                <div>Entradas de efectivo:
+                    <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.cash_in_total)"/>
+                </div>
+                <div>Salidas de efectivo:
+                    <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(Math.abs(cash.cash_out_total))"/>
+                </div>
+                <div>Pagos en efectivo:
+                    <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.payment_amount)"/>
+                </div>
+                <t t-if="cash.moves.length">
+                    <br/>
+                    <div>Movimientos de caja:</div>
+                    <t t-foreach="cash.moves" t-as="move" t-key="move_index">
+                        <div class="pos-receipt-left-padding">
+                            <span t-esc="move.name"/>
+                            <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(move.amount)"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+            <t t-if="!cash.name">
+                <div>Sin control de efectivo.</div>
+            </t>
+
+            <t t-if="opening_note">
+                <br/>
+                <div>------------------------</div>
+                <br/>
+                <div><strong>Nota de apertura</strong></div>
+                <div t-esc="opening_note"/>
+            </t>
+
+            <t t-if="closing_note">
+                <br/>
+                <div>------------------------</div>
+                <br/>
+                <div><strong>Nota de cierre</strong></div>
+                <div t-esc="closing_note"/>
+            </t>
+
+            <br/>
+            <div class="pos-receipt-order-data">
+                <div t-esc="date_time"/>
+            </div>
+        </div>
+    </t>
+
+</templates>
