@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="servincom_pos_closing_receipt.ClosePosPopup"
-       t-inherit="ClosePosPopup"
-       t-inherit-mode="extension"
-       owl="1">
-        <xpath expr="//div[SaleDetailsButton]" position="replace">
-            <div t-if="env.proxy.printer" class="small button icon">
-                <ServincomClosingReceiptButton
-                    closingNote="state.notes"
-                    paymentStates="state.payments"
-                />
-            </div>
-        </xpath>
-    </t>
-
-    <t t-name="servincom_pos_closing_receipt.ClosingReceiptButton" owl="1">
-        <div t-on-click="onClick"
-             class="js_connected oe_icon"
-             title="Imprimir cierre de caja">
-            <i class="fa fa-fw fa-print" role="img" aria-label="Imprimir"/>
-        </div>
-    </t>
-
     <t t-name="servincom_pos_closing_receipt.ClosingReceipt" owl="1">
         <div class="pos-receipt">
             <t t-if="pos.company_logo_base64">
@@ -72,11 +50,13 @@
                 <t t-if="method.show_counted">
                     <div class="pos-receipt-left-padding">
                         Contado
-                        <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.counted)"/>
+                        <span t-if="method.counted !== null" class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.counted)"/>
+                        <span t-if="method.counted === null" class="pos-receipt-right-align">Sin indicar</span>
                     </div>
                     <div class="pos-receipt-left-padding">
                         Diferencia
-                        <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.difference)"/>
+                        <span t-if="method.difference !== null" class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.difference)"/>
+                        <span t-if="method.difference === null" class="pos-receipt-right-align">Sin indicar</span>
                     </div>
                 </t>
             </t>

@@ -46,10 +46,12 @@ la lista de pedidos, el botón de regresar ni la lógica contable.
 Notas técnicas
 ==============
 
-El módulo hereda el template POS ``ClosePosPopup`` para reemplazar solo
-el componente del botón de impresora por un componente SERVINCOM. El
-componente llama a ``pos.session.get_servincom_closing_receipt_data`` y
-renderiza un template de recibo propio antes de enviarlo a
+El módulo extiende el componente POS estándar ``SaleDetailsButton``. Si
+el botón se pulsa dentro del popup ``ClosePosPopup``, imprime el ticket
+de cierre SERVINCOM; fuera de ese popup conserva el comportamiento
+estándar de Odoo. El componente llama a
+``pos.session.get_servincom_closing_receipt_data`` y renderiza un
+template de recibo propio antes de enviarlo a
 ``env.proxy.printer.print_receipt``.
 
 La nota de cierre se toma del estado actual del popup en el momento de
