@@ -27,17 +27,11 @@ class VoxelMixin(models.AbstractModel):
             if active_job:
                 record._servincom_mark_voxel_pending()
                 continue
-            failing_job = record.voxel_job_ids.filtered(
-                lambda job: job.state == "failed"
-            )[:1]
-            if failing_job:
-                record._servincom_mark_voxel_pending()
-                failing_job.voxel_requeue_sudo()
-                continue
             new_delay = (
                 record.with_context(company_id=record.company_id.id)
                 .with_delay(
                     eta=eta,
+                    max_retries=1,
                     description=record._servincom_get_voxel_job_description(),
                 )
                 ._get_and_send_voxel_report(report)
