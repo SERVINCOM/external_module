@@ -24,6 +24,9 @@ When an invoice is queued for Voxel export, its Voxel state changes to
 Pending send until the queued job runs and changes it to Sent not verified or
 Sending error.
 
+Product totals are exported with taxes included so the sum of Product.Total
+matches TotalSummary.Total in Bavel validations.
+
 It affects:
 
 - ProductList/Product/Taxes/Tax
