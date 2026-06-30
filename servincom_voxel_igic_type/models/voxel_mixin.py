@@ -20,6 +20,13 @@ class VoxelMixin(models.AbstractModel):
         eta = self.company_id._get_voxel_report_eta()
         queue_obj = self.env["queue.job"].sudo()
         for record in self.sudo():
+            active_job = record.voxel_job_ids.filtered(
+                lambda job: job.state
+                in ("wait_dependencies", "pending", "enqueued", "started")
+            )[:1]
+            if active_job:
+                record._servincom_mark_voxel_pending()
+                continue
             failing_job = record.voxel_job_ids.filtered(
                 lambda job: job.state == "failed"
             )[:1]
