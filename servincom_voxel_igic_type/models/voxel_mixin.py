@@ -14,6 +14,29 @@ _logger = logging.getLogger(__name__)
 class VoxelMixin(models.AbstractModel):
     _inherit = "voxel.mixin"
 
+    def enqueue_voxel_report(self, report):
+        eta = self.company_id._get_voxel_report_eta()
+        queue_obj = self.env["queue.job"].sudo()
+        for record in self.sudo():
+            failing_job = record.voxel_job_ids.filtered(
+                lambda job: job.state == "failed"
+            )[:1]
+            if failing_job:
+                record._servincom_set_voxel_job_description(failing_job)
+                failing_job.voxel_requeue_sudo()
+                continue
+            new_delay = (
+                record.with_context(company_id=record.company_id.id)
+                .with_delay(
+                    eta=eta,
+                    description=record._servincom_get_voxel_job_description(),
+                )
+                ._get_and_send_voxel_report(report)
+            )
+            job = queue_obj.search([("uuid", "=", new_delay.uuid)], limit=1)
+            record._servincom_set_voxel_job_description(job)
+            record.voxel_job_ids |= job
+
     def _get_and_send_voxel_report(self, report):
         self.ensure_one()
         report_ref = report
@@ -58,6 +81,37 @@ class VoxelMixin(models.AbstractModel):
 
         self.write({"voxel_state": "sent"})
         return True
+
+    def _servincom_get_voxel_job_description(self):
+        self.ensure_one()
+        parts = ["Voxel"]
+        document_name = self.display_name
+        if "name" in self._fields and self.name:
+            document_name = self.name
+        parts.append(document_name)
+        if "partner_id" in self._fields and self.partner_id:
+            parts.append(self.partner_id.display_name)
+        if "amount_total" in self._fields:
+            amount = self.amount_total
+            currency = (
+                self.currency_id.name
+                if "currency_id" in self._fields and self.currency_id
+                else ""
+            )
+            parts.append(f"{amount:.2f} {currency}".strip())
+        return " - ".join(parts)
+
+    def _servincom_set_voxel_job_description(self, job):
+        if not job:
+            return
+        description = self._servincom_get_voxel_job_description()
+        values = {}
+        if "name" in job._fields:
+            values["name"] = description
+        if "description" in job._fields:
+            values["description"] = description
+        if values:
+            job.sudo().write(values)
 
     def _update_voxel_export_status(self, company):
         try:

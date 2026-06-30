@@ -16,6 +16,10 @@ not as the unit discount amount.
 Line taxes include base and amount so customer-side validations can reconcile
 line tax totals with the invoice tax summary.
 
+Voxel queue jobs are created with a readable description including invoice
+number, customer and total amount, making pending or failed jobs easier to
+match with their source invoice.
+
 It affects:
 
 - ProductList/Product/Taxes/Tax
