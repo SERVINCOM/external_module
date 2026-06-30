@@ -3,12 +3,14 @@
 
 import base64
 import logging
+from urllib.parse import urljoin
 
 from lxml import etree
 
 from odoo import models
 
 _logger = logging.getLogger(__name__)
+VOXEL_REQUEST_TIMEOUT = 60
 
 
 class VoxelMixin(models.AbstractModel):
@@ -81,6 +83,25 @@ class VoxelMixin(models.AbstractModel):
 
         self.write({"voxel_state": "sent"})
         return True
+
+    def _request_to_voxel(
+        self, request_method, folder, company=None, voxel_filename=None, data=None
+    ):
+        login = self.get_voxel_login(company)
+        if not login:
+            raise Exception
+        url = urljoin(login.url, folder)
+        url += url.endswith("/") and "" or "/"
+        response = request_method(
+            url=urljoin(url, voxel_filename or ""),
+            auth=(login.user, login.password),
+            data=data,
+            timeout=VOXEL_REQUEST_TIMEOUT,
+        )
+        _logger.debug("Voxel request response: %s", str(response))
+        if response.status_code != 200:
+            response.raise_for_status()
+        return response
 
     def _servincom_get_voxel_job_description(self):
         self.ensure_one()
