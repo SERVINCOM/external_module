@@ -22,6 +22,7 @@ class VoxelMixin(models.AbstractModel):
                 lambda job: job.state == "failed"
             )[:1]
             if failing_job:
+                record._servincom_mark_voxel_pending()
                 failing_job.voxel_requeue_sudo()
                 continue
             new_delay = (
@@ -34,6 +35,7 @@ class VoxelMixin(models.AbstractModel):
             )
             job = queue_obj.search([("uuid", "=", new_delay.uuid)], limit=1)
             record.voxel_job_ids |= job
+            record._servincom_mark_voxel_pending()
 
     def _get_and_send_voxel_report(self, report):
         self.ensure_one()
@@ -98,6 +100,17 @@ class VoxelMixin(models.AbstractModel):
             )
             parts.append(f"{amount:.2f} {currency}".strip())
         return " - ".join(parts)
+
+    def _servincom_mark_voxel_pending(self):
+        self.ensure_one()
+        if self._name != "account.move":
+            return
+        self.write(
+            {
+                "voxel_state": "pending",
+                "processing_error": False,
+            }
+        )
 
     def _update_voxel_export_status(self, company):
         try:

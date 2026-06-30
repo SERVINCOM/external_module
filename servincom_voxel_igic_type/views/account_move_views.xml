@@ -12,7 +12,7 @@
                     widget="badge"
                     optional="show"
                     decoration-success="voxel_state == 'accepted'"
-                    decoration-warning="voxel_state == 'sent'"
+                    decoration-warning="voxel_state in ('pending', 'sent')"
                     decoration-danger="voxel_state in ('sent_errors', 'processing_error')"
                     decoration-muted="voxel_state in ('not_sent', 'cancelled')"
                 />

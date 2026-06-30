@@ -20,6 +20,10 @@ Voxel queue jobs are created with a readable description including invoice
 number, customer and total amount, making pending or failed jobs easier to
 match with their source invoice.
 
+When an invoice is queued for Voxel export, its Voxel state changes to
+Pending send until the queued job runs and changes it to Sent not verified or
+Sending error.
+
 It affects:
 
 - ProductList/Product/Taxes/Tax

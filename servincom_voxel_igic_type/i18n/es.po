@@ -25,3 +25,8 @@ msgstr "Añade el tipo de impuesto IGIC y conserva el XML de Voxel si falla el e
 #: model_terms:ir.ui.view,arch_db:servincom_voxel_igic_type.view_out_invoice_tree_inherit_voxel_state
 msgid "Estado Voxel"
 msgstr "Estado Voxel"
+
+#. module: servincom_voxel_igic_type
+#: model:ir.model.fields.selection,name:servincom_voxel_igic_type.selection__account_move__voxel_state__pending
+msgid "Pending send"
+msgstr "Pendiente de envío"
