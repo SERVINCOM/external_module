@@ -9,19 +9,19 @@ class ReportVoxelInvoice(models.AbstractModel):
 
     def _get_product_data(self, line):
         product = super()._get_product_data(line)
-        product["Total"] = str(line.currency_id.round(line.price_total))
+        product["Total"] = str(line.currency_id.round(line.price_unit * line.quantity))
         return product
 
     def _get_product_discounts_data(self, line):
         discounts = []
         if line.discount:
             gross_amount = line.price_unit * line.quantity
-            amount = line.currency_id.round(line.price_subtotal - gross_amount)
+            amount = abs(line.currency_id.round(line.price_subtotal - gross_amount))
             discounts.append(
                 {
                     "Qualifier": line.discount > 0.0 and "Descuento" or "Cargo",
                     "Type": line.discount > 0.0 and "Comercial" or "Otro",
-                    "Rate": str(line.discount),
+                    "Rate": str(abs(line.discount)),
                     "Amount": str(amount),
                 }
             )

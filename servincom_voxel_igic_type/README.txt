@@ -10,8 +10,8 @@ report field and as an attachment in the chatter.
 The customer invoice list also shows the Voxel send state before the invoice
 balance column.
 
-Discount amounts are exported as the total discount amount of the invoice line,
-not as the unit discount amount.
+Discount amounts are exported as the positive total discount amount of the
+invoice line, not as the unit discount amount.
 
 Line taxes include base and amount so customer-side validations can reconcile
 line tax totals with the invoice tax summary.
@@ -24,8 +24,9 @@ When an invoice is queued for Voxel export, its Voxel state changes to
 Pending send until the queued job runs and changes it to Sent not verified or
 Sending error.
 
-Product totals are exported with taxes included so the sum of Product.Total
-matches TotalSummary.Total in Bavel validations.
+Product totals are exported as the gross line amount before discounts and
+taxes, matching Bavel FileConnector validations: quantity multiplied by unit
+price.
 
 It affects:
 
