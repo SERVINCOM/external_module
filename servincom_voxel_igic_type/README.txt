@@ -30,6 +30,8 @@ price.
 
 Empty invoice lines that cannot produce a valid Voxel product node are excluded
 from the XML when they do not affect the invoice amount.
+Regular Odoo 18 product lines are kept even when their display type is
+``product``.
 
 It affects:
 

@@ -8,7 +8,9 @@ class ReportVoxelInvoice(models.AbstractModel):
     _inherit = "report.edi_voxel_account_invoice_oca.template_voxel_invoice"
 
     def _is_voxel_exportable_product_line(self, line):
-        if line.display_type:
+        if line.display_type in ("line_section", "line_note"):
+            return False
+        if line.display_type and line.display_type != "product":
             return False
         if not line.product_id and line.currency_id.is_zero(line.price_subtotal):
             return False
@@ -28,6 +30,9 @@ class ReportVoxelInvoice(models.AbstractModel):
 
     def _get_product_data(self, line):
         product = super()._get_product_data(line)
+        fallback_name = line.name or line.product_id.display_name or str(line.id)
+        product["SupplierSKU"] = product.get("SupplierSKU") or fallback_name
+        product["Item"] = product.get("Item") or fallback_name
         product["Total"] = str(line.currency_id.round(line.price_unit * line.quantity))
         return product
 
