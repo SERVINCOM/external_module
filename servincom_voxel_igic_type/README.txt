@@ -28,6 +28,9 @@ Product totals are exported as the gross line amount before discounts and
 taxes, matching Bavel FileConnector validations: quantity multiplied by unit
 price.
 
+Empty invoice lines that cannot produce a valid Voxel product node are excluded
+from the XML when they do not affect the invoice amount.
+
 It affects:
 
 - ProductList/Product/Taxes/Tax

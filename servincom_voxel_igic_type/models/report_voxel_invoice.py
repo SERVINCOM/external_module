@@ -7,6 +7,25 @@ from odoo import models
 class ReportVoxelInvoice(models.AbstractModel):
     _inherit = "report.edi_voxel_account_invoice_oca.template_voxel_invoice"
 
+    def _is_voxel_exportable_product_line(self, line):
+        if line.display_type:
+            return False
+        if not line.product_id and line.currency_id.is_zero(line.price_subtotal):
+            return False
+        return True
+
+    def _get_products_data(self, invoice):
+        return [
+            {
+                "product": self._get_product_data(line),
+                "taxes": self._get_product_taxes_data(line),
+                "discounts": self._get_product_discounts_data(line),
+            }
+            for line in invoice.invoice_line_ids.filtered(
+                self._is_voxel_exportable_product_line
+            )
+        ]
+
     def _get_product_data(self, line):
         product = super()._get_product_data(line)
         product["Total"] = str(line.currency_id.round(line.price_unit * line.quantity))
