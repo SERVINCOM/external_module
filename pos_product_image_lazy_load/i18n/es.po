@@ -1,0 +1,25 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_product_image_lazy_load
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"PO-Revision-Date: 2026-08-30 00:00+0000\n"
+"Last-Translator: SERVINCOM SOLUCIONES, S.L.\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: pos_product_image_lazy_load
+#: code:addons/pos_product_image_lazy_load/__manifest__.py:0
+msgid "Load POS product images only when they approach the visible area"
+msgstr "Carga las imágenes de productos del TPV solo cuando se aproximan al área visible"
+
+#. module: pos_product_image_lazy_load
+#: code:addons/pos_product_image_lazy_load/__manifest__.py:0
+msgid "POS Product Image Lazy Loading"
+msgstr "TPV - Carga diferida de imágenes de producto"
