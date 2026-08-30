@@ -4,7 +4,7 @@
 {
     "name": "POS Product Image Lazy Loading",
     "summary": "Load POS product images only when they approach the visible area",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",
@@ -14,6 +14,7 @@
     "demo": [],
     "assets": {
         "point_of_sale._assets_pos": [
+            "pos_product_image_lazy_load/static/src/app/product_card_image_queue.js",
             "pos_product_image_lazy_load/static/src/xml/product_card.xml",
         ],
     },

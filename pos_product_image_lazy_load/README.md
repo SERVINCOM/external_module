@@ -4,9 +4,9 @@ This Odoo 18 Community addon keeps product images enabled in the Point of Sale
 while reducing the initial burst of image requests.
 
 Odoo renders up to 100 product cards at a time. By default, every card image is
-requested immediately. This addon adds native browser lazy loading and
-asynchronous image decoding to the existing POS product card, so images are
-requested as they approach the visible area.
+requested immediately. This addon observes the existing POS product cards and
+queues their images as they approach the visible area. At most eight images are
+requested concurrently in each browser tab.
 
 ## Configuration
 
@@ -17,12 +17,17 @@ the standard **Show Product Images** option of each Point of Sale.
 
 Install the addon and reopen the POS in a new browser tab. Images for visible
 products load normally, while images below the visible area are deferred until
-the cashier scrolls towards them.
+the cashier scrolls towards them. Changing category cancels pending requests for
+cards that are no longer rendered.
 
 ## Technical scope
 
 - Extends `point_of_sale.ProductCard` through an inherited Owl XML template.
-- Adds `loading="lazy"` and `decoding="async"` to product card images.
+- Uses `IntersectionObserver` to start loading images close to the viewport.
+- Limits active image downloads to eight per browser tab.
+- Cancels queued cards cleanly when Owl unmounts them.
+- Keeps native `loading="lazy"` and asynchronous image decoding as secondary
+  browser optimizations.
 - Does not modify Odoo core, image binaries, products, or POS configuration.
 
 ## Credits
