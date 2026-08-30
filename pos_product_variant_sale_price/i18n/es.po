@@ -1,0 +1,26 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_product_variant_sale_price
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"POT-Creation-Date: 2026-08-30 00:00+0000\n"
+"PO-Revision-Date: 2026-08-30 00:00+0000\n"
+"Last-Translator: SERVINCOM SOLUCIONES, S.L.\n"
+"Language-Team: Spanish\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: pos_product_variant_sale_price
+#: code:addons/pos_product_variant_sale_price/__manifest__.py:0
+msgid "POS Product Variant Sale Price"
+msgstr "TPV - Precio de venta por variante"
+
+#. module: pos_product_variant_sale_price
+#: code:addons/pos_product_variant_sale_price/__manifest__.py:0
+msgid "Make POS validity checks compatible with variant sale prices"
+msgstr "Compatibiliza la validación del TPV con los precios de venta por variante"
