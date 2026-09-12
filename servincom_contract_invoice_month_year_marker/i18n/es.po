@@ -13,18 +13,8 @@ msgstr ""
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: servincom_contract_invoice_month_year_marker
-#: model:ir.module.module,summary:servincom_contract_invoice_month_year_marker
-msgid "Adds the #INVOICEMONTHYEAR# marker to contracts"
-msgstr "Añade el marcador #INVOICEMONTHYEAR# en contratos"
-
-#. module: servincom_contract_invoice_month_year_marker
-#: model:ir.module.module,summary:servincom_contract_invoice_month_year_marker
-msgid "Adds invoice month and year markers to contracts"
-msgstr "Añade marcadores de mes y año de factura en contratos"
 
 #. module: servincom_contract_invoice_month_year_marker
 #: model_terms:ir.ui.view,arch_db:servincom_contract_invoice_month_year_marker.view_contract_customer_form_inherit_invoice_month_year_marker
