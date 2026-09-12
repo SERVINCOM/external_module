@@ -5,6 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2026-09-12 00:00+0000\n"
 "Last-Translator: SERVINCOM SOLUCIONES, S.L.\n"
 "Language-Team: Spanish\n"
@@ -15,145 +16,206 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: survey_question_type_binary
+#. odoo-python
+#: code:addons/survey_question_type_binary/models/survey_user_input_line.py:0
+#, python-format
 msgid "%s File(s)"
 msgstr "%s archivo(s)"
 
 #. module: survey_question_type_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.survey_question_form_inherit_question_type_binary
 msgid "<i class=\"fa fa-upload fa-2x\" title=\"upload\"/> Upload binary"
 msgstr "<i class=\"fa fa-upload fa-2x\" title=\"upload\"/> Subir archivo"
 
 #. module: survey_question_type_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.survey_user_input_line_view_form_inherit_question_type_binary
 msgid "<strong>Filename: </strong>"
 msgstr "<strong>Nombre del archivo: </strong>"
 
 #. module: survey_question_type_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.survey_user_input_line_view_form_inherit_question_type_binary
 msgid "<strong>MIME Type: </strong>"
 msgstr "<strong>Tipo MIME: </strong>"
 
 #. module: survey_question_type_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.survey_user_input_line_view_form_inherit_question_type_binary
 msgid "<strong>Size: </strong>"
 msgstr "<strong>Tamaño: </strong>"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_question__allowed_filemimetypes
 msgid "Allowed Filemimetypes"
 msgstr "Tipos de archivo permitidos"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line__answer_binary_ids
 msgid "Answer Binary"
 msgstr "Archivo de respuesta"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line__answer_type
 msgid "Answer Type"
 msgstr "Tipo de respuesta"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields.selection,name:survey_question_type_binary.selection__survey_question__question_type__binary
+#: model:ir.model.fields.selection,name:survey_question_type_binary.selection__survey_user_input_line__answer_type__binary
 msgid "Binary"
 msgstr "Archivo"
 
 #. module: survey_question_type_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.survey_user_input_line_view_form_inherit_question_type_binary
 msgid "Contact image"
 msgstr "Imagen"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: survey_question_type_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.survey_user_input_line_view_form_inherit_question_type_binary
 msgid "Document"
 msgstr "Documento"
 
 #. module: survey_question_type_binary
-msgid "File mime types separated by commas (E.g: image/png,image/jpeg). Leave empty to allow any value."
-msgstr "Tipos MIME separados por comas (por ejemplo, image/png,image/jpeg). Déjelo vacío para permitir cualquier tipo."
+#: model:ir.model.fields,help:survey_question_type_binary.field_survey_question__allowed_filemimetypes
+msgid ""
+"File mime types separated by commas (E.g: image/png,image/jpeg). Leave empty "
+"to allow any value."
+msgstr ""
+"Tipos MIME separados por comas (por ejemplo, image/png,image/jpeg). Déjelo "
+"vacío para permitir cualquier tipo."
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__filename
 msgid "Filename"
 msgstr "Nombre del archivo"
 
 #. module: survey_question_type_binary
-msgid "Indicate maximum file size in bytes (Default 10MB). Leave empty to allow any value."
-msgstr "Indique el tamaño máximo en bytes (10 MB de forma predeterminada). Déjelo vacío para no limitarlo."
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__id
+msgid "ID"
+msgstr ""
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,help:survey_question_type_binary.field_survey_question__max_filesize
+msgid ""
+"Indicate maximum file size in bytes (Default 10MB). Leave empty to allow any "
+"value."
+msgstr ""
+"Indique el tamaño máximo en bytes (10 MB de forma predeterminada). Déjelo "
+"vacío para no limitarlo."
+
+#. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__input_line_id
 msgid "Input Line"
 msgstr "Línea de respuesta"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__is_binary_image
 msgid "Is Binary Image"
 msgstr "Es una imagen"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_question__max_filesize
 msgid "Max Filesize"
 msgstr "Tamaño máximo del archivo"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields.selection,name:survey_question_type_binary.selection__survey_user_input_line__answer_type__multi_binary
 msgid "Multi: Binary"
 msgstr "Varios archivos"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields.selection,name:survey_question_type_binary.selection__survey_question__question_type__multi_binary
 msgid "Multiple: Binary"
 msgstr "Varios archivos"
 
 #. module: survey_question_type_binary
+#. odoo-python
+#: code:addons/survey_question_type_binary/models/survey_question.py:0
+#: code:addons/survey_question_type_binary/models/survey_user_input_line.py:0
+#, python-format
 msgid "Only files with {} mime types are allowed."
 msgstr "Solo se permiten archivos con los tipos MIME {}."
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_question__question_type
 msgid "Question Type"
 msgstr "Tipo de pregunta"
 
 #. module: survey_question_type_binary
+#: model:ir.model,name:survey_question_type_binary.model_survey_question
 msgid "Survey Question"
 msgstr "Pregunta de la encuesta"
 
 #. module: survey_question_type_binary
+#: model:ir.model,name:survey_question_type_binary.model_survey_user_input
 msgid "Survey User Input"
 msgstr "Participación en la encuesta"
 
 #. module: survey_question_type_binary
+#: model:ir.model,name:survey_question_type_binary.model_survey_user_input_line
 msgid "Survey User Input Line"
 msgstr "Línea de respuesta de la encuesta"
 
 #. module: survey_question_type_binary
+#: model:ir.model,name:survey_question_type_binary.model_survey_user_input_line_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.view_survey_user_input_line_binary_form
 msgid "Survey User Input Line Binary"
 msgstr "Archivo de respuesta de la encuesta"
 
 #. module: survey_question_type_binary
+#. odoo-python
+#: code:addons/survey_question_type_binary/models/survey_user_input_line.py:0
+#, python-format
 msgid "The answer must be in the right type"
 msgstr "La respuesta debe tener el tipo correcto"
 
 #. module: survey_question_type_binary
+#. odoo-python
+#: code:addons/survey_question_type_binary/models/survey_question.py:0
+#: code:addons/survey_question_type_binary/models/survey_user_input_line.py:0
+#, python-format
 msgid "The file cannot exceed {}MB in size."
 msgstr "El archivo no puede superar {} MB."
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__value_binary
 msgid "Value Binary"
 msgstr "Archivo"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__value_binary_size
 msgid "Value Binary Size"
 msgstr "Tamaño del archivo"
 
 #. module: survey_question_type_binary
+#: model:ir.model.fields,field_description:survey_question_type_binary.field_survey_user_input_line_binary__value_binary_type
 msgid "Value Binary Type"
 msgstr "Tipo del archivo"
 
 #. module: survey_question_type_binary
+#: model_terms:ir.ui.view,arch_db:survey_question_type_binary.survey_user_input_line_view_form_inherit_question_type_binary
 msgid "bytes"
 msgstr "bytes"
