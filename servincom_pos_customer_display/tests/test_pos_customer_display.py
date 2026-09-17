@@ -1,0 +1,23 @@
+# Copyright 2026 SERVINCOM SOLUCIONES, S.L.
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+from odoo.tests.common import TransactionCase
+
+
+class TestPosCustomerDisplay(TransactionCase):
+    def test_background_is_available_as_data_uri(self):
+        image = (
+            b"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwC"
+            b"AAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="
+        )
+        config = self.env["pos.config"].new(
+            {"servincom_customer_display_background": image}
+        )
+
+        config._compute_servincom_customer_display_background_uri()
+
+        self.assertTrue(
+            config.servincom_customer_display_background_uri.startswith(
+                "data:image/png;base64,"
+            )
+        )

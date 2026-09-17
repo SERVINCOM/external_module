@@ -1,0 +1,117 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body .o_servincom_customer_display {
+    background-color: #d9e3e7;
+    background-image: url("../img/customer_display_background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #253238;
+}
+
+body .o_servincom_customer_display .pos-customer_products {
+    width: 66%;
+    padding: 2.25vw;
+    background-color: rgba(248, 250, 249, 0.91) !important;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+body .o_servincom_customer_display .pos-payment_info {
+    max-width: 34%;
+    padding: 2.4vw 2.6vw 2vw;
+    background-color: rgba(20, 28, 31, 0.78) !important;
+    box-shadow: -0.6vw 0 2vw rgba(14, 20, 22, 0.18);
+    color: #ffffff;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+body .o_servincom_customer_display .pos_orderlines .pos_orderlines_item.pos_orderlines_header {
+    color: #32434a;
+}
+
+body .o_servincom_customer_display .pos_orderlines .pos_orderlines_list .pos_orderlines_item {
+    min-height: 5.8vw;
+    margin-bottom: 0.75vw;
+    padding: 1.2%;
+    border: 1px solid rgba(54, 74, 82, 0.12);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 0.25vw 0.8vw rgba(35, 49, 54, 0.08);
+    color: #253238;
+}
+
+body .o_servincom_customer_display .pos_orderlines .pos_orderlines_item > div:nth-child(2) {
+    border-color: rgba(37, 50, 56, 0.18);
+}
+
+body .o_servincom_customer_display .pos-payment_info .pos-company_logo {
+    min-height: 9vw;
+    margin-bottom: 1.8vw;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.94);
+    background-position: center;
+    background-size: 74% auto;
+    box-shadow: 0 0.45vw 1.2vw rgba(0, 0, 0, 0.12);
+}
+
+body .o_servincom_customer_display .o_servincom_customer_display_message {
+    margin: 0 auto auto;
+    padding: 0 1vw;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.4vw;
+    line-height: 1.35;
+    text-align: center;
+}
+
+body .o_servincom_customer_display .pos-payment_info_details {
+    padding-top: 1.5vw;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total {
+    font-size: 2.2vw;
+}
+
+body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total .pos_total-amount {
+    font-size: 2.8vw;
+}
+
+body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-paymentlines {
+    margin-top: 1vw;
+    font-size: 1.35vw;
+}
+
+body .o_servincom_customer_display .pos-odoo_logo_container {
+    display: none;
+}
+
+@media all and (orientation: portrait) {
+    body .o_servincom_customer_display .pos-customer_products {
+        width: 100%;
+        background-color: rgba(248, 250, 249, 0.93) !important;
+    }
+
+    body .o_servincom_customer_display .pos-payment_info {
+        width: 100%;
+        max-width: 100%;
+        padding: 2.5vh 3vw;
+    }
+
+    body .o_servincom_customer_display .pos-payment_info .pos-company_logo {
+        min-height: 10vh;
+        margin: 0 3vw 0 0;
+        background-size: 78% auto;
+    }
+
+    body .o_servincom_customer_display .o_servincom_customer_display_message {
+        display: none;
+    }
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t
+        t-name="servincom_pos_customer_display.CustomerFacingDisplayHead"
+        t-inherit="CustomerFacingDisplayHead"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//link[last()]" position="after">
+            <link
+                rel="stylesheet"
+                type="text/css"
+                t-att-href="origin + '/servincom_pos_customer_display/static/src/css/customer_display.css'"
+            />
+        </xpath>
+    </t>
+
+    <t
+        t-name="servincom_pos_customer_display.CustomerFacingDisplayOrder"
+        t-inherit="CustomerFacingDisplayOrder"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('pos-customer_facing_display')]" position="attributes">
+            <attribute name="class">pos-customer_facing_display pos-palette_01 o_servincom_customer_display</attribute>
+            <attribute name="t-att-style">
+                pos.config.servincom_customer_display_background_uri and
+                ('background-image: url(' + pos.config.servincom_customer_display_background_uri + ');')
+            </attribute>
+        </xpath>
+
+        <xpath expr="//div[@name='Products list']" position="attributes">
+            <attribute name="t-if">order and order.get_orderlines().length</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-payment_info')]" position="attributes">
+            <attribute name="t-att-style">
+                (not order or not order.get_orderlines().length) and
+                'max-width: 100%; width: 100%; background-color: rgba(20, 28, 31, 0.42) !important;'
+            </attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-company_logo')]" position="after">
+            <div
+                t-if="pos.config.servincom_customer_display_message"
+                class="o_servincom_customer_display_message"
+            >
+                <t t-esc="pos.config.servincom_customer_display_message"/>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-company_logo')]" position="attributes">
+            <attribute name="t-if">pos.config.servincom_customer_display_show_logo</attribute>
+        </xpath>
+    </t>
+
+</templates>

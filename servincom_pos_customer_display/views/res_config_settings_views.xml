@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_pos_customer_display" model="ir.ui.view">
+        <field name="name">res.config.settings.form.pos.customer.display</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='customer_display']/div[hasclass('o_setting_right_pane')]" position="inside">
+                <div class="content-group mt16">
+                    <div class="row mb8">
+                        <label
+                            for="pos_servincom_customer_display_background"
+                            string="Custom background"
+                            class="col-lg-4 o_light_label"
+                        />
+                        <field
+                            name="pos_servincom_customer_display_background"
+                            widget="image"
+                            class="oe_avatar"
+                            options="{'preview_image': 'pos_servincom_customer_display_background'}"
+                        />
+                    </div>
+                    <div class="row">
+                        <label
+                            for="pos_servincom_customer_display_message"
+                            string="Commercial message"
+                            class="col-lg-4 o_light_label"
+                        />
+                        <field
+                            name="pos_servincom_customer_display_message"
+                            placeholder="Thank you for your visit"
+                        />
+                    </div>
+                    <div class="row mt8">
+                        <label
+                            for="pos_servincom_customer_display_show_logo"
+                            string="Show logo over background"
+                            class="col-lg-4 o_light_label"
+                        />
+                        <field name="pos_servincom_customer_display_show_logo"/>
+                    </div>
+                    <div class="text-muted mt8">
+                        If no image is selected, the background included by SERVINCOM is used.
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
