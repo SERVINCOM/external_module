@@ -5,6 +5,14 @@ from odoo.tests.common import TransactionCase
 
 
 class TestPosCustomerDisplay(TransactionCase):
+    def test_pos_asset_bundle_compiles(self):
+        self.env["ir.qweb"]._get_asset_nodes(
+            "point_of_sale.assets",
+            css=False,
+            js=True,
+            debug=False,
+        )
+
     def test_background_is_available_as_data_uri(self):
         image = (
             b"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwC"

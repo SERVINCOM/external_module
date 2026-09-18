@@ -3,7 +3,7 @@
 
     <t
         t-name="servincom_pos_customer_display.CustomerFacingDisplayHead"
-        t-inherit="CustomerFacingDisplayHead"
+        t-inherit="point_of_sale.CustomerFacingDisplayHead"
         t-inherit-mode="extension"
     >
         <xpath expr="//link[last()]" position="after">
@@ -17,7 +17,7 @@
 
     <t
         t-name="servincom_pos_customer_display.CustomerFacingDisplayOrder"
-        t-inherit="CustomerFacingDisplayOrder"
+        t-inherit="point_of_sale.CustomerFacingDisplayOrder"
         t-inherit-mode="extension"
     >
         <xpath expr="//div[hasclass('pos-customer_facing_display')]" position="attributes">
