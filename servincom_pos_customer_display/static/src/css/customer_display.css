@@ -96,26 +96,36 @@ body .o_servincom_customer_display .pos-payment_info_details {
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total {
-    flex-wrap: nowrap;
-    gap: 1vw;
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 1vw;
+    width: 100%;
     font-size: 2.2vw;
 }
 
-body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total > div:first-child {
-    flex: 0 0 auto;
+body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total > div {
+    width: auto;
+    min-width: 0;
+    flex: none;
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total > div:last-child {
+    display: flex;
+    justify-content: flex-end;
     min-width: 0;
-    flex: 1 1 auto;
     text-align: right;
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total .pos_total-amount {
-    display: block;
+    display: inline-block;
+    width: max-content;
+    max-width: none;
+    flex: 0 0 auto;
     font-size: 2.8vw;
     font-variant-numeric: tabular-nums;
-    white-space: nowrap;
+    line-height: 1.05;
+    white-space: nowrap !important;
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-paymentlines {
