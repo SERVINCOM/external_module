@@ -1,7 +1,10 @@
 # Copyright 2026 SERVINCOM SOLUCIONES, S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from lxml import etree
+
 from odoo.tests.common import TransactionCase
+from odoo.tools import file_open
 
 
 class TestPosCustomerDisplay(TransactionCase):
@@ -37,4 +40,22 @@ class TestPosCustomerDisplay(TransactionCase):
             config.servincom_customer_display_sales_logo_uri.startswith(
                 "data:image/png;base64,"
             )
+        )
+
+    def test_sales_logo_replaces_standard_company_logo_style(self):
+        template_path = (
+            "servincom_pos_customer_display/static/src/xml/"
+            "customer_display_templates.xml"
+        )
+        with file_open(template_path, "rb") as template_file:
+            template = etree.parse(template_file)
+
+        logo_attributes = template.xpath(
+            "//xpath[@expr=\"//div[hasclass('pos-company_logo')]\"]"
+            "/attribute[@name='t-attf-style']"
+        )
+        self.assertEqual(len(logo_attributes), 1)
+        self.assertIn(
+            "servincom_customer_display_sales_logo_uri",
+            "".join(logo_attributes[0].itertext()),
         )

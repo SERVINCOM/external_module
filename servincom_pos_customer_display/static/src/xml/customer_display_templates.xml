@@ -47,9 +47,8 @@
 
         <xpath expr="//div[hasclass('pos-company_logo')]" position="attributes">
             <attribute name="t-if">pos.config.servincom_customer_display_sales_logo_uri</attribute>
-            <attribute name="t-att-style">
-                pos.config.servincom_customer_display_sales_logo_uri and
-                ('background-image: url(' + pos.config.servincom_customer_display_sales_logo_uri + ');')
+            <attribute name="t-attf-style">
+                background-image:url(#{pos.config.servincom_customer_display_sales_logo_uri})
             </attribute>
         </xpath>
     </t>
