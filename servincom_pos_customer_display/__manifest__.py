@@ -4,7 +4,7 @@
 {
     "name": "SERVINCOM POS Customer Display",
     "summary": "Improved and configurable POS customer-facing display",
-    "version": "16.0.1.2.0",
+    "version": "16.0.1.3.0",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",

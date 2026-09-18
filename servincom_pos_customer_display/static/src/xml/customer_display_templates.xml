@@ -10,7 +10,7 @@
             <link
                 rel="stylesheet"
                 type="text/css"
-                t-att-href="origin + '/servincom_pos_customer_display/static/src/css/customer_display.css?v=16.0.1.2.0'"
+                t-att-href="origin + '/servincom_pos_customer_display/static/src/css/customer_display.css?v=16.0.1.3.0'"
             />
         </xpath>
     </t>
