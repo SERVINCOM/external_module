@@ -72,6 +72,8 @@ body .o_servincom_customer_display .o_servincom_customer_display_message {
 }
 
 body .o_servincom_customer_display .pos-payment_info_details {
+    width: 100%;
+    margin-top: auto;
     padding-top: 1.5vw;
     border-top: 1px solid rgba(255, 255, 255, 0.35);
 }

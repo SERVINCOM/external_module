@@ -7,7 +7,7 @@ la información de compra se presente sobre un fondo visual cuidado y legible.
 
 - Sustituir el gran bloque oscuro del visor estándar por una composición más clara.
 - Mostrar un fondo a pantalla completa con paneles translúcidos para productos y totales.
-- Mantener visibles el logotipo de la compañía, el total, los pagos y el cambio.
+- Mostrar el resumen de total, pagos y cambio en la zona inferior durante la venta.
 - Permitir un fondo y un mensaje comercial distintos para cada Punto de Venta.
 - Mantener intactos los flujos de venta, cliente, pago, reembolso y cierre de sesión.
 
@@ -29,12 +29,14 @@ preferiblemente JPEG o WebP y de menos de 1 MB.
 
 Desde el TPV, pulse el icono de pantalla del cliente. El visor se abre en una
 ventana independiente que puede trasladarse a la pantalla anexa. Sin líneas de
-pedido se prioriza el fondo; al añadir productos aparecen la lista y el resumen
-de pago sobre paneles de alto contraste.
+pedido se muestra el fondo completo, nítido y sin totales superpuestos; al añadir
+productos aparecen la lista y el resumen de pago en la parte inferior sobre
+paneles de alto contraste.
 
 ## Pruebas
 
-- Abrir el visor con el pedido vacío y comprobar fondo, logotipo, mensaje y total.
+- Abrir el visor con el pedido vacío y comprobar que el fondo se muestra completo,
+  nítido y sin totales superpuestos.
 - Añadir uno y varios productos y revisar nombre, cantidad, precio y desplazamiento.
 - Añadir líneas de pago y comprobar total, métodos de pago y cambio.
 - Probar una imagen personalizada y volver después al fondo predeterminado.
