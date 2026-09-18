@@ -34,7 +34,7 @@
 
         <xpath expr="//div[hasclass('pos-payment_info')]" position="attributes">
             <attribute name="t-att-style">
-                (not order or not order.get_orderlines().length) and
+                (!order or !order.get_orderlines().length) and
                 'max-width: 100%; width: 100%; background-color: rgba(20, 28, 31, 0.42) !important;'
             </attribute>
         </xpath>
