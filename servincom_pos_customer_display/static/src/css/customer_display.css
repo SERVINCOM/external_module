@@ -50,16 +50,33 @@ body .o_servincom_customer_display .pos_orderlines .pos_orderlines_list .pos_ord
 
 body .o_servincom_customer_display .pos_orderlines .pos_orderlines_item > div:nth-child(2) {
     border-color: rgba(37, 50, 56, 0.18);
+    min-width: 0;
+}
+
+body .o_servincom_customer_display .pos_orderlines .pos_orderlines_item > div:nth-child(3) {
+    width: 12%;
+    flex: 0 0 12%;
+}
+
+body .o_servincom_customer_display .pos_orderlines .pos_orderlines_item > div:last-child {
+    width: 19%;
+    flex: 0 0 19%;
+    margin-right: 0;
+    font-size: clamp(1rem, 1.55vw, 2rem);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-company_logo {
-    min-height: 9vw;
-    margin-bottom: 1.8vw;
-    border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.94);
+    min-height: 7vw;
+    max-height: 8vw;
+    margin-bottom: 1.4vw;
+    border: 0;
+    background-color: transparent;
     background-position: center;
-    background-size: 74% auto;
-    box-shadow: 0 0.45vw 1.2vw rgba(0, 0, 0, 0.12);
+    background-size: contain;
+    box-shadow: none;
 }
 
 body .o_servincom_customer_display .o_servincom_customer_display_message {
@@ -79,16 +96,36 @@ body .o_servincom_customer_display .pos-payment_info_details {
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total {
+    flex-wrap: nowrap;
+    gap: 1vw;
     font-size: 2.2vw;
 }
 
+body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total > div:first-child {
+    flex: 0 0 auto;
+}
+
+body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total > div:last-child {
+    min-width: 0;
+    flex: 1 1 auto;
+    text-align: right;
+}
+
 body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-total .pos_total-amount {
+    display: block;
     font-size: 2.8vw;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-paymentlines {
     margin-top: 1vw;
     font-size: 1.35vw;
+}
+
+body .o_servincom_customer_display .pos-payment_info .pos-payment_info_details .pos-paymentlines > div:nth-child(even) {
+    text-align: right;
+    white-space: nowrap;
 }
 
 body .o_servincom_customer_display .pos-odoo_logo_container {

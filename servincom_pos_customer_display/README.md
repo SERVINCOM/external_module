@@ -18,7 +18,9 @@ la información de compra se presente sobre un fondo visual cuidado y legible.
 3. Seleccione el Punto de Venta que desea configurar.
 4. En **Dispositivos conectados > Pantalla del cliente**, active el visor local.
 5. Opcionalmente, cargue un fondo personalizado y escriba el mensaje comercial.
-6. Si el fondo ya contiene el logotipo, desactive **Mostrar logotipo sobre el fondo**.
+6. Opcionalmente, cargue en **Logotipo del panel de venta** una imagen preparada
+   para identificar la empresa mientras se muestran productos y totales. Puede
+   utilizar un PNG transparente o una imagen con su propio fondo y contraste.
 7. Guarde los ajustes y abra una sesión nueva del TPV.
 
 Si no se carga un fondo personalizado, el módulo utiliza la imagen incluida por
@@ -39,7 +41,10 @@ paneles de alto contraste.
   nítido y sin totales superpuestos.
 - Añadir uno y varios productos y revisar nombre, cantidad, precio y desplazamiento.
 - Añadir líneas de pago y comprobar total, métodos de pago y cambio.
+- Probar importes de una, dos, tres y cuatro cifras y comprobar que el símbolo
+  monetario permanece en la misma línea.
 - Probar una imagen personalizada y volver después al fondo predeterminado.
+- Probar un logotipo específico para el panel de venta, con y sin transparencia.
 - Comprobar el visor en pantalla horizontal y vertical.
 - Confirmar que producto, cliente, pago, pedidos, reembolso y cierre no cambian.
 

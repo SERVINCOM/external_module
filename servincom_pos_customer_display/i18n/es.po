@@ -45,19 +45,16 @@ msgid "Commercial message"
 msgstr "Mensaje comercial"
 
 #. module: servincom_pos_customer_display
-#: model:ir.model.fields,field_description:servincom_pos_customer_display.field_pos_config__servincom_customer_display_show_logo
-msgid "Show company logo over the background"
-msgstr "Mostrar el logotipo de la empresa sobre el fondo"
-
-#. module: servincom_pos_customer_display
-#: model:ir.model.fields,help:servincom_pos_customer_display.field_pos_config__servincom_customer_display_show_logo
-msgid "Disable this option when the custom background already includes the logo."
-msgstr "Desactive esta opción cuando el fondo personalizado ya incluya el logotipo."
-
-#. module: servincom_pos_customer_display
+#: model:ir.model.fields,field_description:servincom_pos_customer_display.field_pos_config__servincom_customer_display_sales_logo
+#: model:ir.model.fields,field_description:servincom_pos_customer_display.field_res_config_settings__pos_servincom_customer_display_sales_logo
 #: model_terms:ir.ui.view,arch_db:servincom_pos_customer_display.res_config_settings_view_form_pos_customer_display
-msgid "Show logo over background"
-msgstr "Mostrar logotipo sobre el fondo"
+msgid "Sales panel logo"
+msgstr "Logotipo del panel de venta"
+
+#. module: servincom_pos_customer_display
+#: model:ir.model.fields,help:servincom_pos_customer_display.field_pos_config__servincom_customer_display_sales_logo
+msgid "Optional image displayed in the summary panel while a sale is active. Use a transparent image or include its final background in the image."
+msgstr "Imagen opcional mostrada en el panel de resumen mientras hay una venta activa. Utilice una imagen transparente o incluya en ella su fondo definitivo."
 
 #. module: servincom_pos_customer_display
 #: model_terms:ir.ui.view,arch_db:servincom_pos_customer_display.res_config_settings_view_form_pos_customer_display

@@ -22,10 +22,17 @@ class PosConfig(models.Model):
         translate=True,
         help="Message displayed next to the company logo on the customer screen.",
     )
-    servincom_customer_display_show_logo = fields.Boolean(
-        string="Show company logo over the background",
-        default=True,
-        help="Disable this option when the custom background already includes the logo.",
+    servincom_customer_display_sales_logo = fields.Image(
+        string="Sales panel logo",
+        max_width=1024,
+        max_height=512,
+        help=(
+            "Optional image displayed in the summary panel while a sale is active. "
+            "Use a transparent image or include its final background in the image."
+        ),
+    )
+    servincom_customer_display_sales_logo_uri = fields.Char(
+        compute="_compute_servincom_customer_display_sales_logo_uri",
     )
 
     @api.depends("servincom_customer_display_background")
@@ -34,5 +41,14 @@ class PosConfig(models.Model):
             config.servincom_customer_display_background_uri = (
                 image_data_uri(config.servincom_customer_display_background)
                 if config.servincom_customer_display_background
+                else False
+            )
+
+    @api.depends("servincom_customer_display_sales_logo")
+    def _compute_servincom_customer_display_sales_logo_uri(self):
+        for config in self:
+            config.servincom_customer_display_sales_logo_uri = (
+                image_data_uri(config.servincom_customer_display_sales_logo)
+                if config.servincom_customer_display_sales_logo
                 else False
             )

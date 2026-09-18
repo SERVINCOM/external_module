@@ -9,6 +9,7 @@ class PosSession(models.Model):
 
     def _get_pos_ui_pos_config(self, params):
         config = super()._get_pos_ui_pos_config(params)
-        # The data URI is already present; avoid sending the same image twice.
+        # Data URIs are already present; avoid sending the same images twice.
         config.pop("servincom_customer_display_background", None)
+        config.pop("servincom_customer_display_sales_logo", None)
         return config

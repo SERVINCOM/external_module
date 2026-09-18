@@ -15,7 +15,7 @@ class ResConfigSettings(models.TransientModel):
         related="pos_config_id.servincom_customer_display_message",
         readonly=False,
     )
-    pos_servincom_customer_display_show_logo = fields.Boolean(
-        related="pos_config_id.servincom_customer_display_show_logo",
+    pos_servincom_customer_display_sales_logo = fields.Image(
+        related="pos_config_id.servincom_customer_display_sales_logo",
         readonly=False,
     )

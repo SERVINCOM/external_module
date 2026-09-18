@@ -33,11 +33,16 @@
                     </div>
                     <div class="row mt8">
                         <label
-                            for="pos_servincom_customer_display_show_logo"
-                            string="Show logo over background"
+                            for="pos_servincom_customer_display_sales_logo"
+                            string="Sales panel logo"
                             class="col-lg-4 o_light_label"
                         />
-                        <field name="pos_servincom_customer_display_show_logo"/>
+                        <field
+                            name="pos_servincom_customer_display_sales_logo"
+                            widget="image"
+                            class="oe_avatar"
+                            options="{'preview_image': 'pos_servincom_customer_display_sales_logo'}"
+                        />
                     </div>
                     <div class="text-muted mt8">
                         If no image is selected, the background included by SERVINCOM is used.
