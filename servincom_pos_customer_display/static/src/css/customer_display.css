@@ -71,8 +71,11 @@ body .o_servincom_customer_display .pos_orderlines .pos_orderlines_item > div:la
 }
 
 body .o_servincom_customer_display .pos-payment_info .pos-company_logo {
-    min-height: 7vw;
-    max-height: 8vw;
+    width: 100%;
+    height: clamp(10rem, 12.5vw, 14rem);
+    min-height: clamp(10rem, 12.5vw, 14rem);
+    max-height: 14rem;
+    flex: 0 0 auto;
     margin-bottom: 1.4vw;
     border: 0;
     background-color: transparent;
@@ -157,7 +160,9 @@ body .o_servincom_customer_display .pos-odoo_logo_container {
     }
 
     body .o_servincom_customer_display .pos-payment_info .pos-company_logo {
-        min-height: 10vh;
+        height: clamp(8rem, 14vh, 12rem);
+        min-height: clamp(8rem, 14vh, 12rem);
+        max-height: 12rem;
         margin: 0 3vw 0 0;
         background-size: 78% auto;
     }

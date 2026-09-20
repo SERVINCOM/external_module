@@ -59,3 +59,27 @@ class TestPosCustomerDisplay(TransactionCase):
             "servincom_customer_display_sales_logo_uri",
             "".join(logo_attributes[0].itertext()),
         )
+
+    def test_sales_logo_uses_prominent_responsive_size(self):
+        css_path = (
+            "servincom_pos_customer_display/static/src/css/"
+            "customer_display.css"
+        )
+        with file_open(css_path, "r") as css_file:
+            css = css_file.read()
+
+        self.assertIn("height: clamp(10rem, 12.5vw, 14rem);", css)
+        self.assertIn("max-height: 14rem;", css)
+
+        template_path = (
+            "servincom_pos_customer_display/static/src/xml/"
+            "customer_display_templates.xml"
+        )
+        with file_open(template_path, "rb") as template_file:
+            template = etree.parse(template_file)
+
+        stylesheet_hrefs = template.xpath("//link/@t-att-href")
+        expected_stylesheet = "customer_display.css?v=16.0.1.3.2"
+        self.assertTrue(
+            any(expected_stylesheet in href for href in stylesheet_hrefs)
+        )
