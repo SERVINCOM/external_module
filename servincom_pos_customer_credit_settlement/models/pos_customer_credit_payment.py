@@ -289,6 +289,54 @@ class PosCustomerCreditPayment(models.Model):
             "partner_id": partner.id,
             "remaining_due": partner.pos_credit_total_due,
             "lines": self.pos_get_credit_lines(partner.id),
+            "receipt": payment._get_pos_receipt_data(),
+        }
+
+    def _get_pos_receipt_data(self):
+        self.ensure_one()
+        payment_date = fields.Datetime.context_timestamp(self, self.payment_date)
+        remaining_due = self.partner_id.pos_credit_total_due
+        company = self.company_id
+        address = " ".join(
+            filter(
+                None,
+                [
+                    company.street,
+                    company.street2,
+                    company.zip,
+                    company.city,
+                ],
+            )
+        )
+        return {
+            "name": self.name,
+            "date_time": payment_date.strftime("%d/%m/%Y %H:%M:%S"),
+            "company_name": company.name,
+            "company_vat": company.vat or "",
+            "company_address": address,
+            "company_phone": company.phone or "",
+            "company_email": company.email or "",
+            "company_website": company.website or "",
+            "pos_name": self.config_id.display_name,
+            "session_name": self.session_id.name,
+            "cashier_name": self.create_uid.name,
+            "partner_name": self.partner_id.display_name,
+            "partner_reference": self.partner_id.vat or self.partner_id.ref or "",
+            "payment_method_name": self.payment_method_id.name,
+            "amount": self.amount,
+            "remaining_due": remaining_due,
+            "status": _("Pagado totalmente")
+            if float_is_zero(
+                remaining_due, precision_rounding=self.currency_id.rounding
+            )
+            else _("Pago parcial"),
+            "tickets": [
+                {
+                    "name": line.credit_line_id.pos_order_id.name,
+                    "amount": line.amount,
+                }
+                for line in self.line_ids.sorted("id")
+            ],
         }
 
     def _create_account_payment_if_possible(self):

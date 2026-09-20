@@ -1,0 +1,19 @@
+.pos .close-pos-popup .servincom-closing-breakdown-label,
+.pos .close-pos-popup .servincom-closing-breakdown-amount {
+    color: #6b7280;
+    font-size: 0.82em;
+    line-height: 1.35;
+    padding-top: 4px;
+}
+
+.pos .close-pos-popup .servincom-closing-method-cell {
+    vertical-align: top;
+}
+
+.pos .close-pos-popup .servincom-closing-breakdown-label {
+    white-space: normal;
+}
+
+.pos .close-pos-popup .servincom-closing-breakdown-amount {
+    white-space: nowrap;
+}

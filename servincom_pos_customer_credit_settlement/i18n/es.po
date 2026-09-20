@@ -25,3 +25,63 @@ msgstr "Cobro de deuda de cliente TPV"
 #: model:ir.model,name:servincom_pos_customer_credit_settlement.model_pos_customer_credit_payment_line
 msgid "POS Customer Credit Payment Line"
 msgstr "Línea de cobro de deuda de cliente TPV"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Número de cobros deuda clientes"
+msgstr "Número de cobros deuda clientes"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Pagado totalmente"
+msgstr "Pagado totalmente"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Pago parcial"
+msgstr "Pago parcial"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Justificante de cobro de deuda"
+msgstr "Justificante de cobro de deuda"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Reimprimir último justificante"
+msgstr "Reimprimir último justificante"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "El justificante se ha impreso de nuevo."
+msgstr "El justificante se ha impreso de nuevo."
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "El justificante se ha impreso."
+msgstr "El justificante se ha impreso."
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "No se pudo imprimir el justificante"
+msgstr "No se pudo imprimir el justificante"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "No hay una impresora de recibos disponible."
+msgstr "No hay una impresora de recibos disponible."
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "La impresora no devolvió una confirmación válida."
+msgstr "La impresora no devolvió una confirmación válida."
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "El cobro está registrado, pero no se pudo imprimir el justificante: "
+msgstr "El cobro está registrado, pero no se pudo imprimir el justificante: "
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Documento justificativo del cobro realizado"
+msgstr "Documento justificativo del cobro realizado"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Tickets abonados"
+msgstr "Tickets abonados"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Total cobrado"
+msgstr "Total cobrado"
+
+#. module: servincom_pos_customer_credit_settlement
+msgid "Pendiente del cliente"
+msgstr "Pendiente del cliente"

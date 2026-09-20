@@ -58,6 +58,7 @@ class PosSession(models.Model):
                 "cash_out_total": cash_out_total,
                 "payment_amount": default_cash_details.get("payment_amount", 0.0),
                 "moves": cash_moves,
+                "breakdown": default_cash_details.get("servincom_breakdown") or {},
             },
             "payment_methods": self._servincom_get_closing_payment_methods(
                 closing_data, payment_states, counted_values
@@ -119,6 +120,7 @@ class PosSession(models.Model):
                         payment_state, counted, expected
                     ),
                     "show_counted": show_counted,
+                    "breakdown": payment_method.get("servincom_breakdown") or {},
                 }
             )
         return payment_methods

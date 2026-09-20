@@ -54,6 +54,10 @@ El popup permite:
 * cobrar el total seleccionado o un importe parcial;
 * elegir un método real de cobro;
 * impedir que el método de cobro sea otro método de crédito.
+* imprimir automáticamente un justificante del cobro con cliente,
+  tickets abonados, método, importe y deuda pendiente;
+* reimprimir el último justificante desde el mismo popup si la impresora
+  falla o el cliente solicita otra copia.
 
 El importe cobrado se aplica a los tickets seleccionados por orden de
 fecha más antigua primero.
@@ -91,6 +95,12 @@ Los cobros de deuda por banco o tarjeta también se suman al importe
 esperado de su método real en el cierre de la sesión. De este modo, por
 ejemplo, un cobro realizado con ``Datáfono C7`` aparece en esa misma fila
 del control de cierre sin crear una venta ni alterar el total de pedidos.
+
+El dato de cierre incluye además un desglose informativo por método de
+pago: ventas TPV, cobros de deuda de clientes y reembolsos con la
+referencia del pedido. El desglose no crea movimientos adicionales ni
+duplica importes; explica el total neto que Odoo utiliza para cuadrar la
+sesión.
 
 La venta original y sus impuestos se generan en el ticket TPV original.
 El cobro posterior no genera ventas ni impuestos nuevos.

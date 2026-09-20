@@ -3,6 +3,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
 
     const AbstractAwaitablePopup = require("point_of_sale.AbstractAwaitablePopup");
     const Registries = require("point_of_sale.Registries");
+    const { renderToString } = require("@web/core/utils/render");
     const rpc = require("web.rpc");
     const { _t } = require("web.core");
     const { useState } = owl;
@@ -13,6 +14,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
             this._isAlive = true;
             this._customerSearchSequence = 0;
             this._lineLoadSequence = 0;
+            this._lastReceipt = null;
             this.state = useState({
                 query: "",
                 customers: [],
@@ -25,6 +27,7 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 loading: false,
                 error: "",
                 success: "",
+                canReprint: false,
             });
             this.loadPaymentMethods();
             this.selectCurrentOrderPartner();
@@ -114,6 +117,46 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
         setWarning(message) {
             this.state.success = "";
             this.state.error = message;
+        }
+
+        _getPrintError(printResult) {
+            if (printResult && printResult.message) {
+                return printResult.message.body || printResult.message.title;
+            }
+            return _t("La impresora no devolvió una confirmación válida.");
+        }
+
+        async _printCreditReceipt(receiptData) {
+            if (!this.env.proxy || !this.env.proxy.printer) {
+                throw new Error(_t("No hay una impresora de recibos disponible."));
+            }
+            const receipt = renderToString(
+                "servincom_pos_customer_credit_settlement.CreditPaymentReceipt",
+                {
+                    receipt: receiptData,
+                    pos: this.env.pos,
+                }
+            );
+            const printResult = await this.env.proxy.printer.print_receipt(receipt);
+            if (!printResult || !printResult.successful) {
+                throw new Error(this._getPrintError(printResult));
+            }
+        }
+
+        async reprintLastReceipt() {
+            if (!this._lastReceipt || this.state.loading) {
+                return;
+            }
+            this.clearMessages();
+            this.state.loading = true;
+            try {
+                await this._printCreditReceipt(this._lastReceipt);
+                this.state.success = _t("El justificante se ha impreso de nuevo.");
+            } catch (error) {
+                this.setError(_t("No se pudo imprimir el justificante"), error);
+            } finally {
+                this.state.loading = false;
+            }
         }
 
         async onQueryInput(event) {
@@ -292,12 +335,25 @@ odoo.define("servincom_pos_customer_credit_settlement.CreditPaymentPopup", funct
                 this.state.selectedLineIds = {};
                 this.state.amount = "0.00";
                 this.state.selectedPartner.total_due = result.remaining_due;
+                this._lastReceipt = result.receipt;
+                this.state.canReprint = Boolean(result.receipt);
                 this.state.success =
                     _t("Se ha registrado el cobro ") +
                     result.name +
                     _t(" por ") +
                     this.formatCurrency(result.amount) +
                     ".";
+                if (result.receipt) {
+                    try {
+                        await this._printCreditReceipt(result.receipt);
+                        this.state.success += _t(" El justificante se ha impreso.");
+                    } catch (printError) {
+                        this.state.error =
+                            _t(
+                                "El cobro está registrado, pero no se pudo imprimir el justificante: "
+                            ) + this.getErrorMessage(printError);
+                    }
+                }
             } catch (error) {
                 this.setError(_t("No se pudo registrar el cobro"), error);
             } finally {

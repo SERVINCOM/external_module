@@ -47,6 +47,24 @@
                 <div class="pos-receipt-left-padding">
                     <span t-esc="method.category"/>
                 </div>
+                <t t-if="method.breakdown">
+                    <div t-if="method.breakdown.sales_amount" class="pos-receipt-left-padding">
+                        Ventas TPV
+                        <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(method.breakdown.sales_amount)"/>
+                    </div>
+                    <t t-foreach="method.breakdown.credit_payments || []" t-as="credit" t-key="credit_index">
+                        <div class="pos-receipt-left-padding">
+                            Cobro deuda clientes <span t-esc="credit.name"/>
+                            <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(credit.amount)"/>
+                        </div>
+                    </t>
+                    <t t-foreach="method.breakdown.refunds || []" t-as="refund" t-key="refund_index">
+                        <div class="pos-receipt-left-padding">
+                            Reembolso <span t-esc="refund.name"/>
+                            <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(refund.amount)"/>
+                        </div>
+                    </t>
+                </t>
                 <t t-if="method.show_counted">
                     <div class="pos-receipt-left-padding">
                         Contado
@@ -91,6 +109,18 @@
                 <div>Pagos en efectivo:
                     <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.payment_amount)"/>
                 </div>
+                <t t-if="cash.breakdown">
+                    <div t-if="cash.breakdown.sales_amount" class="pos-receipt-left-padding">
+                        Ventas TPV
+                        <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(cash.breakdown.sales_amount)"/>
+                    </div>
+                    <t t-foreach="cash.breakdown.refunds || []" t-as="refund" t-key="refund_index">
+                        <div class="pos-receipt-left-padding">
+                            Reembolso <span t-esc="refund.name"/>
+                            <span class="pos-receipt-right-align" t-esc="pos.format_currency_no_symbol(refund.amount)"/>
+                        </div>
+                    </t>
+                </t>
                 <t t-if="cash.moves.length">
                     <br/>
                     <div>Movimientos de caja:</div>
@@ -130,6 +160,80 @@
             <br/>
             <br/>
         </div>
+    </t>
+
+    <t t-name="servincom_pos_closing_receipt.ClosePosPopupBreakdown"
+       t-inherit="ClosePosPopup" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tbody[contains(@class, 'cash-overview')]/tr[@t-if='defaultCashDetails.payment_amount']" position="after">
+            <t t-if="defaultCashDetails.servincom_breakdown">
+                <tr t-if="defaultCashDetails.servincom_breakdown.sales_amount">
+                    <td>
+                        <div class="flex servincom-closing-breakdown-label">
+                            <div class="cash-sign">+</div>
+                            Ventas TPV
+                        </div>
+                    </td>
+                    <td class="servincom-closing-breakdown-amount"
+                        t-esc="env.pos.format_currency(defaultCashDetails.servincom_breakdown.sales_amount)"/>
+                </tr>
+                <tr t-foreach="defaultCashDetails.servincom_breakdown.refunds || []"
+                    t-as="refund" t-key="refund_index">
+                    <td>
+                        <div class="flex servincom-closing-breakdown-label">
+                            <div class="cash-sign">-</div>
+                            Reembolso <t t-esc="refund.name"/>
+                        </div>
+                    </td>
+                    <td class="servincom-closing-breakdown-amount"
+                        t-esc="env.pos.format_currency(Math.abs(refund.amount))"/>
+                </tr>
+            </t>
+        </xpath>
+
+        <xpath expr="//tbody[@t-if='otherPaymentMethods.length &gt; 0']/tr/td[@t-esc='pm.name']" position="replace">
+            <td class="servincom-closing-method-cell">
+                <div t-esc="pm.name"/>
+                <t t-if="pm.servincom_breakdown">
+                    <div t-if="pm.servincom_breakdown.sales_amount"
+                         class="servincom-closing-breakdown-label">
+                        Ventas TPV
+                    </div>
+                    <t t-foreach="pm.servincom_breakdown.credit_payments || []"
+                       t-as="credit" t-key="credit_index">
+                        <div class="servincom-closing-breakdown-label">
+                            Cobro deuda clientes <t t-esc="credit.name"/>
+                        </div>
+                    </t>
+                    <t t-foreach="pm.servincom_breakdown.refunds || []"
+                       t-as="refund" t-key="refund_index">
+                        <div class="servincom-closing-breakdown-label">
+                            Reembolso <t t-esc="refund.name"/>
+                        </div>
+                    </t>
+                </t>
+            </td>
+        </xpath>
+
+        <xpath expr="//tbody[@t-if='otherPaymentMethods.length &gt; 0']/tr/td[@t-esc='env.pos.format_currency(pm.amount)']" position="replace">
+            <td class="servincom-closing-method-cell">
+                <div t-esc="env.pos.format_currency(pm.amount)"/>
+                <t t-if="pm.servincom_breakdown">
+                    <div t-if="pm.servincom_breakdown.sales_amount"
+                         class="servincom-closing-breakdown-amount"
+                         t-esc="env.pos.format_currency(pm.servincom_breakdown.sales_amount)"/>
+                    <t t-foreach="pm.servincom_breakdown.credit_payments || []"
+                       t-as="credit" t-key="credit_index">
+                        <div class="servincom-closing-breakdown-amount"
+                             t-esc="env.pos.format_currency(credit.amount)"/>
+                    </t>
+                    <t t-foreach="pm.servincom_breakdown.refunds || []"
+                       t-as="refund" t-key="refund_index">
+                        <div class="servincom-closing-breakdown-amount"
+                             t-esc="env.pos.format_currency(refund.amount)"/>
+                    </t>
+                </t>
+            </td>
+        </xpath>
     </t>
 
 </templates>

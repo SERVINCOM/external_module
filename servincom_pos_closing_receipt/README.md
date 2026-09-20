@@ -18,6 +18,9 @@ revisar la caja al finalizar una sesión TPV:
 * total vendido;
 * métodos de pago con importe esperado, contado y diferencia cuando
   aplica;
+* desglose por método de ventas TPV, cobros de deuda de clientes y
+  reembolsos con referencia del pedido cuando esos datos están
+  disponibles;
 * efectivo esperado, contado y diferencia;
 * desglose de efectivo con apertura, entradas, salidas, pagos en
   efectivo y movimientos de caja;
@@ -42,6 +45,11 @@ Uso
 El módulo sustituye únicamente la impresión de ese botón dentro del
 popup de cierre. No modifica el botón de pago, el selector de cliente,
 la lista de pedidos, el botón de regresar ni la lógica contable.
+
+También amplía visualmente el popup estándar de cierre para explicar el
+importe neto de cada método. El total esperado y el campo contado siguen
+siendo los originales de Odoo; las nuevas líneas son únicamente un
+desglose informativo y no intervienen en el cierre contable.
 
 Notas técnicas
 ==============
@@ -74,4 +82,8 @@ Pruebas recomendadas:
   existen;
 * comprobar métodos efectivo, banco, a cuenta de cliente y otros
   métodos de pago;
+* comprobar que una devolución en efectivo y otra por datáfono aparecen
+  como ``Reembolso`` con su pedido y mantienen el total neto correcto;
+* comprobar que un cobro de deuda por datáfono aparece separado de las
+  ventas TPV;
 * cerrar la sesión TPV después de imprimir.
