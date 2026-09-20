@@ -87,6 +87,11 @@ diario, se crea un ``account.payment`` de cliente vinculado a la sesión::
     570 Caja / Banco
         a 430 Cliente
 
+Los cobros de deuda por banco o tarjeta también se suman al importe
+esperado de su método real en el cierre de la sesión. De este modo, por
+ejemplo, un cobro realizado con ``Datáfono C7`` aparece en esa misma fila
+del control de cierre sin crear una venta ni alterar el total de pedidos.
+
 La venta original y sus impuestos se generan en el ticket TPV original.
 El cobro posterior no genera ventas ni impuestos nuevos.
 

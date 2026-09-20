@@ -3,10 +3,11 @@
 
 {
     "name": "SERVINCOM POS Customer Credit Settlement",
-    "version": "16.0.4.8.0",
+    "version": "16.0.4.9.0",
     "summary": "Customer credit tickets and debt settlement from the Point of Sale",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",
+    "website": "https://www.servincom.com",
     "license": "AGPL-3",
     "depends": [
         "account",
@@ -25,6 +26,7 @@
         "views/pos_session_views.xml",
         "views/pos_menu_views.xml",
     ],
+    "demo": [],
     "assets": {
         "point_of_sale.assets": [
             "servincom_pos_customer_credit_settlement/static/src/css/credit_popup.css",
