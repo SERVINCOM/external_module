@@ -163,7 +163,7 @@
     </t>
 
     <t t-name="servincom_pos_closing_receipt.ClosePosPopupBreakdown"
-       t-inherit="ClosePosPopup" t-inherit-mode="extension" owl="1">
+       t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension" owl="1">
         <xpath expr="//tbody[contains(@class, 'cash-overview')]/tr[@t-if='defaultCashDetails.payment_amount']" position="after">
             <t t-if="defaultCashDetails.servincom_breakdown">
                 <tr t-if="defaultCashDetails.servincom_breakdown.sales_amount">

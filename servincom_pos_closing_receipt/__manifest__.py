@@ -3,7 +3,7 @@
 
 {
     "name": "SERVINCOM POS Closing Receipt",
-    "version": "16.0.1.3.0",
+    "version": "16.0.1.3.1",
     "summary": "Improved printed POS closing session receipt",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",
