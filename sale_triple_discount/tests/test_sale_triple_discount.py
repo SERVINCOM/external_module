@@ -17,6 +17,10 @@ class TestSaleOrder(BaseCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.env.user.groups_id += cls.env.ref("sale.group_discount_per_so_line")
+        # Odoo 18 checks the superuser's group to enable pricelist discounts.
+        cls.env.ref("base.user_root").groups_id += cls.env.ref(
+            "sale.group_discount_per_so_line"
+        )
         cls.partner = cls.env["res.partner"].create({"name": "Mr. Odoo"})
         cls.product1 = cls.env["product.product"].create(
             {"name": "Test Product 1", "type": "service", "invoice_policy": "order"}
@@ -285,9 +289,6 @@ class TestSaleOrder(BaseCommon):
                 ],
             }
         )
-        self.env.user.write(
-            {"groups_id": [(5, self.env.ref("sale.group_discount_per_so_line").id)]}
-        )
         self.order.pricelist_id = pricelist
         self.order.action_update_prices()
         # initially, with quantity below 50, no discount should apply
@@ -298,7 +299,6 @@ class TestSaleOrder(BaseCommon):
         # change quantity to exceed the minimum quantity for the discount rule
         # this triggers recomputation of discount fields via the depends mechanism.
         self.so_line1.product_uom_qty = 51
-        self.so_line1.discount1 = 20
         self.assertAlmostEqual(self.so_line1.discount, 20.0)
         # after changing the quantity, discount1 should be updated to 20%
         self.assertAlmostEqual(
@@ -320,8 +320,68 @@ class TestSaleOrder(BaseCommon):
         self.assertAlmostEqual(self.so_line1.discount3, 30)
         self.assertAlmostEqual(self.so_line1.discount, 49.6)
         self.so_line1.product_uom_qty = 52
-        self.so_line1.discount1 = 20
         self.assertAlmostEqual(self.so_line1.discount1, 20)
         self.assertAlmostEqual(self.so_line1.discount2, 20)
         self.assertAlmostEqual(self.so_line1.discount3, 30)
         self.assertAlmostEqual(self.so_line1.discount, 55.20)
+
+    def test_update_prices_reloads_pricelist_discount(self):
+        pricelist = self.env["product.pricelist"].create(
+            {
+                "name": "Discount refresh",
+                "item_ids": [
+                    Command.create(
+                        {
+                            "applied_on": "3_global",
+                            "compute_price": "percentage",
+                            "percent_price": 20,
+                        }
+                    )
+                ],
+            }
+        )
+        self.order.pricelist_id = pricelist
+        self.so_line1.write({"discount1": 10, "discount2": 20, "discount3": 30})
+        self.order.action_update_prices()
+        self.assertAlmostEqual(self.so_line1.discount1, 20)
+        self.assertAlmostEqual(self.so_line1.discount2, 0)
+        self.assertAlmostEqual(self.so_line1.discount3, 0)
+        self.assertAlmostEqual(self.so_line1.discount, 20)
+        pricelist.item_ids.percent_price = 15
+        self.order.action_update_prices()
+        self.assertAlmostEqual(self.so_line1.discount1, 15)
+        self.assertAlmostEqual(self.so_line1.discount, 15)
+
+    def test_create_zero_discount_preserves_explicit_components(self):
+        base_vals = {
+            "order_id": self.order.id,
+            "product_id": self.product1.id,
+            "price_unit": 100,
+            "product_uom_qty": 1,
+            "tax_id": [Command.clear()],
+        }
+        lines = self.env["sale.order.line"].create(
+            [
+                dict(base_vals, discount=0, discount1=10, discount2=20, discount3=30),
+                dict(base_vals, discount=0),
+                dict(base_vals, discount=15),
+            ]
+        )
+        self.assertAlmostEqual(lines[0].discount1, 10)
+        self.assertAlmostEqual(lines[0].discount2, 20)
+        self.assertAlmostEqual(lines[0].discount3, 30)
+        self.assertAlmostEqual(lines[0].discount, 49.6)
+        self.assertAlmostEqual(lines[0].price_subtotal, 50.4)
+        self.assertAlmostEqual(lines[1].discount1, 0)
+        self.assertAlmostEqual(lines[1].discount2, 0)
+        self.assertAlmostEqual(lines[1].discount3, 0)
+        self.assertAlmostEqual(lines[1].discount, 0)
+        self.assertAlmostEqual(lines[2].discount1, 15)
+        self.assertAlmostEqual(lines[2].discount, 15)
+
+    def test_unknown_discount_type_validation_error(self):
+        line = self.env["sale.order.line"].new(
+            {"name": "Invalid discount type", "discounting_type": False}
+        )
+        with self.assertRaises(ValidationError):
+            line._get_final_discount()

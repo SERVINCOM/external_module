@@ -65,7 +65,7 @@ class SaleOrderLine(models.Model):
         else:
             raise ValidationError(
                 _("Sale order line %(name)s has unknown discounting type %(dic_type)s")
-                % {"name": self.name, "disc_type": self.discounting_type}
+                % {"name": self.name, "dic_type": self.discounting_type}
             )
 
     def _additive_discount(self):
@@ -86,8 +86,10 @@ class SaleOrderLine(models.Model):
         )
 
     @api.depends(
-        lambda self: self._get_multiple_discount_field_names()
-        + ["product_id", "product_uom", "product_uom_qty"]
+        lambda self: (
+            self._get_multiple_discount_field_names()
+            + ["product_id", "product_uom", "product_uom_qty"]
+        )
     )
     def _compute_discount(self):
         # Base Odoo just continues instead of assigning to 0 in this case
@@ -141,10 +143,26 @@ class SaleOrderLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        order_lines = super().create(vals_list)
+        # The invoice mixin may mutate vals_list. Preserve the caller's intent
+        # before delegating, and give explicit component discounts precedence.
+        discount_fields = self._get_multiple_discount_field_names()
+        reset_discounts = [
+            "discount" in vals
+            and vals["discount"] == 0
+            and not any(field in vals for field in discount_fields)
+            for vals in vals_list
+        ]
+        prepared_vals_list = [dict(vals) for vals in vals_list]
+        for vals, reset_discount in zip(
+            prepared_vals_list, reset_discounts, strict=True
+        ):
+            if vals.get("discount") == 0 and not reset_discount:
+                # Let the stored total be computed from explicit components.
+                vals.pop("discount")
+        order_lines = super().create(prepared_vals_list)
         lines_to_discount = self.env["sale.order.line"]
-        for line, vals in zip(order_lines, vals_list, strict=True):
-            if "discount" in vals and vals["discount"] == 0:
+        for line, reset_discount in zip(order_lines, reset_discounts, strict=True):
+            if reset_discount:
                 lines_to_discount |= line
         lines_to_discount.write({"discount1": 0.0, "discount2": 0.0, "discount3": 0.0})
         return order_lines

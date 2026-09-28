@@ -11,13 +11,11 @@ Unit price: 600.00 -\>
 > - Disc. 2 = 50% -\> Amount = 150.00
 > - Disc. 3 = 50% -\> Amount = 75.00
 
-For additive discounts they will be summed first and then applied. For
-example, let's have a three 20% discounts:
+Only multiplicative discounts are supported in this version. Additive
+discounts are disabled because their implementation is incomplete.
 
-Unit price: 600.00 -\>
-
-> - Disc. 1, 2, 3 = 20% + 20% + 20% -\> 60%
-> - Disc. final = 60% -\> Amount = 240.00
+Updating prices reloads discount 1 from the pricelist and resets discounts
+2 and 3, following the standard price refresh behavior.
 
 You can also use negative values to make a charge instead of a discount:
 

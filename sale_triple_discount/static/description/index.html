@@ -408,15 +408,10 @@ discount 2. For example, let’s divide by two on every discount:</p>
 <li>Disc. 3 = 50% -&gt; Amount = 75.00</li>
 </ul>
 </blockquote>
-<p>For additive discounts they will be summed first and then applied. For
-example, let’s have a three 20% discounts:</p>
-<p>Unit price: 600.00 -&gt;</p>
-<blockquote>
-<ul class="simple">
-<li>Disc. 1, 2, 3 = 20% + 20% + 20% -&gt; 60%</li>
-<li>Disc. final = 60% -&gt; Amount = 240.00</li>
-</ul>
-</blockquote>
+<p>Only multiplicative discounts are supported in this version. Additive
+discounts are disabled because their implementation is incomplete.</p>
+<p>Updating prices reloads discount 1 from the pricelist and resets discounts
+2 and 3, following the standard price refresh behavior.</p>
 <p>You can also use negative values to make a charge instead of a discount:</p>
 <p>Unit price: 600.00 -&gt;</p>
 <blockquote>

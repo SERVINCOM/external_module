@@ -8,3 +8,5 @@
 - Denis Leemann \<<denis.leemann@camptocamp.com>\>
 - Manuel Regidor \<<manuel.regidor@sygel.es>\>
 - Souheil Bejaoui \<<souheil.bejaoui@acsone.eu>\>
+
+- SERVINCOM SOLUCIONES, S.L. (correcciones y pruebas para Odoo 18)
