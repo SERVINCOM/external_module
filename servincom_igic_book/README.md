@@ -159,8 +159,12 @@ cabeceras Excel y el pie con la empresa del libro. La exportación HTML y Excel
 conserva los importes del libro existente. El fichero PO incluye la marca
 `odoo-python` necesaria para las traducciones de código en Odoo 18.
 
-Quedan pendientes la ejecución completa de la suite ORM, el renderizado visual
-del PDF con wkhtmltopdf y la conciliación de todos los casos fiscales.
+También se comprobaron las descargas reales desde Odoo: cabeceras y hojas del
+Excel en español, valores numéricos sin cambios y revisión visual de la primera
+y última página del PDF generado con wkhtmltopdf.
+
+Quedan pendientes la ejecución completa de la suite ORM y la conciliación de
+todos los casos fiscales.
 La prueba de exportación desde shell debe incluir `active_model` y `active_ids`,
 igual que el contexto del botón de Odoo.
 
