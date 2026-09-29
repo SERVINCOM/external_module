@@ -3,7 +3,7 @@
 {
     "name": "SERVINCOM IGIC Book",
     "summary": "IGIC invoice books with PDF and Excel reports",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
     "category": "Accounting/Localizations/Reporting",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",

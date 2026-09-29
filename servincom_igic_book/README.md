@@ -32,7 +32,7 @@ TPV sin cliente. Su combinación requiere validación específica en la base de 
 
 ## Qué incluye
 
-- Menú **Contabilidad → Informes → SERVINCOM Libros de IGIC**.
+- Menú **Contabilidad → Declaraciones → Libros de IGIC**.
 - Mapeos explícitos para las 76 plantillas del fichero canario oficial revisado:
   tipos generales, cero, exentos, no sujetos, bienes de inversión, importaciones,
   inversión del sujeto pasivo, recargos y grupos DUA.
@@ -50,7 +50,7 @@ TPV sin cliente. Su combinación requiere validación específica en la base de 
 - Los mapas IGIC se activan únicamente al calcular libros IGIC. Los libros IVA
   conservan sus mapas y sus exportaciones OCA.
 - Icono corporativo SERVINCOM; el PDF utiliza el logo y los datos de la empresa
-  titular del libro, además del crédito SERVINCOM en el pie.
+  titular del libro, también en el pie del PDF y del Excel.
 
 ## Configuración inicial
 
@@ -63,7 +63,7 @@ TPV sin cliente. Su combinación requiere validación específica en la base de 
    100 por defecto; 0 para cuotas no deducibles; otro valor para deducción parcial.
    Revisar expresamente recargos y regímenes especiales. El módulo no determina
    automáticamente el derecho fiscal a deducir.
-4. Crear el libro desde el menú SERVINCOM, elegir compañía, año y periodo, y
+4. Crear el libro desde el menú Libros de IGIC, elegir compañía, año y periodo, y
    pulsar **Calcular**. Los campos de identificación/contacto siguen siendo los
    del modelo OCA.
 5. Revisar avisos y cuadrar los importes con la contabilidad; después exportar

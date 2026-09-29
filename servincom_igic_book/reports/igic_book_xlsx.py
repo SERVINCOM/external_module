@@ -47,7 +47,9 @@ class IgicBookXlsx(models.AbstractModel):
                 sheet.set_paper(9)
                 sheet.fit_to_pages(1, 0)
                 sheet.repeat_rows(0, 5)
-                sheet.set_footer("&LSERVINCOM SOLUCIONES&R&P / &N")
+                sheet.set_footer(
+                    "&L%s&R&P / &N" % book.company_id.name.replace("&", "&&")
+                )
                 sheet.merge_range(0, 0, 0, 14, self.env._("IGIC invoice book"), title)
                 sheet.merge_range(
                     1,

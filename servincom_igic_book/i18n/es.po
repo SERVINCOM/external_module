@@ -51,8 +51,8 @@ msgstr ""
 #. module: servincom_igic_book
 #: model:ir.actions.act_window,name:servincom_igic_book.action_igic_book
 #: model:ir.ui.menu,name:servincom_igic_book.menu_igic_book
-msgid "SERVINCOM IGIC Books"
-msgstr "SERVINCOM Libros de IGIC"
+msgid "IGIC Books"
+msgstr "Libros de IGIC"
 
 #. module: servincom_igic_book
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
@@ -60,8 +60,9 @@ msgid "<span class=\"float-end\">IGIC invoice book</span>"
 msgstr "<span class=\"float-end\">Libro de facturas de IGIC</span>"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:51
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:53
 #, python-format
 msgid "IGIC invoice book"
 msgstr "Libro de facturas de IGIC"
@@ -82,15 +83,17 @@ msgid "Review the warnings in the book before using this report."
 msgstr "Revisa los avisos del libro antes de utilizar este informe."
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:92
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:94
 #, python-format
 msgid "No."
 msgstr "N.º"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:93
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:95
 #, python-format
 msgid "Invoice date"
 msgstr "Fecha de factura"
@@ -106,43 +109,49 @@ msgid "Partner / VAT number"
 msgstr "Tercero / NIF"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:99
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:101
 #, python-format
 msgid "Tax / operation"
 msgstr "Impuesto / operación"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:100
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:102
 #, python-format
 msgid "Rate %"
 msgstr "Tipo %"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:101
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:103
 #, python-format
 msgid "Tax base"
 msgstr "Base imponible"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:102
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:104
 #, python-format
 msgid "IGIC / surcharge"
 msgstr "IGIC / recargo"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:103
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:105
 #, python-format
 msgid "Deductible fee"
 msgstr "Cuota deducible"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:105
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:107
 #, python-format
 msgid "Refund"
 msgstr "Rectificativa"
@@ -173,8 +182,9 @@ msgid "· <strong>Deductible fee: </strong>"
 msgstr "· <strong>Cuota deducible: </strong>"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:171
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:173
 #, python-format
 msgid "Tax summary"
 msgstr "Resumen por impuesto"
@@ -190,21 +200,13 @@ msgstr ""
 "expresan en la moneda de la compañía."
 
 #. module: servincom_igic_book
+#. odoo-python
 #: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:79
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:81
 #, python-format
 msgid "Accounting review report. Not an ATC filing file."
 msgstr ""
 "Informe de revisión contable. No es un fichero de presentación ante la ATC."
-
-#. module: servincom_igic_book
-#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
-msgid ""
-"· SERVINCOM SOLUCIONES · www.servincom.com\n"
-"                    <span class=\"float-end\"><span class=\"page\"/> / <span class=\"topage\"/></span>"
-msgstr ""
-"· SERVINCOM SOLUCIONES · www.servincom.com\n"
-"                    <span class=\"float-end\"><span class=\"page\"/> / <span class=\"topage\"/></span>"
 
 #. module: servincom_igic_book
 #: model:report.paperformat,name:servincom_igic_book.paperformat_igic
@@ -222,30 +224,35 @@ msgid "IGIC book (Excel)"
 msgstr "Libro de IGIC (Excel)"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/models/account_tax.py:22
+#. odoo-python
+#: code:addons/servincom_igic_book/models/account_tax.py:31
 #, python-format
 msgid "The IGIC deductible percentage must be between 0 and 100."
 msgstr "El porcentaje deducible de IGIC debe estar entre 0 y 100."
 
 #. module: servincom_igic_book
+#. odoo-python
 #: code:addons/servincom_igic_book/models/igic_book.py:148
 #, python-format
 msgid "Calculate an IGIC book before exporting it."
 msgstr "Calcula un libro de IGIC antes de exportarlo."
 
 #. module: servincom_igic_book
+#. odoo-python
 #: code:addons/servincom_igic_book/models/igic_book.py:170
 #, python-format
 msgid "Issued invoices"
 msgstr "Facturas emitidas"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: code:addons/servincom_igic_book/models/igic_book.py:171
 #, python-format
 msgid "Received invoices"
 msgstr "Facturas recibidas"
 
 #. module: servincom_igic_book
+#. odoo-python
 #: code:addons/servincom_igic_book/models/igic_book.py:61
 #, python-format
 msgid ""
@@ -256,6 +263,7 @@ msgstr ""
 "plan contable canario y los impuestos equivalentes."
 
 #. module: servincom_igic_book
+#. odoo-python
 #: code:addons/servincom_igic_book/models/igic_book.py:37
 #, python-format
 msgid ""
@@ -266,61 +274,71 @@ msgstr ""
 " un libro de IGIC ya calculado."
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:94
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:96
 #, python-format
 msgid "Accounting date"
 msgstr "Fecha contable"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:95
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:97
 #, python-format
 msgid "Invoice reference"
 msgstr "Referencia de factura"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:96
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:98
 #, python-format
 msgid "Supplier reference"
 msgstr "Referencia del proveedor"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:97
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:99
 #, python-format
 msgid "Partner"
 msgstr "Tercero"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:98
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:100
 #, python-format
 msgid "VAT number"
 msgstr "NIF"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:104
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:106
 #, python-format
 msgid "Non-deductible fee"
 msgstr "Cuota no deducible"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:106
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:108
 #, python-format
 msgid "Warning"
 msgstr "Aviso"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:159
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:161
 #, python-format
 msgid "Totals without duplicate bases"
 msgstr "Totales sin duplicar bases"
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:88
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:90
 #, python-format
 msgid "Draft / review book warnings before use."
 msgstr "Borrador / revisa los avisos del libro antes de utilizarlo."
 
 #. module: servincom_igic_book
-#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:149
+#. odoo-python
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:151
 #, python-format
 msgid "Yes"
 msgstr "Sí"
@@ -376,5 +394,62 @@ msgstr "Impuesto IGIC equivalente"
 
 #. module: servincom_igic_book
 #: model:ir.model.fields,help:servincom_igic_book.field_account_tax__servincom_igic_equivalent_tax_id
-msgid "Official IGIC tax used to map a custom tax in the IGIC book. Also available with OCA versions without the AEAT equivalent tax field."
-msgstr "Impuesto IGIC oficial utilizado para mapear un impuesto personalizado en el libro de IGIC. Disponible también en versiones de OCA sin el campo de impuesto equivalente AEAT."
+msgid ""
+"Official IGIC tax used to map a custom tax in the IGIC book. Also available "
+"with OCA versions without the AEAT equivalent tax field."
+msgstr ""
+"Impuesto IGIC oficial utilizado para mapear un impuesto personalizado en el "
+"libro de IGIC. Disponible también en versiones de OCA sin el campo de "
+"impuesto equivalente AEAT."
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_aeat.selection__l10n_es_vat_book__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_aeat.selection__l10n_es_vat_book__state__calculated
+msgid "Processed"
+msgstr "Procesado"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_aeat.selection__l10n_es_vat_book__state__done
+msgid "Done"
+msgstr "Confirmado"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_aeat.selection__l10n_es_vat_book__state__posted
+msgid "Posted"
+msgstr "Presentado"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_aeat.selection__l10n_es_vat_book__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_aeat.selection__l10n_es_vat_book__support_type__t
+msgid "Telematics"
+msgstr "Telemático"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_vat_book.selection__l10n_es_vat_book__vat_settlement_period__monthly
+msgid "Monthly"
+msgstr "Mensual"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields.selection,name:l10n_es_vat_book.selection__l10n_es_vat_book__vat_settlement_period__quarterly
+msgid "Quarterly"
+msgstr "Trimestral"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields,field_description:l10n_es_vat_book.field_l10n_es_vat_book__vat_settlement_period
+msgid "Vat Settlement Period"
+msgstr "Periodo de liquidación"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "<span class=\"float-end\"><span class=\"page\"/> / <span class=\"topage\"/></span>"
+msgstr ""
+"<span class=\"float-end\"><span class=\"page\"/> / <span "
+"class=\"topage\"/></span>"

@@ -108,7 +108,7 @@
                     </t>
                 </div>
                 <div class="footer" style="font-size:9px;color:#607584;border-top:1px solid #ccd7df;">
-                    <span t-out="o.name"/> · SERVINCOM SOLUCIONES · www.servincom.com
+                    <span t-out="o.name"/> · <span t-out="o.company_id.name"/>
                     <span class="float-end"><span class="page"/> / <span class="topage"/></span>
                 </div>
             </t>

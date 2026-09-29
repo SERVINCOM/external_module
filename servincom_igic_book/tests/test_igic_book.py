@@ -8,6 +8,7 @@ from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import new_test_user, tagged
+from odoo.tools.translate import code_translations
 
 
 @tagged("post_install", "-at_install")
@@ -232,3 +233,41 @@ class TestIgicBook(AccountTestInvoicingCommon):
                 self.assertFalse(sheet.findall(".//s:f", ns))
             strings = archive.read("xl/sharedStrings.xml")
             self.assertIn(b"=1+1", strings)
+
+    def test_spanish_exports_and_company_footer(self):
+        # Odoo 18 ignores Python PO entries without the odoo-python marker.
+        translations = code_translations.get_python_translations(
+            "servincom_igic_book", "es_ES"
+        )
+        self.assertEqual(translations["Issued invoices"], "Facturas emitidas")
+        self.assertEqual(translations["Invoice date"], "Fecha de factura")
+        self.env["res.lang"]._activate_lang("es_ES")
+        self.company.name = "Empresa & Pruebas"
+        self._invoice(self.sale_tax)
+        book = self._book().with_context(lang="es_ES")
+        book.button_calculate()
+        self.assertEqual(
+            [section["title"] for section in book._get_igic_report_sections()],
+            ["Facturas emitidas", "Facturas recibidas"],
+        )
+        report = self.env.ref("servincom_igic_book.action_report_igic_pdf")
+        html, _ = report.with_context(lang="es_ES")._render_qweb_html(
+            report.report_name, book.ids
+        )
+        self.assertIn(b"Facturas emitidas", html)
+        self.assertNotIn(b"www.servincom.com", html)
+        xlsx = self.env["report.servincom_igic_book.igic_book_xlsx"].with_context(
+            lang="es_ES", active_model=book._name, active_ids=book.ids
+        )
+        content, _ = xlsx.create_xlsx_report(book.ids, {})
+        with zipfile.ZipFile(io.BytesIO(content)) as archive:
+            self.assertIn(b"Facturas emitidas", archive.read("xl/workbook.xml"))
+            strings = archive.read("xl/sharedStrings.xml")
+            self.assertIn(b"Fecha de factura", strings)
+            self.assertNotIn(b"Invoice date", strings)
+            ns = {"s": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+            sheet = ElementTree.fromstring(archive.read("xl/worksheets/sheet1.xml"))
+            self.assertEqual(
+                sheet.find(".//s:oddFooter", ns).text,
+                "&LEmpresa && Pruebas&R&P / &N",
+            )
