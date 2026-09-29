@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tax_igic_r_7" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_r_7</field>
+    </record>
+    <record id="tax_igic_r_0" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_r_0</field>
+    </record>
+    <record id="tax_igic_r_3" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_r_3</field>
+    </record>
+    <record id="tax_igic_r_5" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_r_5</field>
+    </record>
+    <record id="tax_igic_r_9_5" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_r_9_5</field>
+    </record>
+    <record id="tax_igic_r_15" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_r_15</field>
+    </record>
+    <record id="tax_igic_r_20" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_r_20</field>
+    </record>
+    <record id="tax_igic_s_ISP0" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_s_ISP0</field>
+    </record>
+    <record id="tax_igic_ex_0" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ex_0</field>
+    </record>
+    <record id="tax_igic_re_ex" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_re_ex</field>
+    </record>
+    <record id="tax_igic_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_cmino</field>
+    </record>
+    <record id="tax_igic_sop_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_cmino</field>
+    </record>
+    <record id="tax_igic_sop_3_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_3_cmino</field>
+    </record>
+    <record id="tax_igic_sop_5_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_5_cmino</field>
+    </record>
+    <record id="tax_igic_sop_7_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_7_cmino</field>
+    </record>
+    <record id="tax_igic_sop_9_5_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_9_5_cmino</field>
+    </record>
+    <record id="tax_igic_sop_15_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_15_cmino</field>
+    </record>
+    <record id="tax_igic_sop_20_cmino" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_20_cmino</field>
+    </record>
+    <record id="tax_s_igic_ns" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_s_igic_ns</field>
+    </record>
+    <record id="tax_igic_p_ex" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_ex</field>
+    </record>
+    <record id="tax_igic_sop_0" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_0</field>
+    </record>
+    <record id="tax_igic_sop_3" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_3</field>
+    </record>
+    <record id="tax_igic_sop_5" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_5</field>
+    </record>
+    <record id="tax_igic_sop_7" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_7</field>
+    </record>
+    <record id="tax_igic_sop_9_5" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_9_5</field>
+    </record>
+    <record id="tax_igic_sop_15" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_15</field>
+    </record>
+    <record id="tax_igic_sop_20" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_20</field>
+    </record>
+    <record id="tax_igic_sop_0_s" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_0_s</field>
+    </record>
+    <record id="tax_igic_sop_3_s" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_3_s</field>
+    </record>
+    <record id="tax_igic_sop_5_s" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_5_s</field>
+    </record>
+    <record id="tax_igic_sop_7_s" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_7_s</field>
+    </record>
+    <record id="tax_igic_sop_9_5_s" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_9_5_s</field>
+    </record>
+    <record id="tax_igic_sop_15_s" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_15_s</field>
+    </record>
+    <record id="tax_igic_sop_20_s" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_20_s</field>
+    </record>
+    <record id="tax_igic_sop_0_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_0_inv</field>
+    </record>
+    <record id="tax_igic_sop_3_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_3_inv</field>
+    </record>
+    <record id="tax_igic_sop_5_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_5_inv</field>
+    </record>
+    <record id="tax_igic_sop_7_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_7_inv</field>
+    </record>
+    <record id="tax_igic_sop_9_5_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_9_5_inv</field>
+    </record>
+    <record id="tax_igic_sop_15_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_15_inv</field>
+    </record>
+    <record id="tax_igic_sop_20_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_20_inv</field>
+    </record>
+    <record id="tax_igic_sop_i_0" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_0</field>
+    </record>
+    <record id="tax_igic_sop_i_3" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_3</field>
+    </record>
+    <record id="tax_igic_sop_i_5" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_5</field>
+    </record>
+    <record id="tax_igic_sop_i_7" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_7</field>
+    </record>
+    <record id="tax_igic_sop_i_9_5" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_9_5</field>
+    </record>
+    <record id="tax_igic_sop_i_15" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_15</field>
+    </record>
+    <record id="tax_igic_sop_i_20" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_20</field>
+    </record>
+    <record id="tax_igic_sop_i_0_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_0_inv</field>
+    </record>
+    <record id="tax_igic_sop_i_3_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_3_inv</field>
+    </record>
+    <record id="tax_igic_sop_i_5_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_5_inv</field>
+    </record>
+    <record id="tax_igic_sop_i_7_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_7_inv</field>
+    </record>
+    <record id="tax_igic_sop_i_9_5_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_9_5_inv</field>
+    </record>
+    <record id="tax_igic_sop_i_15_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_15_inv</field>
+    </record>
+    <record id="tax_igic_sop_i_20_inv" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_20_inv</field>
+    </record>
+    <record id="tax_igic_ISP0" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ISP0</field>
+    </record>
+    <record id="tax_igic_ISP3" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ISP3</field>
+    </record>
+    <record id="tax_igic_ISP5" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ISP5</field>
+    </record>
+    <record id="tax_igic_ISP7" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ISP7</field>
+    </record>
+    <record id="tax_igic_ISP95" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ISP95</field>
+    </record>
+    <record id="tax_igic_ISP15" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ISP15</field>
+    </record>
+    <record id="tax_igic_ISP20" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_ISP20</field>
+    </record>
+    <record id="tax_igic_p_re0" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_re0</field>
+    </record>
+    <record id="tax_igic_p_re03" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_re03</field>
+    </record>
+    <record id="tax_igic_p_re05" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_re05</field>
+    </record>
+    <record id="tax_igic_p_re07" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_re07</field>
+    </record>
+    <record id="tax_igic_p_re095" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_re095</field>
+    </record>
+    <record id="tax_igic_p_re15" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_re15</field>
+    </record>
+    <record id="tax_igic_p_re20" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_p_re20</field>
+    </record>
+    <record id="tax_p_igic_ns" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_p_igic_ns</field>
+    </record>
+    <record id="tax_igic_sop_i_3_group" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_3_group</field>
+    </record>
+    <record id="tax_igic_sop_i_5_group" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_5_group</field>
+    </record>
+    <record id="tax_igic_sop_i_7_group" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_7_group</field>
+    </record>
+    <record id="tax_igic_sop_i_9_5_group" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_9_5_group</field>
+    </record>
+    <record id="tax_igic_sop_i_15_group" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_15_group</field>
+    </record>
+    <record id="tax_igic_sop_i_20_group" model="l10n.es.aeat.map.tax.line.tax">
+        <field name="name">account_tax_template_igic_sop_i_20_group</field>
+    </record>
+    <record id="account_igic_payable" model="l10n.es.aeat.map.tax.line.account">
+        <field name="name">account_common_canary_4777</field>
+    </record>
+    <record id="map_igic_issued" model="aeat.vat.book.map.line">
+        <field name="name">IGIC issued</field>
+        <field name="book_type">issued</field>
+        <field name="servincom_is_igic" eval="True"/>
+        <field name="tax_xmlid_ids" eval="[(6, 0, [ref('tax_igic_r_7'), ref('tax_igic_r_0'), ref('tax_igic_r_3'), ref('tax_igic_r_5'), ref('tax_igic_r_9_5'), ref('tax_igic_r_15'), ref('tax_igic_r_20'), ref('tax_igic_s_ISP0'), ref('tax_igic_ex_0'), ref('tax_igic_re_ex'), ref('tax_igic_cmino'), ref('tax_s_igic_ns')])]"/>
+    </record>
+    <record id="map_igic_received" model="aeat.vat.book.map.line">
+        <field name="name">IGIC received</field>
+        <field name="book_type">received</field>
+        <field name="servincom_is_igic" eval="True"/>
+        <field name="excluded_account_xmlid_id" ref="account_igic_payable"/>
+        <field name="tax_xmlid_ids" eval="[(6, 0, [ref('tax_igic_sop_cmino'), ref('tax_igic_sop_3_cmino'), ref('tax_igic_sop_5_cmino'), ref('tax_igic_sop_7_cmino'), ref('tax_igic_sop_9_5_cmino'), ref('tax_igic_sop_15_cmino'), ref('tax_igic_sop_20_cmino'), ref('tax_igic_p_ex'), ref('tax_igic_sop_0'), ref('tax_igic_sop_3'), ref('tax_igic_sop_5'), ref('tax_igic_sop_7'), ref('tax_igic_sop_9_5'), ref('tax_igic_sop_15'), ref('tax_igic_sop_20'), ref('tax_igic_sop_0_s'), ref('tax_igic_sop_3_s'), ref('tax_igic_sop_5_s'), ref('tax_igic_sop_7_s'), ref('tax_igic_sop_9_5_s'), ref('tax_igic_sop_15_s'), ref('tax_igic_sop_20_s'), ref('tax_igic_sop_0_inv'), ref('tax_igic_sop_3_inv'), ref('tax_igic_sop_5_inv'), ref('tax_igic_sop_7_inv'), ref('tax_igic_sop_9_5_inv'), ref('tax_igic_sop_15_inv'), ref('tax_igic_sop_20_inv'), ref('tax_igic_sop_i_0'), ref('tax_igic_sop_i_3'), ref('tax_igic_sop_i_5'), ref('tax_igic_sop_i_7'), ref('tax_igic_sop_i_9_5'), ref('tax_igic_sop_i_15'), ref('tax_igic_sop_i_20'), ref('tax_igic_sop_i_0_inv'), ref('tax_igic_sop_i_3_inv'), ref('tax_igic_sop_i_5_inv'), ref('tax_igic_sop_i_7_inv'), ref('tax_igic_sop_i_9_5_inv'), ref('tax_igic_sop_i_15_inv'), ref('tax_igic_sop_i_20_inv'), ref('tax_igic_ISP0'), ref('tax_igic_ISP3'), ref('tax_igic_ISP5'), ref('tax_igic_ISP7'), ref('tax_igic_ISP95'), ref('tax_igic_ISP15'), ref('tax_igic_ISP20'), ref('tax_p_igic_ns'), ref('tax_igic_sop_i_3_group'), ref('tax_igic_sop_i_5_group'), ref('tax_igic_sop_i_7_group'), ref('tax_igic_sop_i_9_5_group'), ref('tax_igic_sop_i_15_group'), ref('tax_igic_sop_i_20_group')])]"/>
+    </record>
+    <record id="map_igic_surcharge" model="aeat.vat.book.map.line">
+        <field name="name">IGIC surcharge</field>
+        <field name="book_type">received</field>
+        <field name="servincom_is_igic" eval="True"/>
+        <field name="special_tax_group">req</field>
+        <field name="tax_xmlid_ids" eval="[(6, 0, [ref('tax_igic_p_re0'), ref('tax_igic_p_re03'), ref('tax_igic_p_re05'), ref('tax_igic_p_re07'), ref('tax_igic_p_re095'), ref('tax_igic_p_re15'), ref('tax_igic_p_re20')])]"/>
+    </record>
+</odoo>

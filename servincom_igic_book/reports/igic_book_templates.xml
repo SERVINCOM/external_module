@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_igic_book">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="header" style="font-size:10px;color:#24455c;border-bottom:1px solid #ccd7df;">
+                    <span t-out="o.company_id.name"/> · <span t-out="o.company_id.vat"/>
+                    <span class="float-end">IGIC invoice book</span>
+                </div>
+                <div class="article" t-att-data-oe-model="o._name" t-att-data-oe-id="o.id"
+                     t-att-data-oe-lang="o.env.lang">
+                    <style>
+                        .igic-book {font-family:Arial,sans-serif;color:#263b4b;font-size:10px;}
+                        .igic-book h2 {font-size:22px;color:#153b54;margin:0 0 8px;}
+                        .igic-book h3 {font-size:15px;margin:18px 0 10px;}
+                        .igic-book table {width:100%;border-collapse:collapse;table-layout:fixed;}
+                        .igic-book thead {display:table-header-group;}
+                        .igic-book tr {page-break-inside:avoid;}
+                        .igic-book th {background:#153b54;color:#fff;padding:7px 4px;font-weight:600;}
+                        .igic-book td {padding:6px 4px;border-bottom:1px solid #dce4e9;overflow-wrap:break-word;}
+                        .igic-book tbody tr:nth-child(even) {background:#f2f6f8;}
+                        .igic-book .num {text-align:right;white-space:nowrap;}
+                        .igic-book .muted {font-size:9px;color:#607584;}
+                        .igic-book .totals {padding:12px;background:#eaf1f5;margin:12px 0;}
+                    </style>
+                    <t t-foreach="sections[o.id]" t-as="section">
+                        <div class="page igic-book">
+                            <table style="margin-bottom:16px;"><tr>
+                                <td style="width:75%;border:0;">
+                                    <h2>IGIC invoice book</h2>
+                                    <strong t-out="section['title']"/>
+                                    <div><span t-field="o.company_id.name"/> · <span t-field="o.company_id.vat"/></div>
+                                    <div><span t-field="o.date_start"/> — <span t-field="o.date_end"/></div>
+                                </td>
+                                <td style="text-align:right;border:0;">
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                         style="max-width:160px;max-height:55px;" alt="Company logo"/>
+                                </td>
+                            </tr></table>
+                            <div t-if="o.state != 'done'" class="muted">DRAFT — pending confirmation</div>
+                            <div t-if="o.error_count" style="color:#9b4a0b;">
+                                Review the warnings in the book before using this report.
+                            </div>
+                            <table>
+                                <thead><tr>
+                                    <th style="width:3%;">No.</th>
+                                    <th style="width:7%;">Invoice date</th>
+                                    <th style="width:13%;">Invoice / supplier reference</th>
+                                    <th style="width:17%;">Partner / VAT number</th>
+                                    <th style="width:18%;">Tax / operation</th>
+                                    <th class="num" style="width:6%;">Rate %</th>
+                                    <th class="num" style="width:12%;">Tax base</th>
+                                    <th class="num" style="width:12%;">IGIC / surcharge</th>
+                                    <th class="num" style="width:12%;">Deductible fee</th>
+                                </tr></thead>
+                                <tbody>
+                                    <tr t-foreach="section['rows']" t-as="row">
+                                        <td t-out="row['number']"/>
+                                        <td t-out="o._format_date(row['date']) if row['date'] else ''"/>
+                                        <td><span t-out="row['reference']"/>
+                                            <div class="muted" t-out="row['external_reference']"/>
+                                            <div t-if="row['refund']" class="muted">Refund</div>
+                                        </td>
+                                        <td><span t-out="row['partner']"/><div class="muted" t-out="row['vat']"/></td>
+                                        <td t-out="row['tax']"/>
+                                        <td class="num" t-out="row['rate']" t-options="{'widget':'float','precision':2}"/>
+                                        <td class="num" t-out="row['base']" t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                        <td class="num" t-out="row['fee']" t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                        <td class="num">
+                                            <span t-if="section['kind'] == 'received'" t-out="row['deductible']"
+                                                  t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                            <span t-else="">—</span>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="not section['rows']"><td colspan="9">No operations in this period.</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="totals">
+                                <strong>Documents: </strong><span t-out="section['invoice_count']"/>
+                                · <strong>Base without duplication: </strong>
+                                <span t-out="section['base']" t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                · <strong>IGIC / surcharge: </strong>
+                                <span t-out="section['fee']" t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                <t t-if="section['kind'] == 'received'"> · <strong>Deductible fee: </strong>
+                                    <span t-out="section['deductible']" t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                </t>
+                            </div>
+                            <h3>Tax summary</h3>
+                            <table>
+                                <thead><tr><th>Tax / operation</th><th class="num">Rate %</th>
+                                    <th class="num">Tax base</th><th class="num">IGIC / surcharge</th>
+                                    <th class="num">Deductible fee</th></tr></thead>
+                                <tbody><tr t-foreach="section['summary']" t-as="row">
+                                    <td t-out="row['tax']"/>
+                                    <td class="num" t-out="row['rate']" t-options="{'widget':'float','precision':2}"/>
+                                    <td class="num" t-out="row['base']" t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                    <td class="num" t-out="row['fee']" t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                    <td class="num"><span t-if="section['kind'] == 'received'" t-out="row['deductible']"
+                                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/><span t-else="">—</span></td>
+                                </tr></tbody>
+                            </table>
+                            <p class="muted" style="margin-top:12px;">
+                                Bases are detailed per tax. A surcharge can share the IGIC base.
+                                Totals count each accounting base once. Amounts are in company currency.
+                            </p>
+                            <p class="muted">Accounting review report. Not an ATC filing file.</p>
+                        </div>
+                    </t>
+                </div>
+                <div class="footer" style="font-size:9px;color:#607584;border-top:1px solid #ccd7df;">
+                    <span t-out="o.name"/> · SERVINCOM SOLUCIONES · www.servincom.com
+                    <span class="float-end"><span class="page"/> / <span class="topage"/></span>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_igic" model="report.paperformat">
+        <field name="name">SERVINCOM IGIC A4 Landscape</field>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">20</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="action_report_igic_pdf" model="ir.actions.report">
+        <field name="name">IGIC book (PDF)</field>
+        <field name="model">l10n.es.vat.book</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">servincom_igic_book.report_igic_book</field>
+        <field name="paperformat_id" ref="paperformat_igic"/>
+        <field name="print_report_name">'IGIC_%s_%s' % (object.year, object.id)</field>
+        <field name="groups_id" eval="[(4, ref('l10n_es_aeat.group_account_aeat'))]"/>
+    </record>
+    <record id="action_report_igic_xlsx" model="ir.actions.report">
+        <field name="name">IGIC book (Excel)</field>
+        <field name="model">l10n.es.vat.book</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">servincom_igic_book.igic_book_xlsx</field>
+        <field name="report_file">IGIC</field>
+        <field name="print_report_name">'IGIC_%s_%s' % (object.year, object.id)</field>
+        <field name="groups_id" eval="[(4, ref('l10n_es_aeat.group_account_aeat'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rule_igic_line_company" model="ir.rule">
+        <field name="name">IGIC line: company isolation</field>
+        <field name="model_id" ref="l10n_es_vat_book.model_l10n_es_vat_book_line"/>
+        <field name="domain_force">["|", ("vat_book_id.servincom_is_igic", "=", False), ("vat_book_id.company_id", "in", company_ids)]</field>
+    </record>
+    <record id="rule_igic_line_tax_company" model="ir.rule">
+        <field name="name">IGIC line_tax: company isolation</field>
+        <field name="model_id" ref="l10n_es_vat_book.model_l10n_es_vat_book_line_tax"/>
+        <field name="domain_force">["|", ("vat_book_line_id.vat_book_id.servincom_is_igic", "=", False), ("vat_book_line_id.vat_book_id.company_id", "in", company_ids)]</field>
+    </record>
+    <record id="rule_igic_summary_company" model="ir.rule">
+        <field name="name">IGIC summary: company isolation</field>
+        <field name="model_id" ref="l10n_es_vat_book.model_l10n_es_vat_book_summary"/>
+        <field name="domain_force">["|", ("vat_book_id.servincom_is_igic", "=", False), ("vat_book_id.company_id", "in", company_ids)]</field>
+    </record>
+    <record id="rule_igic_tax_summary_company" model="ir.rule">
+        <field name="name">IGIC tax_summary: company isolation</field>
+        <field name="model_id" ref="l10n_es_vat_book.model_l10n_es_vat_book_tax_summary"/>
+        <field name="domain_force">["|", ("vat_book_id.servincom_is_igic", "=", False), ("vat_book_id.company_id", "in", company_ids)]</field>
+    </record>
+</odoo>

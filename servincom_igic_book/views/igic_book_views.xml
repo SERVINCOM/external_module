@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_igic_book_form" model="ir.ui.view">
+        <field name="name">l10n.es.vat.book.form.servincom.igic</field>
+        <field name="model">l10n.es.vat.book</field>
+        <field name="inherit_id" ref="l10n_es_vat_book.view_l10n_es_vat_book_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="servincom_is_igic" invisible="1"/>
+                <button name="action_print_igic" type="object" string="IGIC PDF" icon="fa-file-pdf-o"
+                        invisible="not servincom_is_igic or state not in ('calculated', 'done')"/>
+                <button name="export_xlsx" type="object" string="IGIC Excel" icon="fa-file-excel-o"
+                        invisible="not servincom_is_igic or state not in ('calculated', 'done')"/>
+            </header>
+            <xpath expr="//button[@name='view_issued_invoices']" position="attributes">
+                <attribute name="invisible">servincom_is_igic or state == 'draft'</attribute>
+            </xpath>
+            <xpath expr="//button[@name='view_received_invoices']" position="attributes">
+                <attribute name="invisible">servincom_is_igic or state == 'draft'</attribute>
+            </xpath>
+            <xpath expr="(//header/button[@name='export_xlsx'])[1]" position="attributes">
+                <attribute name="invisible">servincom_is_igic or state in ('draft', 'done')</attribute>
+            </xpath>
+            <xpath expr="(//header/button[@name='export_xlsx'])[2]" position="attributes">
+                <attribute name="invisible">servincom_is_igic or state != 'done'</attribute>
+            </xpath>
+            <field name="tax_agency_ids" position="attributes">
+                <attribute name="invisible">servincom_is_igic</attribute>
+            </field>
+            <xpath expr="//sheet" position="inside">
+                <div class="alert alert-info" invisible="not servincom_is_igic">
+                    IGIC accounting book. Check tax mappings and deductible percentages before
+                    exporting. PDF and Excel are review reports, not an ATC filing format.
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_igic_book" model="ir.actions.act_window">
+        <field name="name">SERVINCOM IGIC Books</field>
+        <field name="res_model">l10n.es.vat.book</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[("servincom_is_igic", "=", True)]</field>
+        <field name="context">{"default_servincom_is_igic": True}</field>
+    </record>
+    <record id="action_igic_book_list" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="l10n_es_vat_book.view_l10n_es_vat_book_tree"/>
+        <field name="act_window_id" ref="action_igic_book"/>
+    </record>
+    <record id="action_igic_book_form" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="l10n_es_vat_book.view_l10n_es_vat_book_form"/>
+        <field name="act_window_id" ref="action_igic_book"/>
+    </record>
+    <menuitem id="menu_igic_book" name="SERVINCOM IGIC Books"
+              parent="l10n_es_aeat.menu_root_aeat" action="action_igic_book" sequence="25"
+              groups="l10n_es_aeat.group_account_aeat"/>
+</odoo>

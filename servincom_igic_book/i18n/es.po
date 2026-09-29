@@ -1,0 +1,370 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-29 17:00+0000\n"
+"PO-Revision-Date: 2026-09-29 17:00+0000\n"
+"Last-Translator: SERVINCOM SOLUCIONES, S.L.\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: servincom_igic_book
+#: model:aeat.vat.book.map.line,name:servincom_igic_book.map_igic_issued
+msgid "IGIC issued"
+msgstr "IGIC repercutido"
+
+#. module: servincom_igic_book
+#: model:aeat.vat.book.map.line,name:servincom_igic_book.map_igic_received
+msgid "IGIC received"
+msgstr "IGIC soportado"
+
+#. module: servincom_igic_book
+#: model:aeat.vat.book.map.line,name:servincom_igic_book.map_igic_surcharge
+msgid "IGIC surcharge"
+msgstr "Recargo de IGIC"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.view_igic_book_form
+msgid "IGIC PDF"
+msgstr "PDF de IGIC"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.view_igic_book_form
+msgid "IGIC Excel"
+msgstr "Excel de IGIC"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.view_igic_book_form
+msgid ""
+"IGIC accounting book. Check tax mappings and deductible percentages before\n"
+"                    exporting. PDF and Excel are review reports, not an ATC filing format."
+msgstr ""
+"Libro contable de IGIC. Revisa los mapeos de impuestos y los porcentajes "
+"deducibles antes de exportar. El PDF y el Excel son informes de revisión, no"
+" formatos de presentación ante la ATC."
+
+#. module: servincom_igic_book
+#: model:ir.actions.act_window,name:servincom_igic_book.action_igic_book
+#: model:ir.ui.menu,name:servincom_igic_book.menu_igic_book
+msgid "SERVINCOM IGIC Books"
+msgstr "SERVINCOM Libros de IGIC"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "<span class=\"float-end\">IGIC invoice book</span>"
+msgstr "<span class=\"float-end\">Libro de facturas de IGIC</span>"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:51
+#, python-format
+msgid "IGIC invoice book"
+msgstr "Libro de facturas de IGIC"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "Company logo"
+msgstr "Logotipo de la empresa"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "DRAFT — pending confirmation"
+msgstr "BORRADOR — pendiente de confirmar"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "Review the warnings in the book before using this report."
+msgstr "Revisa los avisos del libro antes de utilizar este informe."
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:92
+#, python-format
+msgid "No."
+msgstr "N.º"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:93
+#, python-format
+msgid "Invoice date"
+msgstr "Fecha de factura"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "Invoice / supplier reference"
+msgstr "Factura / referencia del proveedor"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "Partner / VAT number"
+msgstr "Tercero / NIF"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:99
+#, python-format
+msgid "Tax / operation"
+msgstr "Impuesto / operación"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:100
+#, python-format
+msgid "Rate %"
+msgstr "Tipo %"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:101
+#, python-format
+msgid "Tax base"
+msgstr "Base imponible"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:102
+#, python-format
+msgid "IGIC / surcharge"
+msgstr "IGIC / recargo"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:103
+#, python-format
+msgid "Deductible fee"
+msgstr "Cuota deducible"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:105
+#, python-format
+msgid "Refund"
+msgstr "Rectificativa"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "No operations in this period."
+msgstr "No hay operaciones en este periodo."
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "<strong>Documents: </strong>"
+msgstr "<strong>Documentos: </strong>"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "· <strong>Base without duplication: </strong>"
+msgstr "· <strong>Base sin duplicar: </strong>"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "· <strong>IGIC / surcharge: </strong>"
+msgstr "· <strong>IGIC / recargo: </strong>"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid "· <strong>Deductible fee: </strong>"
+msgstr "· <strong>Cuota deducible: </strong>"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:171
+#, python-format
+msgid "Tax summary"
+msgstr "Resumen por impuesto"
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid ""
+"Bases are detailed per tax. A surcharge can share the IGIC base.\n"
+"                                Totals count each accounting base once. Amounts are in company currency."
+msgstr ""
+"Las bases se desglosan por impuesto. Un recargo puede compartir la base del "
+"IGIC. Los totales cuentan cada base contable una sola vez. Los importes se "
+"expresan en la moneda de la compañía."
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:79
+#, python-format
+msgid "Accounting review report. Not an ATC filing file."
+msgstr ""
+"Informe de revisión contable. No es un fichero de presentación ante la ATC."
+
+#. module: servincom_igic_book
+#: model_terms:ir.ui.view,arch_db:servincom_igic_book.report_igic_book
+msgid ""
+"· SERVINCOM SOLUCIONES · www.servincom.com\n"
+"                    <span class=\"float-end\"><span class=\"page\"/> / <span class=\"topage\"/></span>"
+msgstr ""
+"· SERVINCOM SOLUCIONES · www.servincom.com\n"
+"                    <span class=\"float-end\"><span class=\"page\"/> / <span class=\"topage\"/></span>"
+
+#. module: servincom_igic_book
+#: model:report.paperformat,name:servincom_igic_book.paperformat_igic
+msgid "SERVINCOM IGIC A4 Landscape"
+msgstr "SERVINCOM IGIC A4 horizontal"
+
+#. module: servincom_igic_book
+#: model:ir.actions.report,name:servincom_igic_book.action_report_igic_pdf
+msgid "IGIC book (PDF)"
+msgstr "Libro de IGIC (PDF)"
+
+#. module: servincom_igic_book
+#: model:ir.actions.report,name:servincom_igic_book.action_report_igic_xlsx
+msgid "IGIC book (Excel)"
+msgstr "Libro de IGIC (Excel)"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/models/account_tax.py:22
+#, python-format
+msgid "The IGIC deductible percentage must be between 0 and 100."
+msgstr "El porcentaje deducible de IGIC debe estar entre 0 y 100."
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/models/igic_book.py:148
+#, python-format
+msgid "Calculate an IGIC book before exporting it."
+msgstr "Calcula un libro de IGIC antes de exportarlo."
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/models/igic_book.py:170
+#, python-format
+msgid "Issued invoices"
+msgstr "Facturas emitidas"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/models/igic_book.py:171
+#, python-format
+msgid "Received invoices"
+msgstr "Facturas recibidas"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/models/igic_book.py:61
+#, python-format
+msgid ""
+"No mapped IGIC taxes were found for this company. Check the Canary Islands "
+"chart and equivalent taxes."
+msgstr ""
+"No se han encontrado impuestos IGIC mapeados para esta compañía. Revisa el "
+"plan contable canario y los impuestos equivalentes."
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/models/igic_book.py:37
+#, python-format
+msgid ""
+"Create a new book to change the company, period or tax system of a "
+"calculated IGIC book."
+msgstr ""
+"Crea un libro nuevo para cambiar la compañía, el periodo o el tipo fiscal de"
+" un libro de IGIC ya calculado."
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:94
+#, python-format
+msgid "Accounting date"
+msgstr "Fecha contable"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:95
+#, python-format
+msgid "Invoice reference"
+msgstr "Referencia de factura"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:96
+#, python-format
+msgid "Supplier reference"
+msgstr "Referencia del proveedor"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:97
+#, python-format
+msgid "Partner"
+msgstr "Tercero"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:98
+#, python-format
+msgid "VAT number"
+msgstr "NIF"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:104
+#, python-format
+msgid "Non-deductible fee"
+msgstr "Cuota no deducible"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:106
+#, python-format
+msgid "Warning"
+msgstr "Aviso"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:159
+#, python-format
+msgid "Totals without duplicate bases"
+msgstr "Totales sin duplicar bases"
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:88
+#, python-format
+msgid "Draft / review book warnings before use."
+msgstr "Borrador / revisa los avisos del libro antes de utilizarlo."
+
+#. module: servincom_igic_book
+#: code:addons/servincom_igic_book/reports/igic_book_xlsx.py:149
+#, python-format
+msgid "Yes"
+msgstr "Sí"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields,field_description:servincom_igic_book.field_account_tax__servincom_igic_deductible_percent
+msgid "IGIC deductible percentage"
+msgstr "Porcentaje deducible de IGIC"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields,help:servincom_igic_book.field_account_tax__servincom_igic_deductible_percent
+msgid ""
+"Percentage of the posted IGIC fee deductible in the IGIC book. Use 0 for "
+"non-deductible IGIC. This does not change accounting entries."
+msgstr ""
+"Porcentaje de la cuota contabilizada deducible en el libro de IGIC. Usa 0 "
+"para el IGIC no deducible. No modifica los asientos contables."
+
+#. module: servincom_igic_book
+#: model:ir.model.fields,field_description:servincom_igic_book.field_aeat_vat_book_map_line__servincom_is_igic
+msgid "IGIC mapping"
+msgstr "Mapeo de IGIC"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields,field_description:servincom_igic_book.field_l10n_es_vat_book__servincom_is_igic
+msgid "IGIC book"
+msgstr "Libro de IGIC"
+
+#. module: servincom_igic_book
+#: model:ir.module.module,shortdesc:base.module_servincom_igic_book
+msgid "SERVINCOM IGIC Book"
+msgstr "SERVINCOM Libro de IGIC"
+
+#. module: servincom_igic_book
+#: model:ir.model,name:servincom_igic_book.model_report_servincom_igic_book_report_igic_book
+msgid "SERVINCOM IGIC PDF book"
+msgstr "SERVINCOM Libro de IGIC en PDF"
+
+#. module: servincom_igic_book
+#: model:ir.model,name:servincom_igic_book.model_report_servincom_igic_book_igic_book_xlsx
+msgid "SERVINCOM IGIC Excel book"
+msgstr "SERVINCOM Libro de IGIC en Excel"
+
+#. module: servincom_igic_book
+#: model:ir.module.module,summary:base.module_servincom_igic_book
+msgid "IGIC invoice books with PDF and Excel reports"
+msgstr "Libros de facturas de IGIC con informes en PDF y Excel"
