@@ -7,6 +7,15 @@ from odoo.exceptions import ValidationError
 class AccountTax(models.Model):
     _inherit = "account.tax"
 
+    servincom_igic_equivalent_tax_id = fields.Many2one(
+        comodel_name="account.tax",
+        string="Equivalent IGIC tax",
+        check_company=True,
+        domain="[('company_id', '=', company_id), ('id', '!=', id)]",
+        help="Official IGIC tax used to map a custom tax in the IGIC book. "
+        "Also available with OCA versions without the AEAT equivalent tax field.",
+    )
+
     servincom_igic_deductible_percent = fields.Float(
         string="IGIC deductible percentage",
         default=100.0,

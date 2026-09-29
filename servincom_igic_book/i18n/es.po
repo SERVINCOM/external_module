@@ -368,3 +368,13 @@ msgstr "SERVINCOM Libro de IGIC en Excel"
 #: model:ir.module.module,summary:base.module_servincom_igic_book
 msgid "IGIC invoice books with PDF and Excel reports"
 msgstr "Libros de facturas de IGIC con informes en PDF y Excel"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields,field_description:servincom_igic_book.field_account_tax__servincom_igic_equivalent_tax_id
+msgid "Equivalent IGIC tax"
+msgstr "Impuesto IGIC equivalente"
+
+#. module: servincom_igic_book
+#: model:ir.model.fields,help:servincom_igic_book.field_account_tax__servincom_igic_equivalent_tax_id
+msgid "Official IGIC tax used to map a custom tax in the IGIC book. Also available with OCA versions without the AEAT equivalent tax field."
+msgstr "Impuesto IGIC oficial utilizado para mapear un impuesto personalizado en el libro de IGIC. Disponible también en versiones de OCA sin el campo de impuesto equivalente AEAT."

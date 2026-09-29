@@ -27,7 +27,8 @@ class TestIgicBook(AccountTestInvoicingCommon):
 
     @classmethod
     def _tax(cls, suffix):
-        return cls.company._get_taxes_from_xmlids(["account_tax_template_" + suffix])
+        tax_id = cls.company._get_tax_id_from_xmlid("account_tax_template_" + suffix)
+        return cls.env["account.tax"].browse(tax_id)
 
     def _invoice(self, tax, move_type="out_invoice", amount=100.0, post=True):
         return self._create_invoice(
@@ -119,7 +120,10 @@ class TestIgicBook(AccountTestInvoicingCommon):
 
     def test_archived_equivalent_tax(self):
         custom = self.sale_tax.copy(
-            {"name": "Custom IGIC", "aeat_equivalent_tax_id": self.sale_tax.id}
+            {
+                "name": "Custom IGIC",
+                "servincom_igic_equivalent_tax_id": self.sale_tax.id,
+            }
         )
         self._invoice(custom)
         custom.active = False

@@ -6,6 +6,7 @@
         <field name="inherit_id" ref="account.view_tax_form"/>
         <field name="arch" type="xml">
             <field name="amount_type" position="after">
+                <field name="servincom_igic_equivalent_tax_id"/>
                 <field name="servincom_igic_deductible_percent" invisible="type_tax_use != 'purchase'"/>
             </field>
         </field>

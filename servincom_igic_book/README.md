@@ -16,7 +16,11 @@ resumen por impuesto, PDF A4 horizontal y Excel con dos hojas.
   antiguo `l10n_es_igic` de Odoo 16 ni cambiar el plan contable de una empresa
   que ya tiene movimientos para instalar este módulo.**
 
-El código se ha contrastado con `l10n_es_vat_book` **18.0.2.2.1**:
+Compatible también con `l10n_es_vat_book` **18.0.2.1.2** y
+`l10n_es_aeat` **18.0.1.3.8**, sin campo de equivalencias AEAT.
+La versión **18.0.1.0.1** incorpora un equivalente IGIC propio para estos entornos.
+
+El código se ha contrastado además con `l10n_es_vat_book` **18.0.2.2.1**:
 
 - OCA/l10n-spain: `c60280bf92b242659ab5349858a1e789bd8a5c41`.
 - Odoo/odoo 18.0: `50f3762a21d9cd960545a1a62c02a3b353598665`.
@@ -32,8 +36,9 @@ TPV sin cliente. Su combinación requiere validación específica en la base de 
 - Mapeos explícitos para las 76 plantillas del fichero canario oficial revisado:
   tipos generales, cero, exentos, no sujetos, bienes de inversión, importaciones,
   inversión del sujeto pasivo, recargos y grupos DUA.
-- Equivalencias de impuestos personalizadas mediante el campo OCA
-  **Impuesto equivalente (para mapeo AEAT)**; se incluyen equivalentes archivados.
+- Equivalencias personalizadas mediante **Impuesto IGIC equivalente**, o el
+  campo OCA **Impuesto equivalente (para mapeo AEAT)** cuando esté disponible;
+  se incluyen equivalentes archivados.
 - Cálculo sobre apuntes **contabilizados**, por **fecha contable**, en moneda de
   la compañía y limitado a la compañía del libro.
 - Rectificativas con signo negativo; exclusión de la contrapartida negativa de
@@ -52,7 +57,7 @@ TPV sin cliente. Su combinación requiere validación específica en la base de 
 1. En una **copia de pruebas**, verificar el plan y los impuestos realmente usados.
    Los mapeos funcionan con los identificadores externos oficiales de Odoo 18.
 2. Si un impuesto se creó manualmente o viene de una migración, configurar su
-   impuesto equivalente de la **misma compañía**. No se emparejan por nombre ni
+   **Impuesto IGIC equivalente** de la **misma compañía**. No se emparejan por nombre ni
    por porcentaje: un impuesto no mapeado queda fuera del libro.
 3. En cada impuesto de compra, revisar **Porcentaje deducible de IGIC**:
    100 por defecto; 0 para cuotas no deducibles; otro valor para deducción parcial.
