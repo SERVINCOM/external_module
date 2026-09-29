@@ -3,12 +3,12 @@
 {
     "name": "SERVINCOM IGIC Book",
     "summary": "IGIC invoice books with PDF and Excel reports",
-    "version": "18.0.1.0.2",
+    "version": "18.0.1.0.3",
     "category": "Accounting/Localizations/Reporting",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",
     "license": "AGPL-3",
-    "depends": ["l10n_es_vat_book", "report_xlsx"],
+    "depends": ["l10n_es_vat_book", "l10n_es_atc", "report_xlsx"],
     "data": [
         "security/igic_book_rules.xml",
         "data/igic_tax_maps.xml",

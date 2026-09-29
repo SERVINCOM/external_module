@@ -10,6 +10,7 @@ resumen por impuesto, PDF A4 horizontal y Excel con dos hojas.
 ## Dependencias y compatibilidad
 
 - `l10n_es_vat_book` de `OCA/l10n-spain`, rama `18.0`.
+- `l10n_es_atc` de `OCA/l10n-spain`: reutiliza su apartado ATC.
 - `report_xlsx` de `OCA/reporting-engine`, rama `18.0`.
 - Sus dependencias, incluidas `l10n_es_aeat`, `account` y `l10n_es`.
 - Odoo 18 actualizado con el plan contable canario oficial. **No instalar el
@@ -32,7 +33,7 @@ TPV sin cliente. Su combinación requiere validación específica en la base de 
 
 ## Qué incluye
 
-- Menú **Contabilidad → Declaraciones → Libros de IGIC**.
+- Menú **Contabilidad → Declaraciones → ATC → Libros de IGIC**.
 - Mapeos explícitos para las 76 plantillas del fichero canario oficial revisado:
   tipos generales, cero, exentos, no sujetos, bienes de inversión, importaciones,
   inversión del sujeto pasivo, recargos y grupos DUA.
@@ -50,7 +51,8 @@ TPV sin cliente. Su combinación requiere validación específica en la base de 
 - Los mapas IGIC se activan únicamente al calcular libros IGIC. Los libros IVA
   conservan sus mapas y sus exportaciones OCA.
 - Icono corporativo SERVINCOM; el PDF utiliza el logo y los datos de la empresa
-  titular del libro, también en el pie del PDF y del Excel.
+  titular del libro. El pie del PDF muestra solo el nombre del libro y la
+  numeración de páginas; el pie del Excel conserva la empresa.
 
 ## Configuración inicial
 
@@ -96,6 +98,9 @@ cumplimiento de un requerimiento administrativo concreto.
 ## Seguridad
 
 Reutiliza el modelo y el grupo OCA `l10n_es_aeat.group_account_aeat`.
+El apartado ATC requiere además `l10n_es_atc.group_account_atc`. Si el Modelo
+420 está instalado pero no aparece, revisar este permiso del usuario. El módulo
+no asigna grupos a usuarios ni amplía permisos automáticamente.
 No crea modelos persistentes nuevos ni amplía ACL: por eso no añade un CSV de
 permisos. Añade reglas de compañía para las líneas, cuotas y resúmenes IGIC.
 Las acciones de informe comprueban acceso y estado calculado/confirmado.
