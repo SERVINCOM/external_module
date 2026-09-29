@@ -115,8 +115,13 @@ Primera instalación:
 Actualizaciones posteriores:
 
 ```bash
-./odoo-bin -c <config> -d <base_pruebas> -u servincom_igic_book --stop-after-init
+./odoo-bin -c <config> -d <base_pruebas> -u servincom_igic_book --i18n-overwrite --stop-after-init
 ```
+
+En instalaciones anteriores, `--i18n-overwrite` recarga las traducciones del
+módulo y sustituye el antiguo nombre traducido del menú. Revisar antes cualquier
+traducción personalizada que se quiera conservar. Reiniciar Odoo para renovar
+la caché de traducciones Python y recargar el navegador.
 
 Pruebas automatizadas (usar una base desechable):
 
@@ -147,6 +152,12 @@ XLSX. El 29 de septiembre de 2026 se verificaron en una base de pruebas Odoo 18
 la instalación, la actualización a 18.0.1.0.1, el cálculo de un periodo sin avisos,
 el renderizado HTML en español y la generación de las dos hojas Excel.
 Los libros temporales se descartaron con rollback.
+
+En la versión 18.0.1.0.2 se verificaron en Odoo las traducciones del menú, los
+estados y las selecciones heredadas, así como los títulos, las hojas y las
+cabeceras Excel y el pie con la empresa del libro. La exportación HTML y Excel
+conserva los importes del libro existente. El fichero PO incluye la marca
+`odoo-python` necesaria para las traducciones de código en Odoo 18.
 
 Quedan pendientes la ejecución completa de la suite ORM, el renderizado visual
 del PDF con wkhtmltopdf y la conciliación de todos los casos fiscales.
