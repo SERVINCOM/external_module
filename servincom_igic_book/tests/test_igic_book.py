@@ -221,7 +221,9 @@ class TestIgicBook(AccountTestInvoicingCommon):
         html, _ = report._render_qweb_html(report.report_name, book.ids)
         self.assertIn(b"IGIC invoice book", html)
         self.assertIn(b"=1+1", html)
-        xlsx = self.env["report.servincom_igic_book.igic_book_xlsx"]
+        xlsx = self.env["report.servincom_igic_book.igic_book_xlsx"].with_context(
+            active_model=book._name, active_ids=book.ids
+        )
         content, _ = xlsx.create_xlsx_report(book.ids, {})
         with zipfile.ZipFile(io.BytesIO(content)) as archive:
             ns = {"s": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}

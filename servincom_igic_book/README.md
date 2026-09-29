@@ -143,9 +143,15 @@ Pruebas automatizadas (usar una base desechable):
 - Recalcular: sin duplicados. Confirmar: sin avisos pendientes.
 
 Las pruebas ORM de `tests/` cubren los casos principales y la exportación HTML/
-XLSX. La instalación real, el renderizado PDF con wkhtmltopdf y la validación con
-los datos de la base de pruebas quedan pendientes hasta disponer de autorización
-para esa fase. Ningún servidor se modifica durante la preparación del módulo.
+XLSX. El 29 de septiembre de 2026 se verificaron en una base de pruebas Odoo 18
+la instalación, la actualización a 18.0.1.0.1, el cálculo de un periodo sin avisos,
+el renderizado HTML en español y la generación de las dos hojas Excel.
+Los libros temporales se descartaron con rollback.
+
+Quedan pendientes la ejecución completa de la suite ORM, el renderizado visual
+del PDF con wkhtmltopdf y la conciliación de todos los casos fiscales.
+La prueba de exportación desde shell debe incluir `active_model` y `active_ids`,
+igual que el contexto del botón de Odoo.
 
 ## Créditos
 
