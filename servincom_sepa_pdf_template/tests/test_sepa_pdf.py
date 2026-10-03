@@ -203,3 +203,34 @@ class TestSepaPdf(TransactionCase):
         action = wizard.action_preview()
         self.assertEqual(action["type"], "ir.actions.act_url")
         self.assertTrue(wizard.pdf_file)
+
+    def test_spanish_code_translations(self):
+        from odoo.tools.translate import code_translations
+
+        translations = code_translations.get_python_translations(
+            "servincom_sepa_pdf_template", "es_ES"
+        )
+        self.assertEqual(translations["PDF validation"], "Validación del modelo PDF")
+        self.assertEqual(
+            translations["Preview SEPA mandate"], "Previsualizar mandato SEPA"
+        )
+        self.assertEqual(
+            translations["PDF validation successful."], "Validación del PDF correcta."
+        )
+
+    def test_spanish_related_field_occurrences(self):
+        import polib
+
+        catalog = polib.pofile(str(Path(__file__).resolve().parents[1] / "i18n/es.po"))
+        for source, field in (
+            ("Last PDF validation", "sepa_pdf_validation_result"),
+            ("Validation date", "sepa_pdf_validation_date"),
+            ("Validated by", "sepa_pdf_validation_user_id"),
+        ):
+            occurrence = (
+                "model:ir.model.fields,field_description:servincom_sepa_pdf_template."
+                "field_res_config_settings__" + field
+            )
+            self.assertIn(
+                occurrence, [ref for ref, line in catalog.find(source).occurrences]
+            )

@@ -3,7 +3,7 @@
 {
     "name": "SERVINCOM SEPA PDF Template",
     "summary": "Fill company-specific AcroForm PDF templates for SEPA mandates",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "license": "AGPL-3",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",

@@ -9,6 +9,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 #, python-format
 msgid ""
@@ -76,6 +77,7 @@ msgid "Generated PDF"
 msgstr "PDF generado"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid ""
 "Invalid PDF: use an unsigned, unencrypted AcroForm, at most 10 MiB and 20 "
@@ -85,6 +87,7 @@ msgstr ""
 "20 páginas, sin XFA."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 #, python-format
 msgid "Invalid field type, appearance or visible widget: %s"
@@ -92,6 +95,7 @@ msgstr "Tipo de campo, apariencia o control visible no válido: %s"
 
 #. module: servincom_sepa_pdf_template
 #: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_validation_result
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_validation_result
 msgid "Last PDF validation"
 msgstr "Resultado de la última validación"
 
@@ -101,11 +105,13 @@ msgid "Mandate"
 msgstr "Mandato"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/wizard/sepa_preview.py:0
 msgid "No PDF template is configured for this company and scheme."
 msgstr "No hay un modelo PDF configurado para esta empresa y esquema."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid "Only accounting managers or administrators can configure SEPA PDFs."
 msgstr ""
@@ -118,11 +124,13 @@ msgid "PDF filename"
 msgstr "Nombre del PDF"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_config_settings.py:0
 msgid "PDF validation"
 msgstr "Validación del modelo PDF"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid "PDF validation failed. Custom templates cannot be enabled."
 msgstr ""
@@ -130,11 +138,13 @@ msgstr ""
 "personalizados."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid "PDF validation history is managed automatically."
 msgstr "El historial de validación del PDF se gestiona automáticamente."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid "PDF validation successful."
 msgstr "Validación del PDF correcta."
@@ -145,6 +155,7 @@ msgid "Place of signature"
 msgstr "Localidad de firma"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_config_settings.py:0
 #: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.sepa_preview_form
 msgid "Preview SEPA mandate"
@@ -171,6 +182,7 @@ msgid "SEPA scheme"
 msgstr "Esquema SEPA"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid "Select an allowed company before configuring its SEPA PDF."
 msgstr ""
@@ -182,6 +194,7 @@ msgid "Selected PDF template"
 msgstr "Modelo PDF utilizado"
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid ""
 "The installed pypdf version does not support flattening. Install pypdf "
@@ -191,16 +204,19 @@ msgstr ""
 "pypdf 6.10.0 o una versión compatible."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/wizard/sepa_preview.py:0
 msgid "The mandate must belong to the selected company."
 msgstr "El mandato debe pertenecer a la empresa seleccionada."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/wizard/sepa_preview.py:0
 msgid "The selected PDF template is invalid. Validate it in Settings."
 msgstr "El modelo PDF seleccionado no es válido. Valídelo en Ajustes."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid ""
 "The selected file is a flat PDF. To use it as a SEPA template it must "
@@ -219,6 +235,7 @@ msgstr ""
 "esquema, se utiliza el informe original de OCA."
 
 #. module: servincom_sepa_pdf_template
+#. odoo-python
 #: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
 msgid "Upload at least one CORE or B2B PDF template."
 msgstr "Suba al menos un modelo PDF CORE o B2B."
@@ -230,10 +247,12 @@ msgstr "Validar modelo PDF"
 
 #. module: servincom_sepa_pdf_template
 #: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_validation_user_id
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_validation_user_id
 msgid "Validated by"
 msgstr "Usuario que realizó la validación"
 
 #. module: servincom_sepa_pdf_template
 #: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_validation_date
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_validation_date
 msgid "Validation date"
 msgstr "Fecha de validación"
