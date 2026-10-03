@@ -1,0 +1,33 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.servincom.sepa.pdf</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account_banking_sepa_direct_debit.view_account_config_settings"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='pain']" position="after">
+                <block title="SEPA mandates" id="servincom_sepa_pdf" groups="account.group_account_manager,base.group_system">
+                    <setting string="Custom PDF template for SEPA mandates" company_dependent="1" help="Upload a fillable AcroForm. Missing schemes use the original OCA report.">
+                        <field name="sepa_pdf_enabled"/>
+                        <div class="content-group">
+                            <label for="sepa_pdf_core"/>
+                            <field name="sepa_pdf_core" filename="sepa_pdf_core_filename"/>
+                            <field name="sepa_pdf_core_filename"/>
+                            <label for="sepa_pdf_b2b"/>
+                            <field name="sepa_pdf_b2b" filename="sepa_pdf_b2b_filename"/>
+                            <field name="sepa_pdf_b2b_filename"/>
+                            <div class="mt16">
+                                <button name="action_sepa_pdf_validate" type="object" string="Validate PDF template" class="btn-secondary"/>
+                                <button name="action_sepa_pdf_preview" type="object" string="Preview mandate" class="btn-secondary ms-2"/>
+                            </div>
+                            <field name="sepa_pdf_validation_result" readonly="1"/>
+                            <label for="sepa_pdf_validation_date"/>
+                            <field name="sepa_pdf_validation_date" readonly="1"/>
+                            <label for="sepa_pdf_validation_user_id"/>
+                            <field name="sepa_pdf_validation_user_id" readonly="1"/>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

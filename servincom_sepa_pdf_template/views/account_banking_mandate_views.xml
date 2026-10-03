@@ -1,0 +1,12 @@
+<odoo>
+    <record id="mandate_form" model="ir.ui.view">
+        <field name="name">account.banking.mandate.signature.city</field>
+        <field name="model">account.banking.mandate</field>
+        <field name="inherit_id" ref="account_banking_mandate.view_mandate_form"/>
+        <field name="arch" type="xml">
+            <field name="signature_date" position="after">
+                <field name="sepa_signature_city" invisible="format != 'sepa'"/>
+            </field>
+        </field>
+    </record>
+</odoo>

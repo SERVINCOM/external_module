@@ -1,0 +1,7 @@
+<odoo>
+    <record id="sepa_preview_company_rule" model="ir.rule">
+        <field name="name">SEPA preview: allowed companies</field>
+        <field name="model_id" ref="model_servincom_sepa_pdf_preview"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

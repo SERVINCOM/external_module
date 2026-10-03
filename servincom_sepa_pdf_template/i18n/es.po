@@ -1,0 +1,239 @@
+# Translation of SERVINCOM SEPA PDF Template to Spanish (Spain).
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 18.0\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+#, python-format
+msgid ""
+"%(scheme)s - Found: %(found)s\n"
+"Missing: %(missing)s\n"
+"Unknown: %(unknown)s"
+msgstr ""
+"%(scheme)s - Campos encontrados: %(found)s\n"
+"Campos que faltan: %(missing)s\n"
+"Campos desconocidos: %(unknown)s"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_b2b
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_b2b
+msgid "B2B PDF template"
+msgstr "Modelo PDF para mandatos B2B"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_b2b_filename
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_b2b_filename
+msgid "B2B filename"
+msgstr "Nombre del archivo B2B"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_core
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_core
+msgid "CORE PDF template"
+msgstr "Modelo PDF para mandatos CORE"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_core_filename
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_core_filename
+msgid "CORE filename"
+msgstr "Nombre del archivo CORE"
+
+#. module: servincom_sepa_pdf_template
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.sepa_preview_form
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_servincom_sepa_pdf_preview__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: servincom_sepa_pdf_template
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.res_config_settings_view_form
+msgid "Custom PDF template for SEPA mandates"
+msgstr "Modelo PDF personalizado para mandatos SEPA"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_enabled
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_enabled
+msgid "Enable custom SEPA PDF"
+msgstr "Activar modelo PDF personalizado"
+
+#. module: servincom_sepa_pdf_template
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.sepa_preview_form
+msgid "Generate preview"
+msgstr "Generar previsualización"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_servincom_sepa_pdf_preview__pdf_file
+msgid "Generated PDF"
+msgstr "PDF generado"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid ""
+"Invalid PDF: use an unsigned, unencrypted AcroForm, at most 10 MiB and 20 "
+"pages, without XFA."
+msgstr ""
+"PDF no válido: utilice un AcroForm sin firmar ni cifrar, de hasta 10 MiB y "
+"20 páginas, sin XFA."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+#, python-format
+msgid "Invalid field type, appearance or visible widget: %s"
+msgstr "Tipo de campo, apariencia o control visible no válido: %s"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_validation_result
+msgid "Last PDF validation"
+msgstr "Resultado de la última validación"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_servincom_sepa_pdf_preview__mandate_id
+msgid "Mandate"
+msgstr "Mandato"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/wizard/sepa_preview.py:0
+msgid "No PDF template is configured for this company and scheme."
+msgstr "No hay un modelo PDF configurado para esta empresa y esquema."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid "Only accounting managers or administrators can configure SEPA PDFs."
+msgstr ""
+"Solo los responsables de contabilidad o administradores pueden configurar "
+"los modelos PDF SEPA."
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_servincom_sepa_pdf_preview__filename
+msgid "PDF filename"
+msgstr "Nombre del PDF"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_config_settings.py:0
+msgid "PDF validation"
+msgstr "Validación del modelo PDF"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid "PDF validation failed. Custom templates cannot be enabled."
+msgstr ""
+"La validación del PDF ha fallado. No se pueden activar los modelos "
+"personalizados."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid "PDF validation history is managed automatically."
+msgstr "El historial de validación del PDF se gestiona automáticamente."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid "PDF validation successful."
+msgstr "Validación del PDF correcta."
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_account_banking_mandate__sepa_signature_city
+msgid "Place of signature"
+msgstr "Localidad de firma"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_config_settings.py:0
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.sepa_preview_form
+msgid "Preview SEPA mandate"
+msgstr "Previsualizar mandato SEPA"
+
+#. module: servincom_sepa_pdf_template
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.res_config_settings_view_form
+msgid "Preview mandate"
+msgstr "Previsualizar mandato"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model,name:servincom_sepa_pdf_template.model_servincom_sepa_pdf_preview
+msgid "SEPA PDF preview"
+msgstr "Previsualización del PDF SEPA"
+
+#. module: servincom_sepa_pdf_template
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.res_config_settings_view_form
+msgid "SEPA mandates"
+msgstr "Mandatos SEPA"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_servincom_sepa_pdf_preview__scheme
+msgid "SEPA scheme"
+msgstr "Esquema SEPA"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid "Select an allowed company before configuring its SEPA PDF."
+msgstr ""
+"Seleccione una empresa autorizada antes de configurar su modelo PDF SEPA."
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_servincom_sepa_pdf_preview__template_name
+msgid "Selected PDF template"
+msgstr "Modelo PDF utilizado"
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid ""
+"The installed pypdf version does not support flattening. Install pypdf "
+"6.10.0 or a compatible version."
+msgstr ""
+"La versión instalada de pypdf no permite aplanar el formulario. Instale "
+"pypdf 6.10.0 o una versión compatible."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/wizard/sepa_preview.py:0
+msgid "The mandate must belong to the selected company."
+msgstr "El mandato debe pertenecer a la empresa seleccionada."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/wizard/sepa_preview.py:0
+msgid "The selected PDF template is invalid. Validate it in Settings."
+msgstr "El modelo PDF seleccionado no es válido. Valídelo en Ajustes."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid ""
+"The selected file is a flat PDF. To use it as a SEPA template it must "
+"contain PDF form fields with the required standardized names."
+msgstr ""
+"El archivo seleccionado es un PDF plano. Para utilizarlo como modelo SEPA "
+"debe contener campos de formulario PDF con los nombres normalizados "
+"requeridos."
+
+#. module: servincom_sepa_pdf_template
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.res_config_settings_view_form
+msgid ""
+"Upload a fillable AcroForm. Missing schemes use the original OCA report."
+msgstr ""
+"Suba un formulario PDF rellenable AcroForm. Si falta el modelo de un "
+"esquema, se utiliza el informe original de OCA."
+
+#. module: servincom_sepa_pdf_template
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+msgid "Upload at least one CORE or B2B PDF template."
+msgstr "Suba al menos un modelo PDF CORE o B2B."
+
+#. module: servincom_sepa_pdf_template
+#: model_terms:ir.ui.view,arch_db:servincom_sepa_pdf_template.res_config_settings_view_form
+msgid "Validate PDF template"
+msgstr "Validar modelo PDF"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_validation_user_id
+msgid "Validated by"
+msgstr "Usuario que realizó la validación"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_company__sepa_pdf_validation_date
+msgid "Validation date"
+msgstr "Fecha de validación"
