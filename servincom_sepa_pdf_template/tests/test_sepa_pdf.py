@@ -63,6 +63,43 @@ class TestSepaPdf(TransactionCase):
             if "_render_qweb_pdf_prepare_streams" in cls.__dict__
         )
 
+    def test_settings_upload_notices_only_for_changed_files(self):
+        model = self.env["res.config.settings"]
+        names = [
+            "company_id",
+            "sepa_pdf_core",
+            "sepa_pdf_b2b",
+            "sepa_pdf_upload_fingerprint",
+        ]
+        settings = model.new(model.default_get(names))
+        self.assertFalse(settings._onchange_sepa_pdf_upload())
+        settings._onchange_sepa_company()
+        self.assertFalse(settings._onchange_sepa_pdf_upload())
+        settings.sepa_pdf_b2b = self.b2b
+        notice = settings._onchange_sepa_pdf_upload()["warning"]
+        self.assertEqual(notice["type"], "notification")
+        self.assertEqual(notice["message"], self.env._("PDF validation successful."))
+        self.assertFalse(settings._onchange_sepa_pdf_upload())
+        settings.sepa_pdf_b2b = False
+        self.assertFalse(settings._onchange_sepa_pdf_upload())
+        settings.sepa_pdf_b2b = base64.b64encode(b"broken")
+        self.assertEqual(
+            settings._onchange_sepa_pdf_upload()["warning"]["type"], "dialog"
+        )
+        self.assertFalse(settings._onchange_sepa_pdf_upload())
+
+    def test_empty_settings_and_binary_size_are_silent(self):
+        settings = self.env["res.config.settings"].new({"company_id": self.other.id})
+        settings._onchange_sepa_company()
+        self.assertFalse(settings._onchange_sepa_pdf_upload())
+        settings.sepa_pdf_core = "48.2 Kb"
+        self.assertFalse(settings._onchange_sepa_pdf_upload())
+
+    def test_success_diagnostics_are_concise(self):
+        valid, message = self.company._sepa_pdf_diagnostics()
+        self.assertTrue(valid)
+        self.assertEqual(message, self.env._("PDF validation successful."))
+
     def test_activation_rejects_invalid(self):
         with self.assertRaises(ValidationError), self.cr.savepoint():
             self.company.write({"sepa_pdf_core": base64.b64encode(b"broken")})

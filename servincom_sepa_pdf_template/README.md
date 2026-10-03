@@ -30,8 +30,10 @@ pypdf 6.10.0. Comprobar la versión en el Python que ejecuta Odoo antes de insta
 2. Cargue el formulario CORE y/o B2B y su nombre de archivo. Los modelos se guardan
    en `res.company` con `attachment=True`; no son parámetros globales compartidos.
 3. Pulse **Validar modelo PDF**. Este botón guarda únicamente la configuración SEPA
-   de la empresa y registra resultado, fecha y usuario. También se muestra un aviso
-   de validación al cargar los archivos.
+   de la empresa y registra resultado, fecha y usuario internamente. Solo se muestra
+   un aviso automático al subir o sustituir un archivo, nunca al abrir Ajustes.
+   Una validación correcta muestra una confirmación breve; los errores indican
+   únicamente los requisitos incumplidos. No se muestran listados técnicos en Ajustes.
 4. Pulse **Previsualizar mandato**, seleccione un mandato de esa empresa y revise
    empresa, esquema y archivo. El botón guarda la configuración SEPA y abre un
    asistente que genera una descarga sin enviar correo. Se puede previsualizar un

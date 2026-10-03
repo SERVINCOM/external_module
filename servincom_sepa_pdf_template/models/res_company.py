@@ -80,15 +80,12 @@ class ResCompany(models.Model):
                     "errors": ["invalid"],
                 }
             valid = valid and result["valid"]
-            messages.append(
-                _(
-                    "%(scheme)s - Found: %(found)s\nMissing: %(missing)s\nUnknown: %(unknown)s",
-                    scheme=scheme.upper(),
-                    found=", ".join(result["found"]) or "-",
-                    missing=", ".join(result["missing"]) or "-",
-                    unknown=", ".join(result["unknown"]) or "-",
-                )
-            )
+            if not result["valid"]:
+                messages.append(_("%(scheme)s template:", scheme=scheme.upper()))
+                if result["missing"]:
+                    messages.append(
+                        _("Missing required fields: %s", ", ".join(result["missing"]))
+                    )
             for error in result["errors"]:
                 if error == "flat":
                     messages.append(

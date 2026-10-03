@@ -256,3 +256,22 @@ msgstr "Usuario que realizó la validación"
 #: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_validation_date
 msgid "Validation date"
 msgstr "Fecha de validación"
+
+#. module: servincom_sepa_pdf_template
+#. odoo-python
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+#, python-format
+msgid "%(scheme)s template:"
+msgstr "Modelo %(scheme)s:"
+
+#. module: servincom_sepa_pdf_template
+#. odoo-python
+#: code:addons/servincom_sepa_pdf_template/models/res_company.py:0
+#, python-format
+msgid "Missing required fields: %s"
+msgstr "Campos obligatorios que faltan: %s"
+
+#. module: servincom_sepa_pdf_template
+#: model:ir.model.fields,field_description:servincom_sepa_pdf_template.field_res_config_settings__sepa_pdf_upload_fingerprint
+msgid "SEPA upload fingerprint"
+msgstr "Huella del archivo SEPA"
