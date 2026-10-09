@@ -121,7 +121,7 @@ When suggesting a server update, adapt the database and module name:
 
 ```bash
 systemctl stop odoo20
-su - odoo20 -s /bin/sh -c "/opt/odoo20/20.0/odoo/odoo-bin -d <database> -u <module_name> --config /opt/odoo20/config/odoo20.conf --stop-after-init"
+su - odoo20 -s /bin/sh -c "/opt/odoo20/venv/bin/python /opt/odoo20/20.0/odoo/odoo-bin -d <database> -u <module_name> --config /opt/odoo20/config/odoo20.conf --stop-after-init"
 systemctl start odoo20
 systemctl status odoo20 --no-pager
 ```
