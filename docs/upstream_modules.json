@@ -1,0 +1,13 @@
+[
+  {
+    "module": "web_responsive",
+    "version": "20.0.1.0.0",
+    "license": "LGPL-3",
+    "upstream_repository": "https://github.com/Josuesp1620/web",
+    "upstream_commit": "a4a761ab420f335fe5fb1efbb065106a4e3345a1",
+    "upstream_pull_request": "https://github.com/OCA/web/pull/3679",
+    "status": "provisional_pending_oca_merge",
+    "local_module_changes": [],
+    "imported_on": "2026-10-09"
+  }
+]
