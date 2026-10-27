@@ -1,0 +1,14 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Language: es\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: servincom_sale_configurator_existing_variants
+#: model:ir.module.module,name:base.module_servincom_sale_configurator_existing_variants
+msgid "Sale Configurator Existing Variants"
+msgstr "Configurador de ventas: variantes existentes"
+
+# The configurator retains Odoo's existing translated labels.

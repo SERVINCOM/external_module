@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="servincom_sale_configurator_existing_variants.pills" t-inherit="sale.ptav_pills" t-inherit-mode="extension">
+        <xpath expr="//li[@t-as='ptav']" position="attributes"><attribute name="t-if">!ptav.servincomHidden</attribute></xpath>
+    </t>
+    <t t-name="servincom_sale_configurator_existing_variants.select" t-inherit="sale.ptav_select" t-inherit-mode="extension">
+        <xpath expr="//option[@t-as='ptav']" position="attributes"><attribute name="t-if">!ptav.servincomHidden</attribute></xpath>
+    </t>
+    <t t-name="servincom_sale_configurator_existing_variants.radio" t-inherit="sale.ptav_radio" t-inherit-mode="extension">
+        <xpath expr="//li[@t-as='ptav']" position="attributes"><attribute name="t-if">!ptav.servincomHidden</attribute></xpath>
+    </t>
+    <t t-name="servincom_sale_configurator_existing_variants.color" t-inherit="sale.ptav_color" t-inherit-mode="extension">
+        <xpath expr="//li[@t-as='ptav']" position="attributes"><attribute name="t-if">!ptav.servincomHidden</attribute></xpath>
+    </t>
+</templates>
