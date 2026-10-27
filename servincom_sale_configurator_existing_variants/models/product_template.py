@@ -1,4 +1,5 @@
-from odoo import models
+from odoo import api, models
+from odoo.http import request
 
 
 class ProductTemplate(models.Model):
@@ -17,3 +18,22 @@ class ProductTemplate(models.Model):
                 variant.product_template_attribute_value_ids, ignore_no_variant=True
             )
         ]
+
+    @api.model
+    def _get_additional_configurator_data(self, product_or_template, **kwargs):
+        result = super()._get_additional_configurator_data(product_or_template, **kwargs)
+        # Website and combo configurators share this hook but have different props.
+        path = request.httprequest.path if request else ''
+        if path not in {
+            '/sale/product_configurator/get_values',
+            '/sale/product_configurator/update_combination',
+            '/sale/product_configurator/get_optional_products',
+        }:
+            return result
+        template = (product_or_template.product_tmpl_id
+                    if product_or_template._name == 'product.product'
+                    else product_or_template)
+        combinations = template._servincom_existing_configurator_combinations()
+        if combinations is not None:
+            result['servincom_combinations'] = combinations
+        return result
