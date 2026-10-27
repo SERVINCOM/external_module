@@ -20,8 +20,12 @@ class ProductTemplate(models.Model):
         ]
 
     @api.model
-    def _get_additional_configurator_data(self, product_or_template, **kwargs):
-        result = super()._get_additional_configurator_data(product_or_template, **kwargs)
+    def _get_additional_configurator_data(
+        self, product_or_template, date, currency, pricelist, **kwargs
+    ):
+        result = super()._get_additional_configurator_data(
+            product_or_template, date, currency, pricelist, **kwargs
+        )
         # Website and combo configurators share this hook but have different props.
         path = request.httprequest.path if request else ''
         if path not in {
