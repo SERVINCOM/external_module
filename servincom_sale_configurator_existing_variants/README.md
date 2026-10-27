@@ -16,7 +16,9 @@ siguen utilizando la lógica de Odoo.
 
 ## Alcance
 
-- Herencia de controlador y modelo; extensiones Owl/XML en web.assets_backend.
+- Herencia del modelo mediante el hook nativo de datos del configurador;
+  extensiones Owl/XML en web.assets_backend. El hook se limita a las rutas
+  del configurador de Ventas para coexistir con website_sale.
 - Dependencia única: sale. Sin modelos, permisos ni campos persistentes nuevos.
 - No modifica productos, stock, precios, pedidos ni la tienda web.
 - No impide la regeneración nativa de combinaciones al editar atributos de una
