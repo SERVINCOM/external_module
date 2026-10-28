@@ -1,0 +1,27 @@
+# Translation of Odoo Server.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"PO-Revision-Date: 2026-10-28 12:00+0000\n"
+"Last-Translator: SERVINCOM SOLUCIONES\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: servincom_product_attribute_value_sequence
+#: model:ir.model.fields,field_description:servincom_product_attribute_value_sequence.field_product_template_attribute_value__sequence
+msgid "Global sequence"
+msgstr "Secuencia global"
+
+#. module: servincom_product_attribute_value_sequence
+#: model:ir.model.fields,help:servincom_product_attribute_value_sequence.field_product_template_attribute_value__sequence
+msgid "Changing this order affects every product using the same attribute value."
+msgstr "Cambiar este orden afecta a todos los productos que utilicen el mismo valor del atributo."
+
+#. module: servincom_product_attribute_value_sequence
+#: model:ir.model.fields,field_description:servincom_product_attribute_value_sequence.field_product_product__attribute_value_order_key
+msgid "Attribute value order"
+msgstr "Orden de los valores de atributos"

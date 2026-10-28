@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_variant_ordered_list" model="ir.ui.view">
+        <field name="name">product.product.list.attribute.order</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="mode">primary</field>
+        <field name="priority" eval="99"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="default_order">attribute_value_order_key, id</attribute>
+            </xpath>
+            <xpath expr="//list/field[1]" position="before">
+                <field name="attribute_value_order_key" column_invisible="True"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_template_ordered_variants" model="ir.ui.view">
+        <field name="name">product.template.form.ordered.variants</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(product.product_variant_action)d']" position="attributes">
+                <attribute name="name">action_open_ordered_variants</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
