@@ -3,7 +3,7 @@
 {
     "name": "Product Attribute Value Sequence",
     "summary": "Reorder shared attribute values from the product configurator",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
     "license": "AGPL-3",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",

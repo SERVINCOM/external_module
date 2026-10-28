@@ -149,6 +149,12 @@ class TestAttributeSequence(TransactionCase):
     def test_action_scoped_to_product(self):
         template = self.templates[0]
         action = template.action_open_ordered_variants()
+        self.assertEqual(
+            action["id"],
+            self.env.ref(
+                "servincom_product_attribute_value_sequence.product_variant_ordered_action"
+            ).id,
+        )
         self.assertEqual(action["domain"], [("product_tmpl_id", "=", template.id)])
         self.assertEqual(action["context"]["default_product_tmpl_id"], template.id)
         self.assertEqual(

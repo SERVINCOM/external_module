@@ -9,7 +9,7 @@ class ProductTemplate(models.Model):
     def action_open_ordered_variants(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "product.product_variant_action"
+            "servincom_product_attribute_value_sequence.product_variant_ordered_action"
         )
         view = self.env.ref(
             "servincom_product_attribute_value_sequence.product_variant_ordered_list"

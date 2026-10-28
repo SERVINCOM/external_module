@@ -25,3 +25,8 @@ msgstr "Cambiar este orden afecta a todos los productos que utilicen el mismo va
 #: model:ir.model.fields,field_description:servincom_product_attribute_value_sequence.field_product_product__attribute_value_order_key
 msgid "Attribute value order"
 msgstr "Orden de los valores de atributos"
+
+#. module: servincom_product_attribute_value_sequence
+#: model:ir.actions.act_window,name:servincom_product_attribute_value_sequence.product_variant_ordered_action
+msgid "Product Variants"
+msgstr "Variantes de producto"
