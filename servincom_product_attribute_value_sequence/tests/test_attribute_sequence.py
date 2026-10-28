@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import Command
 from odoo.tests import TransactionCase, tagged
+from odoo.tools import SQL
 
 
 @tagged("post_install", "-at_install")
@@ -159,3 +160,28 @@ class TestAttributeSequence(TransactionCase):
                 "list",
             ),
         )
+
+    def test_legacy_null_sequence_sorts_last(self):
+        self.first.sequence = 0
+        self.second.flush_recordset(["sequence"])
+        self.env.cr.execute(
+            SQL(
+                "UPDATE product_attribute_value SET sequence = NULL WHERE id = %s",
+                self.second.id,
+            )
+        )
+        self.second.invalidate_recordset(["sequence"])
+        self.second.modified(["sequence"])
+        variants = self.templates[0].product_variant_ids.sorted(
+            "attribute_value_order_key"
+        )
+        self.assertEqual(
+            variants[
+                -1
+            ].product_template_attribute_value_ids.product_attribute_value_id,
+            self.second,
+        )
+        values = self.env["product.attribute.value"].search(
+            [("id", "in", self.attribute.value_ids.ids)], order="sequence, id"
+        )
+        self.assertEqual(values.ids, [self.first.id, self.second.id])
