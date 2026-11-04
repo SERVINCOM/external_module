@@ -7,6 +7,22 @@ from odoo import fields, models
 class PosSession(models.Model):
     _inherit = "pos.session"
 
+    def _loader_params_res_users(self):
+        params = super()._loader_params_res_users()
+        fields_to_load = params["search_params"].setdefault("fields", [])
+        operator_field = "servincom_pos_receipt_operator_label"
+        if operator_field not in fields_to_load:
+            fields_to_load.append(operator_field)
+        return params
+
+    def _loader_params_hr_employee(self):
+        params = super()._loader_params_hr_employee()
+        fields_to_load = params["search_params"].setdefault("fields", [])
+        operator_field = "servincom_pos_receipt_operator_label"
+        if operator_field not in fields_to_load:
+            fields_to_load.append(operator_field)
+        return params
+
     def get_servincom_closing_receipt_data(
         self, closing_note=False, payment_states=None, counted_values=None
     ):

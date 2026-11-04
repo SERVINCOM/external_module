@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t
+        t-name="servincom_pos_closing_receipt.OrderReceiptOptions"
+        t-inherit="OrderReceipt"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('cashier')]/div[2]" position="replace">
+            <div>
+                <t t-if="env.pos.config.servincom_anonymize_receipt_operator">
+                    <t t-esc="receipt.cashier"/>
+                </t>
+                <t t-else="">Served by <t t-esc="receipt.cashier"/></t>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-if='!isTaxIncluded']" position="attributes">
+            <attribute name="t-if">!isTaxIncluded and !env.pos.config.servincom_hide_receipt_taxes</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='isTaxIncluded']" position="attributes">
+            <attribute name="t-if">isTaxIncluded and !env.pos.config.servincom_hide_receipt_taxes</attribute>
+        </xpath>
+    </t>
+</templates>

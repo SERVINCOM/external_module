@@ -3,22 +3,29 @@
 
 {
     "name": "SERVINCOM POS Closing Receipt",
-    "version": "16.0.1.3.1",
-    "summary": "Improved printed POS closing session receipt",
+    "version": "16.0.1.4.0",
+    "summary": "Improved POS sales and closing receipts",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",
     "license": "AGPL-3",
     "depends": [
         "point_of_sale",
+        "pos_hr",
     ],
-    "data": [],
+    "data": [
+        "views/res_config_settings_views.xml",
+        "views/res_users_views.xml",
+        "views/hr_employee_views.xml",
+    ],
     "demo": [],
     "assets": {
         "point_of_sale.assets": [
             "servincom_pos_closing_receipt/static/src/css/closing_breakdown.css",
             "servincom_pos_closing_receipt/static/src/js/closing_receipt_button.js",
+            "servincom_pos_closing_receipt/static/src/js/order_receipt.js",
             "servincom_pos_closing_receipt/static/src/xml/closing_receipt_templates.xml",
+            "servincom_pos_closing_receipt/static/src/xml/order_receipt_templates.xml",
         ],
     },
     "installable": True,

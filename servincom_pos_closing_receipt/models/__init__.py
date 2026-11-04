@@ -1,4 +1,8 @@
 # Copyright 2026 SERVINCOM SOLUCIONES, S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from . import hr_employee
+from . import pos_config
 from . import pos_session
+from . import res_config_settings
+from . import res_users

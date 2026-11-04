@@ -17,8 +17,68 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: servincom_pos_closing_receipt
-msgid "Improved printed POS closing session receipt"
-msgstr "Ticket impreso mejorado para el cierre de sesión del TPV"
+msgid "Improved POS sales and closing receipts"
+msgstr "Tickets mejorados de venta y cierre de sesión del TPV"
+
+#. module: servincom_pos_closing_receipt
+msgid "Hide taxes on POS receipts"
+msgstr "Ocultar impuestos en los tickets TPV"
+
+#. module: servincom_pos_closing_receipt
+msgid "Hide the tax breakdown and total taxes on printed POS receipts. Use this only for tax regimes where the customer receipt must not show them."
+msgstr "Oculta el desglose y el total de impuestos en los tickets TPV impresos. Utilice esta opción únicamente en regímenes fiscales en los que no deban mostrarse en el ticket del cliente."
+
+#. module: servincom_pos_closing_receipt
+msgid "Use operator identifier on POS receipts"
+msgstr "Usar identificador de operario en los tickets TPV"
+
+#. module: servincom_pos_closing_receipt
+msgid "Replace the cashier's name with the configured operator identifier on customer receipts."
+msgstr "Sustituye el nombre del cajero por el identificador de operario configurado en los tickets del cliente."
+
+#. module: servincom_pos_closing_receipt
+msgid "Operator identifier on POS receipts"
+msgstr "Identificador de operario en los tickets TPV"
+
+#. module: servincom_pos_closing_receipt
+msgid "Public identifier printed instead of the employee's full name, for example: Operator 1."
+msgstr "Identificador público que se imprime en lugar del nombre completo del empleado, por ejemplo: Operario 1."
+
+#. module: servincom_pos_closing_receipt
+msgid "Public identifier printed instead of the user's full name, for example: Operator 1."
+msgstr "Identificador público que se imprime en lugar del nombre completo del usuario, por ejemplo: Operario 1."
+
+#. module: servincom_pos_closing_receipt
+msgid "Retailer receipt"
+msgstr "Ticket de comerciante minorista"
+
+#. module: servincom_pos_closing_receipt
+msgid "Do not show the tax breakdown or total taxes on the customer receipt."
+msgstr "No mostrar el desglose de impuestos ni el total de impuestos en el ticket del cliente."
+
+#. module: servincom_pos_closing_receipt
+msgid "Operator privacy"
+msgstr "Privacidad del operario"
+
+#. module: servincom_pos_closing_receipt
+msgid "Show the configured operator identifier instead of the full name."
+msgstr "Mostrar el identificador de operario configurado en lugar del nombre completo."
+
+#. module: servincom_pos_closing_receipt
+msgid "Point of Sale"
+msgstr "Punto de venta"
+
+#. module: servincom_pos_closing_receipt
+msgid "Operator 1"
+msgstr "Operario 1"
+
+#. module: servincom_pos_closing_receipt
+msgid "Operator"
+msgstr "Operario"
+
+#. module: servincom_pos_closing_receipt
+msgid "Served by"
+msgstr "Servido por"
 
 #. module: servincom_pos_closing_receipt
 msgid "Ventas TPV"
