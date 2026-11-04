@@ -8,24 +8,24 @@ class PosConfig(models.Model):
     _inherit = "pos.config"
 
     servincom_hide_receipt_taxes = fields.Boolean(
-        string="Hide taxes on POS receipts",
+        string="Hide tax details on POS receipts",
         compute="_compute_servincom_receipt_options",
         inverse="_inverse_servincom_hide_receipt_taxes",
         store=False,
         help=(
-            "Hide the tax breakdown and total taxes on printed POS receipts. "
-            "Use this only for tax regimes where the customer receipt must not "
-            "show them."
+            "Hide the tax breakdown and total taxes on customer receipts. "
+            "Enable it only for tax regimes that require receipts without tax "
+            "details."
         ),
     )
     servincom_anonymize_receipt_operator = fields.Boolean(
-        string="Use operator identifier on POS receipts",
+        string="Use receipt operator identifier",
         compute="_compute_servincom_receipt_options",
         inverse="_inverse_servincom_anonymize_receipt_operator",
         store=False,
         help=(
-            "Replace the cashier's name with the configured operator identifier "
-            "on customer receipts."
+            "Replace the cashier's full name with the configured operator "
+            "identifier on customer receipts."
         ),
     )
 

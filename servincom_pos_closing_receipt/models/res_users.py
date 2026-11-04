@@ -8,13 +8,13 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     servincom_pos_receipt_operator_label = fields.Char(
-        string="Operator identifier on POS receipts",
+        string="Receipt operator identifier",
         compute="_compute_servincom_pos_receipt_operator_label",
         inverse="_inverse_servincom_pos_receipt_operator_label",
         store=False,
         help=(
-            "Public identifier printed instead of the user's full name, for "
-            "example: Operator 1."
+            "Public identifier printed instead of the user's full name on "
+            "customer receipts, for example: Operator 01."
         ),
     )
 

@@ -16,10 +16,10 @@
                     <div class="o_setting_right_pane">
                         <label
                             for="pos_servincom_hide_receipt_taxes"
-                            string="Retailer receipt"
+                            string="Retailer receipt without tax details"
                         />
                         <div class="text-muted">
-                            Do not show the tax breakdown or total taxes on the customer receipt.
+                            Hide the tax breakdown and total taxes on the customer receipt.
                         </div>
                     </div>
                 </div>
@@ -33,10 +33,10 @@
                     <div class="o_setting_right_pane">
                         <label
                             for="pos_servincom_anonymize_receipt_operator"
-                            string="Operator privacy"
+                            string="Receipt operator privacy"
                         />
                         <div class="text-muted">
-                            Show the configured operator identifier instead of the full name.
+                            Print the configured operator identifier instead of the employee's full name.
                         </div>
                     </div>
                 </div>

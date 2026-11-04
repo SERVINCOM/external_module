@@ -20,8 +20,8 @@ odoo.define("servincom_pos_closing_receipt.OrderReceipt", function (require) {
                     cashier && cashier.servincom_pos_receipt_operator_label;
                 const fallbackLabel =
                     cashier && cashier.id
-                        ? `${_t("Operator")} ${cashier.id}`
-                        : _t("Operator");
+                        ? `${_t("POS operator")} ${cashier.id}`
+                        : _t("POS operator");
                 receipt.cashier = configuredLabel || fallbackLabel;
                 return receipt;
             }

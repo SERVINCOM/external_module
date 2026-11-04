@@ -9,7 +9,7 @@
                 <group string="Point of Sale" groups="point_of_sale.group_pos_manager">
                     <field
                         name="servincom_pos_receipt_operator_label"
-                        placeholder="Operator 1"
+                        placeholder="Operator 01"
                     />
                 </group>
             </xpath>

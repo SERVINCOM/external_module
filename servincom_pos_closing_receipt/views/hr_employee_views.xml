@@ -8,7 +8,7 @@
             <xpath expr="//group[@name='identification_group']" position="inside">
                 <field
                     name="servincom_pos_receipt_operator_label"
-                    placeholder="Operator 1"
+                    placeholder="Operator 01"
                 />
             </xpath>
         </field>

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-25 00:00+0000\n"
-"PO-Revision-Date: 2026-06-25 00:00+0000\n"
+"PO-Revision-Date: 2026-11-04 20:45+0000\n"
 "Last-Translator: SERVINCOM SOLUCIONES, S.L.\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -21,59 +21,59 @@ msgid "Improved POS sales and closing receipts"
 msgstr "Tickets mejorados de venta y cierre de sesión del TPV"
 
 #. module: servincom_pos_closing_receipt
-msgid "Hide taxes on POS receipts"
-msgstr "Ocultar impuestos en los tickets TPV"
+msgid "Hide tax details on POS receipts"
+msgstr "Ocultar el detalle de impuestos en los tickets del TPV"
 
 #. module: servincom_pos_closing_receipt
-msgid "Hide the tax breakdown and total taxes on printed POS receipts. Use this only for tax regimes where the customer receipt must not show them."
-msgstr "Oculta el desglose y el total de impuestos en los tickets TPV impresos. Utilice esta opción únicamente en regímenes fiscales en los que no deban mostrarse en el ticket del cliente."
+msgid "Hide the tax breakdown and total taxes on customer receipts. Enable it only for tax regimes that require receipts without tax details."
+msgstr "Oculta el desglose y el total de impuestos en los tickets del cliente. Actívelo únicamente en regímenes fiscales que requieran tickets sin detalle de impuestos."
 
 #. module: servincom_pos_closing_receipt
-msgid "Use operator identifier on POS receipts"
-msgstr "Usar identificador de operario en los tickets TPV"
+msgid "Use receipt operator identifier"
+msgstr "Usar identificador de operario en los tickets"
 
 #. module: servincom_pos_closing_receipt
-msgid "Replace the cashier's name with the configured operator identifier on customer receipts."
-msgstr "Sustituye el nombre del cajero por el identificador de operario configurado en los tickets del cliente."
+msgid "Replace the cashier's full name with the configured operator identifier on customer receipts."
+msgstr "Sustituye el nombre completo del cajero por el identificador de operario configurado en los tickets del cliente."
 
 #. module: servincom_pos_closing_receipt
-msgid "Operator identifier on POS receipts"
-msgstr "Identificador de operario en los tickets TPV"
+msgid "Receipt operator identifier"
+msgstr "Identificador de operario para el ticket"
 
 #. module: servincom_pos_closing_receipt
-msgid "Public identifier printed instead of the employee's full name, for example: Operator 1."
-msgstr "Identificador público que se imprime en lugar del nombre completo del empleado, por ejemplo: Operario 1."
+msgid "Public identifier printed instead of the employee's full name on customer receipts, for example: Operator 01."
+msgstr "Identificador público que se imprime en los tickets del cliente en lugar del nombre completo del empleado, por ejemplo: Operario 01."
 
 #. module: servincom_pos_closing_receipt
-msgid "Public identifier printed instead of the user's full name, for example: Operator 1."
-msgstr "Identificador público que se imprime en lugar del nombre completo del usuario, por ejemplo: Operario 1."
+msgid "Public identifier printed instead of the user's full name on customer receipts, for example: Operator 01."
+msgstr "Identificador público que se imprime en los tickets del cliente en lugar del nombre completo del usuario, por ejemplo: Operario 01."
 
 #. module: servincom_pos_closing_receipt
-msgid "Retailer receipt"
+msgid "Retailer receipt without tax details"
 msgstr "Ticket de comerciante minorista"
 
 #. module: servincom_pos_closing_receipt
-msgid "Do not show the tax breakdown or total taxes on the customer receipt."
-msgstr "No mostrar el desglose de impuestos ni el total de impuestos en el ticket del cliente."
+msgid "Hide the tax breakdown and total taxes on the customer receipt."
+msgstr "Oculta el desglose y el total de impuestos en el ticket del cliente."
 
 #. module: servincom_pos_closing_receipt
-msgid "Operator privacy"
-msgstr "Privacidad del operario"
+msgid "Receipt operator privacy"
+msgstr "Privacidad del operario en el ticket"
 
 #. module: servincom_pos_closing_receipt
-msgid "Show the configured operator identifier instead of the full name."
-msgstr "Mostrar el identificador de operario configurado en lugar del nombre completo."
+msgid "Print the configured operator identifier instead of the employee's full name."
+msgstr "Imprime el identificador de operario configurado en lugar del nombre completo del empleado."
 
 #. module: servincom_pos_closing_receipt
 msgid "Point of Sale"
 msgstr "Punto de venta"
 
 #. module: servincom_pos_closing_receipt
-msgid "Operator 1"
-msgstr "Operario 1"
+msgid "Operator 01"
+msgstr "Operario 01"
 
 #. module: servincom_pos_closing_receipt
-msgid "Operator"
+msgid "POS operator"
 msgstr "Operario"
 
 #. module: servincom_pos_closing_receipt
