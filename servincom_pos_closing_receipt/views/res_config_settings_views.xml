@@ -42,16 +42,19 @@
                             class="content-group mt16"
                             attrs="{'invisible': [('pos_servincom_customize_receipt_operator', '=', False)]}"
                         >
-                            <label
-                                for="pos_servincom_receipt_operator_display"
-                                string="Operator shown on customer receipt"
-                            />
-                            <field
-                                name="pos_servincom_receipt_operator_display"
-                                widget="radio"
-                                options="{'horizontal': true}"
-                                attrs="{'readonly': [('pos_has_active_session', '=', True)]}"
-                            />
+                            <div class="mb8">
+                                <label
+                                    for="pos_servincom_receipt_operator_display"
+                                    string="Operator shown on customer receipt"
+                                />
+                            </div>
+                            <div>
+                                <field
+                                    name="pos_servincom_receipt_operator_display"
+                                    widget="radio"
+                                    attrs="{'readonly': [('pos_has_active_session', '=', True)]}"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

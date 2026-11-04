@@ -85,3 +85,7 @@ class TestReceiptOptions(SavepointCase):
             "pos_servincom_customize_receipt_operator",
             option_group.get("attrs", ""),
         )
+        operator_field = option_group.xpath(
+            ".//field[@name='pos_servincom_receipt_operator_display']"
+        )[0]
+        self.assertNotIn("horizontal", operator_field.get("options", ""))
