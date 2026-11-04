@@ -36,12 +36,14 @@ Configuración
    minorista`` cuando no deba mostrarse en el ticket el desglose de impuestos
    ni su total. Esta opción solo cambia la presentación del ticket y no altera
    los impuestos ni la contabilidad.
-3. En ``Operario en el ticket del cliente``, elija si el ticket debe mostrar el
-   nombre completo del empleado, un identificador público o ningún operario.
-4. Si elige el identificador, configúrelo, por ejemplo ``Operario 01``, en el
+3. Active ``Personalizar el operario en el ticket`` únicamente si desea
+   modificar el comportamiento estándar de Odoo.
+4. Elija si el ticket debe mostrar el nombre completo del empleado, un
+   identificador público o ningún operario.
+5. Si elige el identificador, configúrelo, por ejemplo ``Operario 01``, en el
    usuario o en el empleado usado para acceder al TPV. Cuando se trabaja con
    empleados del TPV, prevalece el identificador de la ficha del empleado.
-5. Verifique que el punto de venta tiene impresora configurada mediante
+6. Verifique que el punto de venta tiene impresora configurada mediante
    proxy/IoT, igual que para los recibos estándar de Odoo.
 
 Uso
@@ -94,7 +96,8 @@ Pruebas recomendadas:
 * activar ``Ticket de comerciante minorista`` y confirmar que no aparecen el
   desglose ni el total de impuestos en el ticket de venta;
 * confirmar que los impuestos y apuntes contables de la venta no cambian;
-* seleccionar ``Identificador de operario`` y comprobar que el ticket muestra
+* activar ``Personalizar el operario en el ticket``, seleccionar
+  ``Identificador de operario`` y comprobar que el ticket muestra
   el identificador configurado sin revelar el nombre completo;
 * seleccionar ``No mostrar operario`` y comprobar que el ticket no contiene la
   línea del cajero;

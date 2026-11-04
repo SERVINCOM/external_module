@@ -13,12 +13,14 @@ class TestReceiptOptions(SavepointCase):
 
         self.assertFalse(config.servincom_hide_receipt_taxes)
         self.assertFalse(config.servincom_anonymize_receipt_operator)
+        self.assertFalse(config.servincom_customize_receipt_operator)
         self.assertEqual(config.servincom_receipt_operator_display, "name")
 
     def test_receipt_fields_do_not_require_database_columns(self):
         fields_to_check = (
             ("pos.config", "servincom_hide_receipt_taxes"),
             ("pos.config", "servincom_anonymize_receipt_operator"),
+            ("pos.config", "servincom_customize_receipt_operator"),
             ("pos.config", "servincom_receipt_operator_display"),
             ("res.users", "servincom_pos_receipt_operator_label"),
             ("hr.employee", "servincom_pos_receipt_operator_label"),
@@ -62,3 +64,24 @@ class TestReceiptOptions(SavepointCase):
         )
 
         self.assertEqual(set(selection), {"name", "identifier", "hidden"})
+
+    def test_operator_display_settings_are_opt_in(self):
+        view_path = get_module_resource(
+            "servincom_pos_closing_receipt",
+            "views",
+            "res_config_settings_views.xml",
+        )
+        view = etree.parse(view_path)
+
+        self.assertTrue(
+            view.xpath(
+                "//field[@name='pos_servincom_customize_receipt_operator']"
+            )
+        )
+        option_group = view.xpath(
+            "//div[field[@name='pos_servincom_receipt_operator_display']]"
+        )[0]
+        self.assertIn(
+            "pos_servincom_customize_receipt_operator",
+            option_group.get("attrs", ""),
+        )

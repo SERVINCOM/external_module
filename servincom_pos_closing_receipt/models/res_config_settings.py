@@ -15,6 +15,10 @@ class ResConfigSettings(models.TransientModel):
         related="pos_config_id.servincom_anonymize_receipt_operator",
         readonly=False,
     )
+    pos_servincom_customize_receipt_operator = fields.Boolean(
+        related="pos_config_id.servincom_customize_receipt_operator",
+        readonly=False,
+    )
     pos_servincom_receipt_operator_display = fields.Selection(
         related="pos_config_id.servincom_receipt_operator_display",
         readonly=False,

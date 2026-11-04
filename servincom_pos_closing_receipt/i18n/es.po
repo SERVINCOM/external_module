@@ -10,7 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2026-11-04 20:45+0000\n"
 "Last-Translator: SERVINCOM SOLUCIONES, S.L.\n"
 "Language-Team: Spanish\n"
-"Language: es\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,40 +21,64 @@ msgid "Improved POS sales and closing receipts"
 msgstr "Tickets mejorados de venta y cierre de sesión del TPV"
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_pos_config__servincom_hide_receipt_taxes
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_res_config_settings__pos_servincom_hide_receipt_taxes
 msgid "Hide tax details on POS receipts"
 msgstr "Ocultar el detalle de impuestos en los tickets del TPV"
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,help:servincom_pos_closing_receipt.field_pos_config__servincom_hide_receipt_taxes
 msgid "Hide the tax breakdown and total taxes on customer receipts. Enable it only for tax regimes that require receipts without tax details."
 msgstr "Oculta el desglose y el total de impuestos en los tickets del cliente. Actívelo únicamente en regímenes fiscales que requieran tickets sin detalle de impuestos."
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_pos_config__servincom_anonymize_receipt_operator
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_res_config_settings__pos_servincom_anonymize_receipt_operator
 msgid "Use receipt operator identifier"
 msgstr "Usar identificador de operario en los tickets"
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,help:servincom_pos_closing_receipt.field_pos_config__servincom_anonymize_receipt_operator
 msgid "Replace the cashier's full name with the configured operator identifier on customer receipts."
 msgstr "Sustituye el nombre completo del cajero por el identificador de operario configurado en los tickets del cliente."
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_hr_employee__servincom_pos_receipt_operator_label
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_res_users__servincom_pos_receipt_operator_label
 msgid "Receipt operator identifier"
 msgstr "Identificador de operario para el ticket"
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,help:servincom_pos_closing_receipt.field_hr_employee__servincom_pos_receipt_operator_label
 msgid "Public identifier printed instead of the employee's full name on customer receipts, for example: Operator 01."
 msgstr "Identificador público que se imprime en los tickets del cliente en lugar del nombre completo del empleado, por ejemplo: Operario 01."
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,help:servincom_pos_closing_receipt.field_res_users__servincom_pos_receipt_operator_label
 msgid "Public identifier printed instead of the user's full name on customer receipts, for example: Operator 01."
 msgstr "Identificador público que se imprime en los tickets del cliente en lugar del nombre completo del usuario, por ejemplo: Operario 01."
 
 #. module: servincom_pos_closing_receipt
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.res_config_settings_view_form_pos_receipt_options
 msgid "Retailer receipt without tax details"
 msgstr "Ticket de comerciante minorista"
 
 #. module: servincom_pos_closing_receipt
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.res_config_settings_view_form_pos_receipt_options
 msgid "Hide the tax breakdown and total taxes on the customer receipt."
 msgstr "Oculta el desglose y el total de impuestos en el ticket del cliente."
+
+#. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_pos_config__servincom_customize_receipt_operator
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_res_config_settings__pos_servincom_customize_receipt_operator
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.res_config_settings_view_form_pos_receipt_options
+msgid "Customize operator on customer receipt"
+msgstr "Personalizar el operario en el ticket"
+
+#. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,help:servincom_pos_closing_receipt.field_pos_config__servincom_customize_receipt_operator
+msgid "Enable custom operator display on customer receipts. When disabled, Odoo's standard receipt behavior is preserved."
+msgstr "Activa la presentación personalizada del operario en los tickets del cliente. Cuando está desactivada, se conserva el comportamiento estándar de Odoo."
 
 #. module: servincom_pos_closing_receipt
 msgid "Receipt operator privacy"
@@ -65,38 +89,54 @@ msgid "Print the configured operator identifier instead of the employee's full n
 msgstr "Imprime el identificador de operario configurado en lugar del nombre completo del empleado."
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_pos_config__servincom_receipt_operator_display
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_res_config_settings__pos_servincom_receipt_operator_display
 msgid "Operator on customer receipt"
 msgstr "Operario en el ticket del cliente"
 
 #. module: servincom_pos_closing_receipt
-msgid "Choose whether the receipt shows the employee's full name, an operator identifier or no operator."
-msgstr "Elija si el ticket muestra el nombre completo del empleado, un identificador de operario o ningún operario."
-
-#. module: servincom_pos_closing_receipt
+#: model:ir.model.fields,help:servincom_pos_closing_receipt.field_pos_config__servincom_receipt_operator_display
 msgid "Choose how the current operator is identified on customer receipts."
 msgstr "Elija cómo se identifica al operario actual en los tickets del cliente."
 
 #. module: servincom_pos_closing_receipt
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.res_config_settings_view_form_pos_receipt_options
+msgid "Keep Odoo's standard receipt when disabled. Enable it to choose how the operator is shown."
+msgstr "Mantiene el ticket estándar de Odoo cuando está desactivado. Actívelo para elegir cómo se muestra el operario."
+
+#. module: servincom_pos_closing_receipt
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.res_config_settings_view_form_pos_receipt_options
+msgid "Operator shown on customer receipt"
+msgstr "Operario mostrado en el ticket"
+
+#. module: servincom_pos_closing_receipt
+#: model:ir.model.fields.selection,name:servincom_pos_closing_receipt.selection__pos_config__servincom_receipt_operator_display__name
 msgid "Employee full name"
 msgstr "Nombre completo del empleado"
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields.selection,name:servincom_pos_closing_receipt.selection__pos_config__servincom_receipt_operator_display__identifier
 msgid "Operator identifier"
 msgstr "Identificador de operario"
 
 #. module: servincom_pos_closing_receipt
+#: model:ir.model.fields.selection,name:servincom_pos_closing_receipt.selection__pos_config__servincom_receipt_operator_display__hidden
 msgid "Do not show operator"
 msgstr "No mostrar operario"
 
 #. module: servincom_pos_closing_receipt
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.view_users_form_pos_receipt_operator
 msgid "Point of Sale"
 msgstr "Punto de venta"
 
 #. module: servincom_pos_closing_receipt
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.view_employee_form_pos_receipt_operator
+#: model_terms:ir.ui.view,arch_db:servincom_pos_closing_receipt.view_users_form_pos_receipt_operator
 msgid "Operator 01"
 msgstr "Operario 01"
 
 #. module: servincom_pos_closing_receipt
+#: code:addons/servincom_pos_closing_receipt/static/src/js/order_receipt.js:0
 msgid "POS operator"
 msgstr "Operario"
 

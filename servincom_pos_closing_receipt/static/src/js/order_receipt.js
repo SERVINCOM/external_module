@@ -13,6 +13,14 @@ odoo.define("servincom_pos_closing_receipt.OrderReceipt", function (require) {
                 const receipt = super.export_for_printing(...arguments);
                 const legacyIdentifierEnabled =
                     this.pos.config.servincom_anonymize_receipt_operator;
+                const customizeOperator =
+                    this.pos.config.servincom_customize_receipt_operator !==
+                    undefined
+                        ? this.pos.config.servincom_customize_receipt_operator
+                        : legacyIdentifierEnabled;
+                if (!customizeOperator) {
+                    return receipt;
+                }
                 const displayMode =
                     this.pos.config.servincom_receipt_operator_display ||
                     (legacyIdentifierEnabled ? "identifier" : "name");

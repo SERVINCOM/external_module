@@ -31,6 +31,16 @@ class PosConfig(models.Model):
             "identifier on customer receipts."
         ),
     )
+    servincom_customize_receipt_operator = fields.Boolean(
+        string="Customize operator on customer receipt",
+        compute="_compute_servincom_receipt_options",
+        inverse="_inverse_servincom_customize_receipt_operator",
+        store=False,
+        help=(
+            "Enable custom operator display on customer receipts. When "
+            "disabled, Odoo's standard receipt behavior is preserved."
+        ),
+    )
     servincom_receipt_operator_display = fields.Selection(
         selection=[
             ("name", "Employee full name"),
@@ -61,6 +71,9 @@ class PosConfig(models.Model):
             display_key = config._servincom_receipt_parameter_key(
                 "operator_display"
             )
+            customize_key = config._servincom_receipt_parameter_key(
+                "customize_operator"
+            )
             legacy_operator_identifier = bool(
                 operator_key
                 and parameters.get_param(operator_key, "False") == "True"
@@ -72,12 +85,22 @@ class PosConfig(models.Model):
                 operator_display = (
                     "identifier" if legacy_operator_identifier else "name"
                 )
+            customize_value = (
+                parameters.get_param(customize_key, "") if customize_key else ""
+            )
+            if customize_value in {"True", "False"}:
+                customize_operator = customize_value == "True"
+            else:
+                customize_operator = legacy_operator_identifier or (
+                    operator_display in {"identifier", "hidden"}
+                )
             config.servincom_hide_receipt_taxes = bool(
                 hide_key and parameters.get_param(hide_key, "False") == "True"
             )
-            config.servincom_anonymize_receipt_operator = (
-                legacy_operator_identifier
+            config.servincom_anonymize_receipt_operator = bool(
+                customize_operator and operator_display == "identifier"
             )
+            config.servincom_customize_receipt_operator = customize_operator
             config.servincom_receipt_operator_display = operator_display
 
     def _inverse_servincom_hide_receipt_taxes(self):
@@ -104,6 +127,36 @@ class PosConfig(models.Model):
                     if config.servincom_anonymize_receipt_operator
                     else "name",
                 )
+                customize_key = config._servincom_receipt_parameter_key(
+                    "customize_operator"
+                )
+                parameters.set_param(
+                    customize_key,
+                    config.servincom_anonymize_receipt_operator,
+                )
+
+    def _inverse_servincom_customize_receipt_operator(self):
+        parameters = self.env["ir.config_parameter"].sudo()
+        for config in self:
+            customize_key = config._servincom_receipt_parameter_key(
+                "customize_operator"
+            )
+            if customize_key:
+                parameters.set_param(
+                    customize_key,
+                    config.servincom_customize_receipt_operator,
+                )
+                legacy_key = config._servincom_receipt_parameter_key(
+                    "anonymize_operator"
+                )
+                parameters.set_param(
+                    legacy_key,
+                    bool(
+                        config.servincom_customize_receipt_operator
+                        and config.servincom_receipt_operator_display
+                        == "identifier"
+                    ),
+                )
 
     def _inverse_servincom_receipt_operator_display(self):
         parameters = self.env["ir.config_parameter"].sudo()
@@ -120,5 +173,9 @@ class PosConfig(models.Model):
                     "anonymize_operator"
                 )
                 parameters.set_param(
-                    legacy_key, operator_display == "identifier"
+                    legacy_key,
+                    bool(
+                        config.servincom_customize_receipt_operator
+                        and operator_display == "identifier"
+                    ),
                 )
