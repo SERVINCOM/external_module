@@ -4,6 +4,9 @@
 from odoo import fields, models
 
 
+RECEIPT_OPERATOR_DISPLAY_VALUES = {"name", "identifier", "hidden"}
+
+
 class PosConfig(models.Model):
     _inherit = "pos.config"
 
@@ -28,6 +31,18 @@ class PosConfig(models.Model):
             "identifier on customer receipts."
         ),
     )
+    servincom_receipt_operator_display = fields.Selection(
+        selection=[
+            ("name", "Employee full name"),
+            ("identifier", "Operator identifier"),
+            ("hidden", "Do not show operator"),
+        ],
+        string="Operator on customer receipt",
+        compute="_compute_servincom_receipt_options",
+        inverse="_inverse_servincom_receipt_operator_display",
+        store=False,
+        help="Choose how the current operator is identified on customer receipts.",
+    )
 
     def _servincom_receipt_parameter_key(self, option):
         self.ensure_one()
@@ -43,13 +58,27 @@ class PosConfig(models.Model):
             operator_key = config._servincom_receipt_parameter_key(
                 "anonymize_operator"
             )
-            config.servincom_hide_receipt_taxes = bool(
-                hide_key and parameters.get_param(hide_key, "False") == "True"
+            display_key = config._servincom_receipt_parameter_key(
+                "operator_display"
             )
-            config.servincom_anonymize_receipt_operator = bool(
+            legacy_operator_identifier = bool(
                 operator_key
                 and parameters.get_param(operator_key, "False") == "True"
             )
+            operator_display = (
+                parameters.get_param(display_key, "") if display_key else ""
+            )
+            if operator_display not in RECEIPT_OPERATOR_DISPLAY_VALUES:
+                operator_display = (
+                    "identifier" if legacy_operator_identifier else "name"
+                )
+            config.servincom_hide_receipt_taxes = bool(
+                hide_key and parameters.get_param(hide_key, "False") == "True"
+            )
+            config.servincom_anonymize_receipt_operator = (
+                legacy_operator_identifier
+            )
+            config.servincom_receipt_operator_display = operator_display
 
     def _inverse_servincom_hide_receipt_taxes(self):
         parameters = self.env["ir.config_parameter"].sudo()
@@ -65,4 +94,31 @@ class PosConfig(models.Model):
             if key:
                 parameters.set_param(
                     key, config.servincom_anonymize_receipt_operator
+                )
+                display_key = config._servincom_receipt_parameter_key(
+                    "operator_display"
+                )
+                parameters.set_param(
+                    display_key,
+                    "identifier"
+                    if config.servincom_anonymize_receipt_operator
+                    else "name",
+                )
+
+    def _inverse_servincom_receipt_operator_display(self):
+        parameters = self.env["ir.config_parameter"].sudo()
+        for config in self:
+            display_key = config._servincom_receipt_parameter_key(
+                "operator_display"
+            )
+            if display_key:
+                operator_display = (
+                    config.servincom_receipt_operator_display or "name"
+                )
+                parameters.set_param(display_key, operator_display)
+                legacy_key = config._servincom_receipt_parameter_key(
+                    "anonymize_operator"
+                )
+                parameters.set_param(
+                    legacy_key, operator_display == "identifier"
                 )

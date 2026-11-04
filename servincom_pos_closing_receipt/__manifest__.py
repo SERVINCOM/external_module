@@ -3,7 +3,7 @@
 
 {
     "name": "SERVINCOM POS Closing Receipt",
-    "version": "16.0.1.4.2",
+    "version": "16.0.1.5.0",
     "summary": "Improved POS sales and closing receipts",
     "category": "Point of Sale",
     "author": "SERVINCOM SOLUCIONES, S.L.",

@@ -13,11 +13,13 @@ class TestReceiptOptions(SavepointCase):
 
         self.assertFalse(config.servincom_hide_receipt_taxes)
         self.assertFalse(config.servincom_anonymize_receipt_operator)
+        self.assertEqual(config.servincom_receipt_operator_display, "name")
 
     def test_receipt_fields_do_not_require_database_columns(self):
         fields_to_check = (
             ("pos.config", "servincom_hide_receipt_taxes"),
             ("pos.config", "servincom_anonymize_receipt_operator"),
+            ("pos.config", "servincom_receipt_operator_display"),
             ("res.users", "servincom_pos_receipt_operator_label"),
             ("hr.employee", "servincom_pos_receipt_operator_label"),
         )
@@ -51,3 +53,12 @@ class TestReceiptOptions(SavepointCase):
         )[0]
 
         self.assertEqual(template.get("t-inherit"), "point_of_sale.OrderReceipt")
+
+    def test_receipt_operator_display_has_expected_choices(self):
+        selection = dict(
+            self.env["pos.config"]
+            ._fields["servincom_receipt_operator_display"]
+            .selection
+        )
+
+        self.assertEqual(set(selection), {"name", "identifier", "hidden"})

@@ -11,7 +11,16 @@ odoo.define("servincom_pos_closing_receipt.OrderReceipt", function (require) {
         class extends Order {
             export_for_printing() {
                 const receipt = super.export_for_printing(...arguments);
-                if (!this.pos.config.servincom_anonymize_receipt_operator) {
+                const legacyIdentifierEnabled =
+                    this.pos.config.servincom_anonymize_receipt_operator;
+                const displayMode =
+                    this.pos.config.servincom_receipt_operator_display ||
+                    (legacyIdentifierEnabled ? "identifier" : "name");
+                if (displayMode === "name") {
+                    return receipt;
+                }
+                if (displayMode === "hidden") {
+                    receipt.cashier = false;
                     return receipt;
                 }
 

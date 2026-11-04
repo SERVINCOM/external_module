@@ -65,6 +65,30 @@ msgid "Print the configured operator identifier instead of the employee's full n
 msgstr "Imprime el identificador de operario configurado en lugar del nombre completo del empleado."
 
 #. module: servincom_pos_closing_receipt
+msgid "Operator on customer receipt"
+msgstr "Operario en el ticket del cliente"
+
+#. module: servincom_pos_closing_receipt
+msgid "Choose whether the receipt shows the employee's full name, an operator identifier or no operator."
+msgstr "Elija si el ticket muestra el nombre completo del empleado, un identificador de operario o ningún operario."
+
+#. module: servincom_pos_closing_receipt
+msgid "Choose how the current operator is identified on customer receipts."
+msgstr "Elija cómo se identifica al operario actual en los tickets del cliente."
+
+#. module: servincom_pos_closing_receipt
+msgid "Employee full name"
+msgstr "Nombre completo del empleado"
+
+#. module: servincom_pos_closing_receipt
+msgid "Operator identifier"
+msgstr "Identificador de operario"
+
+#. module: servincom_pos_closing_receipt
+msgid "Do not show operator"
+msgstr "No mostrar operario"
+
+#. module: servincom_pos_closing_receipt
 msgid "Point of Sale"
 msgstr "Punto de venta"
 
