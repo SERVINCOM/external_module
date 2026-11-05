@@ -44,12 +44,14 @@ msgstr "Sustituye el nombre completo del cajero por el identificador de operario
 
 #. module: servincom_pos_closing_receipt
 #: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_hr_employee__servincom_pos_receipt_operator_label
+#: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_hr_employee_public__servincom_pos_receipt_operator_label
 #: model:ir.model.fields,field_description:servincom_pos_closing_receipt.field_res_users__servincom_pos_receipt_operator_label
 msgid "Receipt operator identifier"
 msgstr "Identificador de operario para el ticket"
 
 #. module: servincom_pos_closing_receipt
 #: model:ir.model.fields,help:servincom_pos_closing_receipt.field_hr_employee__servincom_pos_receipt_operator_label
+#: model:ir.model.fields,help:servincom_pos_closing_receipt.field_hr_employee_public__servincom_pos_receipt_operator_label
 msgid "Public identifier printed instead of the employee's full name on customer receipts, for example: Operator 01."
 msgstr "Identificador público que se imprime en los tickets del cliente en lugar del nombre completo del empleado, por ejemplo: Operario 01."
 

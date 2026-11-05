@@ -4,13 +4,12 @@
 from odoo import fields, models
 
 
-class HrEmployee(models.Model):
-    _inherit = "hr.employee"
+class HrEmployeeBase(models.AbstractModel):
+    _inherit = "hr.employee.base"
 
     servincom_pos_receipt_operator_label = fields.Char(
         string="Receipt operator identifier",
         compute="_compute_servincom_pos_receipt_operator_label",
-        inverse="_inverse_servincom_pos_receipt_operator_label",
         store=False,
         help=(
             "Public identifier printed instead of the employee's full name on "
@@ -32,6 +31,21 @@ class HrEmployee(models.Model):
             employee.servincom_pos_receipt_operator_label = (
                 parameters.get_param(key, "") if key else False
             )
+
+
+class HrEmployee(models.Model):
+    _inherit = "hr.employee"
+
+    servincom_pos_receipt_operator_label = fields.Char(
+        string="Receipt operator identifier",
+        compute="_compute_servincom_pos_receipt_operator_label",
+        inverse="_inverse_servincom_pos_receipt_operator_label",
+        store=False,
+        help=(
+            "Public identifier printed instead of the employee's full name on "
+            "customer receipts, for example: Operator 01."
+        ),
+    )
 
     def _inverse_servincom_pos_receipt_operator_label(self):
         parameters = self.env["ir.config_parameter"].sudo()

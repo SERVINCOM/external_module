@@ -24,6 +24,7 @@ class TestReceiptOptions(SavepointCase):
             ("pos.config", "servincom_receipt_operator_display"),
             ("res.users", "servincom_pos_receipt_operator_label"),
             ("hr.employee", "servincom_pos_receipt_operator_label"),
+            ("hr.employee.public", "servincom_pos_receipt_operator_label"),
         )
 
         for model_name, field_name in fields_to_check:
@@ -41,6 +42,35 @@ class TestReceiptOptions(SavepointCase):
 
         self.assertIn("servincom_pos_receipt_operator_label", user_fields)
         self.assertIn("servincom_pos_receipt_operator_label", employee_fields)
+
+    def test_operator_identifier_is_readable_by_non_hr_pos_user(self):
+        company = self.env.company
+        pos_user = self.env["res.users"].with_context(no_reset_password=True).create(
+            {
+                "name": "SERVINCOM POS public employee test",
+                "login": "servincom_pos_public_employee_test",
+                "company_id": company.id,
+                "company_ids": [(6, 0, company.ids)],
+                "groups_id": [
+                    (6, 0, [self.env.ref("point_of_sale.group_pos_user").id])
+                ],
+            }
+        )
+        employee = self.env["hr.employee"].create(
+            {
+                "name": "SERVINCOM POS test operator",
+                "company_id": company.id,
+            }
+        )
+        employee.servincom_pos_receipt_operator_label = "Operator 42"
+
+        employee_data = employee.with_user(pos_user).read(
+            ["name", "servincom_pos_receipt_operator_label"]
+        )[0]
+
+        self.assertEqual(
+            employee_data["servincom_pos_receipt_operator_label"], "Operator 42"
+        )
 
     def test_receipt_template_inherits_namespaced_odoo_template(self):
         template_path = get_module_resource(
