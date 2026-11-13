@@ -12,10 +12,9 @@ actualización únicamente de los módulos afectados.
 
 Consultar `docs/workflow_odoo20.md`. Nunca guardar credenciales ni datos de clientes.
 
-## Módulo provisional
+## Dependencia del menú de aplicaciones
 
-`web_responsive` 20.0.1.0.0 procede de la migración de OCA/web
-[PR #3679](https://github.com/OCA/web/pull/3679), aún sin integrar. Se conserva
-sin cambios, con su licencia LGPL-3 y sus créditos originales. La referencia
-exacta está en `docs/upstream_modules.json`. No sustituirlo por otra revisión
-sin comparar cambios y validarla en Odoo 20.
+El menú de aplicaciones de SERVINCOM utiliza `web_responsive` de la rama
+`20.0` de [OCA/web](https://github.com/OCA/web/tree/20.0/web_responsive).
+Antes de desplegar esta revisión en una instalación que usaba la copia
+provisional, actualiza OCA/web y comprueba que está en `addons_path`.
