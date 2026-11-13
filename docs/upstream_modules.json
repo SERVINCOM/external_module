@@ -9,16 +9,5 @@
     "status": "provisional_pending_oca_merge",
     "local_module_changes": [],
     "imported_on": "2026-10-09"
-  },
-  {
-    "module": "l10n_es_partner",
-    "version": "20.0.1.0.0",
-    "license": "AGPL-3",
-    "upstream_repository": "https://github.com/Studio73/l10n-spain",
-    "upstream_commit": "4d077f902e3629a7184880e92a4103bd9187e0ef",
-    "upstream_pull_request": "https://github.com/OCA/l10n-spain/pull/5337",
-    "status": "provisional_pending_oca_merge",
-    "local_module_changes": [],
-    "imported_on": "2026-11-10"
   }
 ]
