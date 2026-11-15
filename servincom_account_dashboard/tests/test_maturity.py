@@ -168,6 +168,7 @@ class TestAccountMaturity(TransactionCase):
         )
         report = self.report.with_context(lang="en_US")
         lang = self.env.ref("base.lang_en")
+        lang.active = True
         for week_start, expected in [("1", lines[1:4]), ("7", lines[:3])]:
             lang.week_start = week_start
             self.env.invalidate_all()
@@ -184,7 +185,9 @@ class TestAccountMaturity(TransactionCase):
                 self.assertEqual(set(other.ids), set(lines.ids) - set(expected.ids))
 
     def test_week_labels_preserve_ranges_totals_and_drilldown(self):
-        self.env.ref("base.lang_en").write({"week_start": "1", "date_format": "%m/%d/%Y"})
+        self.env.ref("base.lang_en").write({
+            "active": True, "week_start": "1", "date_format": "%m/%d/%Y",
+        })
         lines = self._entry(self.receivable, [
             (10, date(2025, 12, 29)), (20, date(2026, 1, 4)), (40, date(2026, 1, 5)),
         ])
