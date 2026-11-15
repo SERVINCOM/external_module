@@ -1,0 +1,9 @@
+.o_servincom_account_dashboard {
+    table.mis_builder td:first-child {
+        white-space: normal !important;
+        min-width: 220px;
+        max-width: 250px;
+    }
+    table.mis_builder th { font-size: 12px; }
+    table.mis_builder td { padding-top: 5px; padding-bottom: 5px; }
+}

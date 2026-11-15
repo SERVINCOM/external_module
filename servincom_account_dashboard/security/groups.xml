@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_dashboard_reader" model="res.groups">
+        <field name="name">View accounting dashboards</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="implied_ids" eval="[Command.link(ref('account.group_account_readonly'))]"/>
+        <field name="comment">Explicit access to the monthly summary, account detail and their exports. Accounting access is read-only.</field>
+    </record>
+</odoo>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_choose_year" model="ir.actions.server">
+        <field name="name">Choose year for both tables</field>
+        <field name="model_id" ref="model_servincom_account_dashboard"/>
+        <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_choose_year()</field>
+    </record>
+    <record id="view_summary_card" model="ir.ui.view">
+        <field name="name">servincom.account.dashboard.summary</field>
+        <field name="model">mis.report.instance</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false" class="o_servincom_account_dashboard">
+                <sheet>
+                    <field name="name" invisible="1"/>
+                    <field name="display_name" invisible="1"/>
+                    <a href="/odoo/action-%(action_choose_year)d" class="btn btn-primary mb-3">Choose year for both tables</a>
+                    <field name="id" widget="mis_report_widget" nolabel="1" style="width:100%"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_detail_card" model="ir.ui.view">
+        <field name="name">servincom.account.dashboard.detail</field>
+        <field name="model">mis.report.instance</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false" class="o_servincom_account_dashboard">
+                <sheet>
+                    <field name="name" invisible="1"/>
+                    <field name="display_name" invisible="1"/>
+                    <field name="id" widget="mis_report_widget" nolabel="1" style="width:100%"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_summary" model="ir.actions.act_window">
+        <field name="name">Monthly results</field>
+        <field name="res_model">mis.report.instance</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_summary_card"/>
+    </record>
+    <record id="action_detail" model="ir.actions.act_window">
+        <field name="name">Account detail</field>
+        <field name="res_model">mis.report.instance</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_detail_card"/>
+    </record>
+    <record id="view_board" model="ir.ui.view">
+        <field name="name">servincom.account.dashboard.board</field>
+        <field name="model">board.board</field>
+        <field name="arch" type="xml">
+            <form string="Accounting dashboards">
+                <board style="1"><column>
+                    <action name="%(action_summary)d" string="Monthly results" view_mode="form"/>
+                    <action name="%(action_detail)d" string="Account detail" view_mode="form"/>
+                </column></board>
+            </form>
+        </field>
+    </record>
+    <record id="action_board" model="ir.actions.act_window">
+        <field name="name">Monthly results and account detail</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_board"/>
+        <field name="context">{'disable_toolbar': True}</field>
+    </record>
+    <record id="action_open" model="ir.actions.server">
+        <field name="name">Monthly results and account detail</field>
+        <field name="model_id" ref="model_servincom_account_dashboard"/>
+        <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open()</field>
+    </record>
+    <record id="view_year" model="ir.ui.view">
+        <field name="name">servincom.account.dashboard.year</field>
+        <field name="model">servincom.account.dashboard.year</field>
+        <field name="arch" type="xml">
+            <form string="Choose year">
+                <group><field name="year" options="{'format': False}"/></group>
+                <p>The year is shared by both tables for the active company.</p>
+                <footer>
+                    <button name="action_apply" type="object" string="Apply year" class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_year" model="ir.actions.act_window">
+        <field name="name">Choose year</field>
+        <field name="res_model">servincom.account.dashboard.year</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_year"/>
+        <field name="target">new</field>
+    </record>
+    <record id="view_configuration" model="ir.ui.view">
+        <field name="name">servincom.account.dashboard.configuration</field>
+        <field name="model">servincom.account.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard configuration" create="false" delete="false">
+                <header><button name="action_apply_journals" type="object" string="Apply excluded journals" class="oe_highlight"/></header>
+                <sheet><group>
+                    <field name="company_id" readonly="1"/>
+                    <field name="year" readonly="1"/>
+                    <field name="summary_instance_id" readonly="1"/>
+                    <field name="detail_instance_id" readonly="1"/>
+                    <field name="excluded_journal_ids" widget="many2many_tags" domain="[('company_id', '=', company_id)]"/>
+                </group>
+                <p>The templates use Spanish chart of accounts groups 6 and 7. Review opening and closing journals before relying on the results.</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_configuration_list" model="ir.ui.view">
+        <field name="name">servincom.account.dashboard.configuration.list</field>
+        <field name="model">servincom.account.dashboard</field>
+        <field name="arch" type="xml"><list create="false" delete="false"><field name="company_id"/><field name="year"/></list></field>
+    </record>
+    <record id="action_configuration" model="ir.actions.act_window">
+        <field name="name">Dashboard configuration</field>
+        <field name="res_model">servincom.account.dashboard</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <!-- Add only our reader group, keeping every pre-existing OCA menu group. -->
+    <record id="account_financial_report.menu_oca_reports" model="ir.ui.menu">
+        <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
+    </record>
+    <menuitem id="menu_dashboard" name="Dashboards" parent="account_financial_report.menu_oca_reports" groups="group_dashboard_reader" sequence="60"/>
+    <menuitem id="menu_results" name="Monthly results and account detail" parent="menu_dashboard" action="action_open" groups="group_dashboard_reader" sequence="10"/>
+    <menuitem id="menu_configuration" name="Dashboard configuration" parent="account.menu_finance_configuration" action="action_configuration" groups="base.group_system" sequence="95"/>
+</odoo>

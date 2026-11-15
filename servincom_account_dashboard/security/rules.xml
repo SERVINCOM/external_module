@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <record id="rule_dashboard_company" model="ir.rule">
+    <field name="name">Accounting dashboards: allowed companies</field>
+    <field name="model_id" ref="model_servincom_account_dashboard"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+  </record>
+  <record id="rule_protected_report" model="ir.rule">
+    <field name="name">Accounting dashboards: explicit access (report)</field>
+    <field name="model_id" ref="mis_builder.model_mis_report"/>
+    <field name="domain_force">[(1, '=', 1)] if user.has_group('servincom_account_dashboard.group_dashboard_reader') else [('servincom_dashboard_report', '=', False)]</field>
+  </record>
+  <record id="rule_protected_instance" model="ir.rule">
+    <field name="name">Accounting dashboards: explicit access (instance)</field>
+    <field name="model_id" ref="mis_builder.model_mis_report_instance"/>
+    <field name="domain_force">[(1, '=', 1)] if user.has_group('servincom_account_dashboard.group_dashboard_reader') else [('report_id.servincom_dashboard_report', '=', False)]</field>
+  </record>
+  <record id="rule_protected_kpi" model="ir.rule">
+    <field name="name">Accounting dashboards: explicit access (kpi)</field>
+    <field name="model_id" ref="mis_builder.model_mis_report_kpi"/>
+    <field name="domain_force">[(1, '=', 1)] if user.has_group('servincom_account_dashboard.group_dashboard_reader') else [('report_id.servincom_dashboard_report', '=', False)]</field>
+  </record>
+  <record id="rule_protected_period" model="ir.rule">
+    <field name="name">Accounting dashboards: explicit access (period)</field>
+    <field name="model_id" ref="mis_builder.model_mis_report_instance_period"/>
+    <field name="domain_force">[(1, '=', 1)] if user.has_group('servincom_account_dashboard.group_dashboard_reader') else [('report_instance_id.report_id.servincom_dashboard_report', '=', False)]</field>
+  </record>
+  <record id="rule_protected_annotation" model="ir.rule">
+    <field name="name">Accounting dashboards: explicit access (annotation)</field>
+    <field name="model_id" ref="mis_builder.model_mis_report_instance_annotation"/>
+    <field name="domain_force">[(1, '=', 1)] if user.has_group('servincom_account_dashboard.group_dashboard_reader') else [('period_id.report_instance_id.report_id.servincom_dashboard_report', '=', False)]</field>
+  </record>
+</odoo>

@@ -1,0 +1,575 @@
+# Translation of Odoo Server.
+# Module: servincom_account_dashboard
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Language: es\n"
+"PO-Revision-Date: 2026-11-15 12:00+0000\n"
+"Last-Translator: SERVINCOM SOLUCIONES, S.L.\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_detail
+#: model:mis.report,name:servincom_account_dashboard.report_detail
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
+msgid "Account detail"
+msgstr "Detalle contable"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/__manifest__.py:0
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.model,name:servincom_account_dashboard.model_servincom_account_dashboard
+msgid "Accounting Dashboard"
+msgstr "Cuadro de mando contable"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/board.py:0
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_users_form_dashboard
+msgid "Accounting dashboards"
+msgstr "Cuadros de mando contables"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_advertising
+msgid "Advertising"
+msgstr "Publicidad"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/res_users.py:0
+#: model:ir.model.fields,help:servincom_account_dashboard.field_res_users__servincom_dashboard_access
+msgid "Allow both dashboards and read-only accounting detail. This does not grant accounting edit rights."
+msgstr "Permite consultar los dos cuadros y el detalle contable. No concede permisos de modificación contable."
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "Annual total"
+msgstr "Total anual"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_configuration
+msgid "Apply excluded journals"
+msgstr "Aplicar diarios excluidos"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_year
+msgid "Apply year"
+msgstr "Aplicar año"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "April"
+msgstr "Abril"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "August"
+msgstr "Agosto"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_bank_fees
+msgid "Bank charges"
+msgstr "Comisiones bancarias"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_cumulative_result
+msgid "CUMULATIVE RESULT"
+msgstr "RESULTADO ACUMULADO DEL EJERCICIO"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_year
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/wizards/dashboard_year.py:0
+#: model:ir.model,name:servincom_account_dashboard.model_servincom_account_dashboard_year
+msgid "Choose Dashboard Year"
+msgstr "Elegir ejercicio del cuadro de mando"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "Choose a year between 1900 and 9998."
+msgstr "Elige un año entre 1900 y 9998."
+
+#. module: servincom_account_dashboard
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_year
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_year
+msgid "Choose year"
+msgstr "Elegir ejercicio"
+
+#. module: servincom_account_dashboard
+#: model:ir.actions.server,name:servincom_account_dashboard.action_choose_year
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_summary_card
+msgid "Choose year for both tables"
+msgstr "Elegir año para las dos tablas"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/res_users.py:0
+msgid "Dashboard access is restricted to internal users."
+msgstr "El acceso a los cuadros está limitado a usuarios internos."
+
+#. module: servincom_account_dashboard
+#: model:mis.report.style,name:servincom_account_dashboard.style_detail
+msgid "Dashboard accounts"
+msgstr "Cuentas del cuadro"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.style,name:servincom_account_dashboard.style_normal
+msgid "Dashboard amounts"
+msgstr "Importes del cuadro"
+
+#. module: servincom_account_dashboard
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_configuration
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_configuration
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_configuration
+msgid "Dashboard configuration"
+msgstr "Configuración de cuadros de mando"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.style,name:servincom_account_dashboard.style_result
+msgid "Dashboard result"
+msgstr "Resultado del cuadro"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.style,name:servincom_account_dashboard.style_total
+msgid "Dashboard subtotals"
+msgstr "Subtotales del cuadro"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/__manifest__.py:0
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_dashboard
+msgid "Dashboards"
+msgstr "Cuadros de mando"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_interest
+msgid "Debt interest"
+msgstr "Intereses de deudas"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "December"
+msgstr "Diciembre"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_depreciation
+msgid "Depreciation"
+msgstr "Amortizaciones"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__detail_instance_id
+msgid "Detail report"
+msgstr "Informe de detalle"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_advertising
+msgid "Detail · Advertising"
+msgstr "Detalle · Publicidad"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_bank_fees
+msgid "Detail · Bank charges"
+msgstr "Detalle · Comisiones bancarias"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_interest
+msgid "Detail · Debt interest"
+msgstr "Detalle · Intereses de deudas"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_depreciation
+msgid "Detail · Depreciation"
+msgstr "Detalle · Amortizaciones"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_exceptional
+msgid "Detail · Exceptional expenses"
+msgstr "Detalle · Gastos excepcionales"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_exceptional_income
+msgid "Detail · Exceptional income"
+msgstr "Detalle · Ingresos excepcionales"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_third_party
+msgid "Detail · External work"
+msgstr "Detalle · Trabajos de otras empresas"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_impairment
+msgid "Detail · Impairment and provisions"
+msgstr "Detalle · Deterioros y provisiones"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_taxes
+msgid "Detail · Income tax and other taxes"
+msgstr "Detalle · Impuesto sobre beneficios y otros tributos"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_insurance
+msgid "Detail · Insurance"
+msgstr "Detalle · Seguros"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_inventory
+msgid "Detail · Inventory variation"
+msgstr "Detalle · Variación de existencias"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_purchases
+msgid "Detail · Net purchases and freight"
+msgstr "Detalle · Compras netas y portes"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_sales
+msgid "Detail · Net sales"
+msgstr "Detalle · Ventas netas"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_other
+msgid "Detail · Other accounting expenses"
+msgstr "Detalle · Otros gastos contables"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_other_income
+msgid "Detail · Other accounting income"
+msgstr "Detalle · Otros ingresos contables"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_other_financial
+msgid "Detail · Other financial expenses"
+msgstr "Detalle · Otros gastos financieros"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_services
+msgid "Detail · Other services"
+msgstr "Detalle · Otros servicios"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_staff
+msgid "Detail · Personnel and employer social security"
+msgstr "Detalle · Personal y Seguridad Social de la empresa"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_professional
+msgid "Detail · Professional services"
+msgstr "Detalle · Profesionales"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_rent
+msgid "Detail · Rent"
+msgstr "Detalle · Arrendamientos"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_repairs
+msgid "Detail · Repairs and maintenance"
+msgstr "Detalle · Reparaciones y mantenimiento"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_transport
+msgid "Detail · Transport"
+msgstr "Detalle · Transportes"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_detail_utilities
+msgid "Detail · Utilities"
+msgstr "Detalle · Suministros"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_exceptional
+msgid "Exceptional expenses"
+msgstr "Gastos excepcionales"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_exceptional_income
+msgid "Exceptional income"
+msgstr "Ingresos excepcionales"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__excluded_journal_ids
+msgid "Excluded journals"
+msgstr "Diarios excluidos"
+
+#. module: servincom_account_dashboard
+#: model:res.groups,comment:servincom_account_dashboard.group_dashboard_reader
+msgid "Explicit access to the monthly summary, account detail and their exports. Accounting access is read-only."
+msgstr "Acceso explícito al resumen mensual, detalle contable y sus exportaciones. El acceso contable es de solo lectura."
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_third_party
+msgid "External work"
+msgstr "Trabajos de otras empresas"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "February"
+msgstr "Febrero"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_impairment
+msgid "Impairment and provisions"
+msgstr "Deterioros y provisiones"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_taxes
+msgid "Income tax and other taxes"
+msgstr "Impuesto sobre beneficios y otros tributos"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_insurance
+msgid "Insurance"
+msgstr "Seguros"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_inventory
+msgid "Inventory variation"
+msgstr "Variación de existencias"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "January"
+msgstr "Enero"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "July"
+msgstr "Julio"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "June"
+msgstr "Junio"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_monthly_result
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_monthly_result
+msgid "MONTHLY ACCOUNTING RESULT"
+msgstr "RESULTADO CONTABLE DEL MES"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "March"
+msgstr "Marzo"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "May"
+msgstr "Mayo"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/__manifest__.py:0
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_summary
+#: model:mis.report,name:servincom_account_dashboard.report_summary
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
+msgid "Monthly results"
+msgstr "Resultados mensuales"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/__manifest__.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_board
+#: model:ir.actions.server,name:servincom_account_dashboard.action_open
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_results
+msgid "Monthly results and account detail"
+msgstr "Resultados mensuales y detalle contable"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/__manifest__.py:0
+msgid "Monthly results and account detail with explicit user access"
+msgstr "Resultados mensuales y detalle contable con permiso explícito por usuario"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_purchases
+msgid "Net purchases and freight"
+msgstr "Compras netas y portes"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_sales
+msgid "Net sales"
+msgstr "Ventas netas"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "November"
+msgstr "Noviembre"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "October"
+msgstr "Octubre"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.model.constraint,message:servincom_account_dashboard.constraint_servincom_account_dashboard_company_unique
+msgid "Only one dashboard is allowed per company."
+msgstr "Solo se permite un cuadro de mando por empresa."
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/mis_report.py:0
+msgid "Only settings administrators can change report protection."
+msgstr "Solo los administradores de Ajustes pueden cambiar la protección del informe."
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "Only settings administrators can configure the dashboard."
+msgstr "Solo los administradores de Ajustes pueden configurar el cuadro de mando."
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/res_users.py:0
+msgid "Only settings administrators can grant dashboard access."
+msgstr "Solo los administradores de Ajustes pueden conceder acceso a los cuadros."
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "Open the dashboard for the active company."
+msgstr "Abre el cuadro de mando de la empresa activa."
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_remaining_expenses
+msgid "Other accounting expenses"
+msgstr "Otros gastos contables no incluidos arriba"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_other_income
+msgid "Other accounting income"
+msgstr "Otros ingresos contables"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_other_financial
+msgid "Other financial expenses"
+msgstr "Otros gastos financieros"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_services
+msgid "Other services"
+msgstr "Otros servicios"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_staff
+msgid "Personnel and employer social security"
+msgstr "Personal y Seguridad Social de la empresa"
+
+#. module: servincom_account_dashboard
+#: model:mis.report,description:servincom_account_dashboard.report_detail
+#: model:mis.report,description:servincom_account_dashboard.report_summary
+msgid "Posted accounting entries, calendar year, account groups 6 and 7. Review excluded journals."
+msgstr "Apuntes publicados, ejercicio natural y grupos contables 6 y 7. Revisa los diarios excluidos."
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_professional
+msgid "Professional services"
+msgstr "Profesionales"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/mis_report.py:0
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_mis_report__servincom_dashboard_report
+msgid "Protected accounting dashboard"
+msgstr "Cuadro de mando contable protegido"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_rent
+msgid "Rent"
+msgstr "Arrendamientos"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_repairs
+msgid "Repairs and maintenance"
+msgstr "Reparaciones y mantenimiento"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "Review the report domain before changing excluded journals."
+msgstr "Revisa el dominio del informe antes de cambiar los diarios excluidos."
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/__manifest__.py:0
+msgid "SERVINCOM Accounting Dashboards"
+msgstr "SERVINCOM Cuadros de mando contables"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.model.fields,help:servincom_account_dashboard.field_servincom_account_dashboard__excluded_journal_ids
+msgid "Select opening and closing journals to exclude. Do not exclude POS sales journals."
+msgstr "Selecciona los diarios de apertura y cierre que se excluirán. No excluyas los diarios de ventas del TPV."
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "September"
+msgstr "Septiembre"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__summary_instance_id
+msgid "Summary report"
+msgstr "Informe de resumen"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_income_total
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_income_total
+msgid "TOTAL INCOME"
+msgstr "TOTAL INGRESOS"
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_detail_expenses_total
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_expenses_total
+msgid "TOTAL PURCHASES AND EXPENSES"
+msgstr "TOTAL COMPRAS Y GASTOS"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_configuration
+msgid "The templates use Spanish chart of accounts groups 6 and 7. Review opening and closing journals before relying on the results."
+msgstr "Las plantillas utilizan los grupos 6 y 7 del plan contable español. Revisa los diarios de apertura y cierre antes de utilizar los resultados."
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_year
+msgid "The year is shared by both tables for the active company."
+msgstr "El ejercicio se comparte entre las dos tablas de la empresa activa."
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_transport
+msgid "Transport"
+msgstr "Transportes"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "Use two protected reports from the same company."
+msgstr "Utiliza dos informes protegidos de la misma empresa."
+
+#. module: servincom_account_dashboard
+#: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_utilities
+msgid "Utilities"
+msgstr "Suministros"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/res_users.py:0
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_res_users__servincom_dashboard_access
+#: model:res.groups,name:servincom_account_dashboard.group_dashboard_reader
+msgid "View accounting dashboards"
+msgstr "Ver cuadros de mando contables"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: code:addons/servincom_account_dashboard/wizards/dashboard_year.py:0
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__year
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard_year__year
+msgid "Year"
+msgstr "Ejercicio"
+
+#. module: servincom_account_dashboard
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+msgid "You do not have access to accounting dashboards."
+msgstr "No tienes acceso a los cuadros de mando contables."

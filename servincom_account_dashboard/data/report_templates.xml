@@ -1,0 +1,685 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo noupdate="1">
+  <record id="style_normal" model="mis.report.style">
+    <field name="name">Dashboard amounts</field>
+    <field name="dp">2</field>
+    <field name="dp_inherit" eval="False"/>
+    <field name="hide_empty" eval="False"/>
+    <field name="hide_empty_inherit" eval="False"/>
+    <field name="font_size">small</field>
+    <field name="font_size_inherit" eval="False"/>
+  </record>
+  <record id="style_total" model="mis.report.style">
+    <field name="name">Dashboard subtotals</field>
+    <field name="font_weight">bold</field>
+    <field name="font_weight_inherit" eval="False"/>
+    <field name="background_color">#E8EEF5</field>
+    <field name="background_color_inherit" eval="False"/>
+  </record>
+  <record id="style_result" model="mis.report.style">
+    <field name="name">Dashboard result</field>
+    <field name="font_weight">bold</field>
+    <field name="font_weight_inherit" eval="False"/>
+    <field name="background_color">#193954</field>
+    <field name="background_color_inherit" eval="False"/>
+    <field name="color">#FFFFFF</field>
+    <field name="color_inherit" eval="False"/>
+  </record>
+  <record id="style_detail" model="mis.report.style">
+    <field name="name">Dashboard accounts</field>
+    <field name="indent_level">1</field>
+    <field name="indent_level_inherit" eval="False"/>
+    <field name="hide_empty" eval="True"/>
+    <field name="hide_empty_inherit" eval="False"/>
+  </record>
+  <record id="report_summary" model="mis.report">
+    <field name="name">Monthly results</field>
+    <field name="description">Posted accounting entries, calendar year, account groups 6 and 7. Review excluded journals.</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="move_lines_source" ref="account.model_account_move_line"/>
+    <field name="servincom_dashboard_report" eval="True"/>
+  </record>
+  <record id="report_detail" model="mis.report">
+    <field name="name">Account detail</field>
+    <field name="description">Posted accounting entries, calendar year, account groups 6 and 7. Review excluded journals.</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="move_lines_source" ref="account.model_account_move_line"/>
+    <field name="servincom_dashboard_report" eval="True"/>
+  </record>
+  <record id="kpi_summary_sales" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">sales</field>
+    <field name="description">Net sales</field>
+    <field name="expression">-balp[70%]</field>
+    <field name="sequence">10</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_exceptional_income" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">exceptional_income</field>
+    <field name="description">Exceptional income</field>
+    <field name="expression">-balp[778%]</field>
+    <field name="sequence">20</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_other_income" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">other_income</field>
+    <field name="description">Other accounting income</field>
+    <field name="expression">-balp[7%] + balp[70%,778%]</field>
+    <field name="sequence">30</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_income_total" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">income_total</field>
+    <field name="description">TOTAL INCOME</field>
+    <field name="expression">-balp[7%]</field>
+    <field name="sequence">40</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_purchases" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">purchases</field>
+    <field name="description">Net purchases and freight</field>
+    <field name="expression">balp[60%] - balp[607%]</field>
+    <field name="sequence">60</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_third_party" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">third_party</field>
+    <field name="description">External work</field>
+    <field name="expression">balp[607%]</field>
+    <field name="sequence">70</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_rent" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">rent</field>
+    <field name="description">Rent</field>
+    <field name="expression">balp[621%]</field>
+    <field name="sequence">80</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_repairs" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">repairs</field>
+    <field name="description">Repairs and maintenance</field>
+    <field name="expression">balp[622%]</field>
+    <field name="sequence">90</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_professional" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">professional</field>
+    <field name="description">Professional services</field>
+    <field name="expression">balp[623%]</field>
+    <field name="sequence">100</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_transport" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">transport</field>
+    <field name="description">Transport</field>
+    <field name="expression">balp[624%]</field>
+    <field name="sequence">110</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_insurance" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">insurance</field>
+    <field name="description">Insurance</field>
+    <field name="expression">balp[625%]</field>
+    <field name="sequence">120</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_bank_fees" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">bank_fees</field>
+    <field name="description">Bank charges</field>
+    <field name="expression">balp[626%]</field>
+    <field name="sequence">130</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_advertising" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">advertising</field>
+    <field name="description">Advertising</field>
+    <field name="expression">balp[627%]</field>
+    <field name="sequence">140</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_utilities" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">utilities</field>
+    <field name="description">Utilities</field>
+    <field name="expression">balp[628%]</field>
+    <field name="sequence">150</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_services" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">services</field>
+    <field name="description">Other services</field>
+    <field name="expression">balp[629%]</field>
+    <field name="sequence">160</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_staff" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">staff</field>
+    <field name="description">Personnel and employer social security</field>
+    <field name="expression">balp[64%]</field>
+    <field name="sequence">170</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_taxes" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">taxes</field>
+    <field name="description">Income tax and other taxes</field>
+    <field name="expression">balp[63%]</field>
+    <field name="sequence">180</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_interest" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">interest</field>
+    <field name="description">Debt interest</field>
+    <field name="expression">balp[662%]</field>
+    <field name="sequence">190</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_other_financial" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">other_financial</field>
+    <field name="description">Other financial expenses</field>
+    <field name="expression">balp[66%] - balp[662%]</field>
+    <field name="sequence">200</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_exceptional" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">exceptional</field>
+    <field name="description">Exceptional expenses</field>
+    <field name="expression">balp[678%]</field>
+    <field name="sequence">210</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_inventory" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">inventory</field>
+    <field name="description">Inventory variation</field>
+    <field name="expression">balp[61%]</field>
+    <field name="sequence">220</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_depreciation" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">depreciation</field>
+    <field name="description">Depreciation</field>
+    <field name="expression">balp[68%]</field>
+    <field name="sequence">230</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_impairment" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">impairment</field>
+    <field name="description">Impairment and provisions</field>
+    <field name="expression">balp[69%]</field>
+    <field name="sequence">240</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_remaining_expenses" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">remaining_expenses</field>
+    <field name="description">Other accounting expenses</field>
+    <field name="expression">balp[6%] - ((balp[60%] - balp[607%]) + (balp[607%]) + (balp[621%]) + (balp[622%]) + (balp[623%]) + (balp[624%]) + (balp[625%]) + (balp[626%]) + (balp[627%]) + (balp[628%]) + (balp[629%]) + (balp[64%]) + (balp[63%]) + (balp[662%]) + (balp[66%] - balp[662%]) + (balp[678%]) + (balp[61%]) + (balp[68%]) + (balp[69%]))</field>
+    <field name="sequence">260</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_normal"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_expenses_total" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">expenses_total</field>
+    <field name="description">TOTAL PURCHASES AND EXPENSES</field>
+    <field name="expression">balp[6%]</field>
+    <field name="sequence">270</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_monthly_result" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">monthly_result</field>
+    <field name="description">MONTHLY ACCOUNTING RESULT</field>
+    <field name="expression">-balp[7%] - balp[6%]</field>
+    <field name="sequence">290</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_result"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_expenses_total" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">expenses_total</field>
+    <field name="description">TOTAL PURCHASES AND EXPENSES</field>
+    <field name="expression">balp[6%]</field>
+    <field name="sequence">810</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_monthly_result" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">monthly_result</field>
+    <field name="description">MONTHLY ACCOUNTING RESULT</field>
+    <field name="expression">-balp[7%] - balp[6%]</field>
+    <field name="sequence">830</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_result"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_summary_cumulative_result" model="mis.report.kpi">
+    <field name="report_id" ref="report_summary"/>
+    <field name="name">cumulative_result</field>
+    <field name="description">CUMULATIVE RESULT</field>
+    <field name="expression">-bale[6%,7%]</field>
+    <field name="sequence">300</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_sales" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_sales</field>
+    <field name="description">Detail · Net sales</field>
+    <field name="expression">-balp[70%]</field>
+    <field name="sequence">10</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_exceptional_income" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_exceptional_income</field>
+    <field name="description">Detail · Exceptional income</field>
+    <field name="expression">-balp[778%]</field>
+    <field name="sequence">20</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_other_income" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_other_income</field>
+    <field name="description">Detail · Other accounting income</field>
+    <field name="expression">-balp[7%] + balp[70%,778%]</field>
+    <field name="sequence">30</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_purchases" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_purchases</field>
+    <field name="description">Detail · Net purchases and freight</field>
+    <field name="expression">balp[60%] - balp[607%]</field>
+    <field name="sequence">40</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_third_party" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_third_party</field>
+    <field name="description">Detail · External work</field>
+    <field name="expression">balp[607%]</field>
+    <field name="sequence">50</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_rent" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_rent</field>
+    <field name="description">Detail · Rent</field>
+    <field name="expression">balp[621%]</field>
+    <field name="sequence">60</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_repairs" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_repairs</field>
+    <field name="description">Detail · Repairs and maintenance</field>
+    <field name="expression">balp[622%]</field>
+    <field name="sequence">70</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_professional" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_professional</field>
+    <field name="description">Detail · Professional services</field>
+    <field name="expression">balp[623%]</field>
+    <field name="sequence">80</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_transport" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_transport</field>
+    <field name="description">Detail · Transport</field>
+    <field name="expression">balp[624%]</field>
+    <field name="sequence">90</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_insurance" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_insurance</field>
+    <field name="description">Detail · Insurance</field>
+    <field name="expression">balp[625%]</field>
+    <field name="sequence">100</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_bank_fees" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_bank_fees</field>
+    <field name="description">Detail · Bank charges</field>
+    <field name="expression">balp[626%]</field>
+    <field name="sequence">110</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_advertising" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_advertising</field>
+    <field name="description">Detail · Advertising</field>
+    <field name="expression">balp[627%]</field>
+    <field name="sequence">120</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_utilities" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_utilities</field>
+    <field name="description">Detail · Utilities</field>
+    <field name="expression">balp[628%]</field>
+    <field name="sequence">130</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_services" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_services</field>
+    <field name="description">Detail · Other services</field>
+    <field name="expression">balp[629%]</field>
+    <field name="sequence">140</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_staff" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_staff</field>
+    <field name="description">Detail · Personnel and employer social security</field>
+    <field name="expression">balp[64%]</field>
+    <field name="sequence">150</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_taxes" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_taxes</field>
+    <field name="description">Detail · Income tax and other taxes</field>
+    <field name="expression">balp[63%]</field>
+    <field name="sequence">160</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_interest" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_interest</field>
+    <field name="description">Detail · Debt interest</field>
+    <field name="expression">balp[662%]</field>
+    <field name="sequence">170</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_other_financial" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_other_financial</field>
+    <field name="description">Detail · Other financial expenses</field>
+    <field name="expression">balp[66%] - balp[662%]</field>
+    <field name="sequence">180</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_exceptional" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_exceptional</field>
+    <field name="description">Detail · Exceptional expenses</field>
+    <field name="expression">balp[678%]</field>
+    <field name="sequence">190</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_inventory" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_inventory</field>
+    <field name="description">Detail · Inventory variation</field>
+    <field name="expression">balp[61%]</field>
+    <field name="sequence">200</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_depreciation" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_depreciation</field>
+    <field name="description">Detail · Depreciation</field>
+    <field name="expression">balp[68%]</field>
+    <field name="sequence">210</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_impairment" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_impairment</field>
+    <field name="description">Detail · Impairment and provisions</field>
+    <field name="expression">balp[69%]</field>
+    <field name="sequence">220</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_detail_other" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">detail_other</field>
+    <field name="description">Detail · Other accounting expenses</field>
+    <field name="expression">balp[6%] - ((balp[60%] - balp[607%]) + (balp[607%]) + (balp[621%]) + (balp[622%]) + (balp[623%]) + (balp[624%]) + (balp[625%]) + (balp[626%]) + (balp[627%]) + (balp[628%]) + (balp[629%]) + (balp[64%]) + (balp[63%]) + (balp[662%]) + (balp[66%] - balp[662%]) + (balp[678%]) + (balp[61%]) + (balp[68%]) + (balp[69%]))</field>
+    <field name="sequence">700</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="True"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+  <record id="kpi_detail_income_total" model="mis.report.kpi">
+    <field name="report_id" ref="report_detail"/>
+    <field name="name">income_total</field>
+    <field name="description">TOTAL INCOME</field>
+    <field name="expression">-balp[7%]</field>
+    <field name="sequence">800</field>
+    <field name="type">num</field>
+    <field name="style_id" ref="style_total"/>
+    <field name="compare_method">diff</field>
+    <field name="auto_expand_accounts" eval="False"/>
+    <field name="auto_expand_accounts_style_id" ref="style_detail"/>
+  </record>
+</odoo>
