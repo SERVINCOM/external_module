@@ -56,8 +56,9 @@ Desde la versión 18.0.1.4.0, **Evolución de clientes** permite:
   año, diferencia, variación porcentual, última compra o situación. Otra pulsación
   invierte el orden. Los valores no disponibles permanecen al final y la ordenación
   se aplica al conjunto filtrado antes de dividirlo en páginas.
-- Ver el rango de clientes, el total de páginas, ir a la primera o última página
-  y escribir un número de página. Los filtros y la ordenación vuelven a la primera.
+- Ver el rango de clientes, el total de páginas y escribir un número de página.
+  Desde la 18.0.1.4.1, Anterior en la primera página lleva a la última, y Siguiente
+  en la última vuelve a la primera. Los filtros y la ordenación vuelven a la primera.
 - Marcar los dos años para comparar o dejar solo uno visible. La selección afecta
   a las gráficas, las columnas, los indicadores y los enlaces de documentos.
   Debe quedar al menos un año visible. En vista de un año se incluyen sus clientes
@@ -68,6 +69,15 @@ Desde la versión 18.0.1.4.0, **Evolución de clientes** permite:
   diferencia y variación porcentual. **Todos los datos disponibles** muestra las
   sumas visibles de cada año, sin diferencias entre poblaciones distintas. Al
   mostrar solo un año se selecciona este último alcance automáticamente.
+
+Desde la 18.0.1.4.1, los años de la leyenda son botones que muestran u ocultan
+las líneas de **esa gráfica**, de forma independiente. No cambian el alcance,
+los indicadores ni las tablas; las casillas superiores siguen seleccionando
+los años del informe completo. Cada bloque se puede minimizar y expandir desde
+su cabecera, conservando su selección de líneas mientras el cuadro sigue abierto.
+Hay más espacio entre los meses del eje y la tabla que aparece debajo.
+**Ver número de clientes por mes** despliega los clientes distintos con al menos
+una factura positiva en cada mes: un mismo cliente puede contar en varios meses.
 
 El histórico es parcial cuando solo se han cargado coincidencias; sus sumas no
 certifican la facturación completa de la empresa de origen. No se incorporan

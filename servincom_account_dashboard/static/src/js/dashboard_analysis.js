@@ -53,7 +53,13 @@ export class DashboardAnalysis extends Component {
         this.state = useState({ data: null, year: null, endMonth: null, salesperson: "",
             loading: false, error: "", filter: "all", search: "", page: 0,
             showCurrent: true, showPrevious: true, sortKey: "current", sortDirection: "desc",
-            salesScope: "comparable" });
+            salesScope: "comparable",
+            collapsedPanels: { sales: false, customers: false, result: false },
+            chartVisibility: {
+                sales: { current: true, previous: true },
+                customers: { current: true, previous: true },
+                result: { current: true, previous: true },
+            } });
         this.pageSize = 50;
         this.requestId = 0;
         onWillStart(() => this.load());
@@ -144,6 +150,16 @@ export class DashboardAnalysis extends Component {
             this.state.sortDirection = "desc";
         }
     }
+    togglePanel(key) {
+        this.state.collapsedPanels[key] = !this.state.collapsedPanels[key];
+    }
+    toggleChartYear(chartKey, year) {
+        const visible = this.state.chartVisibility[chartKey];
+        visible[year] = !visible[year];
+    }
+    chartYearVisible(chartKey, year) {
+        return this.state.chartVisibility[chartKey][year];
+    }
     get columns() {
         const data = this.state.data;
         return [
@@ -227,6 +243,10 @@ export class DashboardAnalysis extends Component {
             this.state.page = Math.max(0, Math.min(number, this.pageCount - 1));
         }
     }
+    movePage(direction) {
+        const count = this.pageCount;
+        this.state.page = count ? (this.pageIndex + direction + count) % count : 0;
+    }
     jumpPage(event) {
         const page = Number(event.target.value);
         if (Number.isFinite(page)) {
@@ -281,15 +301,17 @@ export class DashboardAnalysis extends Component {
         return this.bothYears && this.state.salesScope === "comparable";
     }
     get salesChart() {
-        return this.makeChart(this.salesRows.slice(0, 12));
+        return this.makeChart(this.salesRows.slice(0, 12), "sales");
     }
     get chart() {
-        return this.makeChart(this.customers ? this.customerTrend : this.state.data.rows[2].cells.slice(0, 12));
+        return this.makeChart(this.customers ? this.customerTrend : this.state.data.rows[2].cells.slice(0, 12),
+            this.customers ? "customers" : "result");
     }
-    makeChart(values) {
-        const keys = this.customers
+    makeChart(values, chartKey) {
+        const available = this.customers
             ? [ ...(this.state.showCurrent ? ["current"] : []), ...(this.state.showPrevious ? ["previous"] : []) ]
             : ["current", "previous"];
+        const keys = available.filter(key => this.chartYearVisible(chartKey, key));
         const numbers = values.flatMap(row => keys.map(key => row[key])).filter(value => Number.isFinite(value));
         const min = Math.min(0, ...numbers);
         const max = Math.max(1, ...numbers);
@@ -300,7 +322,7 @@ export class DashboardAnalysis extends Component {
         const previous = points("previous");
         return { current, previous, currentLine: current.map(p => `${p.x},${p.y}`).join(" "),
             previousLine: previous.map(p => `${p.x},${p.y}`).join(" "),
-            zero: y(0), max, min };
+            zero: y(0), max, min, hasVisibleSeries: keys.length > 0 };
     }
 }
 

@@ -19,7 +19,10 @@ const component = Object.create(sandbox.Analysis.prototype);
 const points = Array.from({length: 12}, (_, i) => ({month: i + 1,
     current: i ? null : 1, previous: i ? null : 2}));
 component.state = {filter: 'all', search: '', page: 0, showCurrent: true, showPrevious: true,
-    sortKey: 'current', sortDirection: 'desc', salesScope: 'comparable', data: {
+    sortKey: 'current', sortDirection: 'desc', salesScope: 'comparable',
+    collapsedPanels: {sales: false, customers: false, result: false},
+    chartVisibility: {sales: {current: true, previous: true},
+        customers: {current: true, previous: true}, result: {current: true, previous: true}}, data: {
     year: 2026, previous_year: 2025, end_month: 1, salesperson_id: 7, historical_years: [2025],
     matched_history: true, digits: 2, counts: {active: 2, decline: 1, no_purchase: 1, new: 0, unavailable: 1},
     period_counts: {current: 2, previous: 2}, trend: points,
@@ -57,6 +60,14 @@ assert.deepEqual(ids(), [3, 1, 2]);
 component.sortBy('current');
 assert.equal(component.pageCount, 2);
 assert.equal(component.pageRange, '1–2 of 3 customers');
+component.movePage(-1);
+assert.equal(component.pageIndex, 1, 'Previous from the first page wraps to the last');
+component.movePage(1);
+assert.equal(component.pageIndex, 0, 'Next from the last page wraps to the first');
+component.movePage(1);
+assert.equal(component.pageIndex, 1);
+component.movePage(-1);
+assert.equal(component.pageIndex, 0);
 component.setPage(999);
 assert.equal(component.pageIndex, 1);
 assert.equal(component.pageRows.length, 1);
@@ -68,11 +79,36 @@ component.setPage(-9);
 assert.equal(component.pageIndex, 0);
 component.setFilter('unavailable');
 assert.deepEqual(ids(), [2]);
+component.movePage(-1);
+assert.equal(component.pageIndex, 0, 'A single page remains stable');
 component.search({target: {value: 'no match'}});
 assert.equal(component.pageCount, 0);
 assert.equal(component.pageRange, '0–0 of 0 customers');
+component.movePage(-1);
+component.movePage(1);
+assert.equal(component.state.page, 0, 'Empty results do not produce NaN or negative pages');
 component.search({target: {value: ''}});
 component.setFilter('all');
+component.toggleChartYear('sales', 'previous');
+assert.equal(component.salesChart.previous.length, 0);
+assert.equal(component.salesChart.current.length, 1);
+assert.equal(component.chart.previous.length, 1, 'Customer chart is independent');
+assert.equal(component.bothYears, true, 'Legend buttons do not change report scope');
+assert.equal(component.salesRows[0].previous, 2, 'Legend buttons do not change table data');
+component.toggleChartYear('sales', 'current');
+assert.equal(component.salesChart.hasVisibleSeries, false);
+component.toggleChartYear('customers', 'current');
+assert.equal(component.chart.current.length, 0);
+assert.equal(component.chart.previous.length, 1);
+component.togglePanel('sales');
+assert.equal(component.state.collapsedPanels.sales, true);
+assert.equal(component.state.collapsedPanels.customers, false);
+component.togglePanel('sales');
+assert.equal(component.state.collapsedPanels.sales, false);
+assert.equal(component.salesChart.hasVisibleSeries, false, 'Collapsing keeps the legend choice');
+component.toggleChartYear('sales', 'previous');
+component.toggleChartYear('sales', 'current');
+component.toggleChartYear('customers', 'current');
 component.toggleYear('showCurrent');
 assert.equal(component.selectedPeriod, 'previous');
 assert.equal(component.state.salesScope, 'available');
@@ -110,5 +146,5 @@ component.action = {doAction: async () => {}};
     component.toggleYear('showPrevious');
     await component.openInvoices({id: 1});
     assert.deepEqual(Array.from(calls[1][2]), [1, 2026, 1, 7, 'current']);
-    console.log('PASS: column sorting, missing values, pagination, year visibility, chart scope and drilldown periods.');
+    console.log('PASS: sorting, missing values, circular pagination, independent chart legends and panels, year scope and drilldown periods.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

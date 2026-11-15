@@ -1289,8 +1289,8 @@ msgstr "Mismos totales y filtros que los resultados mensuales desglosados de aba
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
-msgid "See monthly counts"
-msgstr "Ver recuentos mensuales"
+msgid "See number of customers per month"
+msgstr "Ver número de clientes por mes"
 
 #: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
 #. module: servincom_account_dashboard
@@ -1725,22 +1725,10 @@ msgid "Difference"
 msgstr "Diferencia"
 
 #. module: servincom_account_dashboard
-#. odoo-javascript
-#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
-msgid "First"
-msgstr "Primera"
-
-#. module: servincom_account_dashboard
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
 msgid "Historical figures include verified matches only. A missing comparison is shown as unavailable, not zero."
 msgstr "El histórico incluye solo coincidencias contrastadas. Si falta una comparación, se muestra como no disponible, no como cero."
-
-#. module: servincom_account_dashboard
-#. odoo-javascript
-#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
-msgid "Last"
-msgstr "Última"
 
 #. module: servincom_account_dashboard
 #. odoo-javascript
@@ -1801,3 +1789,51 @@ msgstr "clientes en el mismo grupo de comparación"
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
 msgid "of"
 msgstr "de"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Expand"
+msgstr "Expandir"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Collapse"
+msgstr "Minimizar"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Distinct customers with at least one positive invoice in each month. A customer can appear in several months."
+msgstr "Clientes distintos con al menos una factura positiva en cada mes. Un cliente puede aparecer en varios meses."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Previous page; from the first page, go to the last"
+msgstr "Página anterior; desde la primera página, ir a la última"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Next page; from the last page, go to the first"
+msgstr "Página siguiente; desde la última página, ir a la primera"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Years shown in this chart"
+msgstr "Años visibles en esta gráfica"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Show or hide this year in this chart"
+msgstr "Mostrar u ocultar este año en esta gráfica"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Select a year in the chart legend to display its data."
+msgstr "Selecciona un año en la leyenda de la gráfica para mostrar sus datos."

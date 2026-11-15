@@ -72,8 +72,14 @@ body.o_web_client .o_servincom_account_dashboard {
     .o_tone_gray { border-top-color: #98a9b8; }
     .o_servincom_panel { background: white; border: 1px solid #dce4eb; border-radius: 7px; padding: 20px; }
     .o_servincom_panel h3 { font-size: 17px; color: #193954; }
-    .o_servincom_chart { width: 100%; max-height: 280px; overflow: visible; }
-    .o_servincom_legend { display: flex; justify-content: flex-end; gap: 22px; font-weight: 600; }
+    .o_servincom_chart { display: block; width: 100%; max-height: 280px; overflow: visible; margin-bottom: 24px; }
+    .o_servincom_panel_toggle { display: flex; align-items: center; gap: 10px; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; }
+    .o_servincom_panel_toggle small { font-size: 12px; color: #617282; }
+    .o_servincom_panel_content { padding-top: 16px; }
+    .o_servincom_legend { display: flex; justify-content: flex-end; gap: 12px; font-weight: 600; }
+    .o_servincom_legend button { border: 1px solid currentColor; border-radius: 4px; background: transparent; padding: 4px 10px; font: inherit; }
+    .o_servincom_legend .o_series_hidden { opacity: .5; text-decoration: line-through; }
+    .o_servincom_legend button:focus-visible, .o_servincom_panel_toggle:focus-visible { outline: 2px solid #239d91; outline-offset: 4px; }
     .o_current { color: #158478; }
     .o_previous { color: #6c7c8c; }
     .o_axis { font-size: 11px; fill: #617282; }
