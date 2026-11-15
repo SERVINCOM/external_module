@@ -12,7 +12,7 @@
         <field name="model">mis.report.instance</field>
         <field name="priority">99</field>
         <field name="arch" type="xml">
-            <form create="false" edit="false" delete="false" class="o_servincom_account_dashboard">
+            <form create="false" edit="false" delete="false" class="o_servincom_account_dashboard" js_class="servincom_dashboard_card">
                 <sheet>
                     <field name="name" invisible="1"/>
                     <field name="display_name" invisible="1"/>
@@ -27,7 +27,7 @@
         <field name="model">mis.report.instance</field>
         <field name="priority">99</field>
         <field name="arch" type="xml">
-            <form create="false" edit="false" delete="false" class="o_servincom_account_dashboard">
+            <form create="false" edit="false" delete="false" class="o_servincom_account_dashboard" js_class="servincom_dashboard_card">
                 <sheet>
                     <field name="name" invisible="1"/>
                     <field name="display_name" invisible="1"/>
