@@ -182,6 +182,12 @@ class TestCustomerEvolution(TransactionCase):
         with self.assertRaises(AccessError):
             line.with_user(self.reader).write({"amount_untaxed_signed": 200})
         with self.assertRaises(AccessError):
+            line.with_user(self.reader).unlink()
+        with self.assertRaises(AccessError):
+            batch.with_user(self.reader).write({"name": "Forbidden change"})
+        with self.assertRaises(AccessError):
+            batch.with_user(self.reader).unlink()
+        with self.assertRaises(AccessError):
             self.env["servincom.dashboard.history.line"].with_user(self.other_salesperson).search([])
         settings_user = new_test_user(self.env(context=dict(self.env.context, no_reset_password=True)),
             login="history_settings_without_access_test", groups="base.group_system",

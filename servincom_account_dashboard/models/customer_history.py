@@ -78,16 +78,19 @@ class CustomerHistoryBatch(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        self.check_access("create")
         if any(values.get("state", "draft") != "draft" for values in vals_list):
             raise ValidationError(self.env._("Create history batches in draft before activating them."))
         return super().create(vals_list)
 
     def write(self, values):
+        self.check_access("write")
         if any(batch.state == "active" for batch in self) and values != {"state": "draft"}:
             raise ValidationError(self.env._("Return the history batch to draft before editing it."))
         return super().write(values)
 
     def unlink(self):
+        self.check_access("unlink")
         if any(batch.state == "active" for batch in self):
             raise ValidationError(self.env._("Return the history batch to draft before deleting it."))
         return super().unlink()
@@ -158,6 +161,7 @@ class CustomerHistoryLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        self.check_access("create")
         default_batch = self.default_get(["batch_id"]).get("batch_id")
         batches = self.env["servincom.dashboard.history.batch"].browse(
             {values.get("batch_id", default_batch) for values in vals_list
@@ -168,6 +172,7 @@ class CustomerHistoryLine(models.Model):
         return super().create(vals_list)
 
     def write(self, values):
+        self.check_access("write")
         batches = self.batch_id
         if values.get("batch_id"):
             batches |= self.env["servincom.dashboard.history.batch"].browse(values["batch_id"])
@@ -176,6 +181,7 @@ class CustomerHistoryLine(models.Model):
         return super().write(values)
 
     def unlink(self):
+        self.check_access("unlink")
         if any(batch.state != "draft" for batch in self.batch_id):
             raise ValidationError(self.env._("Historical documents can only be changed in draft batches."))
         return super().unlink()
