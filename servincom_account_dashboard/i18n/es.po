@@ -13,6 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_detail
 #: model:mis.report,name:servincom_account_dashboard.report_detail
@@ -21,6 +22,7 @@ msgid "Account detail"
 msgstr "Detalle contable"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model,name:servincom_account_dashboard.model_servincom_account_dashboard
@@ -28,6 +30,7 @@ msgid "Accounting Dashboard"
 msgstr "Cuadro de mando contable"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/board.py:0
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_users_form_dashboard
@@ -40,12 +43,14 @@ msgid "Advertising"
 msgstr "Publicidad"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/res_users.py:0
 #: model:ir.model.fields,help:servincom_account_dashboard.field_res_users__servincom_dashboard_access
 msgid "Allow both dashboards and read-only accounting detail. This does not grant accounting edit rights."
 msgstr "Permite consultar los dos cuadros y el detalle contable. No concede permisos de modificación contable."
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "Annual total"
 msgstr "Total anual"
@@ -61,11 +66,13 @@ msgid "Apply year"
 msgstr "Aplicar año"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "April"
 msgstr "Abril"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "August"
 msgstr "Agosto"
@@ -86,12 +93,14 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/wizards/dashboard_year.py:0
 #: model:ir.model,name:servincom_account_dashboard.model_servincom_account_dashboard_year
 msgid "Choose Dashboard Year"
 msgstr "Elegir ejercicio del cuadro de mando"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "Choose a year between 1900 and 9998."
 msgstr "Elige un año entre 1900 y 9998."
@@ -109,12 +118,14 @@ msgid "Choose year for both tables"
 msgstr "Elegir año para las dos tablas"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__company_id
 msgid "Company"
 msgstr "Empresa"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/res_users.py:0
 msgid "Dashboard access is restricted to internal users."
 msgstr "El acceso a los cuadros está limitado a usuarios internos."
@@ -147,6 +158,7 @@ msgid "Dashboard subtotals"
 msgstr "Subtotales del cuadro"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_dashboard
 msgid "Dashboards"
@@ -158,6 +170,7 @@ msgid "Debt interest"
 msgstr "Intereses de deudas"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "December"
 msgstr "Diciembre"
@@ -168,6 +181,7 @@ msgid "Depreciation"
 msgstr "Amortizaciones"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__detail_instance_id
 msgid "Detail report"
@@ -299,6 +313,7 @@ msgid "Exceptional income"
 msgstr "Ingresos excepcionales"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__excluded_journal_ids
 msgid "Excluded journals"
@@ -315,6 +330,7 @@ msgid "External work"
 msgstr "Trabajos de otras empresas"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "February"
 msgstr "Febrero"
@@ -340,16 +356,19 @@ msgid "Inventory variation"
 msgstr "Variación de existencias"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "January"
 msgstr "Enero"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "July"
 msgstr "Julio"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "June"
 msgstr "Junio"
@@ -361,16 +380,19 @@ msgid "MONTHLY ACCOUNTING RESULT"
 msgstr "RESULTADO CONTABLE DEL MES"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "March"
 msgstr "Marzo"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "May"
 msgstr "Mayo"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_summary
@@ -380,6 +402,7 @@ msgid "Monthly results"
 msgstr "Resultados mensuales"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_board
 #: model:ir.actions.server,name:servincom_account_dashboard.action_open
@@ -388,6 +411,7 @@ msgid "Monthly results and account detail"
 msgstr "Resultados mensuales y detalle contable"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 msgid "Monthly results and account detail with explicit user access"
 msgstr "Resultados mensuales y detalle contable con permiso explícito por usuario"
@@ -403,37 +427,44 @@ msgid "Net sales"
 msgstr "Ventas netas"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "November"
 msgstr "Noviembre"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "October"
 msgstr "Octubre"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model.constraint,message:servincom_account_dashboard.constraint_servincom_account_dashboard_company_unique
 msgid "Only one dashboard is allowed per company."
 msgstr "Solo se permite un cuadro de mando por empresa."
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/mis_report.py:0
 msgid "Only settings administrators can change report protection."
 msgstr "Solo los administradores de Ajustes pueden cambiar la protección del informe."
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "Only settings administrators can configure the dashboard."
 msgstr "Solo los administradores de Ajustes pueden configurar el cuadro de mando."
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/res_users.py:0
 msgid "Only settings administrators can grant dashboard access."
 msgstr "Solo los administradores de Ajustes pueden conceder acceso a los cuadros."
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "Open the dashboard for the active company."
 msgstr "Abre el cuadro de mando de la empresa activa."
@@ -475,6 +506,7 @@ msgid "Professional services"
 msgstr "Profesionales"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/mis_report.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_mis_report__servincom_dashboard_report
 msgid "Protected accounting dashboard"
@@ -491,27 +523,32 @@ msgid "Repairs and maintenance"
 msgstr "Reparaciones y mantenimiento"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "Review the report domain before changing excluded journals."
 msgstr "Revisa el dominio del informe antes de cambiar los diarios excluidos."
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 msgid "SERVINCOM Accounting Dashboards"
 msgstr "SERVINCOM Cuadros de mando contables"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model.fields,help:servincom_account_dashboard.field_servincom_account_dashboard__excluded_journal_ids
 msgid "Select opening and closing journals to exclude. Do not exclude POS sales journals."
 msgstr "Selecciona los diarios de apertura y cierre que se excluirán. No excluyas los diarios de ventas del TPV."
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "September"
 msgstr "Septiembre"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__summary_instance_id
 msgid "Summary report"
@@ -545,6 +582,7 @@ msgid "Transport"
 msgstr "Transportes"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "Use two protected reports from the same company."
 msgstr "Utiliza dos informes protegidos de la misma empresa."
@@ -555,6 +593,7 @@ msgid "Utilities"
 msgstr "Suministros"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/res_users.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_res_users__servincom_dashboard_access
 #: model:res.groups,name:servincom_account_dashboard.group_dashboard_reader
@@ -562,6 +601,7 @@ msgid "View accounting dashboards"
 msgstr "Ver cuadros de mando contables"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: code:addons/servincom_account_dashboard/wizards/dashboard_year.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__year
@@ -570,6 +610,7 @@ msgid "Year"
 msgstr "Ejercicio"
 
 #. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "You do not have access to accounting dashboards."
 msgstr "No tienes acceso a los cuadros de mando contables."

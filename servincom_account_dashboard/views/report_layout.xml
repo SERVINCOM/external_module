@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_layout" inherit_id="mis_builder.report_mis_report_instance">
-        <xpath expr="//div[@class='page']/h3" position="before">
+        <xpath expr="//div[hasclass('page')]/h3" position="before">
             <style t-if="o.report_id.servincom_dashboard_report">
                 .mis_table .mis_cell:first-child {width:20%;word-break:normal;}
                 .mis_table .mis_cell {font-size:8pt !important;line-height:1.15;padding:2px 1px;}
@@ -11,7 +11,7 @@
                 .page {page-break-after:auto !important;}
             </style>
         </xpath>
-        <xpath expr="//div[@class='oe_mis_builder_footnote_div']" position="attributes">
+        <xpath expr="//div[hasclass('oe_mis_builder_footnote_div')]" position="attributes">
             <attribute name="t-if">not o.report_id.servincom_dashboard_report or notes</attribute>
         </xpath>
     </template>

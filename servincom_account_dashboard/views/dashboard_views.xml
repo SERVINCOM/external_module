@@ -16,7 +16,7 @@
                 <sheet>
                     <field name="name" invisible="1"/>
                     <field name="display_name" invisible="1"/>
-                    <a href="/odoo/action-%(action_choose_year)d" class="btn btn-primary mb-3">Choose year for both tables</a>
+                    <a href="/odoo/action-%(action_choose_year)d" class="btn btn-primary mb-3" role="button">Choose year for both tables</a>
                     <field name="id" widget="mis_report_widget" nolabel="1" style="width:100%"/>
                 </sheet>
             </form>
@@ -79,7 +79,7 @@
         <field name="model">servincom.account.dashboard.year</field>
         <field name="arch" type="xml">
             <form string="Choose year">
-                <group><field name="year" options="{'format': False}"/></group>
+                <group><field name="year" options="{'enable_formatting': False}"/></group>
                 <p>The year is shared by both tables for the active company.</p>
                 <footer>
                     <button name="action_apply" type="object" string="Apply year" class="btn-primary"/>
