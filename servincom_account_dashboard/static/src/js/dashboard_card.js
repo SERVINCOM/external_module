@@ -10,6 +10,10 @@ import { formView } from "@web/views/form/form_view";
 // res_id to the form. Bind our cards to that existing record so the standard
 // form controller cannot auto-save an incomplete new MIS report on unload.
 export class DashboardCardController extends FormController {
+    get className() {
+        return { ...super.className, o_servincom_dashboard_card: true };
+    }
+
     get modelParams() {
         const params = super.modelParams;
         // View supplies context to the controller after parsing view props.

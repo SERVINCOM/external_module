@@ -56,6 +56,29 @@ class TestAccountDashboard(TransactionCase):
         with self.assertRaises(AccessError):
             self.dashboard.summary_instance_id.report_id.with_user(self.denied).write({"servincom_dashboard_report": False})
 
+    def test_user_access_search_and_revocation(self):
+        users = self.env["res.users"]
+        candidates = self.reader | self.denied
+        for operator, value, expected in [
+            ("=", True, self.reader), ("=", False, self.denied),
+            ("!=", True, self.denied), ("!=", False, self.reader),
+            ("in", [True], self.reader), ("not in", [True], self.denied),
+            ("in", [True, False], candidates), ("in", [], users),
+            ("not in", [], candidates), ("not in", [True, False], users),
+        ]:
+            found = users.search([
+                ("id", "in", candidates.ids),
+                ("servincom_dashboard_access", operator, value),
+            ])
+            self.assertEqual(set(found.ids), set(expected.ids))
+        self.reader.servincom_dashboard_access = False
+        self.assertFalse(users.search([
+            ("id", "in", candidates.ids), ("servincom_dashboard_access", "=", True),
+        ]))
+        self.assertTrue(users.fields_get(["servincom_dashboard_access"])[
+            "servincom_dashboard_access"
+        ]["searchable"])
+
     def test_year_selection_without_report_write_permission(self):
         for year in (2024, 2025, 2026):
             wizard = self.env["servincom.account.dashboard.year"].with_user(self.reader).with_context(

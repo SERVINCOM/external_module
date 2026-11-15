@@ -160,7 +160,6 @@ msgstr "Subtotales del cuadro"
 #. module: servincom_account_dashboard
 #. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
-#: model:ir.ui.menu,name:servincom_account_dashboard.menu_dashboard
 msgid "Dashboards"
 msgstr "Cuadros de mando"
 
@@ -398,6 +397,7 @@ msgstr "Mayo"
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_summary
 #: model:mis.report,name:servincom_account_dashboard.report_summary
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_results
 msgid "Monthly results"
 msgstr "Resultados mensuales"
 
@@ -406,7 +406,6 @@ msgstr "Resultados mensuales"
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_board
 #: model:ir.actions.server,name:servincom_account_dashboard.action_open
-#: model:ir.ui.menu,name:servincom_account_dashboard.menu_results
 msgid "Monthly results and account detail"
 msgstr "Resultados mensuales y detalle contable"
 
@@ -614,3 +613,8 @@ msgstr "Ejercicio"
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 msgid "You do not have access to accounting dashboards."
 msgstr "No tienes acceso a los cuadros de mando contables."
+
+#. module: servincom_account_dashboard
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_dashboard
+msgid "Dashboard"
+msgstr "Cuadro de mando"

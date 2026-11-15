@@ -1,3 +1,23 @@
+.o_dashboard .o_servincom_dashboard_card {
+    // Cards grow with their report. The board owns vertical scrolling; an
+    // embedded full-height form must not capture the wheel inside each card.
+    height: auto !important;
+    min-height: 0;
+    max-height: none !important;
+    overflow: visible;
+
+    .o_form_view_container {
+        height: auto;
+    }
+
+    .o_content {
+        height: auto;
+        max-height: none;
+        overflow: visible !important;
+        flex: 0 0 auto;
+    }
+}
+
 .o_servincom_account_dashboard {
     table.mis_builder td:first-child {
         white-space: normal !important;

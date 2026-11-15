@@ -123,11 +123,11 @@
         <field name="res_model">servincom.account.dashboard</field>
         <field name="view_mode">list,form</field>
     </record>
-    <!-- Add only our reader group, keeping every pre-existing OCA menu group. -->
+    <!-- Our section now belongs directly to Reporting. Keep all OCA groups. -->
     <record id="account_financial_report.menu_oca_reports" model="ir.ui.menu">
-        <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
+        <field name="groups_id" eval="[Command.unlink(ref('group_dashboard_reader'))]"/>
     </record>
-    <menuitem id="menu_dashboard" name="Dashboards" parent="account_financial_report.menu_oca_reports" groups="group_dashboard_reader" sequence="60"/>
-    <menuitem id="menu_results" name="Monthly results and account detail" parent="menu_dashboard" action="action_open" groups="group_dashboard_reader" sequence="10"/>
+    <menuitem id="menu_dashboard" name="Dashboard" parent="account.menu_finance_reports" groups="group_dashboard_reader" sequence="60"/>
+    <menuitem id="menu_results" name="Monthly results" parent="menu_dashboard" action="action_open" groups="group_dashboard_reader" sequence="10"/>
     <menuitem id="menu_configuration" name="Dashboard configuration" parent="account.menu_finance_configuration" action="action_configuration" groups="base.group_system" sequence="95"/>
 </odoo>

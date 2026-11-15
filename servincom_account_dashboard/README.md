@@ -2,15 +2,17 @@
 
 Odoo 18 Community · AGPL-3 · SERVINCOM SOLUCIONES, S.L.
 
-Instala un resumen mensual y un detalle por cuentas bajo **Contabilidad → Informes → Informes de contabilidad OCA → Cuadros de mando**. Utiliza MIS Builder y el tablero estándar de Odoo, sin modificar sus fuentes ni depender de Enterprise.
+Instala un resumen mensual y un detalle por cuentas bajo **Contabilidad → Informes → Cuadro de mando → Resultados mensuales**. Utiliza MIS Builder y el tablero estándar de Odoo, sin modificar sus fuentes ni depender de Enterprise.
 
 ## Uso
 
 En **Ajustes → Usuarios y compañías → Usuarios → Permisos de acceso → Cuadros de mando contables**, marcar **Ver cuadros de mando contables**. La casilla es independiente del rol de administrador contable y solo pueden modificarla los administradores de Ajustes. No se marca automáticamente para ningún usuario al instalar.
 
+En la lista de Usuarios, **Añadir filtro personalizado → Ver cuadros de mando contables → está establecido** permite encontrar a quienes tienen acceso y guardar la búsqueda en Favoritos. La búsqueda consulta directamente la pertenencia al grupo, sin duplicar el permiso en una columna almacenada.
+
 El permiso habilita ambos informes, sus exportaciones y la consulta de apuntes. Implica el grupo estándar de contabilidad de solo lectura, por lo que permite consultar también otros datos contables sujetos a las reglas existentes. No concede escritura contable. Desmarcar la casilla bloquea estos cuadros incluso para un administrador contable; no revoca otros permisos contables que el usuario ya tenga. El superusuario de Odoo omite las reglas de registro.
 
-Elegir el año desde el primer cuadro y pulsar **Aplicar año**. Los dos informes muestran doce meses y total anual. El año se guarda por empresa y es compartido: si otra persona lo cambia, se verá el último año aplicado al actualizar. La disposición, plegado y ocultación de tarjetas son personales. El selector funciona con permiso de consulta, sin conceder edición sobre los informes.
+Elegir el año desde el primer cuadro y pulsar **Aplicar año**. Los dos informes muestran doce meses y total anual. El año se guarda por empresa y es compartido: si otra persona lo cambia, se verá el último año aplicado al actualizar. La disposición, plegado y ocultación de tarjetas son personales. Las dos tablas comparten el desplazamiento vertical del tablero, sin barras verticales interiores en las tarjetas. El selector funciona con permiso de consulta, sin conceder edición sobre los informes.
 
 ## Cálculos y configuración
 
