@@ -46,8 +46,8 @@ msgstr "Publicidad"
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/res_users.py:0
 #: model:ir.model.fields,help:servincom_account_dashboard.field_res_users__servincom_dashboard_access
-msgid "Allow both dashboards and read-only accounting detail. This does not grant accounting edit rights."
-msgstr "Permite consultar los dos cuadros y el detalle contable. No concede permisos de modificación contable."
+msgid "Allow accounting dashboards, maturities and read-only accounting detail. This does not grant accounting edit rights."
+msgstr "Permite consultar los cuadros contables, vencimientos y detalle contable. No concede permisos de modificación contable."
 
 #. module: servincom_account_dashboard
 #. odoo-python
@@ -321,8 +321,8 @@ msgstr "Diarios excluidos"
 
 #. module: servincom_account_dashboard
 #: model:res.groups,comment:servincom_account_dashboard.group_dashboard_reader
-msgid "Explicit access to the monthly summary, account detail and their exports. Accounting access is read-only."
-msgstr "Acceso explícito al resumen mensual, detalle contable y sus exportaciones. El acceso contable es de solo lectura."
+msgid "Explicit access to monthly results, account detail, receivable and payable maturities and their exports. Accounting access is read-only."
+msgstr "Acceso explícito a resultados mensuales, detalle contable, vencimientos de cobros y pagos y sus exportaciones. El acceso contable es de solo lectura."
 
 #. module: servincom_account_dashboard
 #: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_third_party

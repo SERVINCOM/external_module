@@ -66,6 +66,22 @@ class AccountMaturity(models.Model):
         "account.account": ["account_type"],
     }
 
+    def _check_maturity_read_access(self):
+        self.env["servincom.account.dashboard"]._check_dashboard_access()
+        # Query-backed records filtered out by a source rule can appear to the
+        # ORM as missing records. Check the real source before formatting or
+        # exporting cached values, including exports that do not call read().
+        self.env["account.move.line"].browse(self.ids).check_access("read")
+        self.check_access("read")
+
+    def _read_format(self, fnames, load="_classic_read"):
+        self._check_maturity_read_access()
+        return super()._read_format(fnames, load=load)
+
+    def export_data(self, fields_to_export):
+        self._check_maturity_read_access()
+        return super().export_data(fields_to_export)
+
     def _check_access(self, operation):
         result = super()._check_access(operation)
         if result or operation != "read" or not self:

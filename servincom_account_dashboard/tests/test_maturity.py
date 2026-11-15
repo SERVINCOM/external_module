@@ -49,7 +49,7 @@ class TestAccountMaturity(TransactionCase):
         user_env = cls.env(context=dict(cls.env.context, no_reset_password=True))
         cls.reader = new_test_user(
             user_env, login="maturity_reader_test", name="Maturity Reader",
-            groups="servincom_account_dashboard.group_dashboard_reader",
+            groups="servincom_account_dashboard.group_dashboard_reader,base.group_allow_export",
             company_id=cls.company.id, company_ids=[Command.set(cls.company.ids)],
         )
         cls.denied = new_test_user(
@@ -169,6 +169,7 @@ class TestAccountMaturity(TransactionCase):
         line = self._entry(self.receivable, [(100, date(2026, 1, 5))])
         row = self.report.browse(line.id)
         self.assertEqual(row.amount_pending, 100)
+        self.assertEqual(row.export_data(["amount_pending"])["datas"], [[100]])
         for method in ("search", "read_group"):
             with self.assertRaises(AccessError):
                 if method == "search":

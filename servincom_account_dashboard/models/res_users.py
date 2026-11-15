@@ -12,7 +12,7 @@ class ResUsers(models.Model):
         string="View accounting dashboards", compute="_compute_dashboard_access",
         inverse="_inverse_dashboard_access", groups="base.group_system",
         search="_search_dashboard_access",
-        help="Allow both dashboards and read-only accounting detail. This does not grant accounting edit rights.",
+        help="Allow accounting dashboards, maturities and read-only accounting detail. This does not grant accounting edit rights.",
     )
 
     @api.depends("groups_id")
