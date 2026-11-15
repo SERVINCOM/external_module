@@ -114,6 +114,35 @@ class TestCustomerEvolution(TransactionCase):
             with self.assertRaises(AccessError):
                 getattr(self.dashboard, method)(*args)
 
+    def test_archived_salesperson_last_without_losing_invoices(self):
+        dashboard = self.dashboard.with_context(lang="en_US")
+        self.reader.name = "Zeta salesperson"
+        self.other_salesperson.name = "Alfa salesperson"
+        current = self._invoice(self.customer, 80, date(2026, 1, 10))
+        archived = self._invoice(self.customer, 20, date(2026, 1, 11),
+                                 salesperson=self.other_salesperson)
+        before = dashboard.get_customer_evolution(2026, 1)
+        self.assertEqual([user["id"] for user in before["salespeople"]],
+                         [self.other_salesperson.id, self.reader.id])
+
+        self.other_salesperson.active = False
+        after = dashboard.get_customer_evolution(2026, 1)
+        self.assertEqual([user["id"] for user in after["salespeople"]],
+                         [self.reader.id, self.other_salesperson.id])
+        self.assertTrue(after["salespeople"][0]["active"])
+        self.assertFalse(after["salespeople"][1]["active"])
+        self.assertEqual(after["salespeople"][1]["name"], "Alfa salesperson (Archived)")
+        for key in ("rows", "counts", "trend"):
+            self.assertEqual(before[key], after[key])
+
+        filtered = dashboard.get_customer_evolution(2026, 1, self.other_salesperson.id)
+        self.assertEqual(filtered["rows"][0]["current"], 20)
+        action = dashboard.action_customer_invoices(
+            self.customer.id, 2026, 1, self.other_salesperson.id)
+        self.assertEqual(self.env["account.move"].with_user(self.reader).search(action["domain"]), archived)
+        self.assertEqual(current.invoice_user_id, self.reader)
+        self.assertEqual(archived.invoice_user_id, self.other_salesperson)
+
     def test_period_validation_leap_year_and_future(self):
         with patch.object(fields.Date, "context_today", return_value=date(2024, 2, 29)):
             start, end, previous_start, previous_end = self.dashboard._analysis_period(2024, 2)

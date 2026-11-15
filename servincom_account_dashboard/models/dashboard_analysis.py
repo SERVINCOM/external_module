@@ -233,10 +233,19 @@ class DashboardAnalysis(models.Model):
         result["trend"] = [{"month": month, "current": len(current_monthly[month] & visible) if month <= end.month else None,
                             "previous": len(previous_monthly[month] & visible) if month <= end.month else None}
                            for month in range(1, 13)]
-        result["salespeople"] = [{"id": user.id, "name": user.display_name} for user, in move._read_group(
+        salespeople = [user for user, in move._read_group(
             self._customer_domain() + [("invoice_date", ">=", previous_start), ("invoice_date", "<=", end)],
             ["invoice_user_id"], [],
         ) if user]
+        # Archived salespeople still identify historical invoices. Keep them
+        # selectable, after active users, without changing invoice assignments.
+        result["salespeople"] = [{
+            "id": user.id,
+            "name": user.display_name if user.active else self.env._("%s (Archived)", user.display_name),
+            "active": user.active,
+        } for user in sorted(salespeople, key=lambda user: (
+            not user.active, user.display_name.casefold(), user.id,
+        ))]
         return result
 
     @api.model

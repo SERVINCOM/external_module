@@ -14,6 +14,13 @@ msgstr ""
 
 #. module: servincom_account_dashboard
 #. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#, python-format
+msgid "%s (Archived)"
+msgstr "%s (Archivado)"
+
+#. module: servincom_account_dashboard
+#. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:mis.report,name:servincom_account_dashboard.report_detail
 msgid "Account detail"

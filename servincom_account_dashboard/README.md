@@ -36,6 +36,8 @@ El resumen y la comparativa requieren los indicadores técnicos `income_total`, 
 
 Selector de ejercicio, mes de corte y comercial. Compara enero hasta el corte con el mismo periodo del año anterior. Incluye cuatro indicadores, gráfico de clientes únicos por mes, tabla buscable y paginada, filtro por situación y acceso a las facturas que justifican las dos columnas.
 
+El selector de comercial muestra los usuarios asignados a las facturas del periodo consultado. Los activos aparecen primero y los archivados al final, identificados como «Archivado», con orden alfabético dentro de cada grupo. Archivar un usuario no elimina ni reasigna sus facturas: siguen incluidas en «Todos» y pueden consultarse con su filtro. Una cuenta técnica también puede aparecer si está asignada como comercial en documentos de origen.
+
 - Fuente: facturas y rectificativas de cliente publicadas (`account.move`) por fecha de factura, importe sin impuestos con signo y moneda de empresa. Excluye borradores, pedidos sin factura, recibos y ventas TPV sin factura de cliente. No equivale a toda la facturación contable del grupo 7.
 - Los contactos se agrupan por `commercial_partner_id`. Activo significa al menos una factura positiva en el periodo; una rectificativa sola no cuenta como compra. Los importes incluyen las rectificativas con su signo incluso en filas sin compra.
 - **Con caída de compras**: cliente con compra en ambos periodos cuyo neto disminuye, redondeado a la precisión de la moneda. **Sin compra**: compró en el periodo anterior y no en el actual; no se etiqueta como perdido.
