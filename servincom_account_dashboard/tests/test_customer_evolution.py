@@ -183,6 +183,12 @@ class TestCustomerEvolution(TransactionCase):
             line.with_user(self.reader).write({"amount_untaxed_signed": 200})
         with self.assertRaises(AccessError):
             self.env["servincom.dashboard.history.line"].with_user(self.other_salesperson).search([])
+        settings_user = new_test_user(self.env(context=dict(self.env.context, no_reset_password=True)),
+            login="history_settings_without_access_test", groups="base.group_system",
+            company_id=self.company.id, company_ids=[Command.set(self.company.ids)])
+        self.assertFalse(line.with_user(settings_user).search([("id", "=", line.id)]))
+        with self.assertRaises(AccessError):
+            line.with_user(settings_user).read(["amount_untaxed_signed"])
         self._invoice(self.customer, 80, date(2026, 1, 10))
         self.env["ir.rule"].create({"name": "Restricted historical document",
             "model_id": self.env["ir.model"]._get_id("servincom.dashboard.history.line"),

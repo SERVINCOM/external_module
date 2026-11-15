@@ -51,7 +51,7 @@ El selector es propio de estos dos cuadros; no modifica el ejercicio compartido 
 ## Histórico estadístico de clientes
 
 Desde la versión 18.0.1.3.0, **Contabilidad → Configuración → Histórico de clientes**
-permite a administradores de Ajustes preparar lotes anuales de documentos de otro
+permite a administradores de Ajustes que tengan marcada la casilla de acceso al cuadro preparar lotes anuales de documentos de otro
 sistema. Son modelos propios: `servincom.dashboard.history.batch` y
 `servincom.dashboard.history.line`. No generan facturas, asientos, impuestos,
 conciliaciones ni movimientos de stock, y no alteran el asiento inicial.
