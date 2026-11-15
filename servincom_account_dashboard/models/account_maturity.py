@@ -162,8 +162,8 @@ class AccountMaturity(models.Model):
             "servincom_account_dashboard." + action_xmlid
         )
         action["name"] = (
-            self.env._("Sales (receivables)") if direction == "receivable"
-            else self.env._("Purchases (payables)")
+            self.env._("Receivable maturities") if direction == "receivable"
+            else self.env._("Payable maturities")
         ) + " · " + company.currency_id.name
         action["display_name"] = action["name"]
         # One active company per screen: totals must never mix currencies.

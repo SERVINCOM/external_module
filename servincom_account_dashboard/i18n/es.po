@@ -816,8 +816,8 @@ msgstr "Pendiente en moneda del documento"
 #: model:ir.actions.server,name:servincom_account_dashboard.action_receivable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_receivable_maturities
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_receivable_maturity_window
-msgid "Sales (receivables)"
-msgstr "Ventas (cobros)"
+msgid "Receivable maturities"
+msgstr "Vencimientos cobros"
 
 #. module: servincom_account_dashboard
 #. odoo-python
@@ -825,8 +825,8 @@ msgstr "Ventas (cobros)"
 #: model:ir.actions.server,name:servincom_account_dashboard.action_payable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_payable_maturities
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_payable_maturity_window
-msgid "Purchases (payables)"
-msgstr "Compras (pagos)"
+msgid "Payable maturities"
+msgstr "Vencimientos pagos"
 
 #. module: servincom_account_dashboard
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search

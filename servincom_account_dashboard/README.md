@@ -26,7 +26,7 @@ Las plantillas XML se cargan con `noupdate=1` para conservar adaptaciones poster
 
 ## Vencimientos de ventas y compras
 
-En **Contabilidad → Informes → Cuadro de mando**, las entradas **Ventas (cobros)** y **Compras (pagos)** muestran el pendiente actual por semana. La vista inicial es una tabla dinámica: pulsar un importe abre el detalle; los botones superiores permiten alternar tabla, lista y gráfico. Se pueden descargar los datos y guardar filtros personales mediante las funciones estándar de Odoo.
+En **Contabilidad → Informes → Cuadro de mando**, las entradas **Vencimientos cobros** y **Vencimientos pagos** muestran el pendiente actual por semana. La vista inicial es una tabla dinámica: pulsar un importe abre el detalle; los botones superiores permiten alternar tabla, lista y gráfico. Se pueden descargar los datos y guardar filtros personales mediante las funciones estándar de Odoo.
 
 Cada fila de detalle corresponde a un plazo contable pendiente, no a una factura completa. Muestra cliente/proveedor, documento, referencia, fecha de factura, vencimiento, importe original del plazo, pendiente actual, estado y liquidación parcial. El botón **Abrir documento** lleva a la factura, rectificativa o asiento original con los permisos del usuario.
 
