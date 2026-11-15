@@ -319,3 +319,73 @@ class TestCustomerEvolution(TransactionCase):
         for year, month in [(1900, 1), (True, 1), (2026, 0), (2026, 13), (2026, "1")]:
             with self.assertRaises(ValidationError):
                 self.dashboard._analysis_period(year, month)
+
+    def test_monthly_invoicing_same_cohort_and_available_totals(self):
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        self._invoice(self.child, 20, date(2026, 1, 11))
+        self._invoice(self.new_customer, 50, date(2026, 1, 12))
+        self._invoice(self.customer, 999, date(2026, 3, 1))
+        self._invoice(self.customer, 777, date(2026, 1, 10), posted=False)
+        self._opening_entry(self.credit)
+        batch = self._history_batch([(self.customer, 100), (self.customer, -10),
+                                     (self.lapsed, 60), (self.customer, 40)])
+        batch.line_ids.filtered(lambda line: line.source_key == "3").invoice_date = date(2025, 2, 5)
+        batch.action_activate()
+        data = self.dashboard.get_customer_evolution(2026, 2)
+        comparable = data["sales"]["comparable"]
+        available = data["sales"]["available"]
+        self.assertEqual(data["comparable_customer_count"], 2)
+        self.assertEqual({key: comparable[0][key] for key in ["month", "current", "previous", "delta"]},
+                         {"month": 1, "current": 100, "previous": 150, "delta": -50})
+        self.assertAlmostEqual(comparable[0]["percent"], -100 / 3)
+        self.assertEqual(comparable[1]["current"], 0)
+        self.assertEqual(comparable[1]["previous"], 40)
+        self.assertEqual(comparable[12]["current"], 100)
+        self.assertEqual(comparable[12]["previous"], 190)
+        self.assertEqual(available[12]["current"], 150)
+        self.assertEqual(available[12]["previous"], 190)
+        self.assertIsNone(available[12]["delta"])
+        self.assertIsNone(available[12]["percent"])
+        self.assertIsNone(comparable[2]["current"])
+        self.assertIsNone(available[2]["previous"])
+        for scope in [comparable, available]:
+            for key in ["current", "previous"]:
+                self.assertAlmostEqual(sum(row[key] or 0 for row in scope[:12]), scope[12][key])
+        self.assertEqual(data["period_trend"][0], {"month": 1, "current": 2, "previous": 2})
+        self.assertEqual(data["period_counts"], {"current": 2, "previous": 2})
+        rows = {row["id"]: row for row in data["rows"]}
+        self.assertEqual(rows[self.customer.id]["last_purchase_previous"], "2025-02-05")
+        self.assertTrue(rows[self.new_customer.id]["has_current"])
+        self.assertFalse(rows[self.new_customer.id]["has_previous"])
+
+    def test_monthly_invoicing_respects_partner_rules_and_salesperson(self):
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        self._invoice(self.new_customer, 50, date(2026, 1, 10), salesperson=self.other_salesperson)
+        batch = self._history_batch([(self.customer, 100), (self.new_customer, 60)])
+        batch.line_ids.filtered(lambda line: line.partner_id == self.customer).salesperson_id = self.reader
+        batch.action_activate()
+        data = self.dashboard.get_customer_evolution(2026, 1, self.reader.id)
+        self.assertEqual(data["sales"]["available"][12]["current"], 80)
+        self.assertEqual(data["sales"]["available"][12]["previous"], 100)
+        self.env["ir.rule"].create({"name": "Hidden historical customer",
+            "model_id": self.env["ir.model"]._get_id("res.partner"),
+            "domain_force": "[('id', '!=', %s)]" % self.customer.id})
+        data = self.dashboard.get_customer_evolution(2026, 1)
+        self.assertEqual(data["sales"]["available"][12]["current"], 50)
+        self.assertEqual(data["sales"]["available"][12]["previous"], 60)
+        self.assertEqual(data["comparable_customer_count"], 1)
+
+    def test_document_detail_limits_selected_year(self):
+        old = self._invoice(self.customer, 100, date(2025, 1, 10))
+        new = self._invoice(self.customer, 80, date(2026, 1, 10))
+        for period, expected in [("current", new), ("previous", old), ("both", old | new)]:
+            action = self.dashboard.action_customer_invoices(self.customer.id, 2026, 1, None, period)
+            found = self.env["account.move"].with_user(self.reader).search(action["domain"])
+            self.assertEqual(set(found.ids), set(expected.ids))
+        batch = self._history_batch([(self.customer, 70)], year=2024)
+        batch.action_activate()
+        for period, count in [("current", 0), ("previous", 1), ("both", 1)]:
+            action = self.dashboard.action_customer_history(self.customer.id, 2025, 1, None, period)
+            self.assertEqual(self.env[action["res_model"]].with_user(self.reader).search_count(action["domain"]), count)
+        with self.assertRaises(ValidationError):
+            self.dashboard.action_customer_history(self.customer.id, 2026, 1, None, "invalid")

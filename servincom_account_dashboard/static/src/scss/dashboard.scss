@@ -60,6 +60,7 @@ body.o_web_client .o_servincom_account_dashboard {
     .o_servincom_analysis_body { padding: 24px 28px; max-width: 1800px; margin: auto; }
     .o_servincom_period { color: #193954; font-weight: 600; }
     .o_servincom_kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .o_servincom_kpis.o_two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .o_servincom_kpis.o_three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .o_servincom_kpi { background: white; border: 1px solid #dce4eb; border-top: 3px solid #193954; border-radius: 7px; padding: 18px 20px; text-align: left; color: #193954; display: flex; flex-direction: column; gap: 7px; }
     .o_servincom_kpi strong { font-size: 28px; line-height: 1.2; }
@@ -84,6 +85,14 @@ body.o_web_client .o_servincom_account_dashboard {
         thead th[colspan] { text-align: center; }
         tbody th { max-width: 330px; white-space: normal; }
     }
+    .o_servincom_years { display: flex; gap: 18px; align-items: center; }
+    .o_servincom_years label { display: inline-flex; gap: 7px; align-items: center; font-weight: 600; cursor: pointer; }
+    .o_servincom_sort { border: 0; padding: 0; background: transparent; color: inherit; font-weight: inherit; }
+    .o_servincom_sort:hover { text-decoration: underline; }
+    .o_servincom_sort:focus-visible { outline: 2px solid #239d91; outline-offset: 4px; }
+    .o_servincom_pager { display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .o_servincom_pager input { width: 80px; }
+    .o_servincom_sales_table th, .o_servincom_sales_table td { padding: 8px 10px; }
     .o_servincom_status { border-radius: 15px; font-size: 12px; padding: 5px 10px; background: #eef2f5; color: #526778; }
     .o_status_decline { background: #fff1d9; color: #865b16; }
     .o_status_no_purchase { background: #fae6e6; color: #9e3d43; }
@@ -94,6 +103,6 @@ body.o_web_client .o_servincom_account_dashboard {
         .o_servincom_analysis_body { padding: 16px; }
     }
     @media (max-width: 500px) {
-        .o_servincom_kpis, .o_servincom_kpis.o_three { grid-template-columns: 1fr; }
+        .o_servincom_kpis, .o_servincom_kpis.o_three, .o_servincom_kpis.o_two { grid-template-columns: 1fr; }
     }
 }

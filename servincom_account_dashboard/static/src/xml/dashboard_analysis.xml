@@ -46,10 +46,16 @@
                         <t t-else="" t-esc="data.message"/>
                     </div>
                     <t t-if="data.ready">
-                        <p class="o_servincom_period">01/01/<t t-esc="data.year"/> – <t t-esc="date(data.cutoff)"/> <span class="text-muted mx-2">vs.</span> 01/01/<t t-esc="data.previous_year"/> – <t t-esc="date(data.previous_cutoff)"/></p>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                            <p class="o_servincom_period mb-0"><t t-if="!customers || state.showCurrent">01/01/<t t-esc="data.year"/> – <t t-esc="date(data.cutoff)"/></t><span t-if="!customers || bothYears" class="text-muted mx-2">vs.</span><t t-if="!customers || state.showPrevious">01/01/<t t-esc="data.previous_year"/> – <t t-esc="date(data.previous_cutoff)"/></t></p>
+                            <div t-if="customers" class="o_servincom_years" role="group" aria-label="Visible years">
+                                <span>Show years</span>
+                                <label class="o_previous"><input type="checkbox" t-att-checked="state.showPrevious" t-att-disabled="!state.showCurrent" t-on-change="() => this.toggleYear('showPrevious')"/><t t-esc="data.previous_year"/></label>
+                                <label class="o_current"><input type="checkbox" t-att-checked="state.showCurrent" t-att-disabled="!state.showPrevious" t-on-change="() => this.toggleYear('showCurrent')"/><t t-esc="data.year"/></label>
+                            </div>
+                        </div>
                         <t t-if="customers">
-                            <p t-if="data.history_message" class="alert alert-info" t-esc="data.history_message"/>
-                            <div class="o_servincom_kpis">
+                            <div class="o_servincom_kpis" t-att-class="!bothYears ? 'o_two' : ''">
                                 <button t-foreach="cards" t-as="card" t-key="card.key" class="o_servincom_kpi" t-att-class="'o_tone_' + card.tone" t-on-click="() => this.setFilter(card.key)">
                                     <span t-esc="card.label"/><strong t-esc="card.value"/>
                                 </button>
@@ -64,46 +70,59 @@
                                 </div>
                             </div>
                         </t>
+                        <section t-if="customers" class="o_servincom_panel mb-3">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                                <h3 class="mb-0">Monthly net invoicing</h3>
+                                <label class="d-flex align-items-center gap-2">Scope<select class="form-select w-auto" t-model="state.salesScope"><option value="comparable">Comparable customers</option><option value="available">All available data</option></select></label>
+                            </div>
+                            <p class="text-muted" t-if="state.salesScope === 'comparable'"><t t-esc="data.comparable_customer_count"/> <span>customers in the same comparison group</span></p>
+                            <p class="text-muted" t-else="">Available totals for each year; historical totals contain only imported matches.</p>
+                            <t t-call="servincom_account_dashboard.AnalysisChart"><t t-set="plot" t-value="salesChart"/><t t-set="money" t-value="true"/></t>
+                            <div class="table-responsive"><table class="table o_servincom_detail_table o_servincom_sales_table">
+                                <thead><tr><th scope="col">Month</th><th t-if="state.showPrevious" scope="col" t-esc="data.previous_year"/><th t-if="state.showCurrent" scope="col" t-esc="data.year"/><th t-if="compareSales" scope="col">Difference</th><th t-if="compareSales" scope="col">Change %</th></tr></thead>
+                                <tbody><tr t-foreach="salesRows" t-as="row" t-key="row.index" t-att-class="row.index === 12 ? 'o_servincom_result' : ''"><th scope="row" t-esc="row.label"/><td t-if="state.showPrevious" t-esc="amount(row.previous)"/><td t-if="state.showCurrent" t-esc="amount(row.current)"/><td t-if="compareSales" t-esc="amount(row.delta)"/><td t-if="compareSales" t-esc="percent(row.percent)"/></tr></tbody>
+                            </table></div>
+                        </section>
                         <section class="o_servincom_panel mb-3">
-                            <t t-if="customers"><h3 t-if="data.matched_history">Comparable active customers per month</h3><h3 t-else="">Active customers per month</h3></t><h3 t-else="">Monthly result evolution</h3>
-                            <div class="o_servincom_legend"><span class="o_current" t-esc="data.year"/><span class="o_previous" t-esc="data.previous_year"/></div>
-                            <t t-set="plot" t-value="chart"/>
-                            <svg class="o_servincom_chart" viewBox="0 0 880 215" role="img" aria-label="Monthly evolution">
-                                <line x1="40" x2="840" t-att-y1="plot.zero" t-att-y2="plot.zero" stroke="#d3dde5"/>
-                                <text x="5" y="22" class="o_axis" t-esc="customers ? plot.max : amount(plot.max)"/>
-                                <text x="5" y="190" class="o_axis" t-esc="customers ? plot.min : amount(plot.min)"/>
-                                <polyline t-att-points="plot.previousLine" fill="none" stroke="#98a9b8" stroke-width="3" stroke-dasharray="6 4"/>
-                                <polyline t-att-points="plot.currentLine" fill="none" stroke="#239d91" stroke-width="3"/>
-                                <circle t-foreach="plot.previous" t-as="point" t-key="point.index" t-att-cx="point.x" t-att-cy="point.y" r="4" fill="#98a9b8"><title><t t-esc="data.months[point.index]"/> · <t t-esc="data.previous_year"/>: <t t-esc="customers ? point.value : amount(point.value)"/></title></circle>
-                                <circle t-foreach="plot.current" t-as="point" t-key="point.index" t-att-cx="point.x" t-att-cy="point.y" r="4" fill="#239d91"><title><t t-esc="data.months[point.index]"/> · <t t-esc="data.year"/>: <t t-esc="customers ? point.value : amount(point.value)"/></title></circle>
-                                <text t-foreach="data.months" t-as="month" t-key="month" t-att-x="48 + month_index * 71" y="210" text-anchor="middle" class="o_axis" t-esc="month.slice(0, 3)"/>
-                            </svg>
-                            <details t-if="customers"><summary>See monthly counts</summary><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Month</th><th t-esc="data.previous_year"/><th t-esc="data.year"/></tr></thead><tbody><tr t-foreach="data.trend" t-as="point" t-key="point.month"><th t-esc="data.months[point.month - 1]"/><td t-esc="point.previous ?? '—'"/><td t-esc="point.current ?? '—'"/></tr></tbody></table></div></details>
+                            <t t-if="customers"><h3 t-if="data.matched_history and bothYears">Comparable active customers per month</h3><h3 t-else="">Active customers per month</h3></t><h3 t-else="">Monthly result evolution</h3>
+                            <t t-call="servincom_account_dashboard.AnalysisChart"><t t-set="plot" t-value="chart"/><t t-set="money" t-value="!customers"/></t>
+                            <details t-if="customers"><summary>See monthly counts</summary><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Month</th><th t-if="state.showPrevious" t-esc="data.previous_year"/><th t-if="state.showCurrent" t-esc="data.year"/></tr></thead><tbody><tr t-foreach="customerTrend" t-as="point" t-key="point.month"><th t-esc="data.months[point.month - 1]"/><td t-if="state.showPrevious" t-esc="point.previous ?? '—'"/><td t-if="state.showCurrent" t-esc="point.current ?? '—'"/></tr></tbody></table></div></details>
                         </section>
                         <section class="o_servincom_panel" t-if="customers">
                             <div class="d-flex gap-2 flex-wrap align-items-center mb-3">
                                 <h3 class="me-auto mb-0">Customer detail</h3>
                                 <button class="btn btn-light" t-on-click="() => this.setFilter('all')">All</button>
-                                <select class="form-select w-auto" t-model="state.filter" t-on-change="() => { this.state.page = 0; }" aria-label="Customer status">
+                                <select t-if="bothYears" class="form-select w-auto" t-model="state.filter" t-on-change="() => { this.state.page = 0; }" aria-label="Customer status">
                                     <option value="all">All situations</option><option value="active">Active customers</option><option value="decline">Purchases down</option><option value="no_purchase">No purchases in period</option><option value="new">First recorded purchase</option><option value="recovered">Buying again</option><option value="growth">Purchases up</option><option value="stable">Unchanged</option><option value="credits">Credit notes only</option><option value="unavailable">No comparable data</option>
                                 </select>
                                 <input class="form-control w-auto" type="search" placeholder="Find customer" t-att-value="state.search" t-on-input="search"/>
                             </div>
                             <div class="table-responsive"><table class="table o_servincom_detail_table">
-                                <thead><tr><th scope="col">Customer</th><th scope="col" t-esc="data.previous_year"/><th scope="col" t-esc="data.year"/><th scope="col">Change</th><th scope="col">Change %</th><th scope="col">Last purchase</th><th scope="col">Situation</th><th scope="col">Detail</th></tr></thead>
-                                <tbody><tr t-foreach="pageRows" t-as="row" t-key="row.id"><th scope="row" t-esc="row.name"/><td t-esc="amount(row.previous)"/><td t-esc="amount(row.current)"/><td t-esc="amount(row.delta)"/><td t-esc="percent(row.percent)"/><td t-esc="date(row.last_purchase)"/><td><span class="o_servincom_status" t-att-class="'o_status_' + row.status" t-esc="row.status_label"/></td><td><button class="btn btn-sm btn-outline-primary" t-on-click="() => this.openInvoices(row)">View invoices</button><button t-if="row.has_history" class="btn btn-sm btn-outline-secondary ms-1" t-on-click="() => this.openHistory(row)">View history</button></td></tr>
-                                <tr t-if="!filteredRows.length"><td colspan="8">No customers match these filters.</td></tr></tbody>
+                                <thead><tr><th t-foreach="columns" t-as="column" t-key="column.key" scope="col" t-att-aria-sort="sortAria(column.key)"><button class="o_servincom_sort" type="button" t-on-click="() => this.sortBy(column.key)" title="Sort by this column"><t t-esc="column.label"/> <span aria-hidden="true" t-esc="sortIcon(column.key)"/></button></th><th scope="col">Detail</th></tr></thead>
+                                <tbody><tr t-foreach="pageRows" t-as="row" t-key="row.id"><th scope="row" t-esc="row.name"/><td t-if="state.showPrevious" t-esc="amount(row.previous)"/><td t-if="state.showCurrent" t-esc="amount(row.current)"/><td t-if="bothYears" t-esc="amount(row.delta)"/><td t-if="bothYears" t-esc="percent(row.percent)"/><td t-esc="date(lastPurchase(row))"/><td t-if="bothYears"><span class="o_servincom_status" t-att-class="'o_status_' + row.status" t-esc="row.status_label"/></td><td><button t-if="canOpenDocuments(row, false)" class="btn btn-sm btn-outline-primary" t-on-click="() => this.openInvoices(row)">View invoices</button><button t-if="canOpenDocuments(row, true)" class="btn btn-sm btn-outline-secondary ms-1" t-on-click="() => this.openHistory(row)">View history</button></td></tr>
+                                <tr t-if="!filteredRows.length"><td t-att-colspan="columns.length + 1">No customers match these filters.</td></tr></tbody>
                             </table></div>
-                            <div class="d-flex justify-content-end align-items-center gap-2"><span t-esc="filteredRows.length"/><span>customers</span><button class="btn btn-light" t-att-disabled="state.page === 0" t-on-click="() => { this.state.page--; }">Previous</button><span t-esc="state.page + 1"/><button class="btn btn-light" t-att-disabled="(state.page + 1) * pageSize >= filteredRows.length" t-on-click="() => { this.state.page++; }">Next</button></div>
+                            <nav class="o_servincom_pager" aria-label="Customer pages">
+                                <span class="me-auto" t-esc="pageRange"/>
+                                <button class="btn btn-light" t-att-disabled="pageIndex === 0" t-on-click="() => this.setPage(0)">First</button>
+                                <button class="btn btn-light" t-att-disabled="pageIndex === 0" t-on-click="() => this.setPage(pageIndex - 1)">Previous</button>
+                                <label class="d-flex align-items-center gap-2">Page<input class="form-control" type="number" min="1" t-att-max="pageCount || 1" t-att-value="pageCount ? pageIndex + 1 : 0" t-att-disabled="!pageCount" t-on-change="jumpPage"/></label>
+                                <span>of</span><strong t-esc="pageCount"/>
+                                <button class="btn btn-light" t-att-disabled="pageIndex + 1 >= pageCount" t-on-click="() => this.setPage(pageIndex + 1)">Next</button>
+                                <button class="btn btn-light" t-att-disabled="pageIndex + 1 >= pageCount" t-on-click="() => this.setPage(pageCount - 1)">Last</button>
+                            </nav>
                         </section>
                         <section class="o_servincom_panel" t-else="">
                             <h3>Monthly comparison</h3>
                             <div class="table-responsive"><table class="table o_servincom_detail_table">
-                                <thead><tr><th rowspan="2" scope="col">Month</th><th colspan="2" scope="colgroup">Income</th><th colspan="2" scope="colgroup">Purchases and expenses</th><th colspan="4" scope="colgroup">Result</th></tr><tr><t t-foreach="[0, 1, 2]" t-as="column" t-key="column"><th scope="col" t-esc="data.previous_year"/><th scope="col" t-esc="data.year"/></t><th scope="col">Change</th><th scope="col">Change %</th></tr></thead>
+                                <thead><tr><th rowspan="2" scope="col">Month</th><th colspan="2" scope="colgroup">Income</th><th colspan="2" scope="colgroup">Purchases and expenses</th><th colspan="4" scope="colgroup">Result</th></tr><tr><t t-foreach="[0, 1, 2]" t-as="column" t-key="column"><th scope="col" t-esc="data.previous_year"/><th scope="col" t-esc="data.year"/></t><th scope="col">Difference</th><th scope="col">Change %</th></tr></thead>
                                 <tbody><tr t-foreach="comparisonRows" t-as="row" t-key="row.index" t-att-class="row.index === 12 ? 'o_servincom_result' : ''"><th scope="row" t-esc="row.label"/><td t-esc="amount(row.income.previous)"/><td t-esc="amount(row.income.current)"/><td t-esc="amount(row.expense.previous)"/><td t-esc="amount(row.expense.current)"/><td t-esc="amount(row.result.previous)"/><td t-esc="amount(row.result.current)"/><td t-esc="amount(row.result.delta)"/><td t-esc="percent(row.result.percent)"/></tr></tbody>
                             </table></div>
                         </section>
                         <footer class="o_servincom_notes">
+                            <p t-if="customers and data.history_message" t-esc="data.history_message"/>
+                            <p t-if="customers">Monthly invoicing is untaxed and net of credit notes. Comparable customers uses the same customer group in both years. All available data includes customers without a comparison, so differences are not calculated for that scope. Customer search and situation filters only affect the detail table.</p>
+                            <p t-if="customers and !bothYears">With one year visible, customer counts include all available customers in that year and the last purchase is limited to its selected period.</p>
                             <p t-if="customers">Posted customer invoices, untaxed and net of credit notes, in company currency. Contacts are grouped by commercial customer. Active means at least one positive invoice; credit notes alone are not a purchase. First recorded purchase depends on the available invoice history. Last purchase is measured up to the cutoff across all salespeople. No purchase does not mean a lost customer.</p>
                             <p t-else="">Same MIS formulas and journal exclusions as monthly results. Months after the cutoff are not forecasts. An empty prior period cannot be treated as a zero baseline.</p>
                             <p>Percent change is shown only when the previous amount is positive. Figures follow your access permissions.</p>
@@ -112,5 +131,18 @@
                 </t>
             </div>
         </div>
+    </t>
+    <t t-name="servincom_account_dashboard.AnalysisChart">
+        <div class="o_servincom_legend"><span t-if="!customers || state.showCurrent" class="o_current" t-esc="data.year"/><span t-if="!customers || state.showPrevious" class="o_previous" t-esc="data.previous_year"/></div>
+        <svg class="o_servincom_chart" viewBox="0 0 880 215" role="img" aria-label="Monthly evolution">
+            <line x1="105" x2="840" t-att-y1="plot.zero" t-att-y2="plot.zero" stroke="#d3dde5"/>
+            <text x="5" y="22" class="o_axis" t-esc="money ? amount(plot.max) : plot.max"/>
+            <text x="5" y="190" class="o_axis" t-esc="money ? amount(plot.min) : plot.min"/>
+            <polyline t-att-points="plot.previousLine" fill="none" stroke="#98a9b8" stroke-width="3" stroke-dasharray="6 4"/>
+            <polyline t-att-points="plot.currentLine" fill="none" stroke="#239d91" stroke-width="3"/>
+            <circle t-foreach="plot.previous" t-as="point" t-key="point.index" t-att-cx="point.x" t-att-cy="point.y" r="4" fill="#98a9b8"><title><t t-esc="data.months[point.index]"/> · <t t-esc="data.previous_year"/>: <t t-esc="money ? amount(point.value) : point.value"/></title></circle>
+            <circle t-foreach="plot.current" t-as="point" t-key="point.index" t-att-cx="point.x" t-att-cy="point.y" r="4" fill="#239d91"><title><t t-esc="data.months[point.index]"/> · <t t-esc="data.year"/>: <t t-esc="money ? amount(point.value) : point.value"/></title></circle>
+            <text t-foreach="data.months" t-as="month" t-key="month" t-att-x="110 + month_index * 65" y="210" text-anchor="middle" class="o_axis" t-esc="month.slice(0, 3)"/>
+        </svg>
     </t>
 </templates>

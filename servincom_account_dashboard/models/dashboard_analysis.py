@@ -186,14 +186,17 @@ class DashboardAnalysis(models.Model):
         batches._check_no_live_overlap()
         historical_years = set(batches.mapped("year"))
         result["matched_history"] = bool(batches)
+        result["historical_years"] = sorted(historical_years)
         result["history_message"] = self.env._(
-            "Historical figures include verified matches only. A missing comparison is shown as unavailable, not zero. The chart compares customers with data in the selected periods.") if batches else ""
+            "Historical figures include verified matches only. A missing comparison is shown as unavailable, not zero.") if batches else ""
         if batches and salesperson_id:
             result["history_message"] += " " + self.env._(
                 "Historical documents without a verified salesperson are excluded from the salesperson filter.")
         # Read only aggregate invoice headers through the current user's ORM.
         # Company-currency signed untaxed totals already reverse credit notes.
         period_data = []
+        monthly_amounts = []
+        period_last = []
         for begin, finish in [(start, end), (previous_start, previous_end)]:
             imported = begin.year in historical_years
             source_model = historical if imported else move
@@ -204,12 +207,17 @@ class DashboardAnalysis(models.Model):
                 domain, [partner_field], ["amount_untaxed_signed:sum"])}
             purchases = source_model._read_group(
                 domain + [("move_type", "=", "out_invoice"), ("amount_total_signed", ">", 0)],
-                [partner_field, "invoice_date:month"], ["__count"],
+                [partner_field, "invoice_date:month"], ["invoice_date:max"],
             )
-            buyers = {partner.id for partner, month, count in purchases}
+            buyers = {partner.id for partner, month, last in purchases}
             monthly = {month: set() for month in range(1, 13)}
-            for partner, month, count in purchases:
+            last_dates = {}
+            for partner, month, last in purchases:
                 monthly[month.month].add(partner.id)
+                last_dates[partner.id] = max(last, last_dates.get(partner.id, last))
+            monthly_amounts.append(source_model._read_group(
+                domain, [partner_field, "invoice_date:month"], ["amount_untaxed_signed:sum"]))
+            period_last.append(last_dates)
             period_data.append((totals, buyers, monthly))
         current, current_buyers, current_monthly = period_data[0]
         previous, previous_buyers, previous_monthly = period_data[1]
@@ -268,6 +276,11 @@ class DashboardAnalysis(models.Model):
                 status = "no_purchase" if partner.id in previous_buyers else "credits"
             result["rows"].append({"id": partner.id, "name": partner.display_name,
                                    "active": partner.id in current_buyers,
+                                   "previous_active": partner.id in previous_buyers,
+                                   "has_current": partner.id in current,
+                                   "has_previous": partner.id in previous,
+                                   "last_purchase_current": str(period_last[0][partner.id]) if partner.id in period_last[0] else None,
+                                   "last_purchase_previous": str(period_last[1][partner.id]) if partner.id in period_last[1] else None,
                                    "current": a, "previous": b, "delta": a - b if comparable else None,
                                    "percent": (a - b) / b * 100 if comparable and b > 0 else None,
                                    "has_history": (start.year in historical_years and partner.id in current)
@@ -286,6 +299,35 @@ class DashboardAnalysis(models.Model):
                             "previous": len(previous_monthly[month] & chart_customers)
                             if month <= end.month and (not batches or chart_customers) else None}
                            for month in range(1, 13)]
+        result["period_trend"] = [{"month": month,
+            "current": len(current_monthly[month] & visible) if month <= end.month and current else None,
+            "previous": len(previous_monthly[month] & visible) if month <= end.month and previous else None,
+        } for month in range(1, 13)]
+        result["period_counts"] = {"current": len(current_buyers), "previous": len(previous_buyers)}
+        # Use the same cohort for both years. Available totals also include
+        # customers without a verified comparison, so do not give them a delta.
+        result["sales"] = {}
+        current_visible = bool(set(current) & visible)
+        previous_visible = bool(set(previous) & visible)
+        for scope, customer_ids in [("comparable", comparable_ids), ("available", visible)]:
+            values = {"current": [0.0] * 12, "previous": [0.0] * 12}
+            for key, grouped in zip(values, monthly_amounts):
+                for partner, month, amount in grouped:
+                    if partner.id in customer_ids:
+                        values[key][month.month - 1] += amount
+            cells = []
+            for index in range(13):
+                in_period = index < end.month or index == 12
+                a = (sum(values["current"]) if index == 12 else values["current"][index]) if in_period and current_visible else None
+                b = (sum(values["previous"]) if index == 12 else values["previous"][index]) if in_period and previous_visible else None
+                if scope == "comparable" and not customer_ids:
+                    a = b = None
+                can_compare = scope == "comparable" and a is not None and b is not None
+                cells.append({"month": index + 1, "current": a, "previous": b,
+                    "delta": a - b if can_compare else None,
+                    "percent": (a - b) / b * 100 if can_compare and b > 0 else None})
+            result["sales"][scope] = cells
+        result["comparable_customer_count"] = len(comparable_ids)
         salespeople = [user for user, in move._read_group(
             self._customer_domain() + [("invoice_date", ">=", previous_start), ("invoice_date", "<=", end)],
             ["invoice_user_id"], [],
@@ -307,29 +349,38 @@ class DashboardAnalysis(models.Model):
         return result
 
     @api.model
-    def action_customer_history(self, partner_id, year=None, end_month=None, salesperson_id=None):
-        self._check_dashboard_access()
+    def _customer_period_domain(self, year, end_month, period):
         start, end, previous_start, previous_end = self._analysis_period(year, end_month)
+        current = [("invoice_date", ">=", start), ("invoice_date", "<=", end)]
+        previous = [("invoice_date", ">=", previous_start), ("invoice_date", "<=", previous_end)]
+        if period == "current":
+            return current
+        if period == "previous":
+            return previous
+        if period == "both":
+            return ["|", "&", *current, "&", *previous]
+        raise ValidationError(self.env._("Choose one year or both years for the document detail."))
+
+    @api.model
+    def action_customer_history(self, partner_id, year=None, end_month=None, salesperson_id=None, period="both"):
+        self._check_dashboard_access()
+        period_domain = self._customer_period_domain(year, end_month, period)
         partner = self.env["res.partner"].browse(partner_id).exists()
         partner.ensure_one()
         partner.check_access("read")
-        domain = self._customer_history_domain(salesperson_id) + [("partner_id", "=", partner.id), "|",
-                 "&", ("invoice_date", ">=", start), ("invoice_date", "<=", end),
-                 "&", ("invoice_date", ">=", previous_start), ("invoice_date", "<=", previous_end)]
+        domain = self._customer_history_domain(salesperson_id) + [("partner_id", "=", partner.id)] + period_domain
         return {"type": "ir.actions.act_window", "name": self.env._("Historical documents"),
                 "res_model": "servincom.dashboard.history.line", "views": [(False, "list"), (False, "form")],
                 "domain": domain, "context": dict(self.env.context, create=False, edit=False, delete=False)}
 
     @api.model
-    def action_customer_invoices(self, partner_id, year=None, end_month=None, salesperson_id=None):
+    def action_customer_invoices(self, partner_id, year=None, end_month=None, salesperson_id=None, period="both"):
         self._check_dashboard_access()
-        start, end, previous_start, previous_end = self._analysis_period(year, end_month)
+        period_domain = self._customer_period_domain(year, end_month, period)
         partner = self.env["res.partner"].browse(partner_id).exists()
         partner.ensure_one()
         partner.check_access("read")
-        domain = self._customer_domain(salesperson_id) + [("commercial_partner_id", "=", partner.id), "|",
-                 "&", ("invoice_date", ">=", start), ("invoice_date", "<=", end),
-                 "&", ("invoice_date", ">=", previous_start), ("invoice_date", "<=", previous_end)]
+        domain = self._customer_domain(salesperson_id) + [("commercial_partner_id", "=", partner.id)] + period_domain
         return {"type": "ir.actions.act_window", "name": self.env._("Customer invoices"),
                 "res_model": "account.move", "views": [(False, "list"), (False, "form")],
                 "domain": domain, "context": dict(self.env.context, create=False)}

@@ -48,6 +48,47 @@ El selector de comercial muestra los usuarios asignados a las facturas del perio
 
 El selector es propio de estos dos cuadros; no modifica el ejercicio compartido del tablero mensual. La búsqueda de clientes se aplica a los resultados agregados y carga 50 filas por página. Los indicadores describen el conjunto consultado, no solo la página visible.
 
+## Navegación y facturación mensual
+
+Desde la versión 18.0.1.4.0, **Evolución de clientes** permite:
+
+- Pulsar las cabeceras del detalle para ordenar por cliente, facturación de cada
+  año, diferencia, variación porcentual, última compra o situación. Otra pulsación
+  invierte el orden. Los valores no disponibles permanecen al final y la ordenación
+  se aplica al conjunto filtrado antes de dividirlo en páginas.
+- Ver el rango de clientes, el total de páginas, ir a la primera o última página
+  y escribir un número de página. Los filtros y la ordenación vuelven a la primera.
+- Marcar los dos años para comparar o dejar solo uno visible. La selección afecta
+  a las gráficas, las columnas, los indicadores y los enlaces de documentos.
+  Debe quedar al menos un año visible. En vista de un año se incluyen sus clientes
+  con documentos, sin exigir que tengan datos del otro año.
+- Consultar una gráfica y una tabla de **Facturación neta mensual**, con doce meses
+  y acumulado hasta el corte, en moneda de compañía, sin impuestos y neta de abonos.
+  **Clientes comparables** suma el mismo grupo de clientes en ambos años y calcula
+  diferencia y variación porcentual. **Todos los datos disponibles** muestra las
+  sumas visibles de cada año, sin diferencias entre poblaciones distintas. Al
+  mostrar solo un año se selecciona este último alcance automáticamente.
+
+El histórico es parcial cuando solo se han cargado coincidencias; sus sumas no
+certifican la facturación completa de la empresa de origen. No se incorporan
+clientes ni documentos descartados. Se respetan las reglas de facturas, contactos,
+histórico, compañía y comercial, y los meses posteriores al corte quedan vacíos.
+La búsqueda y el filtro de situación afectan al detalle de clientes; la tabla
+mensual conserva el periodo y comercial elegidos. Las notas de alcance aparecen
+al pie del informe. Este cuadro no sustituye a la comparativa de resultados
+contables, que conserva sus fórmulas y configuración.
+
+Las pruebas de lógica de interfaz pueden ejecutarse sin Odoo:
+
+```sh
+node servincom_account_dashboard/tests/test_analysis_frontend.cjs
+```
+
+El conjunto de pruebas Odoo incluye agregación mensual con abonos, contactos,
+clientes sin coincidencia, permisos, corte temporal y enlaces limitados al año
+visible. Deben ejecutarse en una base de prueba existente autorizada antes del
+despliegue. Ver los comandos de instalación, actualización y pruebas abajo.
+
 ## Histórico estadístico de clientes
 
 Desde la versión 18.0.1.3.0, **Contabilidad → Configuración → Histórico de clientes**

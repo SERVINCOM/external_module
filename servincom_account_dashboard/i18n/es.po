@@ -994,6 +994,7 @@ msgstr "Vuelven a comprar"
 msgid "Change"
 msgstr "Variación"
 
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
@@ -1045,6 +1046,7 @@ msgstr "Concepto"
 msgid "Credit notes only"
 msgstr "Solo rectificativas"
 
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_search
 #. module: servincom_account_dashboard
 #. odoo-javascript
@@ -1130,6 +1132,7 @@ msgstr "Primer ejercicio que se comparará con el anterior. Comprueba que la con
 msgid "Income"
 msgstr "Ingresos"
 
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
@@ -1289,6 +1292,7 @@ msgstr "Mismos totales y filtros que los resultados mensuales desglosados de aba
 msgid "See monthly counts"
 msgstr "Ver recuentos mensuales"
 
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
@@ -1669,3 +1673,131 @@ msgstr "Ver histórico"
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__currency_id
 msgid "Currency"
 msgstr "Moneda"
+
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+msgid "%s–%s of %s customers"
+msgstr "%s–%s de %s clientes"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "All available data"
+msgstr "Todos los datos disponibles"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+msgid "Available net invoicing"
+msgstr "Facturación neta disponible"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Available totals for each year; historical totals contain only imported matches."
+msgstr "Totales disponibles de cada año; el histórico contiene únicamente las coincidencias importadas."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Choose one year or both years for the document detail."
+msgstr "Seleccione un año o ambos años para el detalle de documentos."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Comparable customers"
+msgstr "Clientes comparables"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Customer pages"
+msgstr "Páginas de clientes"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Difference"
+msgstr "Diferencia"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "First"
+msgstr "Primera"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Historical figures include verified matches only. A missing comparison is shown as unavailable, not zero."
+msgstr "El histórico incluye solo coincidencias contrastadas. Si falta una comparación, se muestra como no disponible, no como cero."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Last"
+msgstr "Última"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Monthly invoicing is untaxed and net of credit notes. Comparable customers uses the same customer group in both years. All available data includes customers without a comparison, so differences are not calculated for that scope. Customer search and situation filters only affect the detail table."
+msgstr "La facturación mensual se muestra sin impuestos y neta de rectificativas. Clientes comparables utiliza el mismo grupo en ambos años. Todos los datos disponibles incluye clientes sin comparativa, por lo que no se calcula la diferencia en ese alcance. La búsqueda de clientes y el filtro de situación solo afectan a la tabla de detalle."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Monthly net invoicing"
+msgstr "Facturación neta mensual"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Page"
+msgstr "Página"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Scope"
+msgstr "Alcance"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Show years"
+msgstr "Mostrar años"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Sort by this column"
+msgstr "Ordenar por esta columna"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Visible years"
+msgstr "Años visibles"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "With one year visible, customer counts include all available customers in that year and the last purchase is limited to its selected period."
+msgstr "Al mostrar un solo año, el recuento incluye todos los clientes disponibles de ese año y la última compra se limita al periodo seleccionado."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "customers in the same comparison group"
+msgstr "clientes en el mismo grupo de comparación"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "of"
+msgstr "de"
