@@ -26,10 +26,13 @@
     }
     table.mis_builder th { font-size: 12px; }
     table.mis_builder td { padding-top: 5px; padding-bottom: 5px; }
-    // Drill-down amounts follow the MIS cell style, including white totals
-    // on a dark background. Dropdown menu items keep their own text color.
-    table.mis_builder a.mis_builder_drilldown {
-        color: inherit;
-        &:hover, &:focus, &:active { color: inherit; }
+}
+
+// Some backend themes force a link color with !important. Keep the MIS cell
+// color for amounts only; dropdown menu items retain their own text color.
+body.o_web_client .o_servincom_account_dashboard {
+    table.mis_builder td.mis_builder_amount a.mis_builder_drilldown {
+        color: inherit !important;
+        &:hover, &:focus, &:active { color: inherit !important; }
     }
 }
