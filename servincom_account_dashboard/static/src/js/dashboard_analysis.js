@@ -108,7 +108,9 @@ export class DashboardAnalysis extends Component {
             { key: "active", label: _t("Active customers"), value: counts.active, tone: "blue" },
             { key: "decline", label: _t("Purchases down"), value: counts.decline, tone: "amber" },
             { key: "no_purchase", label: _t("No purchases in period"), value: counts.no_purchase, tone: "red" },
-            { key: "new", label: _t("First recorded purchase"), value: counts.new, tone: "green" },
+            this.state.data.matched_history
+                ? { key: "unavailable", label: _t("No comparable data"), value: counts.unavailable, tone: "gray" }
+                : { key: "new", label: _t("First recorded purchase"), value: counts.new, tone: "green" },
         ];
     }
     get filteredRows() {
@@ -131,6 +133,13 @@ export class DashboardAnalysis extends Component {
     async openInvoices(row) {
         const data = this.state.data;
         const action = await this.orm.call(MODEL, "action_customer_invoices", [
+            row.id, data.year, data.end_month, data.salesperson_id || null,
+        ]);
+        await this.action.doAction(action);
+    }
+    async openHistory(row) {
+        const data = this.state.data;
+        const action = await this.orm.call(MODEL, "action_customer_history", [
             row.id, data.year, data.end_month, data.salesperson_id || null,
         ]);
         await this.action.doAction(action);

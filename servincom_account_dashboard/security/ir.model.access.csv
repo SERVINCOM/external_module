@@ -3,3 +3,7 @@ access_dashboard_reader,Accounting dashboard reader,model_servincom_account_dash
 access_dashboard_settings,Accounting dashboard settings,model_servincom_account_dashboard,base.group_system,1,1,1,1
 access_dashboard_year,Accounting dashboard year,model_servincom_account_dashboard_year,group_dashboard_reader,1,1,1,0
 access_maturity_reader,Outstanding maturity reader,model_servincom_account_maturity,group_dashboard_reader,1,0,0,0
+access_history_batch_reader,Customer history batch reader,model_servincom_dashboard_history_batch,group_dashboard_reader,1,0,0,0
+access_history_batch_admin,Customer history batch administrator,model_servincom_dashboard_history_batch,base.group_system,1,1,1,1
+access_history_line_reader,Customer history document reader,model_servincom_dashboard_history_line,group_dashboard_reader,1,0,0,0
+access_history_line_admin,Customer history document administrator,model_servincom_dashboard_history_line,base.group_system,1,1,1,1

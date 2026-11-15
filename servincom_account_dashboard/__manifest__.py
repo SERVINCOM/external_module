@@ -3,7 +3,7 @@
 {
     "name": "SERVINCOM Accounting Dashboards",
     "summary": "Monthly results and account detail with explicit user access",
-    "version": "18.0.1.2.1",
+    "version": "18.0.1.3.0",
     "license": "AGPL-3",
     "author": "SERVINCOM SOLUCIONES, S.L.",
     "website": "https://www.servincom.com",
@@ -19,6 +19,7 @@
         "views/report_layout.xml",
         "views/account_maturity_views.xml",
         "views/dashboard_analysis_views.xml",
+        "views/customer_history_views.xml",
     ],
     "demo": [],
     "assets": {

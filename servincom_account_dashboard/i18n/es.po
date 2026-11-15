@@ -118,6 +118,8 @@ msgstr "Elige un año entre 1900 y 9998."
 msgid "Choose year"
 msgstr "Elegir ejercicio"
 
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__company_id
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__company_id
 #. module: servincom_account_dashboard
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
@@ -594,6 +596,7 @@ msgstr "Suministros"
 msgid "View accounting dashboards"
 msgstr "Ver cuadros de mando contables"
 
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__year
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #. odoo-python
@@ -668,6 +671,8 @@ msgstr "Moneda de la empresa"
 msgid "Document currency"
 msgstr "Moneda del documento"
 
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__invoice_date
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_search
 #. module: servincom_account_dashboard
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__invoice_date
 msgid "Invoice date"
@@ -709,6 +714,7 @@ msgstr "Cobro"
 msgid "Payable"
 msgstr "Pago"
 
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__move_type
 #. module: servincom_account_dashboard
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__move_type
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
@@ -1039,6 +1045,7 @@ msgstr "Concepto"
 msgid "Credit notes only"
 msgstr "Solo rectificativas"
 
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_search
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
@@ -1135,6 +1142,7 @@ msgstr "Última compra"
 msgid "Loading report…"
 msgstr "Cargando informe…"
 
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_search
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
@@ -1353,3 +1361,311 @@ msgstr "Ver facturas"
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
 msgid "customers"
 msgstr "clientes"
+
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_dashboard_history_batch__state__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Choose a valid history year and finite amounts."
+msgstr "Seleccione un año válido para el histórico e importes finitos."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Comparable active customers per month"
+msgstr "Clientes activos comparables por mes"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Create history batches in draft before activating them."
+msgstr "Cree los lotes de histórico en borrador antes de activarlos."
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_dashboard_history_line__move_type__out_refund
+msgid "Credit note"
+msgstr "Factura rectificativa"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_search
+msgid "Credit notes"
+msgstr "Facturas rectificativas"
+
+#. module: servincom_account_dashboard
+#: model:ir.model,name:servincom_account_dashboard.model_servincom_dashboard_history_batch
+msgid "Customer History Batch"
+msgstr "Lote de histórico de clientes"
+
+#. module: servincom_account_dashboard
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_customer_history_batches
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_customer_history
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_batch_form
+msgid "Customer history"
+msgstr "Histórico de clientes"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__name
+msgid "Description"
+msgstr "Descripción"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__name
+msgid "Document number"
+msgstr "Número de documento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__document_count
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__line_ids
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_dashboard_history_batch__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__expected_count
+msgid "Expected documents"
+msgstr "Documentos esperados"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__expected_net
+msgid "Expected net amount"
+msgstr "Importe neto esperado"
+
+#. module: servincom_account_dashboard
+#: model:ir.model,name:servincom_account_dashboard.model_servincom_dashboard_history_line
+msgid "Historical Customer Document"
+msgstr "Documento histórico de cliente"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Historical amounts must be finite numbers."
+msgstr "Los importes históricos deben ser números finitos."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Historical and live invoices overlap. Return the history batch to draft before comparing."
+msgstr "El histórico se solapa con facturas reales. Devuelva el lote a borrador antes de comparar."
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_form
+msgid "Historical document"
+msgstr "Documento histórico"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Historical documents"
+msgstr "Documentos históricos"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Historical documents can only be changed in draft batches."
+msgstr "Solo se pueden modificar documentos históricos en lotes en borrador."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Historical documents without a verified salesperson are excluded from the salesperson filter."
+msgstr "Los documentos históricos sin comercial contrastado quedan fuera del filtro por comercial."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Historical figures include verified matches only. A missing comparison is shown as unavailable, not zero. The chart compares customers with data in the selected periods."
+msgstr "El histórico incluye solo coincidencias contrastadas. Si falta una comparación, se muestra como no disponible, no como cero. El gráfico compara clientes con datos en los periodos seleccionados."
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__batch_id
+msgid "History batch"
+msgstr "Lote de histórico"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_dashboard_history_line__move_type__out_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__net_amount
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_list
+msgid "Net amount"
+msgstr "Importe neto"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "No comparable data"
+msgstr "Sin datos comparables"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.constraint,message:servincom_account_dashboard.constraint_servincom_dashboard_history_batch_company_year_unique
+msgid "Only one customer history batch is allowed per company and year."
+msgstr "Solo se permite un lote de histórico de clientes por compañía y año."
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__source_customer
+msgid "Original customer reference"
+msgstr "Referencia original del cliente"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__source_key
+msgid "Original document ID"
+msgstr "ID original del documento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__source_salesperson
+msgid "Original salesperson"
+msgstr "Comercial de origen"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Provide a description and source reference."
+msgstr "Indique una descripción y una referencia de origen."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Provide the original document ID and number."
+msgstr "Indique el ID original y el número del documento."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Return the history batch to draft before deleting it."
+msgstr "Devuelva el lote de histórico a borrador antes de eliminarlo."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Return the history batch to draft before editing it."
+msgstr "Devuelva el lote de histórico a borrador antes de modificarlo."
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_batch_form
+msgid "Return to draft"
+msgstr "Volver a borrador"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "Select an existing commercial customer for each historical document."
+msgstr "Seleccione un cliente comercial existente para cada documento histórico."
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__amount_total_signed
+msgid "Signed total amount"
+msgstr "Importe total con signo"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__amount_untaxed_signed
+msgid "Signed untaxed amount"
+msgstr "Importe sin impuestos con signo"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__source_checksum
+msgid "Source checksum"
+msgstr "Huella del archivo de origen"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__source
+msgid "Source reference"
+msgstr "Referencia de origen"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_batch_form
+msgid "Statistical records only. Import verified customer matches; no invoices or accounting entries are created. Missing historical data does not mean zero sales."
+msgstr "Registros exclusivamente estadísticos. Importe coincidencias de clientes contrastadas; no se crean facturas ni asientos contables. La ausencia de histórico no significa ventas cero."
+
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__state
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "The document count must match the expected count before activation."
+msgstr "El número de documentos debe coincidir con el esperado antes de activar el lote."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "The historical customer must belong to the batch company or be shared."
+msgstr "El cliente histórico debe pertenecer a la compañía del lote o ser compartido."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "The invoice date must belong to the history batch year."
+msgstr "La fecha de factura debe pertenecer al año del lote de histórico."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "The net amount must match the expected amount before activation."
+msgstr "El importe neto debe coincidir con el esperado antes de activar el lote."
+
+#. module: servincom_account_dashboard
+#: model:ir.model.constraint,message:servincom_account_dashboard.constraint_servincom_dashboard_history_line_source_key_unique
+msgid "The original document already exists in this history batch."
+msgstr "El documento original ya existe en este lote de histórico."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/customer_history.py:0
+msgid "The verified salesperson must have access to the batch company."
+msgstr "El comercial contrastado debe tener acceso a la compañía del lote."
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_line_list
+msgid "Total"
+msgstr "Total"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_history_batch_form
+msgid "Validate and activate"
+msgstr "Validar y activar"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__notes
+msgid "Validation notes"
+msgstr "Notas de validación"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__partner_id
+msgid "Verified customer"
+msgstr "Cliente contrastado"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__salesperson_id
+msgid "Verified salesperson"
+msgstr "Comercial contrastado"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "View history"
+msgstr "Ver histórico"
+
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_batch__currency_id
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_dashboard_history_line__currency_id
+msgid "Currency"
+msgstr "Moneda"

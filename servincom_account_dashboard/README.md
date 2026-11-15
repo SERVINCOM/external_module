@@ -44,9 +44,61 @@ El selector de comercial muestra los usuarios asignados a las facturas del perio
 - **Primera compra registrada**: primera factura positiva visible en el histórico dentro del periodo actual. Es una aproximación a cliente nuevo dependiente del histórico importado y de los permisos. **Vuelven a comprar**: tienen compras anteriores, ninguna en el periodo comparado y compra actual.
 - **Última compra**: última factura positiva hasta el corte, para toda la empresa y todos sus comerciales. No incorpora facturas posteriores al corte. El filtro de comercial se aplica al comercial asignado a la factura; la primera compra se comprueba sobre todo el histórico visible para no etiquetar como nuevo a un cliente reasignado.
 - Los recuentos mensuales son distintos por mes; su suma puede superar el número de clientes activos del periodo. Los clientes con solo rectificativas se identifican aparte. Los porcentajes necesitan una base anterior positiva.
-- Se respetan los permisos de facturas, contactos y compañía activa, sin `sudo` al consultar datos. El permiso común del cuadro de mando controla también ambos nuevos informes y sus enlaces directos. No se crean facturas, clientes, pagos ni asientos.
+- Se respetan los permisos de facturas, contactos, histórico y compañía activa al consultar importes. El permiso común del cuadro de mando controla también ambos nuevos informes y sus enlaces directos. No se crean facturas, clientes, pagos ni asientos. La comprobación preventiva de solapamiento consulta únicamente si existen facturas, con permisos elevados para que una regla de registros no permita duplicar fuentes; no devuelve importes ni documentos ocultos.
 
 El selector es propio de estos dos cuadros; no modifica el ejercicio compartido del tablero mensual. La búsqueda de clientes se aplica a los resultados agregados y carga 50 filas por página. Los indicadores describen el conjunto consultado, no solo la página visible.
+
+## Histórico estadístico de clientes
+
+Desde la versión 18.0.1.3.0, **Contabilidad → Configuración → Histórico de clientes**
+permite a administradores de Ajustes preparar lotes anuales de documentos de otro
+sistema. Son modelos propios: `servincom.dashboard.history.batch` y
+`servincom.dashboard.history.line`. No generan facturas, asientos, impuestos,
+conciliaciones ni movimientos de stock, y no alteran el asiento inicial.
+El módulo no incluye históricos, clientes reales ni ejercicios predefinidos.
+
+1. Crear un lote en borrador para la compañía y el año, indicar origen, huella del
+   archivo, número esperado de documentos e importe neto esperado.
+2. Abrir **Documentos** y utilizar la importación estándar de Odoo. Cada fila requiere
+   lote (`batch_id`), ID original (`source_key`), número (`name`), fecha ISO
+   (`invoice_date`), cliente comercial existente (`partner_id`), tipo
+   (`move_type`: `out_invoice` o `out_refund`), neto sin impuestos con signo
+   (`amount_untaxed_signed`) y total con signo (`amount_total_signed`). Ambos importes
+   deben estar convertidos a la moneda de la compañía antes de la carga.
+3. Importar únicamente correspondencias de cliente contrastadas. No se buscan por
+   similitud ni se crean contactos automáticamente. `source_customer` y
+   `source_salesperson` permiten conservar referencias de origen. `salesperson_id`
+   solo se rellena cuando se haya contrastado con un usuario existente.
+4. Revisar los totales y pulsar **Validar y activar**. Se exige un único lote por
+   compañía y año, claves originales únicas, fechas del ejercicio, clientes
+   comerciales de la compañía o compartidos, importes finitos y recuento/neto
+   coincidentes con los controles del lote. Un año con facturas o rectificativas
+   contabilizadas en la base actual no se puede activar como histórico. Los
+   asientos ordinarios, incluido el inicial, no se consideran facturas.
+5. Los lotes activos quedan bloqueados para edición. **Volver a borrador** retira
+   sus datos de los cuadros y permite corregirlos. Si después se contabilizan
+   facturas en el mismo año, el cuadro bloquea la comparación para evitar duplicados.
+
+Los usuarios autorizados al cuadro pueden consultar los documentos históricos
+activos de sus compañías; no pueden importarlos ni editarlos. El histórico tiene
+reglas propias de registro, distintas de las de facturas. El servicio de análisis
+respeta además las restricciones de contactos al mostrar nombres e importes.
+
+Al comparar con un lote de coincidencias, un cliente sin documentos históricos en
+el periodo seleccionado muestra **Sin datos comparables** y guiones en la base,
+variación y porcentaje. No se le clasifica como nuevo ni como crecimiento desde
+cero. El indicador de primera compra pasa a indicar **Sin datos comparables**.
+El gráfico se limita a la cohorte con datos comparables; el indicador **Clientes
+activos** conserva todos los compradores actuales visibles. Las primeras y últimas
+compras siguen limitadas al histórico disponible y a los permisos.
+
+**Ver histórico** abre los registros estadísticos; **Ver facturas** conserva el
+acceso a las facturas de esta base. El filtro por comercial solo incluye documentos
+históricos con un usuario contrastado; el cuadro avisa de esta limitación.
+Los datos históricos de ventas alimentan exclusivamente **Evolución de clientes**,
+no la comparativa de beneficios, el resumen mensual, el detalle contable ni los
+vencimientos. La información privada se carga por separado en cada base y nunca
+se añade a `data/`, `demo/`, pruebas o al repositorio del addon.
 
 ## Vencimientos de ventas y compras
 
@@ -102,6 +154,7 @@ En un servidor con controlador SERVINCOM se debe utilizar su wrapper autorizado 
 9. Contrastar las tres filas del resumen con los totales de los informes existentes. Verificar su inserción inicial, plegado y desplazamiento sin restaurar tarjetas que el usuario oculte después.
 10. En comparativa, comprobar el aviso previo al primer ejercicio, el corte equivalente, ausencia de previsiones y porcentajes sin base positiva. Comprobar que consultar otro año no cambia el año del tablero mensual.
 11. En evolución, contrastar facturas y rectificativas, contactos del mismo cliente, filtro de comercial, clientes sin compra, primera compra registrada, fechas límite, meses sin datos, búsqueda, paginación y acceso a facturas.
+12. Probar un lote ficticio: borrador invisible para lectores, activación con totales correctos, rechazo de duplicados/solapamientos, consulta del histórico y guiones para clientes sin coincidencia. Verificar el mismo corte de fechas y que los asientos iniciales conservan sus importes.
 
 Las pruebas incluidas cubren permisos, revocación, intentos de autoasignación, cambio de año con lectura, separación de compañías, preferencias de tablero, exportaciones, rectificaciones, partidas residuales, exclusión de diario y borradores. Las pruebas de vencimientos añaden facturas/rectificativas de ambos sentidos, plazos múltiples, conciliaciones parciales/completas, anticipos, borradores, semanas, estados, falta de fecha, moneda extranjera, revocación y reglas adicionales de apuntes. La ejecución real de la suite requiere Odoo y una base de pruebas autorizada. Las comprobaciones estáticas no sustituyen una instalación.
 

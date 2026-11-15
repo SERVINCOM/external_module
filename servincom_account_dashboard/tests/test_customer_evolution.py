@@ -3,6 +3,8 @@
 from datetime import date
 from unittest.mock import patch
 
+from psycopg2 import IntegrityError
+
 from odoo import Command, fields
 from odoo.exceptions import AccessError, ValidationError
 from odoo.tests import TransactionCase, new_test_user, tagged
@@ -110,9 +112,158 @@ class TestCustomerEvolution(TransactionCase):
             self.dashboard.with_context(allowed_company_ids=other.ids).get_customer_evolution(2026, 1)
         self.reader.servincom_dashboard_access = False
         for method, args in [("get_customer_evolution", [2026, 1]), ("get_monthly_summary", []),
-                             ("get_annual_comparison", [2026, 1]), ("action_customer_invoices", [self.customer.id, 2026, 1])]:
+                             ("get_annual_comparison", [2026, 1]), ("action_customer_invoices", [self.customer.id, 2026, 1]),
+                             ("action_customer_history", [self.customer.id, 2026, 1])]:
             with self.assertRaises(AccessError):
                 getattr(self.dashboard, method)(*args)
+
+    def _history_batch(self, documents, year=2025):
+        batch = self.env["servincom.dashboard.history.batch"].create({
+            "name": "Verified history test", "company_id": self.company.id, "year": year,
+            "source": "Fictitious test source", "expected_count": len(documents),
+            "expected_net": sum(doc[1] for doc in documents),
+        })
+        self.env["servincom.dashboard.history.line"].create([
+            {"batch_id": batch.id, "source_key": str(index), "name": "TEST/%s" % index,
+             "invoice_date": date(year, 1, 10), "partner_id": partner.id,
+             "move_type": "out_invoice" if amount >= 0 else "out_refund",
+             "amount_untaxed_signed": amount, "amount_total_signed": amount}
+            for index, (partner, amount) in enumerate(documents)
+        ])
+        return batch
+
+    def _opening_entry(self, partner, year=2025):
+        journal = self.env["account.journal"].create({"name": "Opening test", "code": "OPH",
+            "type": "general", "company_id": self.company.id})
+        entry = self.env["account.move"].create({"journal_id": journal.id, "date": date(year, 1, 1),
+            "line_ids": [Command.create({"name": "Opening receivable", "partner_id": partner.id,
+                "account_id": self.receivable.id, "debit": 40}),
+                Command.create({"name": "Opening counterpart", "account_id": self.income.id, "credit": 40})]})
+        entry.action_post()
+        return entry
+
+    def test_history_matches_only_and_preserves_accounting(self):
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        self._invoice(self.new_customer, 50, date(2026, 1, 10))
+        opening = self._opening_entry(self.credit)
+        moves_before = self.env["account.move"].search([]).read(["state", "amount_total", "date"])
+        opening_before = opening.line_ids.read(["balance", "partner_id", "account_id"])
+        batch = self._history_batch([(self.customer, 100), (self.customer, -10), (self.lapsed, 60)])
+        batch.action_activate()
+        data = self.dashboard.get_customer_evolution(2026, 1)
+        rows = {row["id"]: row for row in data["rows"]}
+        self.assertTrue(data["matched_history"])
+        self.assertNotIn(self.credit.id, rows)  # An opening entry is not a sale.
+        self.assertEqual(rows[self.customer.id]["previous"], 90)
+        self.assertEqual(rows[self.customer.id]["delta"], -10)
+        self.assertTrue(rows[self.customer.id]["has_history"])
+        self.assertEqual(rows[self.customer.id]["status"], "decline")
+        for key in ("previous", "delta", "percent"):
+            self.assertIsNone(rows[self.new_customer.id][key])
+        self.assertEqual(rows[self.new_customer.id]["status"], "unavailable")
+        self.assertEqual(rows[self.lapsed.id]["status"], "no_purchase")
+        self.assertEqual(data["counts"], {"active": 2, "decline": 1, "no_purchase": 1, "new": 0, "unavailable": 1})
+        self.assertEqual(data["trend"][0], {"month": 1, "current": 1, "previous": 2})
+        action = self.dashboard.action_customer_history(self.customer.id, 2026, 1)
+        lines = self.env[action["res_model"]].with_user(self.reader).search(action["domain"])
+        self.assertEqual(sum(lines.mapped("amount_untaxed_signed")), 90)
+        self.assertEqual(self.env["account.move"].search([]).read(["state", "amount_total", "date"]), moves_before)
+        self.assertEqual(opening.line_ids.read(["balance", "partner_id", "account_id"]), opening_before)
+
+    def test_history_draft_security_and_read_rules(self):
+        batch = self._history_batch([(self.customer, 100)])
+        line = batch.line_ids
+        model = self.env["servincom.dashboard.history.line"].with_user(self.reader)
+        self.assertFalse(model.search([("batch_id", "=", batch.id)]))
+        with self.assertRaises(AccessError):
+            batch.with_user(self.reader).action_activate()
+        batch.action_activate()
+        self.assertEqual(model.search([("batch_id", "=", batch.id)]).ids, line.ids)
+        with self.assertRaises(AccessError):
+            line.with_user(self.reader).write({"amount_untaxed_signed": 200})
+        with self.assertRaises(AccessError):
+            self.env["servincom.dashboard.history.line"].with_user(self.other_salesperson).search([])
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        self.env["ir.rule"].create({"name": "Restricted historical document",
+            "model_id": self.env["ir.model"]._get_id("servincom.dashboard.history.line"),
+            "domain_force": "[('id', '!=', %s)]" % line.id})
+        data = self.dashboard.get_customer_evolution(2026, 1)
+        self.assertIsNone(data["rows"][0]["previous"])
+        self.assertEqual(data["rows"][0]["status"], "unavailable")
+        other = self.env["res.company"].create({"name": "History forbidden company"})
+        with self.assertRaises(AccessError):
+            model.with_context(allowed_company_ids=other.ids).search([])
+        self.reader.servincom_dashboard_access = False
+        with self.assertRaises(AccessError):
+            model.search([])
+
+    def test_history_activation_checks_and_immutability(self):
+        batch = self._history_batch([(self.customer, 100)])
+        line = batch.line_ids
+        batch.expected_count = 2
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            batch.action_activate()
+        batch.write({"expected_count": 1, "expected_net": 99})
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            batch.action_activate()
+        batch.expected_net = 100
+        batch.action_activate()
+        with self.assertRaises(ValidationError):
+            line.write({"amount_untaxed_signed": 110})
+        with self.assertRaises(ValidationError):
+            line.unlink()
+        with self.assertRaises(ValidationError):
+            batch.write({"year": 2024})
+        with self.assertRaises(ValidationError):
+            batch.unlink()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.env["servincom.dashboard.history.line"].with_context(default_batch_id=batch.id).create({
+                "name": "Not allowed", "source_key": "extra", "invoice_date": date(2025, 1, 10),
+                "partner_id": self.customer.id, "move_type": "out_invoice",
+                "amount_untaxed_signed": 1, "amount_total_signed": 1})
+        batch.action_draft()
+        with self.assertRaises(IntegrityError), self.cr.savepoint():
+            line.copy()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            line.write({"invoice_date": date(2024, 1, 1)})
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            line.write({"partner_id": self.child.id})
+        line.write({"amount_untaxed_signed": 90})
+        batch.expected_net = 90
+        batch.action_activate()
+
+    def test_history_overlap_and_unmapped_salesperson(self):
+        batch = self._history_batch([(self.customer, 100)])
+        batch.action_activate()
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        data = self.dashboard.get_customer_evolution(2026, 1, self.reader.id)
+        self.assertIsNone(data["rows"][0]["previous"])
+        self.assertEqual(data["rows"][0]["status"], "unavailable")
+        batch.action_draft()
+        batch.line_ids.salesperson_id = self.reader
+        batch.action_activate()
+        data = self.dashboard.get_customer_evolution(2026, 1, self.reader.id)
+        self.assertEqual(data["rows"][0]["previous"], 100)
+        self._invoice(self.customer, 100, date(2025, 1, 10))
+        with self.assertRaises(ValidationError):
+            self.dashboard.get_customer_evolution(2026, 1)
+        batch.action_draft()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            batch.action_activate()
+
+    def test_history_equal_cutoff_and_missing_older_year(self):
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        self._invoice(self.new_customer, 50, date(2026, 1, 10))
+        batch = self._history_batch([(self.customer, 100), (self.new_customer, 200)])
+        batch.line_ids.filtered(lambda line: line.partner_id == self.new_customer).invoice_date = date(2025, 2, 1)
+        batch.action_activate()
+        data = self.dashboard.get_customer_evolution(2026, 1)
+        rows = {row["id"]: row for row in data["rows"]}
+        self.assertEqual(rows[self.customer.id]["previous"], 100)
+        self.assertIsNone(rows[self.new_customer.id]["previous"])
+        data = self.dashboard.get_customer_evolution(2025, 1)
+        self.assertIsNone(data["rows"][0]["previous"])
+        self.assertIsNone(data["rows"][0]["delta"])
 
     def test_archived_salesperson_last_without_losing_invoices(self):
         dashboard = self.dashboard.with_context(lang="en_US")

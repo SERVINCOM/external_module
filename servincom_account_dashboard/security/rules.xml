@@ -1,5 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
+  <record id="rule_history_batch_company" model="ir.rule">
+    <field name="name">Customer history: allowed companies and activated batches</field>
+    <field name="model_id" ref="model_servincom_dashboard_history_batch"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)] + ([] if user.has_group('base.group_system') else [('state', '=', 'active')])</field>
+  </record>
+  <record id="rule_history_line_company" model="ir.rule">
+    <field name="name">Customer history documents: allowed companies and activated batches</field>
+    <field name="model_id" ref="model_servincom_dashboard_history_line"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)] + ([] if user.has_group('base.group_system') else [('batch_id.state', '=', 'active')])</field>
+  </record>
   <record id="rule_maturity_company" model="ir.rule">
     <field name="name">Outstanding maturities: allowed companies</field>
     <field name="model_id" ref="model_servincom_account_maturity"/>

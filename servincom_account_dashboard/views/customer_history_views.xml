@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_history_batch_list" model="ir.ui.view">
+        <field name="name">servincom.dashboard.history.batch.list</field>
+        <field name="model">servincom.dashboard.history.batch</field>
+        <field name="arch" type="xml">
+            <list><field name="name"/><field name="company_id" groups="base.group_multi_company"/>
+                <field name="year"/><field name="source"/><field name="document_count"/>
+                <field name="currency_id" column_invisible="True"/><field name="net_amount"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_history_batch_form" model="ir.ui.view">
+        <field name="name">servincom.dashboard.history.batch.form</field>
+        <field name="model">servincom.dashboard.history.batch</field>
+        <field name="arch" type="xml">
+            <form string="Customer history">
+                <header>
+                    <button name="action_activate" type="object" string="Validate and activate" class="oe_highlight"
+                            invisible="state != 'draft'" groups="base.group_system"/>
+                    <button name="action_draft" type="object" string="Return to draft" invisible="state != 'active'" groups="base.group_system"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_documents" type="object" class="oe_stat_button" icon="fa-files-o">
+                            <field name="document_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="alert alert-info" role="alert">Statistical records only. Import verified customer matches; no invoices or accounting entries are created. Missing historical data does not mean zero sales.</div>
+                    <group>
+                        <group><field name="name" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="year" readonly="state != 'draft'"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="source" readonly="state != 'draft'"/>
+                            <field name="source_checksum" readonly="state != 'draft'"/>
+                        </group>
+                        <group><field name="expected_count" readonly="state != 'draft'"/>
+                            <field name="expected_net" readonly="state != 'draft'"/>
+                            <field name="net_amount"/>
+                        </group>
+                    </group>
+                    <field name="notes" readonly="state != 'draft'"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_history_line_list" model="ir.ui.view">
+        <field name="name">servincom.dashboard.history.line.list</field>
+        <field name="model">servincom.dashboard.history.line</field>
+        <field name="arch" type="xml">
+            <list><field name="invoice_date"/><field name="name"/><field name="partner_id"/>
+                <field name="move_type"/><field name="currency_id" column_invisible="True"/>
+                <field name="amount_untaxed_signed" sum="Net amount"/><field name="amount_total_signed" sum="Total"/>
+                <field name="salesperson_id" optional="hide"/><field name="source_salesperson" optional="hide"/>
+                <field name="batch_id" optional="hide"/><field name="source_key" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_history_line_form" model="ir.ui.view">
+        <field name="name">servincom.dashboard.history.line.form</field>
+        <field name="model">servincom.dashboard.history.line</field>
+        <field name="arch" type="xml">
+            <form string="Historical document"><sheet>
+                <field name="state" invisible="1"/><field name="company_id" invisible="1"/>
+                <group>
+                    <group><field name="batch_id" readonly="state == 'active'"/>
+                        <field name="source_key" readonly="state == 'active'"/>
+                        <field name="name" readonly="state == 'active'"/>
+                        <field name="invoice_date" readonly="state == 'active'"/>
+                        <field name="move_type" readonly="state == 'active'"/>
+                    </group>
+                    <group><field name="partner_id" context="{'active_test': False}" options="{'no_create': True}"
+                                  domain="['|', ('is_company', '=', True), ('parent_id', '=', False), '|', ('company_id', '=', False), ('company_id', '=', company_id)]"
+                                  readonly="state == 'active'"/>
+                        <field name="source_customer" readonly="state == 'active'"/>
+                        <field name="currency_id"/>
+                        <field name="amount_untaxed_signed" readonly="state == 'active'"/>
+                        <field name="amount_total_signed" readonly="state == 'active'"/>
+                        <field name="salesperson_id" context="{'active_test': False}" options="{'no_create': True}" readonly="state == 'active'"/>
+                        <field name="source_salesperson" readonly="state == 'active'"/>
+                    </group>
+                </group>
+            </sheet></form>
+        </field>
+    </record>
+    <record id="view_history_line_search" model="ir.ui.view">
+        <field name="name">servincom.dashboard.history.line.search</field>
+        <field name="model">servincom.dashboard.history.line</field>
+        <field name="arch" type="xml">
+            <search><field name="name"/><field name="partner_id"/><field name="batch_id"/><field name="source_key"/>
+                <filter name="refunds" string="Credit notes" domain="[('move_type', '=', 'out_refund')]"/>
+                <filter name="invoice_date" string="Invoice date" date="invoice_date"/>
+                <group><filter name="customer" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="month" string="Month" context="{'group_by': 'invoice_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_customer_history_batches" model="ir.actions.act_window">
+        <field name="name">Customer history</field>
+        <field name="res_model">servincom.dashboard.history.batch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_customer_history" name="Customer history" parent="account.menu_finance_configuration"
+              action="action_customer_history_batches" groups="base.group_system" sequence="96"/>
+</odoo>
