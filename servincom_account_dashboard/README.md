@@ -2,7 +2,7 @@
 
 Odoo 18 Community · AGPL-3 · SERVINCOM SOLUCIONES, S.L.
 
-Instala un resumen mensual y un detalle por cuentas bajo **Contabilidad → Informes → Cuadro de mando → Resultados mensuales**. Utiliza MIS Builder y el tablero estándar de Odoo, sin modificar sus fuentes ni depender de Enterprise.
+Instala tres niveles bajo **Contabilidad → Informes → Cuadro de mando → Resultados mensuales**: **Resumen mensual** (ingresos, compras y gastos, resultado), **Resultados mensuales desglosados** y **Detalle contable de resultados mensuales**. Utiliza MIS Builder y el tablero estándar de Odoo, sin modificar sus fuentes ni depender de Enterprise. **Evolución de clientes** y **Comparativa anual** tienen entradas independientes en la misma sección.
 
 ## Uso
 
@@ -12,7 +12,7 @@ En la lista de Usuarios, **Añadir filtro personalizado → Ver cuadros de mando
 
 El permiso habilita los resultados, el detalle contable, los vencimientos de ventas/compras, sus exportaciones y la consulta de apuntes. Implica el grupo estándar de contabilidad de solo lectura, por lo que permite consultar también otros datos contables sujetos a las reglas existentes. No concede escritura contable. Desmarcar la casilla bloquea estos cuadros incluso para un administrador contable; no revoca otros permisos contables que el usuario ya tenga. El superusuario de Odoo omite las reglas de registro.
 
-Elegir el año desde el primer cuadro y pulsar **Aplicar año**. Los dos informes muestran doce meses y total anual. El año se guarda por empresa y es compartido: si otra persona lo cambia, se verá el último año aplicado al actualizar. La disposición, plegado y ocultación de tarjetas son personales. Las dos tablas comparten el desplazamiento vertical del tablero, sin barras verticales interiores en las tarjetas. El selector funciona con permiso de consulta, sin conceder edición sobre los informes.
+Elegir el año desde el primer cuadro y pulsar **Aplicar año**. Las tres tablas muestran doce meses y total anual. El resumen reutiliza los tres totales MIS de la instancia ya existente, incluidas sus fórmulas y exclusiones; no crea una tercera instancia. El año se guarda por empresa y es compartido: si otra persona lo cambia, se verá el último año aplicado al actualizar. La disposición, plegado y ocultación de tarjetas son personales. Las tablas comparten el desplazamiento vertical del tablero. Al actualizar, el nuevo resumen se inserta una sola vez al principio de cada disposición personal y conserva el plegado existente. El selector funciona con permiso de consulta, sin conceder edición sobre los informes.
 
 ## Cálculos y configuración
 
@@ -22,7 +22,29 @@ Al instalar se crean plantillas e instancias independientes por empresa; para nu
 
 Antes de usar las cifras, revisar **Contabilidad → Configuración → Configuración de cuadros de mando**, seleccionar los diarios de apertura/cierre que proceda excluir y pulsar **Aplicar diarios excluidos**. No se adivinan códigos de diarios ni se excluyen cierres de TPV. Las plantillas genéricas agrupan las comisiones en 626 y los intereses en 662; no incluyen códigos particulares de un cliente.
 
-Las plantillas XML se cargan con `noupdate=1` para conservar adaptaciones posteriores. Para añadir nuevos cuadros se pueden heredar el modelo, las vistas y las plantillas desde otro addon con una responsabilidad concreta. El análisis de facturación, las comparativas y los presupuestos no forman parte de esta versión.
+Las plantillas XML se cargan con `noupdate=1` para conservar adaptaciones posteriores. Para añadir nuevos cuadros se pueden heredar el modelo, las vistas y las plantillas desde otro addon con una responsabilidad concreta. Se mantienen el análisis de facturación nativo y los dos cuadros de vencimientos. No se añaden presupuestos.
+
+## Comparativa anual
+
+Entrada independiente **Comparativa anual**, con selector de año y mes de corte, totales, gráfico y tabla de doce meses más acumulado. Compara con el ejercicio anterior desde enero hasta el mismo día y mes; el ejercicio actual se limita al día de hoy. El 29 de febrero se compara hasta el 28 de febrero si el año anterior no es bisiesto. Los meses posteriores al corte se muestran sin cifras, sin previsiones. Los porcentajes solo se calculan con una base anterior positiva; para bases cero o negativas se muestra la diferencia monetaria y un guion en el porcentaje.
+
+En Configuración, **Primer año de comparación** se establece inicialmente en el año siguiente a la instalación/actualización. Por ejemplo, al preparar el cuadro en 2026 queda pendiente para 2027 frente a 2026. Un administrador puede ajustarlo cuando haya verificado otro histórico. El cuadro avisa si el periodo aún no ha comenzado o si uno de los periodos no tiene apuntes visibles. Tener movimientos no certifica que el año base esté completo.
+
+El resumen y la comparativa requieren los indicadores técnicos `income_total`, `expenses_total` y `monthly_result`, doce periodos mensuales relativos y un total anual. Reutilizan la instancia MIS y sus filtros; no cambian el año guardado, fechas, fórmulas ni preferencias de los informes originales. Las fórmulas erróneas se notifican, no se convierten en ceros. Los totales de resumen permiten abrir sus apuntes. La comparativa es de consulta; las exportaciones MIS existentes siguen disponibles en los cuadros desglosados.
+
+## Evolución de clientes
+
+Selector de ejercicio, mes de corte y comercial. Compara enero hasta el corte con el mismo periodo del año anterior. Incluye cuatro indicadores, gráfico de clientes únicos por mes, tabla buscable y paginada, filtro por situación y acceso a las facturas que justifican las dos columnas.
+
+- Fuente: facturas y rectificativas de cliente publicadas (`account.move`) por fecha de factura, importe sin impuestos con signo y moneda de empresa. Excluye borradores, pedidos sin factura, recibos y ventas TPV sin factura de cliente. No equivale a toda la facturación contable del grupo 7.
+- Los contactos se agrupan por `commercial_partner_id`. Activo significa al menos una factura positiva en el periodo; una rectificativa sola no cuenta como compra. Los importes incluyen las rectificativas con su signo incluso en filas sin compra.
+- **Con caída de compras**: cliente con compra en ambos periodos cuyo neto disminuye, redondeado a la precisión de la moneda. **Sin compra**: compró en el periodo anterior y no en el actual; no se etiqueta como perdido.
+- **Primera compra registrada**: primera factura positiva visible en el histórico dentro del periodo actual. Es una aproximación a cliente nuevo dependiente del histórico importado y de los permisos. **Vuelven a comprar**: tienen compras anteriores, ninguna en el periodo comparado y compra actual.
+- **Última compra**: última factura positiva hasta el corte, para toda la empresa y todos sus comerciales. No incorpora facturas posteriores al corte. El filtro de comercial se aplica al comercial asignado a la factura; la primera compra se comprueba sobre todo el histórico visible para no etiquetar como nuevo a un cliente reasignado.
+- Los recuentos mensuales son distintos por mes; su suma puede superar el número de clientes activos del periodo. Los clientes con solo rectificativas se identifican aparte. Los porcentajes necesitan una base anterior positiva.
+- Se respetan los permisos de facturas, contactos y compañía activa, sin `sudo` al consultar datos. El permiso común del cuadro de mando controla también ambos nuevos informes y sus enlaces directos. No se crean facturas, clientes, pagos ni asientos.
+
+El selector es propio de estos dos cuadros; no modifica el ejercicio compartido del tablero mensual. La búsqueda de clientes se aplica a los resultados agregados y carga 50 filas por página. Los indicadores describen el conjunto consultado, no solo la página visible.
 
 ## Vencimientos de ventas y compras
 
@@ -75,6 +97,9 @@ En un servidor con controlador SERVINCOM se debe utilizar su wrapper autorizado 
 6. Revisar notas rectificativas, meses sin datos, diarios de cierre y los PDF de las dos tablas.
 7. Abrir vencimientos de ventas/compras, revisar una semana y contrastar el pendiente con los apuntes. Probar un documento con varios plazos, una conciliación parcial, una completa, rectificativas y un anticipo sin aplicar.
 8. Comprobar filtros, exportación, moneda de empresa y denegación a usuarios sin la casilla.
+9. Contrastar las tres filas del resumen con los totales de los informes existentes. Verificar su inserción inicial, plegado y desplazamiento sin restaurar tarjetas que el usuario oculte después.
+10. En comparativa, comprobar el aviso previo al primer ejercicio, el corte equivalente, ausencia de previsiones y porcentajes sin base positiva. Comprobar que consultar otro año no cambia el año del tablero mensual.
+11. En evolución, contrastar facturas y rectificativas, contactos del mismo cliente, filtro de comercial, clientes sin compra, primera compra registrada, fechas límite, meses sin datos, búsqueda, paginación y acceso a facturas.
 
 Las pruebas incluidas cubren permisos, revocación, intentos de autoasignación, cambio de año con lectura, separación de compañías, preferencias de tablero, exportaciones, rectificaciones, partidas residuales, exclusión de diario y borradores. Las pruebas de vencimientos añaden facturas/rectificativas de ambos sentidos, plazos múltiples, conciliaciones parciales/completas, anticipos, borradores, semanas, estados, falta de fecha, moneda extranjera, revocación y reglas adicionales de apuntes. La ejecución real de la suite requiere Odoo y una base de pruebas autorizada. Las comprobaciones estáticas no sustituyen una instalación.
 

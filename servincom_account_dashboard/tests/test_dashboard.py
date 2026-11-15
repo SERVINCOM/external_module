@@ -41,6 +41,8 @@ class TestAccountDashboard(TransactionCase):
             self._as_reader(instance).compute()
             with self.assertRaises(AccessError):
                 instance.with_user(self.denied).with_context(allowed_company_ids=self.company.ids).compute()
+        with self.assertRaises(AccessError):
+            self.dashboard.with_user(self.denied).get_monthly_summary()
         self.reader.servincom_dashboard_access = False
         for instance in self.instances:
             with self.assertRaises(AccessError):
@@ -123,6 +125,30 @@ class TestAccountDashboard(TransactionCase):
             ("user_id", "=", self.reader.id), ("ref_id", "=", view.id),
         ]), 1)
 
+    def test_board_upgrade_preserves_existing_fold_and_no_duplicate_summary(self):
+        view = self.env.ref("servincom_account_dashboard.view_board")
+        board = self._as_reader(self.env["board.board"])
+        arch = etree.fromstring(view.arch_db.encode())
+        compact = str(self.env.ref("servincom_account_dashboard.action_compact").id)
+        action = arch.xpath("//action[@name='%s']" % compact)[0]
+        action.getparent().remove(action)
+        arch.xpath("//action")[0].set("fold", "1")
+        custom = self.env["ir.ui.view.custom"].create({
+            "ref_id": view.id, "user_id": self.reader.id,
+            "arch": etree.tostring(arch, encoding="unicode"),
+        })
+        for attempt in range(2):
+            result = etree.fromstring(board.get_view(view.id)["arch"].encode())
+            actions = result.xpath("//action")
+            self.assertEqual(len(actions), 3)
+            self.assertEqual(actions[0].get("name"), compact)
+            self.assertEqual(actions[1].get("fold"), "1")
+        self.assertEqual(custom.servincom_dashboard_layout_version, 2)
+        # A subsequent deliberate removal remains personal and is not undone.
+        actions[0].getparent().remove(actions[0])
+        custom.arch = etree.tostring(result, encoding="unicode")
+        self.assertEqual(len(etree.fromstring(board.get_view(view.id)["arch"].encode()).xpath("//action")), 2)
+
     def test_exports_allowed_and_denied(self):
         for instance in self.instances:
             for method, xmlid, report_name in [
@@ -178,6 +204,7 @@ class TestAccountDashboard(TransactionCase):
         move(closing, [90, -35, -55])
         move(journal, [-999, 0, 999], posted=False)
         move(journal, [-200, 50, 150], entry_date=date(2025, 12, 15))
+        move(journal, [-80, 30, 50], entry_date=date(2025, 1, 15))
         for instance in self.instances:
             rows = {row["label"]: row for row in self._as_reader(instance).compute()["body"]}
             self.assertAlmostEqual(rows["TOTAL INCOME"]["cells"][0]["val"], 90)
@@ -187,5 +214,22 @@ class TestAccountDashboard(TransactionCase):
             if "CUMULATIVE RESULT" in rows:
                 self.assertAlmostEqual(rows["CUMULATIVE RESULT"]["cells"][0]["val"], 55)
                 self.assertAlmostEqual(rows["CUMULATIVE RESULT"]["cells"][11]["val"], 55)
+        reader = self._as_reader(self.dashboard)
+        compact = reader.get_monthly_summary()
+        self.assertEqual([row["cells"][0]["value"] for row in compact["rows"]], [90, 35, 55])
+        self.assertEqual(len(compact["rows"]), 3)
+        self.assertTrue(all(len(row["cells"]) == 13 for row in compact["rows"]))
+        self.dashboard.comparison_start_year = 2026
+        snapshot = [(i.id, i.date, i.name) for i in self.instances]
+        comparison = reader.get_annual_comparison(2026, 1)
+        self.assertTrue(comparison["ready"])
+        result = comparison["rows"][2]["cells"]
+        self.assertEqual(result[0], {"current": 55, "previous": 50, "delta": 5, "percent": 10})
+        self.assertIsNone(result[1]["current"])
+        self.assertEqual(result[12]["current"], 55)
+        self.assertEqual(snapshot, [(i.id, i.date, i.name) for i in self.instances])
+        self.assertEqual(self.dashboard.year, 2026)
+        self.assertEqual(reader.get_monthly_summary()["rows"][2]["cells"][0]["value"], 55)
+        self.assertFalse(reader.get_annual_comparison(2025, 1)["ready"])
         with self.assertRaises(AccessError):
             self._as_reader(entry).write({"ref": "Forbidden"})

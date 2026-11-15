@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_annual_comparison" model="ir.actions.client">
+        <field name="name">Annual comparison</field>
+        <field name="tag">servincom_annual_comparison</field>
+    </record>
+    <record id="action_customer_evolution" model="ir.actions.client">
+        <field name="name">Customer evolution</field>
+        <field name="tag">servincom_customer_evolution</field>
+    </record>
+    <menuitem id="menu_customer_evolution" name="Customer evolution" parent="menu_dashboard"
+              action="action_customer_evolution" groups="group_dashboard_reader" sequence="40"/>
+    <menuitem id="menu_annual_comparison" name="Annual comparison" parent="menu_dashboard"
+              action="action_annual_comparison" groups="group_dashboard_reader" sequence="50"/>
+</odoo>

@@ -36,3 +36,63 @@ body.o_web_client .o_servincom_account_dashboard {
         &:hover, &:focus, &:active { color: inherit !important; }
     }
 }
+
+.o_servincom_summary_table {
+    font-size: 12px;
+    th, td { padding: 10px 8px; white-space: nowrap; text-align: right; }
+    th:first-child { text-align: left; min-width: 180px; }
+    thead { color: #576978; background: #f0f4f8; }
+    tbody tr { background: #eaf0f6; }
+    .o_servincom_amount { border: 0; background: transparent; color: inherit; padding: 0; font-weight: inherit; }
+    .o_servincom_amount:hover { text-decoration: underline; }
+}
+.o_servincom_result {
+    background: #193954 !important;
+    > th, > td { background: #193954 !important; color: white !important; font-weight: 700; }
+    button { color: inherit !important; }
+}
+.o_servincom_analysis {
+    background: #f3f6f9;
+    .o_servincom_analysis_header { background: white; padding: 22px 28px; border-bottom: 1px solid #dce4eb; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .o_servincom_analysis_header h2 { margin: 0 0 6px; color: #193954; font-size: 24px; }
+    .o_servincom_analysis_header input { width: 115px; }
+    .o_servincom_analysis_header select { max-width: 240px; }
+    .o_servincom_analysis_body { padding: 24px 28px; max-width: 1800px; margin: auto; }
+    .o_servincom_period { color: #193954; font-weight: 600; }
+    .o_servincom_kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .o_servincom_kpis.o_three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .o_servincom_kpi { background: white; border: 1px solid #dce4eb; border-top: 3px solid #193954; border-radius: 7px; padding: 18px 20px; text-align: left; color: #193954; display: flex; flex-direction: column; gap: 7px; }
+    .o_servincom_kpi strong { font-size: 28px; line-height: 1.2; }
+    .o_servincom_kpi small { color: #617282; }
+    button.o_servincom_kpi:hover { box-shadow: 0 2px 9px #19395422; }
+    .o_tone_green { border-top-color: #239d91; }
+    .o_tone_red { border-top-color: #b54d50; }
+    .o_tone_amber { border-top-color: #c18b35; }
+    .o_servincom_panel { background: white; border: 1px solid #dce4eb; border-radius: 7px; padding: 20px; }
+    .o_servincom_panel h3 { font-size: 17px; color: #193954; }
+    .o_servincom_chart { width: 100%; max-height: 280px; overflow: visible; }
+    .o_servincom_legend { display: flex; justify-content: flex-end; gap: 22px; font-weight: 600; }
+    .o_current { color: #158478; }
+    .o_previous { color: #6c7c8c; }
+    .o_axis { font-size: 11px; fill: #617282; }
+    .o_servincom_detail_table {
+        font-size: 13px;
+        th, td { padding: 12px 10px; white-space: nowrap; text-align: right; vertical-align: middle; }
+        th:first-child { text-align: left; }
+        thead { background: #f0f4f8; color: #526778; }
+        thead th[colspan] { text-align: center; }
+        tbody th { max-width: 330px; white-space: normal; }
+    }
+    .o_servincom_status { border-radius: 15px; font-size: 12px; padding: 5px 10px; background: #eef2f5; color: #526778; }
+    .o_status_decline { background: #fff1d9; color: #865b16; }
+    .o_status_no_purchase { background: #fae6e6; color: #9e3d43; }
+    .o_status_new, .o_status_growth, .o_status_recovered { background: #def3ec; color: #207b60; }
+    .o_servincom_notes { margin-top: 18px; color: #617282; font-size: 12px; line-height: 1.6; }
+    @media (max-width: 900px) {
+        .o_servincom_kpis, .o_servincom_kpis.o_three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .o_servincom_analysis_body { padding: 16px; }
+    }
+    @media (max-width: 500px) {
+        .o_servincom_kpis, .o_servincom_kpis.o_three { grid-template-columns: 1fr; }
+    }
+}

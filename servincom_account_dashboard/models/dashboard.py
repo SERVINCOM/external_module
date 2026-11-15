@@ -27,6 +27,11 @@ class AccountDashboard(models.Model):
         "mis.report.instance", string="Detail report", required=True, check_company=True, ondelete="restrict",
     )
     year = fields.Integer(string="Year", required=True, default=lambda self: fields.Date.today().year)
+    comparison_start_year = fields.Integer(
+        string="First comparison year", required=True,
+        default=lambda self: fields.Date.today().year + 1,
+        help="First year to compare with the previous year. Check that the baseline accounting is complete.",
+    )
     excluded_journal_ids = fields.Many2many(
         "account.journal", string="Excluded journals", check_company=True,
         help="Select opening and closing journals to exclude. Do not exclude POS sales journals.",
@@ -36,11 +41,13 @@ class AccountDashboard(models.Model):
         ("company_unique", "unique(company_id)", "Only one dashboard is allowed per company."),
     ]
 
-    @api.constrains("year", "summary_instance_id", "detail_instance_id", "company_id")
+    @api.constrains("year", "comparison_start_year", "summary_instance_id", "detail_instance_id", "company_id")
     def _check_configuration(self):
         for record in self:
             if not 1900 <= record.year <= 9998:
                 raise ValidationError(self.env._("Choose a year between 1900 and 9998."))
+            if not 1901 <= record.comparison_start_year <= 9998:
+                raise ValidationError(self.env._("Choose a comparison year between 1901 and 9998."))
             instances = record.summary_instance_id | record.detail_instance_id
             if len(instances) != 2 or any(
                 instance.company_id != record.company_id

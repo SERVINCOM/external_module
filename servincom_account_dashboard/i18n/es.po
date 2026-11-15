@@ -15,9 +15,7 @@ msgstr ""
 #. module: servincom_account_dashboard
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
-#: model:ir.actions.act_window,name:servincom_account_dashboard.action_detail
 #: model:mis.report,name:servincom_account_dashboard.report_detail
-#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
 msgid "Account detail"
 msgstr "Detalle contable"
 
@@ -50,8 +48,10 @@ msgid "Allow accounting dashboards, maturities and read-only accounting detail. 
 msgstr "Permite consultar los cuadros contables, vencimientos y detalle contable. No concede permisos de modificación contable."
 
 #. module: servincom_account_dashboard
+#. odoo-javascript
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
 msgid "Annual total"
 msgstr "Total anual"
 
@@ -110,12 +110,6 @@ msgstr "Elige un año entre 1900 y 9998."
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_year
 msgid "Choose year"
 msgstr "Elegir ejercicio"
-
-#. module: servincom_account_dashboard
-#: model:ir.actions.server,name:servincom_account_dashboard.action_choose_year
-#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_summary_card
-msgid "Choose year for both tables"
-msgstr "Elegir año para las dos tablas"
 
 #. module: servincom_account_dashboard
 #. odoo-python
@@ -395,10 +389,8 @@ msgstr "Mayo"
 #. odoo-python
 #: code:addons/servincom_account_dashboard/__manifest__.py:0
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
-#: model:ir.actions.act_window,name:servincom_account_dashboard.action_summary
-#: model:mis.report,name:servincom_account_dashboard.report_summary
-#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_results
+#: model:mis.report,name:servincom_account_dashboard.report_summary
 msgid "Monthly results"
 msgstr "Resultados mensuales"
 
@@ -572,11 +564,6 @@ msgid "The templates use Spanish chart of accounts groups 6 and 7. Review openin
 msgstr "Las plantillas utilizan los grupos 6 y 7 del plan contable español. Revisa los diarios de apertura y cierre antes de utilizar los resultados."
 
 #. module: servincom_account_dashboard
-#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_year
-msgid "The year is shared by both tables for the active company."
-msgstr "El ejercicio se comparte entre las dos tablas de la empresa activa."
-
-#. module: servincom_account_dashboard
 #: model:mis.report.kpi,description:servincom_account_dashboard.kpi_summary_transport
 msgid "Transport"
 msgstr "Transportes"
@@ -601,8 +588,10 @@ msgid "View accounting dashboards"
 msgstr "Ver cuadros de mando contables"
 
 #. module: servincom_account_dashboard
+#. odoo-javascript
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
 #: code:addons/servincom_account_dashboard/wizards/dashboard_year.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__year
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard_year__year
@@ -813,24 +802,24 @@ msgstr "Pendiente en moneda del documento"
 #. module: servincom_account_dashboard
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/account_maturity.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_receivable_maturity_window
 #: model:ir.actions.server,name:servincom_account_dashboard.action_receivable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_receivable_maturities
-#: model:ir.actions.act_window,name:servincom_account_dashboard.action_receivable_maturity_window
 msgid "Receivable maturities"
 msgstr "Vencimientos cobros"
 
 #. module: servincom_account_dashboard
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/account_maturity.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_payable_maturity_window
 #: model:ir.actions.server,name:servincom_account_dashboard.action_payable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_payable_maturities
-#: model:ir.actions.act_window,name:servincom_account_dashboard.action_payable_maturity_window
 msgid "Payable maturities"
 msgstr "Vencimientos pagos"
 
 #. module: servincom_account_dashboard
-#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_maturity
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
 msgid "Outstanding maturities"
 msgstr "Vencimientos pendientes"
 
@@ -865,8 +854,8 @@ msgid "Due year"
 msgstr "Año de vencimiento"
 
 #. module: servincom_account_dashboard
-#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_pivot
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_graph
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_pivot
 msgid "Current outstanding amounts by week"
 msgstr "Pendiente actual por semana"
 
@@ -886,8 +875,8 @@ msgid "Outstanding total"
 msgstr "Total pendiente"
 
 #. module: servincom_account_dashboard
-#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_list
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_form
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_list
 msgid "Open document"
 msgstr "Abrir documento"
 
@@ -903,8 +892,8 @@ msgstr "Se muestran los saldos pendientes actuales, no el saldo histórico a la 
 
 #. module: servincom_account_dashboard
 #: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_maturity
-#: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_receivable_maturity_window
 #: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_payable_maturity_window
+#: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_receivable_maturity_window
 msgid "Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance."
 msgstr "Saldos pendientes actuales en la moneda de la empresa, agrupados por semana de vencimiento. Pulsa un importe para ver sus documentos. Las rectificativas y los anticipos sin aplicar reducen el saldo."
 
@@ -918,3 +907,442 @@ msgstr "Vencimientos pendientes: empresas permitidas"
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
 msgid "This week"
 msgstr "Esta semana"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/board.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_detail
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
+msgid "Accounting detail of monthly results"
+msgstr "Detalle contable de resultados mensuales"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+msgid "Accumulated to cutoff"
+msgstr "Acumulado hasta el corte"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Active customers"
+msgstr "Clientes activos"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Active customers per month"
+msgstr "Clientes activos por mes"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "All"
+msgstr "Todos"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "All situations"
+msgstr "Todas las situaciones"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: model:ir.actions.client,name:servincom_account_dashboard.action_annual_comparison
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_annual_comparison
+msgid "Annual comparison"
+msgstr "Comparativa anual"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Both years use the same cutoff. Check that the baseline is complete; absence of entries is not proof of completeness."
+msgstr "Ambos años usan la misma fecha de corte. Comprueba que el año base esté completo: la ausencia de apuntes no acredita que lo esté."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Buying again"
+msgstr "Vuelven a comprar"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Change"
+msgstr "Variación"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Change %"
+msgstr "Variación %"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard.py:0
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Choose a comparison year between 1901 and 9998."
+msgstr "Elige un año de comparación entre 1901 y 9998."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Choose a month between 1 and 12."
+msgstr "Elige un mes entre 1 y 12."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Choose a valid salesperson."
+msgstr "Selecciona un comercial válido."
+
+#. module: servincom_account_dashboard
+#: model:ir.actions.server,name:servincom_account_dashboard.action_choose_year
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_compact_card
+msgid "Choose year for all three tables"
+msgstr "Elegir año para las tres tablas"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Comparison will be available from %s, using the previous year as its baseline."
+msgstr "La comparativa estará disponible a partir de %s, tomando como base el ejercicio anterior."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Credit notes only"
+msgstr "Solo rectificativas"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Customer detail"
+msgstr "Detalle de clientes"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: model:ir.actions.client,name:servincom_account_dashboard.action_customer_evolution
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_customer_evolution
+msgid "Customer evolution"
+msgstr "Evolución de clientes"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Customer invoices"
+msgstr "Facturas de cliente"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Customer status"
+msgstr "Situación del cliente"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_ir_ui_view_custom__servincom_dashboard_layout_version
+msgid "Dashboard layout version"
+msgstr "Versión de disposición del cuadro"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Detail"
+msgstr "Detalle"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/board.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_summary
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
+msgid "Detailed monthly results"
+msgstr "Resultados mensuales desglosados"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Find customer"
+msgstr "Buscar cliente"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__comparison_start_year
+msgid "First comparison year"
+msgstr "Primer año de comparación"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "First recorded purchase"
+msgstr "Primera compra registrada"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,help:servincom_account_dashboard.field_servincom_account_dashboard__comparison_start_year
+msgid "First year to compare with the previous year. Check that the baseline accounting is complete."
+msgstr "Primer ejercicio que se comparará con el anterior. Comprueba que la contabilidad del año base esté completa."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Income"
+msgstr "Ingresos"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Last purchase"
+msgstr "Última compra"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Loading report…"
+msgstr "Cargando informe…"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Month"
+msgstr "Mes"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Monthly comparison"
+msgstr "Comparativa mensual"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Monthly evolution"
+msgstr "Evolución mensual"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Monthly result evolution"
+msgstr "Evolución del resultado mensual"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/board.py:0
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_compact
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_board
+msgid "Monthly summary"
+msgstr "Resumen mensual"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Next"
+msgstr "Siguiente"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "No customers match these filters."
+msgstr "No hay clientes que coincidan con estos filtros."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "No purchases in period"
+msgstr "Sin compra en el periodo"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Open journal items"
+msgstr "Abrir apuntes contables"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Percent change is shown only when the previous amount is positive. Figures follow your access permissions."
+msgstr "La variación porcentual se muestra solo cuando el importe anterior es positivo. Las cifras respetan tus permisos de acceso."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Posted customer invoices, untaxed and net of credit notes, in company currency. Contacts are grouped by commercial customer. Active means at least one positive invoice; credit notes alone are not a purchase. First recorded purchase depends on the available invoice history. Last purchase is measured up to the cutoff across all salespeople. No purchase does not mean a lost customer."
+msgstr "Facturas de cliente publicadas, sin impuestos y netas de rectificativas, en moneda de la empresa. Los contactos se agrupan por cliente comercial. Activo significa al menos una factura positiva; una rectificativa no cuenta como compra. La primera compra registrada depende del histórico de facturas disponible. La última compra se calcula hasta el corte y para todos los comerciales. Sin compra no significa cliente perdido."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Previous"
+msgstr "Anterior"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Purchases and expenses"
+msgstr "Compras y gastos"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Purchases down"
+msgstr "Con caída de compras"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Purchases up"
+msgstr "Compras en aumento"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Refresh"
+msgstr "Actualizar"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Result"
+msgstr "Resultado"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Review the MIS formula error before using the summary."
+msgstr "Revisa el error de la fórmula MIS antes de utilizar el resumen."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Salesperson"
+msgstr "Comercial"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Same MIS formulas and journal exclusions as monthly results. Months after the cutoff are not forecasts. An empty prior period cannot be treated as a zero baseline."
+msgstr "Mismas fórmulas MIS y exclusiones de diarios que en los resultados mensuales. Los meses posteriores al corte no son previsiones. Un periodo anterior sin datos no equivale a una base de cero."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Same totals and filters as the detailed monthly results below."
+msgstr "Mismos totales y filtros que los resultados mensuales desglosados de abajo."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "See monthly counts"
+msgstr "Ver recuentos mensuales"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Situation"
+msgstr "Situación"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "The MIS report must contain income_total, expenses_total and monthly_result."
+msgstr "El informe MIS debe contener income_total, expenses_total y monthly_result."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+msgid "The report could not be loaded. Try again."
+msgstr "No se ha podido cargar el informe. Vuelve a intentarlo."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "The summary requires one value per indicator and month."
+msgstr "El resumen necesita un único valor por indicador y mes."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "The summary requires twelve calendar months and one annual total."
+msgstr "El resumen necesita doce meses naturales y un total anual."
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_year
+msgid "The year is shared by all three tables for the active company."
+msgstr "El ejercicio se comparte entre las tres tablas de la empresa activa."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "There are no visible accounting entries in one of the periods. Review the baseline before comparing."
+msgstr "No hay apuntes contables visibles en uno de los periodos. Revisa el año base antes de comparar."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "This period has not started yet. Select a year with recorded invoices."
+msgstr "Este periodo todavía no ha comenzado. Selecciona un año con facturas registradas."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Through month"
+msgstr "Hasta el mes"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Unchanged"
+msgstr "Sin variación"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "View invoices"
+msgstr "Ver facturas"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "customers"
+msgstr "clientes"

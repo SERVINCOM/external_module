@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="action_choose_year" model="ir.actions.server">
-        <field name="name">Choose year for both tables</field>
+        <field name="name">Choose year for all three tables</field>
         <field name="model_id" ref="model_servincom_account_dashboard"/>
         <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
         <field name="state">code</field>
         <field name="code">action = model.action_choose_year()</field>
+    </record>
+    <record id="view_compact_card" model="ir.ui.view">
+        <field name="name">servincom.account.dashboard.compact</field>
+        <field name="model">mis.report.instance</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false" class="o_servincom_account_dashboard" js_class="servincom_dashboard_card">
+                <sheet>
+                    <field name="name" invisible="1"/>
+                    <field name="display_name" invisible="1"/>
+                    <a href="/odoo/action-%(action_choose_year)d" class="btn btn-primary mb-3" role="button">Choose year for all three tables</a>
+                    <field name="id" widget="servincom_monthly_summary" nolabel="1" style="width:100%"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_compact" model="ir.actions.act_window">
+        <field name="name">Monthly summary</field>
+        <field name="res_model">mis.report.instance</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_compact_card"/>
     </record>
     <record id="view_summary_card" model="ir.ui.view">
         <field name="name">servincom.account.dashboard.summary</field>
@@ -16,7 +37,6 @@
                 <sheet>
                     <field name="name" invisible="1"/>
                     <field name="display_name" invisible="1"/>
-                    <a href="/odoo/action-%(action_choose_year)d" class="btn btn-primary mb-3" role="button">Choose year for both tables</a>
                     <field name="id" widget="mis_report_widget" nolabel="1" style="width:100%"/>
                 </sheet>
             </form>
@@ -37,13 +57,13 @@
         </field>
     </record>
     <record id="action_summary" model="ir.actions.act_window">
-        <field name="name">Monthly results</field>
+        <field name="name">Detailed monthly results</field>
         <field name="res_model">mis.report.instance</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_summary_card"/>
     </record>
     <record id="action_detail" model="ir.actions.act_window">
-        <field name="name">Account detail</field>
+        <field name="name">Accounting detail of monthly results</field>
         <field name="res_model">mis.report.instance</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_detail_card"/>
@@ -54,8 +74,9 @@
         <field name="arch" type="xml">
             <form string="Accounting dashboards">
                 <board style="1"><column>
-                    <action name="%(action_summary)d" string="Monthly results" view_mode="form"/>
-                    <action name="%(action_detail)d" string="Account detail" view_mode="form"/>
+                    <action name="%(action_compact)d" string="Monthly summary" view_mode="form"/>
+                    <action name="%(action_summary)d" string="Detailed monthly results" view_mode="form"/>
+                    <action name="%(action_detail)d" string="Accounting detail of monthly results" view_mode="form"/>
                 </column></board>
             </form>
         </field>
@@ -80,7 +101,7 @@
         <field name="arch" type="xml">
             <form string="Choose year">
                 <group><field name="year" options="{'enable_formatting': False}"/></group>
-                <p>The year is shared by both tables for the active company.</p>
+                <p>The year is shared by all three tables for the active company.</p>
                 <footer>
                     <button name="action_apply" type="object" string="Apply year" class="btn-primary"/>
                     <button special="cancel" string="Cancel"/>
@@ -104,6 +125,7 @@
                 <sheet><group>
                     <field name="company_id" readonly="1"/>
                     <field name="year" readonly="1"/>
+                    <field name="comparison_start_year"/>
                     <field name="summary_instance_id" readonly="1"/>
                     <field name="detail_instance_id" readonly="1"/>
                     <field name="excluded_journal_ids" widget="many2many_tags" domain="[('company_id', '=', company_id)]"/>
