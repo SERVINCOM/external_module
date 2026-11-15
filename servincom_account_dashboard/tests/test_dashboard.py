@@ -16,13 +16,14 @@ class TestAccountDashboard(TransactionCase):
         super().setUpClass()
         cls.company = cls.env["res.company"].create({"name": "Dashboard Test Company"})
         cls.other_company = cls.env["res.company"].create({"name": "Dashboard Other Company"})
+        user_env = cls.env(context=dict(cls.env.context, no_reset_password=True))
         cls.reader = new_test_user(
-            cls.env, login="dashboard_reader_test", name="Dashboard Reader",
+            user_env, login="dashboard_reader_test", name="Dashboard Reader",
             groups="servincom_account_dashboard.group_dashboard_reader",
             company_id=cls.company.id, company_ids=[Command.set(cls.company.ids)],
         )
         cls.denied = new_test_user(
-            cls.env, login="dashboard_denied_test", name="Dashboard Denied",
+            user_env, login="dashboard_denied_test", name="Dashboard Denied",
             groups="account.group_account_manager", company_id=cls.company.id,
             company_ids=[Command.set(cls.company.ids)],
         )
@@ -118,7 +119,7 @@ class TestAccountDashboard(TransactionCase):
                         cause = cause.__cause__ or cause.__context__
                     self.assertIsInstance(cause, AccessError)
                 else:
-                    self.fail("A user without the checkbox exported a protected report")
+                    self.fail("Unchecked user exported a protected report through %s" % method)
 
     def test_posted_results_refunds_and_excluded_journal(self):
         env = self.env(context=dict(self.env.context, allowed_company_ids=self.company.ids))
@@ -137,9 +138,9 @@ class TestAccountDashboard(TransactionCase):
         self.dashboard.excluded_journal_ids = closing
         self.dashboard.action_apply_journals()
 
-        def move(journal_record, balances, posted=True):
+        def move(journal_record, balances, posted=True, entry_date=date(2026, 1, 15)):
             entry = env["account.move"].create({
-                "journal_id": journal_record.id, "date": date(2026, 1, 15),
+                "journal_id": journal_record.id, "date": entry_date,
                 "line_ids": [Command.create({
                     "name": "Dashboard test", "account_id": account.id,
                     "debit": max(balance, 0), "credit": max(-balance, 0),
@@ -153,11 +154,15 @@ class TestAccountDashboard(TransactionCase):
         move(journal, [10, -5, -5])
         move(closing, [90, -35, -55])
         move(journal, [-999, 0, 999], posted=False)
+        move(journal, [-200, 50, 150], entry_date=date(2025, 12, 15))
         for instance in self.instances:
             rows = {row["label"]: row for row in self._as_reader(instance).compute()["body"]}
             self.assertAlmostEqual(rows["TOTAL INCOME"]["cells"][0]["val"], 90)
             self.assertAlmostEqual(rows["TOTAL PURCHASES AND EXPENSES"]["cells"][0]["val"], 35)
             self.assertAlmostEqual(rows["MONTHLY ACCOUNTING RESULT"]["cells"][0]["val"], 55)
             self.assertAlmostEqual(rows["MONTHLY ACCOUNTING RESULT"]["cells"][12]["val"], 55)
+            if "CUMULATIVE RESULT" in rows:
+                self.assertAlmostEqual(rows["CUMULATIVE RESULT"]["cells"][0]["val"], 55)
+                self.assertAlmostEqual(rows["CUMULATIVE RESULT"]["cells"][11]["val"], 55)
         with self.assertRaises(AccessError):
             self._as_reader(entry).write({"ref": "Forbidden"})
