@@ -1,7 +1,9 @@
 # Copyright 2026 SERVINCOM SOLUCIONES, S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0).
+from datetime import timedelta
+
 from odoo import api, fields, models
-from odoo.tools import SQL
+from odoo.tools import SQL, format_date, get_lang
 
 
 class AccountMaturity(models.Model):
@@ -44,6 +46,7 @@ class AccountMaturity(models.Model):
         ("upcoming", "Not yet due"), ("missing", "No due date"),
     ], string="Due status", readonly=True)
     is_partial = fields.Boolean(string="Partially settled", readonly=True)
+    is_due_this_week = fields.Boolean(string="This week", readonly=True)
     amount_original = fields.Monetary(
         string="Original installment", currency_field="company_currency_id", readonly=True,
     )
@@ -103,6 +106,9 @@ class AccountMaturity(models.Model):
             ("account_id.account_type", "in", ["asset_receivable", "liability_payable"]),
         ])
         sign = SQL("CASE WHEN account.account_type = 'liability_payable' THEN -1 ELSE 1 END")
+        today = fields.Date.context_today(self)
+        first_weekday = int(get_lang(self.env).week_start) - 1
+        week_start = today - timedelta(days=(today.weekday() - first_weekday) % 7)
         return SQL("""
             SELECT line.id, line.id AS line_id, line.move_id, line.name,
                    move.ref AS reference, line.partner_id, line.company_id,
@@ -118,6 +124,8 @@ class AccountMaturity(models.Model):
                         ELSE 'upcoming' END AS due_state,
                    (line.amount_residual != line.balance OR
                     line.amount_residual_currency != line.amount_currency) AS is_partial,
+                   COALESCE(line.date_maturity >= %(week_start)s AND
+                            line.date_maturity < %(week_end)s, FALSE) AS is_due_this_week,
                    %(sign)s * line.balance AS amount_original,
                    %(sign)s * line.amount_residual AS amount_pending,
                    %(sign)s * line.amount_residual_currency AS amount_pending_currency
@@ -125,7 +133,23 @@ class AccountMaturity(models.Model):
               JOIN account_move move ON move.id = line.move_id
               JOIN account_account account ON account.id = line.account_id
              WHERE line.id IN (%(source)s)
-        """, today=fields.Date.context_today(self), sign=sign, source=source.select())
+        """, today=today, week_start=week_start, week_end=week_start + timedelta(days=7),
+                   sign=sign, source=source.select())
+
+    @api.model
+    def _read_group_format_result(self, rows_dict, lazy_groupby):
+        super()._read_group_format_result(rows_dict, lazy_groupby)
+        # Retain Odoo's grouping and drill-down domain. Its upper bound is
+        # exclusive; display the last included day in the localized label.
+        for row in rows_dict:
+            bounds = row.get("__range", {}).get("due_date:week")
+            if bounds:
+                start = fields.Date.to_date(bounds["from"])
+                end = fields.Date.to_date(bounds["to"]) - timedelta(days=1)
+                row["due_date:week"] = "%s (%s – %s)" % (
+                    row["due_date:week"], format_date(self.env, start),
+                    format_date(self.env, end),
+                )
 
     @api.model
     def _open_maturities(self, direction):
@@ -138,8 +162,8 @@ class AccountMaturity(models.Model):
             "servincom_account_dashboard." + action_xmlid
         )
         action["name"] = (
-            self.env._("Sales maturities - receivables") if direction == "receivable"
-            else self.env._("Purchase maturities - payables")
+            self.env._("Sales (receivables)") if direction == "receivable"
+            else self.env._("Purchases (payables)")
         ) + " · " + company.currency_id.name
         action["display_name"] = action["name"]
         # One active company per screen: totals must never mix currencies.

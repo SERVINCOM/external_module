@@ -15,6 +15,7 @@
                 <filter name="upcoming" string="Not yet due" domain="[('due_state', '=', 'upcoming')]"/>
                 <filter name="missing_date" string="No due date" domain="[('due_state', '=', 'missing')]"/>
                 <separator/>
+                <filter name="this_week" string="This week" domain="[('is_due_this_week', '=', True)]"/>
                 <filter name="next_30_days" string="Next 30 days" domain="[('date_maturity', '&gt;=', context_today().strftime('%Y-%m-%d')), ('date_maturity', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
                 <separator/>
                 <filter name="partial" string="Partially settled" domain="[('is_partial', '=', True)]"/>
@@ -110,7 +111,7 @@
     <!-- Persist direction and active-company scope in distinct window actions.
          Reloads, breadcrumbs, links and favorites must retain the same report. -->
     <record id="action_receivable_maturity_window" model="ir.actions.act_window">
-        <field name="name">Sales maturities - receivables</field>
+        <field name="name">Sales (receivables)</field>
         <field name="res_model">servincom.account.maturity</field>
         <field name="view_mode">pivot,list,graph,form</field>
         <field name="search_view_id" ref="view_maturity_search"/>
@@ -119,7 +120,7 @@
         <field name="help" type="html"><p>Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance.</p></field>
     </record>
     <record id="action_payable_maturity_window" model="ir.actions.act_window">
-        <field name="name">Purchase maturities - payables</field>
+        <field name="name">Purchases (payables)</field>
         <field name="res_model">servincom.account.maturity</field>
         <field name="view_mode">pivot,list,graph,form</field>
         <field name="search_view_id" ref="view_maturity_search"/>
@@ -128,19 +129,19 @@
         <field name="help" type="html"><p>Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance.</p></field>
     </record>
     <record id="action_receivable_maturities" model="ir.actions.server">
-        <field name="name">Sales maturities - receivables</field>
+        <field name="name">Sales (receivables)</field>
         <field name="model_id" ref="model_servincom_account_maturity"/>
         <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
         <field name="state">code</field>
         <field name="code">action = model.action_open_receivables()</field>
     </record>
     <record id="action_payable_maturities" model="ir.actions.server">
-        <field name="name">Purchase maturities - payables</field>
+        <field name="name">Purchases (payables)</field>
         <field name="model_id" ref="model_servincom_account_maturity"/>
         <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
         <field name="state">code</field>
         <field name="code">action = model.action_open_payables()</field>
     </record>
-    <menuitem id="menu_receivable_maturities" name="Sales maturities - receivables" parent="menu_dashboard" action="action_receivable_maturities" groups="group_dashboard_reader" sequence="20"/>
-    <menuitem id="menu_payable_maturities" name="Purchase maturities - payables" parent="menu_dashboard" action="action_payable_maturities" groups="group_dashboard_reader" sequence="30"/>
+    <menuitem id="menu_receivable_maturities" name="Sales (receivables)" parent="menu_dashboard" action="action_receivable_maturities" groups="group_dashboard_reader" sequence="20"/>
+    <menuitem id="menu_payable_maturities" name="Purchases (payables)" parent="menu_dashboard" action="action_payable_maturities" groups="group_dashboard_reader" sequence="30"/>
 </odoo>

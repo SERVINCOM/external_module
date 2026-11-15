@@ -26,7 +26,7 @@ Las plantillas XML se cargan con `noupdate=1` para conservar adaptaciones poster
 
 ## Vencimientos de ventas y compras
 
-En **Contabilidad → Informes → Cuadro de mando**, las entradas **Vencimientos de ventas — cobros** y **Vencimientos de compras — pagos** muestran el pendiente actual por semana. La vista inicial es una tabla dinámica: pulsar un importe abre el detalle; los botones superiores permiten alternar tabla, lista y gráfico. Se pueden descargar los datos y guardar filtros personales mediante las funciones estándar de Odoo.
+En **Contabilidad → Informes → Cuadro de mando**, las entradas **Ventas (cobros)** y **Compras (pagos)** muestran el pendiente actual por semana. La vista inicial es una tabla dinámica: pulsar un importe abre el detalle; los botones superiores permiten alternar tabla, lista y gráfico. Se pueden descargar los datos y guardar filtros personales mediante las funciones estándar de Odoo.
 
 Cada fila de detalle corresponde a un plazo contable pendiente, no a una factura completa. Muestra cliente/proveedor, documento, referencia, fecha de factura, vencimiento, importe original del plazo, pendiente actual, estado y liquidación parcial. El botón **Abrir documento** lleva a la factura, rectificativa o asiento original con los permisos del usuario.
 
@@ -42,6 +42,8 @@ Los filtros permiten ver vencidos, vencimientos de hoy, próximos 30 días, ause
 - La fuente conserva las reglas de acceso a apuntes de Odoo y de otros addons, además del permiso independiente y la separación por compañía. No se usan permisos elevados para consultar saldos. La vista es de solo lectura y no crea ni modifica facturas, pagos ni conciliaciones.
 
 La diferencia entre cobros y pagos se puede obtener de los dos totales para el mismo periodo; esta versión mantiene los cuadros separados y no añade un tercer cuadro de tesorería combinado.
+
+Las etiquetas semanales incluyen el intervalo completo, por ejemplo **W1 2026 (29/12/2025 – 04/01/2026)**. **Esta semana** selecciona vencimientos de la semana natural según el idioma del usuario (lunes a domingo en español), incluidos los días ya transcurridos. Se conservan **Vence hoy** y **Próximos 30 días**; los registros sin fecha de vencimiento quedan fuera de estos filtros. Los importes de las filas de resultado respetan el color de su estilo MIS también al pulsarlos.
 
 ## Seguridad y mantenimiento
 

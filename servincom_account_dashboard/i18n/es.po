@@ -816,8 +816,8 @@ msgstr "Pendiente en moneda del documento"
 #: model:ir.actions.server,name:servincom_account_dashboard.action_receivable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_receivable_maturities
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_receivable_maturity_window
-msgid "Sales maturities - receivables"
-msgstr "Vencimientos de ventas — cobros"
+msgid "Sales (receivables)"
+msgstr "Ventas (cobros)"
 
 #. module: servincom_account_dashboard
 #. odoo-python
@@ -825,8 +825,8 @@ msgstr "Vencimientos de ventas — cobros"
 #: model:ir.actions.server,name:servincom_account_dashboard.action_payable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_payable_maturities
 #: model:ir.actions.act_window,name:servincom_account_dashboard.action_payable_maturity_window
-msgid "Purchase maturities - payables"
-msgstr "Vencimientos de compras — pagos"
+msgid "Purchases (payables)"
+msgstr "Compras (pagos)"
 
 #. module: servincom_account_dashboard
 #: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
@@ -912,3 +912,9 @@ msgstr "Saldos pendientes actuales en la moneda de la empresa, agrupados por sem
 #: model:ir.rule,name:servincom_account_dashboard.rule_maturity_company
 msgid "Outstanding maturities: allowed companies"
 msgstr "Vencimientos pendientes: empresas permitidas"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__is_due_this_week
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "This week"
+msgstr "Esta semana"

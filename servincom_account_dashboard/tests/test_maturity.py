@@ -1,6 +1,7 @@
 # Copyright 2026 SERVINCOM SOLUCIONES, S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0).
 from datetime import date, timedelta
+from unittest.mock import patch
 
 from odoo import Command, fields
 from odoo.exceptions import AccessError
@@ -155,6 +156,51 @@ class TestAccountMaturity(TransactionCase):
         row = self.report.browse(lines[0].id)
         self.assertEqual(row.due_state, "missing")
         self.assertEqual(row.due_date, row.accounting_date)
+
+    def test_this_week_filter_boundaries_and_missing_dates(self):
+        lines = self._entry(self.receivable, [
+            (10, date(2025, 12, 28)), (20, date(2025, 12, 29)),
+            (30, date(2026, 1, 3)), (40, date(2026, 1, 4)),
+            (50, date(2026, 1, 5)), (60, date(2026, 1, 2)),
+        ])
+        self.env.cr.execute(
+            "UPDATE account_move_line SET date_maturity = NULL WHERE id = %s", [lines[-1].id]
+        )
+        report = self.report.with_context(lang="en_US")
+        lang = self.env.ref("base.lang_en")
+        for week_start, expected in [("1", lines[1:4]), ("7", lines[:3])]:
+            lang.week_start = week_start
+            self.env.invalidate_all()
+            # Friday in a week spanning two calendar years.
+            with patch("odoo.fields.Date.context_today", return_value=date(2026, 1, 2)):
+                rows = report.search([
+                    ("id", "in", lines.ids), ("is_due_this_week", "=", True),
+                ])
+                self.assertEqual(set(rows.ids), set(expected.ids))
+                self.assertTrue(all(rows.mapped("is_due_this_week")))
+                other = report.search([
+                    ("id", "in", lines.ids), ("is_due_this_week", "=", False),
+                ])
+                self.assertEqual(set(other.ids), set(lines.ids) - set(expected.ids))
+
+    def test_week_labels_preserve_ranges_totals_and_drilldown(self):
+        self.env.ref("base.lang_en").write({"week_start": "1", "date_format": "%m/%d/%Y"})
+        lines = self._entry(self.receivable, [
+            (10, date(2025, 12, 29)), (20, date(2026, 1, 4)), (40, date(2026, 1, 5)),
+        ])
+        report = self.report.with_context(lang="en_US")
+        domain = [("id", "in", lines.ids)]
+        groups = report.read_group(domain, ["amount_pending:sum"], ["due_date:week"], lazy=False)
+        self.assertEqual(len(groups), 2)
+        first = next(g for g in groups if g["__range"]["due_date:week"]["from"] == "2025-12-29")
+        self.assertTrue(first["due_date:week"].startswith("W1 2026 ("))
+        self.assertIn("12/29/2025", first["due_date:week"])
+        self.assertTrue(first["due_date:week"].endswith("01/04/2026)"))
+        self.assertEqual(first["amount_pending"], 30)
+        self.assertEqual(set(report.search(first["__domain"]).ids), set(lines[:2].ids))
+        self.assertEqual(sum(g["amount_pending"] for g in groups), 70)
+        months = report.read_group(domain, ["amount_pending:sum"], ["due_date:month"])
+        self.assertTrue(all("(" not in g["due_date:month"] for g in months))
 
     def test_foreign_currency_is_not_summed_with_company_amounts(self):
         currency = self.env["res.currency"].create({"name": "XMT", "symbol": "X", "rounding": 0.01})
