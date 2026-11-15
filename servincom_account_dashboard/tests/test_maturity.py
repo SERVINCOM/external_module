@@ -5,6 +5,7 @@ from datetime import date, timedelta
 from odoo import Command, fields
 from odoo.exceptions import AccessError
 from odoo.tests import TransactionCase, new_test_user, tagged
+from odoo.tools.safe_eval import safe_eval
 
 
 @tagged("post_install", "-at_install")
@@ -180,8 +181,16 @@ class TestAccountMaturity(TransactionCase):
             row.write({"name": "Forbidden"})
         with self.assertRaises(AccessError):
             self.report.with_context(allowed_company_ids=self.other_company.ids).search([])
-        for action in [self.report.action_open_receivables(), self.report.action_open_payables()]:
+        actions = [self.report.action_open_receivables(), self.report.action_open_payables()]
+        self.assertNotEqual(actions[0]["id"], actions[1]["id"])
+        for action in actions:
             self.assertIn(("company_id", "=", self.company.id), action["domain"])
+            self.assertEqual(action["name"], action["display_name"])
+            saved = self.env["ir.actions.act_window"].browse(action["id"])
+            self.assertEqual(
+                safe_eval(saved.domain, {"allowed_company_ids": self.company.ids}),
+                action["domain"],
+            )
         self.reader.servincom_dashboard_access = False
         with self.assertRaises(AccessError):
             row.export_data(["amount_pending"])

@@ -104,6 +104,27 @@
         <field name="res_model">servincom.account.maturity</field>
         <field name="view_mode">pivot,list,graph,form</field>
         <field name="search_view_id" ref="view_maturity_search"/>
+        <field name="domain">[('id', '=', 0)]</field>
+        <field name="help" type="html"><p>Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance.</p></field>
+    </record>
+    <!-- Persist direction and active-company scope in distinct window actions.
+         Reloads, breadcrumbs, links and favorites must retain the same report. -->
+    <record id="action_receivable_maturity_window" model="ir.actions.act_window">
+        <field name="name">Sales maturities - receivables</field>
+        <field name="res_model">servincom.account.maturity</field>
+        <field name="view_mode">pivot,list,graph,form</field>
+        <field name="search_view_id" ref="view_maturity_search"/>
+        <field name="domain">[('direction', '=', 'receivable'), ('company_id', '=', allowed_company_ids[0])]</field>
+        <field name="context">{'search_default_group_week': 1}</field>
+        <field name="help" type="html"><p>Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance.</p></field>
+    </record>
+    <record id="action_payable_maturity_window" model="ir.actions.act_window">
+        <field name="name">Purchase maturities - payables</field>
+        <field name="res_model">servincom.account.maturity</field>
+        <field name="view_mode">pivot,list,graph,form</field>
+        <field name="search_view_id" ref="view_maturity_search"/>
+        <field name="domain">[('direction', '=', 'payable'), ('company_id', '=', allowed_company_ids[0])]</field>
+        <field name="context">{'search_default_group_week': 1}</field>
         <field name="help" type="html"><p>Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance.</p></field>
     </record>
     <record id="action_receivable_maturities" model="ir.actions.server">

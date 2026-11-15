@@ -815,6 +815,7 @@ msgstr "Pendiente en moneda del documento"
 #: code:addons/servincom_account_dashboard/models/account_maturity.py:0
 #: model:ir.actions.server,name:servincom_account_dashboard.action_receivable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_receivable_maturities
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_receivable_maturity_window
 msgid "Sales maturities - receivables"
 msgstr "Vencimientos de ventas — cobros"
 
@@ -823,6 +824,7 @@ msgstr "Vencimientos de ventas — cobros"
 #: code:addons/servincom_account_dashboard/models/account_maturity.py:0
 #: model:ir.actions.server,name:servincom_account_dashboard.action_payable_maturities
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_payable_maturities
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_payable_maturity_window
 msgid "Purchase maturities - payables"
 msgstr "Vencimientos de compras — pagos"
 
@@ -901,6 +903,8 @@ msgstr "Se muestran los saldos pendientes actuales, no el saldo histórico a la 
 
 #. module: servincom_account_dashboard
 #: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_maturity
+#: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_receivable_maturity_window
+#: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_payable_maturity_window
 msgid "Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance."
 msgstr "Saldos pendientes actuales en la moneda de la empresa, agrupados por semana de vencimiento. Pulsa un importe para ver sus documentos. Las rectificativas y los anticipos sin aplicar reducen el saldo."
 

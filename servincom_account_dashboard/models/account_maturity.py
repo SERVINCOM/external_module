@@ -130,13 +130,18 @@ class AccountMaturity(models.Model):
     @api.model
     def _open_maturities(self, direction):
         company = self.env["servincom.account.dashboard"]._check_dashboard_access()
+        action_xmlid = (
+            "action_receivable_maturity_window" if direction == "receivable"
+            else "action_payable_maturity_window"
+        )
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "servincom_account_dashboard.action_maturity"
+            "servincom_account_dashboard." + action_xmlid
         )
         action["name"] = (
             self.env._("Sales maturities - receivables") if direction == "receivable"
             else self.env._("Purchase maturities - payables")
         ) + " · " + company.currency_id.name
+        action["display_name"] = action["name"]
         # One active company per screen: totals must never mix currencies.
         action["domain"] = [("direction", "=", direction), ("company_id", "=", company.id)]
         action["context"] = dict(self.env.context, search_default_group_week=1)
