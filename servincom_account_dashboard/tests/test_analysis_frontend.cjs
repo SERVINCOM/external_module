@@ -20,7 +20,7 @@ const points = Array.from({length: 12}, (_, i) => ({month: i + 1,
     current: i ? null : 1, previous: i ? null : 2}));
 component.state = {filter: 'all', search: '', page: 0, showCurrent: true, showPrevious: true,
     sortKey: 'current', sortDirection: 'desc', salesScope: 'comparable',
-    collapsedPanels: {sales: false, customers: false, result: false},
+    collapsedPanels: {sales: false, customers: false, detail: false, result: false},
     chartVisibility: {sales: {current: true, previous: true},
         customers: {current: true, previous: true}, result: {current: true, previous: true}}, data: {
     year: 2026, previous_year: 2025, end_month: 1, salesperson_id: 7, historical_years: [2025],

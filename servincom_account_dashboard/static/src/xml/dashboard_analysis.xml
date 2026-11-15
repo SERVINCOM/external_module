@@ -94,8 +94,9 @@
                             </div>
                         </section>
                         <section class="o_servincom_panel" t-if="customers">
-                            <div class="d-flex gap-2 flex-wrap align-items-center mb-3">
-                                <h3 class="me-auto mb-0">Customer detail</h3>
+                            <h3 class="mb-0"><button type="button" class="o_servincom_panel_toggle" t-att-aria-expanded="!state.collapsedPanels.detail ? 'true' : 'false'" t-on-click="() => this.togglePanel('detail')"><span aria-hidden="true" t-esc="state.collapsedPanels.detail ? '▸' : '▾'"/><span>Customer detail</span><small class="ms-auto"><t t-if="state.collapsedPanels.detail">Expand</t><t t-else="">Collapse</t></small></button></h3>
+                            <div t-if="!state.collapsedPanels.detail" class="o_servincom_panel_content">
+                            <div class="d-flex gap-2 flex-wrap align-items-center justify-content-end mb-3">
                                 <button class="btn btn-light" t-on-click="() => this.setFilter('all')">All</button>
                                 <select t-if="bothYears" class="form-select w-auto" t-model="state.filter" t-on-change="() => { this.state.page = 0; }" aria-label="Customer status">
                                     <option value="all">All situations</option><option value="active">Active customers</option><option value="decline">Purchases down</option><option value="no_purchase">No purchases in period</option><option value="new">First recorded purchase</option><option value="recovered">Buying again</option><option value="growth">Purchases up</option><option value="stable">Unchanged</option><option value="credits">Credit notes only</option><option value="unavailable">No comparable data</option>
@@ -114,6 +115,7 @@
                                 <span>of</span><strong t-esc="pageCount"/>
                                 <button class="btn btn-light" t-att-disabled="pageCount &lt;= 1" t-on-click="() => this.movePage(1)" title="Next page; from the last page, go to the first">Next</button>
                             </nav>
+                            </div>
                         </section>
                         <section class="o_servincom_panel" t-else="">
                             <h3>Monthly comparison</h3>

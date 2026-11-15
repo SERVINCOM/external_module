@@ -151,5 +151,5 @@
     </record>
     <menuitem id="menu_dashboard" name="Dashboard" parent="account.menu_finance_reports" groups="group_dashboard_reader" sequence="60"/>
     <menuitem id="menu_results" name="Monthly results" parent="menu_dashboard" action="action_open" groups="group_dashboard_reader" sequence="10"/>
-    <menuitem id="menu_configuration" name="Dashboard configuration" parent="account.menu_finance_configuration" action="action_configuration" groups="base.group_system" sequence="95"/>
+    <menuitem id="menu_configuration" name="Dashboard configuration" parent="mis_builder.mis_report_conf_menu" action="action_configuration" groups="base.group_system" sequence="95"/>
 </odoo>

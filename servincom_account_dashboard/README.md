@@ -20,7 +20,9 @@ Las plantillas están destinadas al plan contable español basado en grupos 6 y 
 
 Al instalar se crean plantillas e instancias independientes por empresa; para nuevas empresas se crean al abrir el cuadro. No se crean cuentas, facturas ni asientos. Cada empresa conserva su moneda, su ejercicio seleccionado y sus exclusiones.
 
-Antes de usar las cifras, revisar **Contabilidad → Configuración → Configuración de cuadros de mando**, seleccionar los diarios de apertura/cierre que proceda excluir y pulsar **Aplicar diarios excluidos**. No se adivinan códigos de diarios ni se excluyen cierres de TPV. Las plantillas genéricas agrupan las comisiones en 626 y los intereses en 662; no incluyen códigos particulares de un cliente.
+Antes de usar las cifras, revisar **Contabilidad → Configuración → MIS → Configuración de cuadros de mando**, seleccionar los diarios de apertura/cierre que proceda excluir y pulsar **Aplicar diarios excluidos**. No se adivinan códigos de diarios ni se excluyen cierres de TPV. Las plantillas genéricas agrupan las comisiones en 626 y los intereses en 662; no incluyen códigos particulares de un cliente.
+
+Desde la versión 18.0.1.4.2, **Configuración de cuadros de mando** e **Histórico de clientes** pertenecen al grupo **MIS**, al mismo nivel que las plantillas y estilos de MIS Builder. Mantienen sus acciones y el acceso reservado a administradores de Ajustes.
 
 Las plantillas XML se cargan con `noupdate=1` para conservar adaptaciones posteriores. Para añadir nuevos cuadros se pueden heredar el modelo, las vistas y las plantillas desde otro addon con una responsabilidad concreta. Se mantienen el análisis de facturación nativo y los dos cuadros de vencimientos. No se añaden presupuestos.
 
@@ -78,6 +80,10 @@ su cabecera, conservando su selección de líneas mientras el cuadro sigue abier
 Hay más espacio entre los meses del eje y la tabla que aparece debajo.
 **Ver número de clientes por mes** despliega los clientes distintos con al menos
 una factura positiva en cada mes: un mismo cliente puede contar en varios meses.
+
+Desde la 18.0.1.4.2 también puede minimizarse **Detalle de clientes**, con el
+mismo control de cabecera. Al expandirlo se conservan la búsqueda, situación,
+ordenación y página seleccionadas mientras el cuadro permanece abierto.
 
 El histórico es parcial cuando solo se han cargado coincidencias; sus sumas no
 certifican la facturación completa de la empresa de origen. No se incorporan

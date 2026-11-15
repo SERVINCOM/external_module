@@ -54,7 +54,7 @@ export class DashboardAnalysis extends Component {
             loading: false, error: "", filter: "all", search: "", page: 0,
             showCurrent: true, showPrevious: true, sortKey: "current", sortDirection: "desc",
             salesScope: "comparable",
-            collapsedPanels: { sales: false, customers: false, result: false },
+            collapsedPanels: { sales: false, customers: false, detail: false, result: false },
             chartVisibility: {
                 sales: { current: true, previous: true },
                 customers: { current: true, previous: true },

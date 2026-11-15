@@ -105,6 +105,6 @@
         <field name="res_model">servincom.dashboard.history.batch</field>
         <field name="view_mode">list,form</field>
     </record>
-    <menuitem id="menu_customer_history" name="Customer history" parent="account.menu_finance_configuration"
+    <menuitem id="menu_customer_history" name="Customer history" parent="mis_builder.mis_report_conf_menu"
               action="action_customer_history_batches" groups="base.group_system" sequence="96"/>
 </odoo>
