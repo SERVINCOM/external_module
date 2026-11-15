@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_maturity_search" model="ir.ui.view">
+        <field name="name">servincom.account.maturity.search</field>
+        <field name="model">servincom.account.maturity</field>
+        <field name="arch" type="xml">
+            <search string="Outstanding maturities">
+                <field name="partner_id"/>
+                <field name="move_id"/>
+                <field name="reference"/>
+                <field name="journal_id"/>
+                <field name="account_id"/>
+                <filter name="overdue" string="Overdue" domain="[('due_state', '=', 'overdue')]"/>
+                <filter name="due_today" string="Due today" domain="[('due_state', '=', 'today')]"/>
+                <filter name="upcoming" string="Not yet due" domain="[('due_state', '=', 'upcoming')]"/>
+                <filter name="missing_date" string="No due date" domain="[('due_state', '=', 'missing')]"/>
+                <separator/>
+                <filter name="next_30_days" string="Next 30 days" domain="[('date_maturity', '&gt;=', context_today().strftime('%Y-%m-%d')), ('date_maturity', '&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter name="partial" string="Partially settled" domain="[('is_partial', '=', True)]"/>
+                <filter name="credits" string="Credits / unapplied payments" domain="[('amount_pending', '&lt;', 0)]"/>
+                <separator/>
+                <filter name="due_period" string="Due date" date="due_date"/>
+                <group expand="0" string="Group by">
+                    <filter name="group_week" string="Due week" context="{'group_by': 'due_date:week'}"/>
+                    <filter name="group_month" string="Due month" context="{'group_by': 'due_date:month'}"/>
+                    <filter name="group_year" string="Due year" context="{'group_by': 'due_date:year'}"/>
+                    <filter name="group_partner" string="Customer / vendor" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_status" string="Due status" context="{'group_by': 'due_state'}"/>
+                    <filter name="group_journal" string="Journal" context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_type" string="Document type" context="{'group_by': 'move_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_maturity_pivot" model="ir.ui.view">
+        <field name="name">servincom.account.maturity.pivot</field>
+        <field name="model">servincom.account.maturity</field>
+        <field name="arch" type="xml">
+            <pivot string="Current outstanding amounts by week">
+                <field name="due_date" type="row" interval="week"/>
+                <field name="amount_pending" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="view_maturity_list" model="ir.ui.view">
+        <field name="name">servincom.account.maturity.list</field>
+        <field name="model">servincom.account.maturity</field>
+        <field name="arch" type="xml">
+            <list string="Outstanding maturity detail" create="false" edit="false" delete="false"
+                  decoration-danger="due_state == 'overdue' and amount_pending &gt; 0"
+                  decoration-muted="amount_pending &lt; 0">
+                <field name="company_currency_id" column_invisible="True"/>
+                <field name="partner_id"/>
+                <field name="move_id"/>
+                <field name="reference" optional="show"/>
+                <field name="invoice_date" optional="show"/>
+                <field name="due_date"/>
+                <field name="due_state" widget="badge"/>
+                <field name="amount_original" sum="Original installments"/>
+                <field name="amount_pending" sum="Outstanding total"/>
+                <field name="is_partial" optional="show"/>
+                <field name="move_type" optional="hide"/>
+                <field name="journal_id" optional="hide"/>
+                <field name="account_id" optional="hide"/>
+                <field name="accounting_date" optional="hide"/>
+                <field name="date_maturity" optional="hide"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="amount_pending_currency" optional="hide"/>
+                <button name="action_open_document" type="object" icon="fa-external-link" string="Open document"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_maturity_form" model="ir.ui.view">
+        <field name="name">servincom.account.maturity.form</field>
+        <field name="model">servincom.account.maturity</field>
+        <field name="arch" type="xml">
+            <form string="Outstanding maturity" create="false" edit="false" delete="false">
+                <header><button name="action_open_document" type="object" string="Open document" class="oe_highlight"/></header>
+                <sheet>
+                    <group>
+                        <group><field name="partner_id"/><field name="move_id"/><field name="reference"/><field name="move_type"/><field name="name"/></group>
+                        <group><field name="invoice_date"/><field name="accounting_date"/><field name="date_maturity"/><field name="due_date"/><field name="due_state"/></group>
+                        <group><field name="company_id"/><field name="account_id"/><field name="journal_id"/><field name="line_id"/></group>
+                        <group><field name="company_currency_id"/><field name="amount_original"/><field name="amount_pending"/><field name="is_partial"/><field name="currency_id"/><field name="amount_pending_currency"/></group>
+                    </group>
+                    <p>These are current outstanding balances, not historical balances at the selected due date. Negative amounts are credit notes or unapplied payments. Missing due dates use the accounting date.</p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_maturity_graph" model="ir.ui.view">
+        <field name="name">servincom.account.maturity.graph</field>
+        <field name="model">servincom.account.maturity</field>
+        <field name="arch" type="xml">
+            <graph string="Current outstanding amounts by week" type="bar">
+                <field name="due_date" interval="week"/>
+                <field name="amount_pending" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="action_maturity" model="ir.actions.act_window">
+        <field name="name">Outstanding maturities</field>
+        <field name="res_model">servincom.account.maturity</field>
+        <field name="view_mode">pivot,list,graph,form</field>
+        <field name="search_view_id" ref="view_maturity_search"/>
+        <field name="help" type="html"><p>Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance.</p></field>
+    </record>
+    <record id="action_receivable_maturities" model="ir.actions.server">
+        <field name="name">Sales maturities - receivables</field>
+        <field name="model_id" ref="model_servincom_account_maturity"/>
+        <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_receivables()</field>
+    </record>
+    <record id="action_payable_maturities" model="ir.actions.server">
+        <field name="name">Purchase maturities - payables</field>
+        <field name="model_id" ref="model_servincom_account_maturity"/>
+        <field name="groups_id" eval="[Command.link(ref('group_dashboard_reader'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_payables()</field>
+    </record>
+    <menuitem id="menu_receivable_maturities" name="Sales maturities - receivables" parent="menu_dashboard" action="action_receivable_maturities" groups="group_dashboard_reader" sequence="20"/>
+    <menuitem id="menu_payable_maturities" name="Purchase maturities - payables" parent="menu_dashboard" action="action_payable_maturities" groups="group_dashboard_reader" sequence="30"/>
+</odoo>

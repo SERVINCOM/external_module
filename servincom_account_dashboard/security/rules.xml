@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
+  <record id="rule_maturity_company" model="ir.rule">
+    <field name="name">Outstanding maturities: allowed companies</field>
+    <field name="model_id" ref="model_servincom_account_maturity"/>
+    <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+  </record>
   <record id="rule_dashboard_company" model="ir.rule">
     <field name="name">Accounting dashboards: allowed companies</field>
     <field name="model_id" ref="model_servincom_account_dashboard"/>

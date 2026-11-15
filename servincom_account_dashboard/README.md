@@ -10,7 +10,7 @@ En **Ajustes → Usuarios y compañías → Usuarios → Permisos de acceso → 
 
 En la lista de Usuarios, **Añadir filtro personalizado → Ver cuadros de mando contables → está establecido** permite encontrar a quienes tienen acceso y guardar la búsqueda en Favoritos. La búsqueda consulta directamente la pertenencia al grupo, sin duplicar el permiso en una columna almacenada.
 
-El permiso habilita ambos informes, sus exportaciones y la consulta de apuntes. Implica el grupo estándar de contabilidad de solo lectura, por lo que permite consultar también otros datos contables sujetos a las reglas existentes. No concede escritura contable. Desmarcar la casilla bloquea estos cuadros incluso para un administrador contable; no revoca otros permisos contables que el usuario ya tenga. El superusuario de Odoo omite las reglas de registro.
+El permiso habilita los resultados, el detalle contable, los vencimientos de ventas/compras, sus exportaciones y la consulta de apuntes. Implica el grupo estándar de contabilidad de solo lectura, por lo que permite consultar también otros datos contables sujetos a las reglas existentes. No concede escritura contable. Desmarcar la casilla bloquea estos cuadros incluso para un administrador contable; no revoca otros permisos contables que el usuario ya tenga. El superusuario de Odoo omite las reglas de registro.
 
 Elegir el año desde el primer cuadro y pulsar **Aplicar año**. Los dos informes muestran doce meses y total anual. El año se guarda por empresa y es compartido: si otra persona lo cambia, se verá el último año aplicado al actualizar. La disposición, plegado y ocultación de tarjetas son personales. Las dos tablas comparten el desplazamiento vertical del tablero, sin barras verticales interiores en las tarjetas. El selector funciona con permiso de consulta, sin conceder edición sobre los informes.
 
@@ -22,7 +22,26 @@ Al instalar se crean plantillas e instancias independientes por empresa; para nu
 
 Antes de usar las cifras, revisar **Contabilidad → Configuración → Configuración de cuadros de mando**, seleccionar los diarios de apertura/cierre que proceda excluir y pulsar **Aplicar diarios excluidos**. No se adivinan códigos de diarios ni se excluyen cierres de TPV. Las plantillas genéricas agrupan las comisiones en 626 y los intereses en 662; no incluyen códigos particulares de un cliente.
 
-Las plantillas XML se cargan con `noupdate=1` para conservar adaptaciones posteriores. Para añadir nuevos cuadros se pueden heredar el modelo, las vistas y las plantillas desde otro addon con una responsabilidad concreta. Facturas de venta, comparativas, presupuestos y vencimientos no forman parte de esta versión.
+Las plantillas XML se cargan con `noupdate=1` para conservar adaptaciones posteriores. Para añadir nuevos cuadros se pueden heredar el modelo, las vistas y las plantillas desde otro addon con una responsabilidad concreta. El análisis de facturación, las comparativas y los presupuestos no forman parte de esta versión.
+
+## Vencimientos de ventas y compras
+
+En **Contabilidad → Informes → Cuadro de mando**, las entradas **Vencimientos de ventas — cobros** y **Vencimientos de compras — pagos** muestran el pendiente actual por semana. La vista inicial es una tabla dinámica: pulsar un importe abre el detalle; los botones superiores permiten alternar tabla, lista y gráfico. Se pueden descargar los datos y guardar filtros personales mediante las funciones estándar de Odoo.
+
+Cada fila de detalle corresponde a un plazo contable pendiente, no a una factura completa. Muestra cliente/proveedor, documento, referencia, fecha de factura, vencimiento, importe original del plazo, pendiente actual, estado y liquidación parcial. El botón **Abrir documento** lleva a la factura, rectificativa o asiento original con los permisos del usuario.
+
+Los filtros permiten ver vencidos, vencimientos de hoy, próximos 30 días, ausencia de fecha, liquidaciones parciales y créditos/anticipos; también seleccionar años, meses o fechas de vencimiento. Por defecto se conservan todos los pendientes, incluidos ejercicios anteriores y posteriores. Solo aparecen semanas con partidas pendientes. La agrupación semanal utiliza el primer día de semana configurado para el idioma del usuario (lunes en español); una semana puede cruzar de año.
+
+- Fuente: apuntes publicados y no conciliados de cuentas de tipo cliente/proveedor. Se usan los residuos contables actuales: las conciliaciones parciales reducen el pendiente y las completas hacen desaparecer la partida.
+- Incluye impuestos y otros importes integrados en la deuda. No es una vista de ingresos/gastos ni de bases imponibles.
+- En compras se invierte el signo contable para presentar las obligaciones de pago como positivas. Las rectificativas y los cobros/pagos sin aplicar conservan signo negativo y reducen el pendiente neto. No se compensan artificialmente entre facturas; se respeta su conciliación real.
+- Se incluyen asientos pendientes de apertura y otros asientos de clientes/proveedores, no solo documentos con tipo factura. Así no se ocultan saldos vivos. Se pueden distinguir por **Tipo de documento** y **Diario**.
+- La fecha es el vencimiento individual del apunte. Si falta, se agrupa por fecha contable y se marca **Sin fecha de vencimiento** para revisión. No se calcula una fecha contractual nueva.
+- Los totales son en moneda de la empresa activa. La moneda y el pendiente del documento están disponibles como columnas opcionales; no se suman monedas extranjeras diferentes. Al cambiar de empresa, volver a abrir la entrada correspondiente.
+- Son saldos pendientes **ahora**, no una reconstrucción histórica a una fecha de corte. Filtrar un año selecciona vencimientos de ese año. No incluyen pedidos sin factura, nóminas previstas, cuotas futuras aún no contabilizadas, descuentos por pronto pago hipotéticos ni previsiones externas.
+- La fuente conserva las reglas de acceso a apuntes de Odoo y de otros addons, además del permiso independiente y la separación por compañía. No se usan permisos elevados para consultar saldos. La vista es de solo lectura y no crea ni modifica facturas, pagos ni conciliaciones.
+
+La diferencia entre cobros y pagos se puede obtener de los dos totales para el mismo periodo; esta versión mantiene los cuadros separados y no añade un tercer cuadro de tesorería combinado.
 
 ## Seguridad y mantenimiento
 
@@ -52,8 +71,10 @@ En un servidor con controlador SERVINCOM se debe utilizar su wrapper autorizado 
 4. Plegar y desplegar ambas tablas, recargar y comprobar que se conserva la disposición sin RPC_ERROR.
 5. Cambiar de empresa; verificar moneda, datos y exclusiones independientes, e impedir el acceso a empresas no autorizadas.
 6. Revisar notas rectificativas, meses sin datos, diarios de cierre y los PDF de las dos tablas.
+7. Abrir vencimientos de ventas/compras, revisar una semana y contrastar el pendiente con los apuntes. Probar un documento con varios plazos, una conciliación parcial, una completa, rectificativas y un anticipo sin aplicar.
+8. Comprobar filtros, exportación, moneda de empresa y denegación a usuarios sin la casilla.
 
-Las pruebas incluidas cubren permisos, revocación, intentos de autoasignación, cambio de año con lectura, separación de compañías, preferencias de tablero, exportaciones, rectificaciones, partidas residuales, exclusión de diario y borradores. La ejecución real de la suite requiere Odoo y una base de pruebas autorizada. Las comprobaciones estáticas no sustituyen una instalación.
+Las pruebas incluidas cubren permisos, revocación, intentos de autoasignación, cambio de año con lectura, separación de compañías, preferencias de tablero, exportaciones, rectificaciones, partidas residuales, exclusión de diario y borradores. Las pruebas de vencimientos añaden facturas/rectificativas de ambos sentidos, plazos múltiples, conciliaciones parciales/completas, anticipos, borradores, semanas, estados, falta de fecha, moneda extranjera, revocación y reglas adicionales de apuntes. La ejecución real de la suite requiere Odoo y una base de pruebas autorizada. Las comprobaciones estáticas no sustituyen una instalación.
 
 Este repositorio no contiene datos de clientes. Una instalación previa configurada manualmente requiere un script de adopción externo y específico del entorno para conservar sus informes, filtros y usuarios. No debe borrarse esa configuración antes de verificar la adopción.
 

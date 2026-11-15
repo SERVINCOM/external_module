@@ -121,6 +121,7 @@ msgstr "Elegir año para las dos tablas"
 #. odoo-python
 #: code:addons/servincom_account_dashboard/models/dashboard.py:0
 #: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_dashboard__company_id
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__company_id
 msgid "Company"
 msgstr "Empresa"
 
@@ -618,3 +619,292 @@ msgstr "No tienes acceso a los cuadros de mando contables."
 #: model:ir.ui.menu,name:servincom_account_dashboard.menu_dashboard
 msgid "Dashboard"
 msgstr "Cuadro de mando"
+
+#. module: servincom_account_dashboard
+#: model:ir.model,name:servincom_account_dashboard.model_servincom_account_maturity
+msgid "Outstanding Receivables and Payables"
+msgstr "Vencimientos pendientes de cobro y pago"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__line_id
+msgid "Journal item"
+msgstr "Apunte contable"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__move_id
+msgid "Document"
+msgstr "Documento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__name
+msgid "Label"
+msgstr "Concepto"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__reference
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__partner_id
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Customer / vendor"
+msgstr "Cliente / proveedor"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__journal_id
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Journal"
+msgstr "Diario"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__account_id
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__company_currency_id
+msgid "Company currency"
+msgstr "Moneda de la empresa"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__currency_id
+msgid "Document currency"
+msgstr "Moneda del documento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__invoice_date
+msgid "Invoice date"
+msgstr "Fecha de factura"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__accounting_date
+msgid "Accounting date"
+msgstr "Fecha contable"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__date_maturity
+msgid "Document due date"
+msgstr "Vencimiento del documento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__due_date
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Due date"
+msgstr "Fecha de vencimiento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,help:servincom_account_dashboard.field_servincom_account_maturity__due_date
+msgid "The journal item's due date; the accounting date is used if no due date is set."
+msgstr "Fecha de vencimiento del apunte; si no está indicada, se utiliza la fecha contable."
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__direction
+msgid "Direction"
+msgstr "Tipo de vencimiento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__direction__receivable
+msgid "Receivable"
+msgstr "Cobro"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__direction__payable
+msgid "Payable"
+msgstr "Pago"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__move_type
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Document type"
+msgstr "Tipo de documento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__move_type__entry
+msgid "Payment / other entry"
+msgstr "Pago / otro asiento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__move_type__out_invoice
+msgid "Customer invoice"
+msgstr "Factura de cliente"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__move_type__in_invoice
+msgid "Vendor bill"
+msgstr "Factura de proveedor"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__move_type__out_refund
+msgid "Customer credit note"
+msgstr "Rectificativa de cliente"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__move_type__in_refund
+msgid "Vendor credit note"
+msgstr "Rectificativa de proveedor"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__move_type__out_receipt
+msgid "Sales receipt"
+msgstr "Recibo de venta"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__move_type__in_receipt
+msgid "Purchase receipt"
+msgstr "Recibo de compra"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__due_state
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Due status"
+msgstr "Estado del vencimiento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__due_state__overdue
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Overdue"
+msgstr "Vencido"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__due_state__today
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Due today"
+msgstr "Vence hoy"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__due_state__upcoming
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Not yet due"
+msgstr "No vencido"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields.selection,name:servincom_account_dashboard.selection__servincom_account_maturity__due_state__missing
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "No due date"
+msgstr "Sin fecha de vencimiento"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__is_partial
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Partially settled"
+msgstr "Liquidado parcialmente"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__amount_original
+msgid "Original installment"
+msgstr "Importe original del plazo"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__amount_pending
+msgid "Outstanding amount"
+msgstr "Pendiente actual"
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,help:servincom_account_dashboard.field_servincom_account_maturity__amount_pending
+msgid "Current residual in company currency. Credit notes and unapplied payments retain their negative sign."
+msgstr "Saldo pendiente actual en la moneda de la empresa. Las rectificativas y los anticipos sin aplicar conservan su signo negativo."
+
+#. module: servincom_account_dashboard
+#: model:ir.model.fields,field_description:servincom_account_dashboard.field_servincom_account_maturity__amount_pending_currency
+msgid "Outstanding in document currency"
+msgstr "Pendiente en moneda del documento"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/account_maturity.py:0
+#: model:ir.actions.server,name:servincom_account_dashboard.action_receivable_maturities
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_receivable_maturities
+msgid "Sales maturities - receivables"
+msgstr "Vencimientos de ventas — cobros"
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/account_maturity.py:0
+#: model:ir.actions.server,name:servincom_account_dashboard.action_payable_maturities
+#: model:ir.ui.menu,name:servincom_account_dashboard.menu_payable_maturities
+msgid "Purchase maturities - payables"
+msgstr "Vencimientos de compras — pagos"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+#: model:ir.actions.act_window,name:servincom_account_dashboard.action_maturity
+msgid "Outstanding maturities"
+msgstr "Vencimientos pendientes"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Next 30 days"
+msgstr "Próximos 30 días"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Credits / unapplied payments"
+msgstr "Abonos / anticipos sin aplicar"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Group by"
+msgstr "Agrupar por"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Due week"
+msgstr "Semana de vencimiento"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Due month"
+msgstr "Mes de vencimiento"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_search
+msgid "Due year"
+msgstr "Año de vencimiento"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_pivot
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_graph
+msgid "Current outstanding amounts by week"
+msgstr "Pendiente actual por semana"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_list
+msgid "Outstanding maturity detail"
+msgstr "Detalle de vencimientos pendientes"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_list
+msgid "Original installments"
+msgstr "Importes originales de los plazos"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_list
+msgid "Outstanding total"
+msgstr "Total pendiente"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_list
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_form
+msgid "Open document"
+msgstr "Abrir documento"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_form
+msgid "Outstanding maturity"
+msgstr "Vencimiento pendiente"
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.ui.view,arch_db:servincom_account_dashboard.view_maturity_form
+msgid "These are current outstanding balances, not historical balances at the selected due date. Negative amounts are credit notes or unapplied payments. Missing due dates use the accounting date."
+msgstr "Se muestran los saldos pendientes actuales, no el saldo histórico a la fecha seleccionada. Los importes negativos corresponden a rectificativas o anticipos sin aplicar. Si falta el vencimiento, se utiliza la fecha contable."
+
+#. module: servincom_account_dashboard
+#: model_terms:ir.actions.act_window,help:servincom_account_dashboard.action_maturity
+msgid "Current outstanding balances in company currency, grouped by due week. Open an amount to view its documents. Credit notes and unapplied payments reduce the balance."
+msgstr "Saldos pendientes actuales en la moneda de la empresa, agrupados por semana de vencimiento. Pulsa un importe para ver sus documentos. Las rectificativas y los anticipos sin aplicar reducen el saldo."
+
+#. module: servincom_account_dashboard
+#: model:ir.rule,name:servincom_account_dashboard.rule_maturity_company
+msgid "Outstanding maturities: allowed companies"
+msgstr "Vencimientos pendientes: empresas permitidas"

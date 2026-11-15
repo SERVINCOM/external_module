@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_dashboard_reader,Accounting dashboard reader,model_servincom_account_dashboard,group_dashboard_reader,1,0,0,0
 access_dashboard_settings,Accounting dashboard settings,model_servincom_account_dashboard,base.group_system,1,1,1,1
 access_dashboard_year,Accounting dashboard year,model_servincom_account_dashboard_year,group_dashboard_reader,1,1,1,0
+access_maturity_reader,Outstanding maturity reader,model_servincom_account_maturity,group_dashboard_reader,1,0,0,0
