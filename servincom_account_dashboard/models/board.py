@@ -53,7 +53,7 @@ class Board(models.AbstractModel):
                     "default_name": self.env._("Accounting dashboards"),
                     "default_display_name": self.env._("Accounting dashboards"),
                 }))
-        arch.set("js_class", "board")
+        arch.set("js_class", "servincom_results_board")
         arch_text = etree.tostring(arch, encoding="unicode")
         if not custom:
             # Native BoardController.saveBoard requires custom_view_id even on

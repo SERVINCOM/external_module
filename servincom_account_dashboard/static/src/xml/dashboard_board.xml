@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="servincom_account_dashboard.ResultsBoard" t-inherit="board.BoardView" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_dashboard')]" position="attributes">
+            <attribute name="class" add="o_servincom_results_board" separator=" "/>
+        </xpath>
+        <xpath expr="//t[@t-call='board.Content']" position="attributes">
+            <attribute name="t-call">servincom_account_dashboard.ResultsBoardContent</attribute>
+        </xpath>
+    </t>
+    <t t-name="servincom_account_dashboard.ResultsBoardContent" t-inherit="board.Content" t-inherit-mode="primary">
+        <xpath expr="//span[contains(@t-on-click, 'closeAction')]" position="replace"/>
+        <xpath expr="//span[@t-if='action.isFolded']" position="replace"/>
+        <xpath expr="//span[@t-if='!action.isFolded']" position="replace">
+            <button type="button" class="btn float-end p-1 text-muted o_servincom_board_toggle"
+                    t-on-click="() => this.toggleAction(action, !env.isSmall)"
+                    t-att-aria-expanded="action.isFolded ? 'false' : 'true'">
+                <i t-att-class="action.isFolded ? 'fa fa-window-maximize' : 'fa fa-window-minimize'" aria-hidden="true"/>
+                <span t-if="action.isFolded">Expand</span><span t-else="">Collapse</span>
+            </button>
+        </xpath>
+    </t>
+</templates>

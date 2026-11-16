@@ -116,14 +116,25 @@ class TestAccountDashboard(TransactionCase):
         custom = self.env["ir.ui.view.custom"].browse(result["custom_view_id"])
         self.assertEqual(custom.user_id, self.reader)
         arch = etree.fromstring(result["arch"].encode())
+        self.assertEqual(arch.get("js_class"), "servincom_results_board")
         arch.xpath("//board/column/action")[0].set("fold", "1")
         custom.write({"arch": etree.tostring(arch, encoding="unicode")})
         again = board.get_view(view.id)
+        self.assertEqual(etree.fromstring(again["arch"].encode()).get("js_class"), "servincom_results_board")
         self.assertEqual(again["custom_view_id"], custom.id)
         self.assertEqual(etree.fromstring(again["arch"].encode()).xpath("//action")[0].get("fold"), "1")
         self.assertEqual(self.env["ir.ui.view.custom"].search_count([
             ("user_id", "=", self.reader.id), ("ref_id", "=", view.id),
         ]), 1)
+
+    def test_personal_board_keeps_standard_controller(self):
+        view = self.env["ir.ui.view"].create({
+            "name": "Unrelated personal board",
+            "model": "board.board",
+            "arch": '<form string="Personal"><board style="1"><column/></board></form>',
+        })
+        result = self._as_reader(self.env["board.board"]).get_view(view.id)
+        self.assertEqual(etree.fromstring(result["arch"].encode()).get("js_class"), "board")
 
     def test_board_upgrade_preserves_existing_fold_and_no_duplicate_summary(self):
         view = self.env.ref("servincom_account_dashboard.view_board")

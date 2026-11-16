@@ -1793,12 +1793,14 @@ msgstr "de"
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_board.xml:0
 msgid "Expand"
 msgstr "Expandir"
 
 #. module: servincom_account_dashboard
 #. odoo-javascript
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_board.xml:0
 msgid "Collapse"
 msgstr "Minimizar"
 

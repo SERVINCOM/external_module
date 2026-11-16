@@ -58,7 +58,13 @@ body.o_web_client .o_servincom_account_dashboard {
     .o_servincom_analysis_header input { width: 115px; }
     .o_servincom_analysis_header input[type="date"] { width: 155px; }
     .o_servincom_date_range { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; margin: 0; padding: 0; }
-    .o_servincom_date_range legend { float: none; width: auto; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: #193954; }
+    .o_servincom_customer_filters { min-width: 0; max-width: 100%; }
+    .o_servincom_filter_row { display: flex; align-items: stretch; flex-wrap: wrap; gap: 16px; }
+    .o_servincom_date_range legend { float: none; width: auto; margin-bottom: 4px; font-size: 13px; line-height: 1.5; font-weight: 600; color: #193954; }
+    .o_servincom_salesperson_filter { display: flex; flex-direction: column; flex: 1 1 180px; max-width: 240px; margin: 0; }
+    .o_servincom_salesperson_filter > span { font-size: 13px; line-height: 1.5; font-weight: 600; color: #193954; margin-bottom: 4px; }
+    .o_servincom_salesperson_filter select { margin-top: auto; width: 100%; }
+    .o_servincom_apply { align-self: flex-end; }
     .o_servincom_analysis_header select { max-width: 240px; }
     .o_servincom_analysis_body { padding: 24px 28px; max-width: 1800px; margin: auto; }
     .o_servincom_period { color: #193954; font-weight: 600; }
@@ -114,4 +120,11 @@ body.o_web_client .o_servincom_account_dashboard {
     @media (max-width: 500px) {
         .o_servincom_kpis, .o_servincom_kpis.o_three, .o_servincom_kpis.o_two { grid-template-columns: 1fr; }
     }
+}
+
+.o_servincom_results_board .o_servincom_board_toggle {
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
