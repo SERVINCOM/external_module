@@ -36,7 +36,13 @@ El resumen y la comparativa requieren los indicadores técnicos `income_total`, 
 
 ## Evolución de clientes
 
-Selector de ejercicio, mes de corte y comercial. Compara enero hasta el corte con el mismo periodo del año anterior. Incluye cuatro indicadores, gráfico de clientes únicos por mes, tabla buscable y paginada, filtro por situación y acceso a las facturas que justifican las dos columnas.
+Desde la versión 18.0.1.5.0, **Evolución de clientes** permite editar **Desde / Hasta** del periodo seleccionado y del periodo de comparación, además del comercial. Al abrir propone desde el 1 de enero hasta hoy y el mismo tramo del año anterior. Las fechas manuales prevalecen: no se recortan al día actual. Incluye indicadores, gráfico de clientes únicos por mes, tabla buscable y paginada, filtro por situación y acceso a las facturas que justifican las dos columnas.
+
+Los accesos **Hasta hoy**, **Años completos** y **Mismo periodo del año anterior** preparan las fechas; **Aplicar** actualiza los datos. Años completos usa los años elegidos en las fechas iniciales de ambos periodos. Hasta hoy vuelve al año actual y al mismo tramo del anterior. Es posible comparar el acumulado del año actual con todo el anterior o elegir otro ejercicio histórico. Cada rango debe pertenecer a un único año natural, y el de comparación debe corresponder a un año anterior, para mantener las doce filas mensuales y sus columnas por año.
+
+Las fechas son inclusivas. Los meses se calculan por separado para cada rango; fuera de él muestran guiones. Un rango puede finalizar en el futuro: solo se suman documentos publicados con fecha de factura dentro de ese rango, incluidas facturas ya publicadas con fecha futura; no se generan previsiones ni objetivos. La fila final es **Total del periodo**. Si los rangos no son equivalentes, la nota al pie lo indica y las diferencias representan los periodos elegidos. Para medir objetivos debe considerarse el alcance parcial del histórico importado.
+
+Los enlaces **Ver facturas** y **Ver histórico** usan las fechas que produjeron la tabla, incluso si se editan los controles sin pulsar Aplicar. Las fechas de consulta no modifican facturas, lotes históricos ni preferencias de los informes MIS. La **Comparativa anual contable** mantiene su selector y su corte equivalente; estos rangos manuales pertenecen a Evolución de clientes.
 
 El selector de comercial muestra los usuarios asignados a las facturas del periodo consultado. Los activos aparecen primero y los archivados al final, identificados como «Archivado», con orden alfabético dentro de cada grupo. Archivar un usuario no elimina ni reasigna sus facturas: siguen incluidas en «Todos» y pueden consultarse con su filtro. Una cuenta técnica también puede aparecer si está asignada como comercial en documentos de origen.
 
@@ -66,7 +72,7 @@ Desde la versión 18.0.1.4.0, **Evolución de clientes** permite:
   Debe quedar al menos un año visible. En vista de un año se incluyen sus clientes
   con documentos, sin exigir que tengan datos del otro año.
 - Consultar una gráfica y una tabla de **Facturación neta mensual**, con doce meses
-  y acumulado hasta el corte, en moneda de compañía, sin impuestos y neta de abonos.
+  y total del periodo, en moneda de compañía, sin impuestos y neta de abonos.
   **Clientes comparables** suma el mismo grupo de clientes en ambos años y calcula
   diferencia y variación porcentual. **Todos los datos disponibles** muestra las
   sumas visibles de cada año, sin diferencias entre poblaciones distintas. Al

@@ -30,8 +30,29 @@
             <header class="o_servincom_analysis_header">
                 <div><h2 t-esc="title"/><p t-if="state.data" class="text-muted mb-0"><t t-esc="state.data.company"/> · <t t-esc="state.data.currency"/></p></div>
                 <form class="d-flex gap-2 align-items-end flex-wrap" t-on-submit.prevent="load">
-                    <label>Year<input class="form-control" type="number" min="1901" max="9998" required="required" t-model="state.year"/></label>
-                    <label t-if="state.data">Through month<select class="form-select" t-model="state.endMonth"><option t-foreach="state.data.months" t-as="month" t-key="month" t-att-value="month_index + 1" t-esc="month"/></select></label>
+                    <t t-if="customers">
+                        <div class="o_servincom_date_filters">
+                            <div class="d-flex gap-3 flex-wrap">
+                                <fieldset class="o_servincom_date_range"><legend>Selected period</legend>
+                                    <label>From<input class="form-control" type="date" min="1901-01-01" max="9998-12-31" required="required" t-model="state.dates.date_from"/></label>
+                                    <label>To<input class="form-control" type="date" min="1901-01-01" max="9998-12-31" required="required" t-model="state.dates.date_to"/></label>
+                                </fieldset>
+                                <fieldset class="o_servincom_date_range"><legend>Comparison period</legend>
+                                    <label>From<input class="form-control" type="date" min="1901-01-01" max="9998-12-31" required="required" t-model="state.dates.comparison_date_from"/></label>
+                                    <label>To<input class="form-control" type="date" min="1901-01-01" max="9998-12-31" required="required" t-model="state.dates.comparison_date_to"/></label>
+                                </fieldset>
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap mt-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="throughToday" t-att-disabled="!state.today || state.loading">Through today</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="fullYears" t-att-disabled="!state.today || state.loading">Full years</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="samePeriodLastYear" t-att-disabled="state.loading">Same period last year</button>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <label>Year<input class="form-control" type="number" min="1901" max="9998" required="required" t-model="state.year"/></label>
+                        <label t-if="state.data">Through month<select class="form-select" t-model="state.endMonth"><option t-foreach="state.data.months" t-as="month" t-key="month" t-att-value="month_index + 1" t-esc="month"/></select></label>
+                    </t>
                     <label t-if="customers and state.data">Salesperson<select class="form-select" t-model="state.salesperson"><option value="">All</option><option t-foreach="state.data.salespeople" t-as="person" t-key="person.id" t-att-value="person.id" t-esc="person.name"/></select></label>
                     <button class="btn btn-primary" type="submit" t-att-disabled="state.loading">Apply</button>
                 </form>
@@ -47,7 +68,7 @@
                     </div>
                     <t t-if="data.ready">
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-                            <p class="o_servincom_period mb-0"><t t-if="!customers || state.showCurrent">01/01/<t t-esc="data.year"/> – <t t-esc="date(data.cutoff)"/></t><span t-if="!customers || bothYears" class="text-muted mx-2">vs.</span><t t-if="!customers || state.showPrevious">01/01/<t t-esc="data.previous_year"/> – <t t-esc="date(data.previous_cutoff)"/></t></p>
+                            <p class="o_servincom_period mb-0"><t t-if="!customers || state.showCurrent"><t t-if="customers" t-esc="date(data.date_from)"/><t t-else="">01/01/<t t-esc="data.year"/></t> – <t t-esc="date(data.cutoff)"/></t><span t-if="!customers || bothYears" class="text-muted mx-2">vs.</span><t t-if="!customers || state.showPrevious"><t t-if="customers" t-esc="date(data.comparison_date_from)"/><t t-else="">01/01/<t t-esc="data.previous_year"/></t> – <t t-esc="date(data.previous_cutoff)"/></t></p>
                             <div t-if="customers" class="o_servincom_years" role="group" aria-label="Visible years">
                                 <span>Show years</span>
                                 <label class="o_previous"><input type="checkbox" t-att-checked="state.showPrevious" t-att-disabled="!state.showCurrent" t-on-change="() => this.toggleYear('showPrevious')"/><t t-esc="data.previous_year"/></label>
@@ -125,6 +146,8 @@
                             </table></div>
                         </section>
                         <footer class="o_servincom_notes">
+                            <p t-if="customers">Dates are inclusive. Only posted documents within each selected period are included, even when its end date is in the future. Amounts are recorded figures, not forecasts or targets. Months outside each period are left blank.</p>
+                            <p t-if="customers and bothYears and !data.periods_aligned">The selected periods use different calendar ranges. Differences and percentages compare those ranges; they do not represent a like-for-like time comparison.</p>
                             <p t-if="customers and data.history_message" t-esc="data.history_message"/>
                             <p t-if="customers">Monthly invoicing is untaxed and net of credit notes. Comparable customers uses the same customer group in both years. All available data includes customers without a comparison, so differences are not calculated for that scope. Customer search and situation filters only affect the detail table.</p>
                             <p t-if="customers and !bothYears">With one year visible, customer counts include all available customers in that year and the last purchase is limited to its selected period.</p>

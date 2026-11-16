@@ -56,6 +56,9 @@ body.o_web_client .o_servincom_account_dashboard {
     .o_servincom_analysis_header { background: white; padding: 22px 28px; border-bottom: 1px solid #dce4eb; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
     .o_servincom_analysis_header h2 { margin: 0 0 6px; color: #193954; font-size: 24px; }
     .o_servincom_analysis_header input { width: 115px; }
+    .o_servincom_analysis_header input[type="date"] { width: 155px; }
+    .o_servincom_date_range { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; margin: 0; padding: 0; }
+    .o_servincom_date_range legend { float: none; width: auto; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: #193954; }
     .o_servincom_analysis_header select { max-width: 240px; }
     .o_servincom_analysis_body { padding: 24px 28px; max-width: 1800px; margin: auto; }
     .o_servincom_period { color: #193954; font-weight: 600; }

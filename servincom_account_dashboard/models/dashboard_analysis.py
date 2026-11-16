@@ -40,6 +40,38 @@ class DashboardAnalysis(models.Model):
         end = min(end, today) if year == today.year else end
         return start, end, start - relativedelta(years=1), end - relativedelta(years=1)
 
+    @api.model
+    def _customer_periods(self, year=None, end_month=None, date_from=None, date_to=None,
+                          comparison_date_from=None, comparison_date_to=None):
+        """Explicit dates are authoritative; legacy callers keep the default cutoff."""
+        dates = (date_from, date_to, comparison_date_from, comparison_date_to)
+        if all(value is None for value in dates):
+            return self._analysis_period(year, end_month)
+
+        def parse(value):
+            try:
+                parsed = date.fromisoformat(value) if isinstance(value, str) else value
+                if (type(parsed) is not date or not 1901 <= parsed.year <= 9998
+                        or isinstance(value, str) and parsed.isoformat() != value):
+                    raise ValueError
+                return parsed
+            except (TypeError, ValueError):
+                raise ValidationError(self.env._("Enter valid start and end dates for both periods.")) from None
+
+        start, end = parse(date_from), parse(date_to)
+        if comparison_date_from is None and comparison_date_to is None:
+            previous_start, previous_end = start - relativedelta(years=1), end - relativedelta(years=1)
+        else:
+            previous_start, previous_end = parse(comparison_date_from), parse(comparison_date_to)
+        for begin, finish in [(start, end), (previous_start, previous_end)]:
+            if begin > finish:
+                raise ValidationError(self.env._("The start date must not be after the end date."))
+            if begin.year != finish.year:
+                raise ValidationError(self.env._("Each period must stay within one calendar year for the monthly table."))
+        if previous_start.year >= start.year:
+            raise ValidationError(self.env._("Choose an earlier year for the comparison period."))
+        return start, end, previous_start, previous_end
+
     def _monthly_snapshot(self, year, cutoff=None):
         """Read the three real MIS totals, with the installed formulas/domains.
 
@@ -165,17 +197,26 @@ class DashboardAnalysis(models.Model):
         return domain
 
     @api.model
-    def get_customer_evolution(self, year=None, end_month=None, salesperson_id=None):
+    def get_customer_evolution(self, year=None, end_month=None, salesperson_id=None,
+                               date_from=None, date_to=None,
+                               comparison_date_from=None, comparison_date_to=None):
         company = self._check_dashboard_access()
-        start, end, previous_start, previous_end = self._analysis_period(year, end_month)
+        start, end, previous_start, previous_end = self._customer_periods(
+            year, end_month, date_from, date_to, comparison_date_from, comparison_date_to)
+        today = fields.Date.context_today(self)
         move = self.env["account.move"]
         base = self._customer_domain(salesperson_id)
         metadata = self._ensure_company_dashboard()._analysis_metadata()
         result = dict(metadata, year=start.year, previous_year=previous_start.year,
+                      date_from=str(start), date_to=str(end),
+                      comparison_date_from=str(previous_start), comparison_date_to=str(previous_end),
+                      today=str(today), periods_aligned=(previous_start, previous_end) == (
+                          start - relativedelta(years=start.year - previous_start.year),
+                          end - relativedelta(years=start.year - previous_start.year)),
                       end_month=end.month, cutoff=str(end), previous_cutoff=str(previous_end),
                       salesperson_id=salesperson_id or False,
                       rows=[], trend=[], counts={"active": 0, "decline": 0, "no_purchase": 0, "new": 0},
-                      salespeople=[], ready=start <= fields.Date.context_today(self))
+                      salespeople=[], ready=date_from is not None or start <= today)
         if not result["ready"]:
             return result
         historical = self.env["servincom.dashboard.history.line"]
@@ -295,13 +336,13 @@ class DashboardAnalysis(models.Model):
             result["counts"]["unavailable"] = sum(row["status"] == "unavailable" for row in result["rows"])
         chart_customers = comparable_ids if batches else visible
         result["trend"] = [{"month": month, "current": len(current_monthly[month] & chart_customers)
-                            if month <= end.month and (not batches or chart_customers) else None,
+                            if start.month <= month <= end.month and (not batches or chart_customers) else None,
                             "previous": len(previous_monthly[month] & chart_customers)
-                            if month <= end.month and (not batches or chart_customers) else None}
+                            if previous_start.month <= month <= previous_end.month and (not batches or chart_customers) else None}
                            for month in range(1, 13)]
         result["period_trend"] = [{"month": month,
-            "current": len(current_monthly[month] & visible) if month <= end.month and current else None,
-            "previous": len(previous_monthly[month] & visible) if month <= end.month and previous else None,
+            "current": len(current_monthly[month] & visible) if start.month <= month <= end.month and current else None,
+            "previous": len(previous_monthly[month] & visible) if previous_start.month <= month <= previous_end.month and previous else None,
         } for month in range(1, 13)]
         result["period_counts"] = {"current": len(current_buyers), "previous": len(previous_buyers)}
         # Use the same cohort for both years. Available totals also include
@@ -317,9 +358,10 @@ class DashboardAnalysis(models.Model):
                         values[key][month.month - 1] += amount
             cells = []
             for index in range(13):
-                in_period = index < end.month or index == 12
-                a = (sum(values["current"]) if index == 12 else values["current"][index]) if in_period and current_visible else None
-                b = (sum(values["previous"]) if index == 12 else values["previous"][index]) if in_period and previous_visible else None
+                in_current = index == 12 or start.month <= index + 1 <= end.month
+                in_previous = index == 12 or previous_start.month <= index + 1 <= previous_end.month
+                a = (sum(values["current"]) if index == 12 else values["current"][index]) if in_current and current_visible else None
+                b = (sum(values["previous"]) if index == 12 else values["previous"][index]) if in_previous and previous_visible else None
                 if scope == "comparable" and not customer_ids:
                     a = b = None
                 can_compare = scope == "comparable" and a is not None and b is not None
@@ -349,8 +391,10 @@ class DashboardAnalysis(models.Model):
         return result
 
     @api.model
-    def _customer_period_domain(self, year, end_month, period):
-        start, end, previous_start, previous_end = self._analysis_period(year, end_month)
+    def _customer_period_domain(self, year, end_month, period, date_from=None, date_to=None,
+                                comparison_date_from=None, comparison_date_to=None):
+        start, end, previous_start, previous_end = self._customer_periods(
+            year, end_month, date_from, date_to, comparison_date_from, comparison_date_to)
         current = [("invoice_date", ">=", start), ("invoice_date", "<=", end)]
         previous = [("invoice_date", ">=", previous_start), ("invoice_date", "<=", previous_end)]
         if period == "current":
@@ -362,9 +406,11 @@ class DashboardAnalysis(models.Model):
         raise ValidationError(self.env._("Choose one year or both years for the document detail."))
 
     @api.model
-    def action_customer_history(self, partner_id, year=None, end_month=None, salesperson_id=None, period="both"):
+    def action_customer_history(self, partner_id, year=None, end_month=None, salesperson_id=None, period="both",
+                                date_from=None, date_to=None, comparison_date_from=None, comparison_date_to=None):
         self._check_dashboard_access()
-        period_domain = self._customer_period_domain(year, end_month, period)
+        period_domain = self._customer_period_domain(year, end_month, period,
+            date_from, date_to, comparison_date_from, comparison_date_to)
         partner = self.env["res.partner"].browse(partner_id).exists()
         partner.ensure_one()
         partner.check_access("read")
@@ -374,9 +420,11 @@ class DashboardAnalysis(models.Model):
                 "domain": domain, "context": dict(self.env.context, create=False, edit=False, delete=False)}
 
     @api.model
-    def action_customer_invoices(self, partner_id, year=None, end_month=None, salesperson_id=None, period="both"):
+    def action_customer_invoices(self, partner_id, year=None, end_month=None, salesperson_id=None, period="both",
+                                 date_from=None, date_to=None, comparison_date_from=None, comparison_date_to=None):
         self._check_dashboard_access()
-        period_domain = self._customer_period_domain(year, end_month, period)
+        period_domain = self._customer_period_domain(year, end_month, period,
+            date_from, date_to, comparison_date_from, comparison_date_to)
         partner = self.env["res.partner"].browse(partner_id).exists()
         partner.ensure_one()
         partner.check_access("read")

@@ -51,6 +51,8 @@ export class DashboardAnalysis extends Component {
         this.orm = useService("orm");
         this.action = useService("action");
         this.state = useState({ data: null, year: null, endMonth: null, salesperson: "",
+            today: "", dates: { date_from: null, date_to: null,
+                comparison_date_from: null, comparison_date_to: null },
             loading: false, error: "", filter: "all", search: "", page: 0,
             showCurrent: true, showPrevious: true, sortKey: "current", sortDirection: "desc",
             salesScope: "comparable",
@@ -81,13 +83,18 @@ export class DashboardAnalysis extends Component {
                 args.push(this.state.salesperson ? Number(this.state.salesperson) : null);
             }
             const data = await this.orm.call(MODEL,
-                this.customers ? "get_customer_evolution" : "get_annual_comparison", args);
+                this.customers ? "get_customer_evolution" : "get_annual_comparison", args,
+                this.customers && this.state.dates.date_from !== null ? { ...this.state.dates } : {});
             if (requestId !== this.requestId) {
                 return;
             }
             this.state.data = data;
             this.state.year = data.year;
             this.state.endMonth = data.end_month;
+            if (this.customers) {
+                this.state.today = data.today;
+                this.state.dates = this.appliedDates;
+            }
             this.state.page = 0;
         } catch (error) {
             if (requestId === this.requestId) {
@@ -109,6 +116,39 @@ export class DashboardAnalysis extends Component {
     }
     date(value) {
         return value ? value.split("-").reverse().join("/") : "—";
+    }
+    get appliedDates() {
+        const data = this.state.data;
+        return { date_from: data.date_from, date_to: data.date_to,
+            comparison_date_from: data.comparison_date_from, comparison_date_to: data.comparison_date_to };
+    }
+    previousYearDate(value) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) {
+            return "";
+        }
+        const [year, month, day] = value.split("-").map(Number);
+        const lastDay = new Date(Date.UTC(year - 1, month, 0)).getUTCDate();
+        return `${String(year - 1).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(Math.min(day, lastDay)).padStart(2, "0")}`;
+    }
+    samePeriodLastYear() {
+        this.state.dates.comparison_date_from = this.previousYearDate(this.state.dates.date_from);
+        this.state.dates.comparison_date_to = this.previousYearDate(this.state.dates.date_to);
+    }
+    throughToday() {
+        const today = this.state.today;
+        if (today) {
+            this.state.dates.date_from = `${today.slice(0, 4)}-01-01`;
+            this.state.dates.date_to = today;
+            this.samePeriodLastYear();
+        }
+    }
+    fullYears() {
+        const year = (this.state.dates.date_from || this.state.today).slice(0, 4);
+        if (year) {
+            const comparisonYear = (this.state.dates.comparison_date_from || `${Number(year) - 1}`).slice(0, 4);
+            this.state.dates = { date_from: `${year}-01-01`, date_to: `${year}-12-31`,
+                comparison_date_from: `${comparisonYear}-01-01`, comparison_date_to: `${comparisonYear}-12-31` };
+        }
     }
     get cards() {
         const data = this.state.data;
@@ -272,14 +312,14 @@ export class DashboardAnalysis extends Component {
         const data = this.state.data;
         const action = await this.orm.call(MODEL, "action_customer_invoices", [
             row.id, data.year, data.end_month, data.salesperson_id || null, this.selectedPeriod,
-        ]);
+        ], this.appliedDates);
         await this.action.doAction(action);
     }
     async openHistory(row) {
         const data = this.state.data;
         const action = await this.orm.call(MODEL, "action_customer_history", [
             row.id, data.year, data.end_month, data.salesperson_id || null, this.selectedPeriod,
-        ]);
+        ], this.appliedDates);
         await this.action.doAction(action);
     }
     get comparisonRows() {
@@ -295,7 +335,7 @@ export class DashboardAnalysis extends Component {
     get salesRows() {
         const data = this.state.data;
         return data.sales[this.state.salesScope].map((row, index) => ({ ...row,
-            label: index === 12 ? _t("Accumulated to cutoff") : data.months[index], index }));
+            label: index === 12 ? _t("Period total") : data.months[index], index }));
     }
     get compareSales() {
         return this.bothYears && this.state.salesScope === "comparable";

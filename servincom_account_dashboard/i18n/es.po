@@ -1837,3 +1837,87 @@ msgstr "Mostrar u ocultar este año en esta gráfica"
 #: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
 msgid "Select a year in the chart legend to display its data."
 msgstr "Selecciona un año en la leyenda de la gráfica para mostrar sus datos."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Enter valid start and end dates for both periods."
+msgstr "Introduce fechas de inicio y fin válidas para ambos periodos."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "The start date must not be after the end date."
+msgstr "La fecha inicial no puede ser posterior a la fecha final."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Each period must stay within one calendar year for the monthly table."
+msgstr "Cada periodo debe pertenecer a un mismo año natural para mostrar la tabla mensual."
+
+#. module: servincom_account_dashboard
+#. odoo-python
+#: code:addons/servincom_account_dashboard/models/dashboard_analysis.py:0
+msgid "Choose an earlier year for the comparison period."
+msgstr "Elige un año anterior para el periodo de comparación."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/js/dashboard_analysis.js:0
+msgid "Period total"
+msgstr "Total del periodo"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Selected period"
+msgstr "Periodo seleccionado"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Comparison period"
+msgstr "Periodo de comparación"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "From"
+msgstr "Desde"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "To"
+msgstr "Hasta"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Through today"
+msgstr "Hasta hoy"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Full years"
+msgstr "Años completos"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Same period last year"
+msgstr "Mismo periodo del año anterior"
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "Dates are inclusive. Only posted documents within each selected period are included, even when its end date is in the future. Amounts are recorded figures, not forecasts or targets. Months outside each period are left blank."
+msgstr "Las fechas de inicio y fin están incluidas. Se muestran únicamente documentos publicados dentro de cada periodo, aunque la fecha final sea futura. Los importes son cifras registradas, no previsiones ni objetivos. Los meses fuera de cada periodo se dejan vacíos."
+
+#. module: servincom_account_dashboard
+#. odoo-javascript
+#: code:addons/servincom_account_dashboard/static/src/xml/dashboard_analysis.xml:0
+msgid "The selected periods use different calendar ranges. Differences and percentages compare those ranges; they do not represent a like-for-like time comparison."
+msgstr "Los periodos seleccionados tienen distinto alcance temporal. Las diferencias y porcentajes comparan esos rangos; no representan una comparación entre periodos equivalentes."

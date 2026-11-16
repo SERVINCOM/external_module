@@ -389,3 +389,95 @@ class TestCustomerEvolution(TransactionCase):
             self.assertEqual(self.env[action["res_model"]].with_user(self.reader).search_count(action["domain"]), count)
         with self.assertRaises(ValidationError):
             self.dashboard.action_customer_history(self.customer.id, 2026, 1, None, "invalid")
+
+    def test_manual_full_year_keeps_december_and_recorded_future_invoices(self):
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        future = self._invoice(self.customer, 20, date(2026, 12, 10))
+        self._invoice(self.customer, 999, date(2026, 12, 15), posted=False)
+        batch = self._history_batch([(self.customer, 100), (self.customer, 60), (self.customer, -10)])
+        batch.line_ids.filtered(lambda line: line.source_key != "0").invoice_date = date(2025, 12, 15)
+        batch.action_activate()
+        dates = dict(date_from="2026-01-01", date_to="2026-12-31",
+                     comparison_date_from="2025-01-01", comparison_date_to="2025-12-31")
+        with patch.object(fields.Date, "context_today", return_value=date(2026, 11, 15)):
+            data = self.dashboard.get_customer_evolution(**dates)
+        self.assertEqual(data["date_to"], "2026-12-31")
+        self.assertEqual(data["comparison_date_to"], "2025-12-31")
+        self.assertTrue(data["periods_aligned"])
+        self.assertEqual(data["sales"]["available"][11]["previous"], 50)
+        self.assertEqual(data["sales"]["available"][11]["current"], 20)
+        self.assertEqual(data["sales"]["available"][12]["previous"], 150)
+        self.assertEqual(data["sales"]["available"][12]["current"], 100)
+        action = self.dashboard.action_customer_invoices(self.customer.id, period="current", **dates)
+        self.assertIn(future, self.env["account.move"].search(action["domain"]))
+        action = self.dashboard.action_customer_history(self.customer.id, period="previous", **dates)
+        self.assertEqual(set(self.env[action["res_model"]].search(action["domain"]).ids), set(batch.line_ids.ids))
+
+    def test_manual_independent_ranges_and_inclusive_drilldown(self):
+        self._invoice(self.customer, 900, date(2026, 2, 9))
+        first = self._invoice(self.customer, 80, date(2026, 2, 10))
+        last = self._invoice(self.child, 20, date(2026, 3, 5))
+        self._invoice(self.customer, 800, date(2026, 3, 6))
+        batch = self._history_batch([(self.customer, 100), (self.customer, 40), (self.customer, -10)])
+        batch.line_ids.filtered(lambda line: line.source_key == "1").invoice_date = date(2025, 12, 31)
+        batch.action_activate()
+        dates = dict(date_from="2026-02-10", date_to="2026-03-05",
+                     comparison_date_from="2025-01-10", comparison_date_to="2025-12-31")
+        data = self.dashboard.get_customer_evolution(**dates)
+        self.assertFalse(data["periods_aligned"])
+        self.assertEqual(data["rows"][0]["current"], 100)
+        self.assertEqual(data["rows"][0]["previous"], 130)
+        self.assertEqual(data["rows"][0]["last_purchase_current"], "2026-03-05")
+        self.assertIsNone(data["trend"][0]["current"])
+        self.assertEqual(data["trend"][11]["previous"], 1)
+        cells = data["sales"]["comparable"]
+        self.assertIsNone(cells[0]["current"])
+        self.assertEqual(cells[0]["previous"], 90)
+        self.assertEqual(cells[1]["current"], 80)
+        self.assertEqual(cells[2]["current"], 20)
+        self.assertIsNone(cells[11]["current"])
+        self.assertEqual(cells[11]["previous"], 40)
+        self.assertIsNone(cells[11]["delta"])
+        self.assertEqual(cells[12]["delta"], -30)
+        for key in ["current", "previous"]:
+            self.assertEqual(sum(cell[key] or 0 for cell in cells[:12]), cells[12][key])
+        action = self.dashboard.action_customer_invoices(self.customer.id, period="current", **dates)
+        self.assertEqual(set(self.env["account.move"].search(action["domain"]).ids), {first.id, last.id})
+        self.env["ir.rule"].create({"name": "Hidden manual range invoice",
+            "model_id": self.env["ir.model"]._get_id("account.move"), "domain_force": "[('id', '!=', %s)]" % last.id})
+        self.assertEqual(self.dashboard.get_customer_evolution(**dates)["rows"][0]["current"], 80)
+        self.reader.servincom_dashboard_access = False
+        with self.assertRaises(AccessError):
+            self.dashboard.get_customer_evolution(**dates)
+        with self.assertRaises(AccessError):
+            self.dashboard.action_customer_history(self.customer.id, **dates)
+
+    def test_manual_range_validation_and_leap_day(self):
+        periods = self.dashboard._customer_periods(date_from="2024-02-29", date_to="2024-03-02")
+        self.assertEqual(periods, (date(2024, 2, 29), date(2024, 3, 2), date(2023, 2, 28), date(2023, 3, 2)))
+        good = dict(date_from="2026-01-01", date_to="2026-12-31",
+                    comparison_date_from="2025-01-01", comparison_date_to="2025-12-31")
+        for overrides in [dict(date_from=""), dict(date_to="not-a-date"), dict(date_to="2026-02-30"),
+                          dict(date_to="2025-12-31"), dict(date_to="2027-01-01"),
+                          dict(comparison_date_to="2026-01-01"), dict(comparison_date_from=None),
+                          dict(comparison_date_from="2026-01-01", comparison_date_to="2026-12-31"),
+                          dict(date_from=True)]:
+            with self.assertRaises(ValidationError):
+                self.dashboard.get_customer_evolution(**dict(good, **overrides))
+        with patch.object(fields.Date, "context_today", return_value=date(2026, 11, 15)):
+            future = self.dashboard.get_customer_evolution(date_from="2027-01-01", date_to="2027-12-31")
+        self.assertTrue(future["ready"])
+        self.assertEqual(future["rows"], [])
+
+    def test_manual_comparison_can_use_an_older_imported_year(self):
+        self._invoice(self.customer, 80, date(2026, 1, 10))
+        batch = self._history_batch([(self.customer, 100)], year=2024)
+        batch.action_activate()
+        dates = dict(date_from="2026-01-01", date_to="2026-01-31",
+                     comparison_date_from="2024-01-01", comparison_date_to="2024-12-31")
+        data = self.dashboard.get_customer_evolution(**dates)
+        self.assertEqual(data["previous_year"], 2024)
+        self.assertEqual(data["historical_years"], [2024])
+        self.assertEqual(data["rows"][0]["previous"], 100)
+        action = self.dashboard.action_customer_history(self.customer.id, period="previous", **dates)
+        self.assertEqual(self.env[action["res_model"]].search(action["domain"]), batch.line_ids)

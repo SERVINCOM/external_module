@@ -24,6 +24,8 @@ component.state = {filter: 'all', search: '', page: 0, showCurrent: true, showPr
     chartVisibility: {sales: {current: true, previous: true},
         customers: {current: true, previous: true}, result: {current: true, previous: true}}, data: {
     year: 2026, previous_year: 2025, end_month: 1, salesperson_id: 7, historical_years: [2025],
+    today: '2026-11-15', date_from: '2026-01-01', date_to: '2026-01-31',
+    comparison_date_from: '2025-01-01', comparison_date_to: '2025-01-31', periods_aligned: true,
     matched_history: true, digits: 2, counts: {active: 2, decline: 1, no_purchase: 1, new: 0, unavailable: 1},
     period_counts: {current: 2, previous: 2}, trend: points,
     period_trend: points.map(p => ({...p, current: p.current === null ? null : 2})),
@@ -139,12 +141,50 @@ const calls = [];
 component.orm = {call: async (...args) => { calls.push(args); return {type: 'test'}; }};
 component.action = {doAction: async () => {}};
 (async () => {
+    // Editing the form without Apply must not change the documents behind the loaded table.
+    component.state.dates = {...component.appliedDates, date_to: '2026-12-31'};
     component.toggleYear('showCurrent');
     await component.openHistory({id: 1});
     assert.deepEqual(Array.from(calls[0][2]), [1, 2026, 1, 7, 'previous']);
+    assert.equal(calls[0][3].date_to, '2026-01-31');
+    assert.equal(calls[0][3].comparison_date_to, '2025-01-31');
     component.toggleYear('showCurrent');
     component.toggleYear('showPrevious');
     await component.openInvoices({id: 1});
     assert.deepEqual(Array.from(calls[1][2]), [1, 2026, 1, 7, 'current']);
-    console.log('PASS: sorting, missing values, circular pagination, independent chart legends and panels, year scope and drilldown periods.');
+    assert.equal(calls[1][3].date_from, '2026-01-01');
+    assert.equal(calls[1][3].date_to, '2026-01-31');
+    component.state.today = '2026-11-15';
+    component.fullYears();
+    assert.equal(component.state.dates.date_to, '2026-12-31');
+    assert.equal(component.state.dates.comparison_date_to, '2025-12-31');
+    assert.equal(component.state.data.date_to, '2026-01-31', 'Preset waits for Apply');
+    component.throughToday();
+    assert.equal(component.state.dates.date_to, '2026-11-15');
+    assert.equal(component.state.dates.comparison_date_to, '2025-11-15');
+    component.state.dates.date_from = '2024-02-29';
+    component.state.dates.date_to = '2024-03-10';
+    component.samePeriodLastYear();
+    assert.equal(component.state.dates.comparison_date_from, '2023-02-28');
+    assert.equal(component.state.dates.comparison_date_to, '2023-03-10');
+    const loader = Object.create(sandbox.Analysis.prototype);
+    loader.props = component.props;
+    loader.setup();
+    const loads = [];
+    loader.orm = {call: async (...args) => {
+        loads.push(args);
+        return {...component.state.data, ...(args[3] || {})};
+    }};
+    await loader.load();
+    assert.equal(loader.state.dates.date_to, '2026-01-31');
+    loader.state.dates.date_from = '2026-03-10';
+    loader.state.dates.date_to = '2026-12-31';
+    loader.state.dates.comparison_date_from = '2025-01-01';
+    loader.state.dates.comparison_date_to = '2025-12-31';
+    await loader.load();
+    assert.equal(loads[1][3].date_from, '2026-03-10');
+    assert.equal(loads[1][3].date_to, '2026-12-31');
+    assert.equal(loads[1][3].comparison_date_to, '2025-12-31');
+    assert.equal(loader.state.data.date_from, '2026-03-10');
+    console.log('PASS: sorting, missing values, circular pagination, independent charts, manual ranges, leap-day presets, applied-date drilldown and year scope.');
 })().catch(error => { console.error(error); process.exitCode = 1; });
