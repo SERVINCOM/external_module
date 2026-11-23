@@ -12,3 +12,19 @@ msgid "Sale Configurator Existing Variants"
 msgstr "Configurador de ventas: variantes existentes"
 
 # The configurator retains Odoo's existing translated labels.
+
+#. module: servincom_sale_configurator_existing_variants
+#: model:ir.model.fields,field_description:servincom_sale_configurator_existing_variants.field_product_attribute__sale_descriptive
+msgid "Descriptive in sales"
+msgstr "Descriptivo en ventas"
+
+#. module: servincom_sale_configurator_existing_variants
+#: model:ir.model.fields,help:servincom_sale_configurator_existing_variants.field_product_attribute__sale_descriptive
+msgid "Keep this attribute as product information, without a choice in the sales configurator. Only non-variant attributes without custom values, surcharges or exclusions can be omitted."
+msgstr "Conservar este atributo como información del producto, sin elección en el configurador de ventas. Solo se pueden omitir atributos sin variantes, valores personalizados, recargos ni exclusiones."
+
+#. module: servincom_sale_configurator_existing_variants
+#. odoo-python
+#: code:addons/servincom_sale_configurator_existing_variants/models/product_attribute.py:0
+msgid "Descriptive sales attributes must not create variants."
+msgstr "Los atributos descriptivos de ventas no deben crear variantes."

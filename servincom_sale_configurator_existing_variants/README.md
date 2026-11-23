@@ -50,3 +50,25 @@ Destino previsto: SERVINCOM/external_module, rama 18.0, addon en la raíz del
 repositorio. Desplegar con el controlador del servidor tras autorización de
 commit/push e instalación y snapshot confirmado. Desinstalar revierte únicamente
 el comportamiento del configurador; los datos comerciales permanecen intactos.
+
+
+## Descriptive attributes (18.0.1.1.0)
+
+SERVINCOM SOLUCIONES adds **Descriptive in sales** to the attribute form.
+Enable it for informational attributes configured to never create variants.
+The sales configurator hides those choices and clears their selected values,
+so new or reconfigured quotation lines do not append a single descriptive value.
+Product attributes and website information remain intact. Stored descriptions
+on existing orders are not rewritten automatically.
+
+Custom values, surcharges and exclusion rules retain native selection behavior,
+even when the flag is enabled, to avoid losing commercial choices. Other
+non-variant attributes remain selectable. No new dependencies or permissions.
+
+Update: `./odoo-bin -c <config> -d <database> -u servincom_sale_configurator_existing_variants --stop-after-init`
+
+Run `node --test tests/*.mjs` and Odoo tests with
+`--test-enable --test-tags /servincom_sale_configurator_existing_variants`.
+Check a quotation with two descriptive values, a size change, reopening the
+configurator, optional products and the saved line description. Confirm both
+values remain visible in website specifications.
